@@ -2,7 +2,6 @@ import React from "react";
 import Header from "./../../components/Header";
 import Sidebar from "./../../components/Sidebar";
 import { useSelector } from "react-redux";
-import Dashboard from "./Dashboard";
 import ChangePassword from "./changepassword";
 import Loader from "../../components/Loader";
 
