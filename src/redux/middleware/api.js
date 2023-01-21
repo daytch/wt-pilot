@@ -6,17 +6,17 @@ var token = localStorage.getItem("token");
 let api = axios.create({
   baseURL: API_URL,
   timeout: 10000,
-  headers: {
-    "Access-Control-Allow-Origin": "*",
-    "Content-Type": "application/json;charset=utf-8",
-    "x-access-token": token ? token : "",
-  },
+  // headers: {
+  //   "Access-Control-Allow-Origin": "*",
+  //   "Content-Type": "application/json;charset=utf-8",
+  //   "x-access-token": token ? token : "",
+  // },
 });
 
 api.interceptors.request.use(
   function (config) {
-    token = localStorage.getItem("token");
-    config.headers.set("x-access-token", token);
+    // token = localStorage.getItem("token");
+    // config.headers.set("x-access-token", token);
     return config;
   },
   function (error) {

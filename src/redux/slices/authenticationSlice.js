@@ -26,6 +26,7 @@ export const authenticationSlice = createSlice({
       state.loading = true;
     },
     postLoginSuccess: (state, action) => {
+      debugger;
       state.data = action.payload.data;
       state.token = action.payload.data.token;
       state.error = "";

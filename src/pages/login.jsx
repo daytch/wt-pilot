@@ -1,15 +1,16 @@
 import React, { useEffect, useRef } from "react";
 import { getImageUrl } from "./../functions";
-import LogoImage from "./../assets/WT-PILOT-HD.png";
+import LogoImage from "./../assets/logo-hd.png";
 import { postLogin } from "./../redux/slices/authenticationSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import { history } from "../helpers/history.js";
 import { isObjectEmpty } from "../functions/index.js";
 import Loader from "../components/Loader";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
+// import Swal from "sweetalert2";
+// import withReactContent from "sweetalert2-react-content";
+import { ErrorMessage } from "../components/Notification";
 
-const MySwal = withReactContent(Swal);
+// const MySwal = withReactContent(Swal);
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -18,13 +19,10 @@ const Login = () => {
 
   function handleLogin(e) {
     e.preventDefault();
-
-    dispatch(
-      postLogin({
-        username: emailRef.current.value,
-        password: passwordRef.current.value,
-      })
-    );
+    const data = new FormData();
+    data.append("Email", emailRef.current.value);
+    data.append("Password", passwordRef.current.value);
+    dispatch(postLogin(data));
   }
 
   const token = useSelector((state) => state.Authentication.token);
@@ -49,11 +47,12 @@ const Login = () => {
 
   useEffect(() => {
     if (error) {
-      MySwal.fire({
-        title: <strong>Failed!</strong>,
-        html: error,
-        icon: "error",
-      });
+      // MySwal.fire({
+      //   title: <strong>Failed!</strong>,
+      //   html: error,
+      //   icon: "error",
+      // });
+      ErrorMessage("", error);
     }
   }, [error]);
 
@@ -62,7 +61,7 @@ const Login = () => {
       <Loader isLoading={loading} />
       <div
         className="bg-cover bg-center w-screen h-screen grid place-items-center"
-        style={{ backgroundImage: "url(/IMG-20221222-WA0071.webp)" }}
+        style={{ backgroundImage: "url(/bg-full.webp)" }}
       >
         {/* <div className="lg:w-1/3 lg:h-[45%] bg-white p-5 rounded-xl bg-opacity-60 backdrop-filter backdrop-blur-sm mx-auto"> */}
         <div className="lg:w-1/3 lg:h-[45%] h-auto flex flex-col bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7]">

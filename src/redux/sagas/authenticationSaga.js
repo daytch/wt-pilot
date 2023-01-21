@@ -1,6 +1,6 @@
 import { all, call, put, takeEvery } from "redux-saga/effects";
 import { URL } from "./../constants";
-
+import { isEmptyNullOrUndefined } from "../../functions/index";
 import { POST } from "./../middleware/index";
 import {
   postLoginFailure,
@@ -16,25 +16,25 @@ export function* postLogin(action) {
   try {
     const data = action.payload;
     const res = yield call(POST, URL.LOGIN, data);
-    
-    if (res.message === "Invalid Password") {
+
+    if (isEmptyNullOrUndefined(res.token)) {
       yield put(
         postLoginFailure({
           error: "Email atau Password anda tidak sesuai, mohon cek kembali.",
         })
       );
-    } else if (res.message !== "User Found") {
-      yield put(postLoginFailure({ error: res.message }));
-    } else {
-      let d = {
-        token: res.token,
-        email: data.username,
-        role: res.role,
-      };
-      localStorage.setItem("token", d.token);
-      localStorage.setItem("userData", JSON.stringify(d));
+    }
+    // else if (res.message !== "User Found") {
+    //   yield put(postLoginFailure({ error: res.message }));
+    // }
+    else {
+      let user = res.user[0];
+      user.token = res.token;
+      localStorage.setItem("expires_in", res.expires_in);
+      localStorage.setItem("token", res.token);
+      localStorage.setItem("user", JSON.stringify(user));
 
-      yield put(postLoginSuccess({ data: d }));
+      yield put(postLoginSuccess({ data: user }));
       const { from } = history.location.state || { from: { pathname: "/" } };
     }
   } catch (error) {

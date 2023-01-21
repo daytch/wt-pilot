@@ -1,7 +1,7 @@
-export const API_URL = "https://ula-api.herokuapp.com"; //"http://89.117.58.220:3000"; // "https://ula-api.herokuapp.com"; // "http://ula.bitungkota.go.id:3000";
+export const API_URL = "http://203.135.177.235:8093/api"; 
 export const isProd = true;
 export const URL = {
-  LOGIN: "/user/login",
+  LOGIN: "/auth/login",
   CHANGE_PASSWORD: "/user/changePassword",
   REGISTER: "/user/register",
   DASHBOARD: "/dashboard",

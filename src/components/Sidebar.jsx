@@ -1,5 +1,5 @@
 import React from "react";
-import LogoImage from "./../assets/logo.png";
+import LogoImage from "./../assets/logo-hd.png";
 import { useDispatch, useSelector } from "react-redux";
 import { changeActiveSidebarMenu } from "../redux/slices/dashboardSlice.js";
 
@@ -9,7 +9,7 @@ const Sidebar = () => {
   const activeClass =
     "flex items-center gap-x-3.5 py-2 px-2.5 bg-gray-100 text-sm text-slate-700 rounded-md hover:bg-gray-100 dark:bg-gray-900 dark:text-white";
   const inActiveClass =
-    "cursor-pointer flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300";
+    "cursor-pointer flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-slate-200 hover:text-slate-800 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300";
 
   const menuAction = {
     dashboard: () => {
@@ -141,17 +141,19 @@ const Sidebar = () => {
       {/* <!-- Sidebar --> */}
       <div
         id="docs-sidebar"
-        className="hs-overlay hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-0 left-0 bottom-0 z-[60] w-64 bg-white border-r border-gray-200 pt-7 pb-10 overflow-y-auto scrollbar-y lg:block lg:translate-x-0 lg:right-auto lg:bottom-0 dark:scrollbar-y dark:bg-gray-800 dark:border-gray-700"
+        className="hs-overlay hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-0 left-0 bottom-0 z-[60] w-64 bg-blue-700 border-r border-gray-200 pt-7 pb-10 overflow-y-auto scrollbar-y lg:block lg:translate-x-0 lg:right-auto lg:bottom-0 dark:scrollbar-y dark:bg-gray-800 dark:border-gray-700"
       >
         <div className="px-6 flex flex-col justify-center">
-          <img src={LogoImage} className="w-10 h-10 text-center mx-auto" alt="logo" />
+          <img
+            src={LogoImage}
+            className="w-auto h-10 text-center mx-auto"
+            alt="logo"
+          />
           <a
             className="flex text-center text-base font-semibold dark:text-white"
             href="#"
             aria-label="Brand"
-          >
-            WT Pilot
-          </a>
+          ></a>
         </div>
 
         <nav
@@ -159,6 +161,33 @@ const Sidebar = () => {
           data-hs-accordion-always-open
         >
           <ul className="space-y-1.5">
+            <li>
+              {" "}
+              <label htmlFor="icon" className="sr-only">
+                Search
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 flex items-center pointer-events-none z-20 pl-4">
+                  <svg
+                    className="h-4 w-4 text-gray-400"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                  </svg>
+                </div>
+                <input
+                  type="text"
+                  id="icon"
+                  name="icon"
+                  className="py-2 px-4 pl-11 block w-full border-gray-200 shadow-sm rounded-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+                  placeholder="Search"
+                />
+              </div>
+            </li>
             <li>
               <div
                 className={isActive.dashboard ? activeClass : inActiveClass}

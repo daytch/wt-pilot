@@ -1,9 +1,8 @@
-import Logout from "./../assets/icons8-logout-48.png";
 import {
   ArrowRightOnRectangleIcon,
   KeyIcon,
+  UserCircleIcon,
 } from "@heroicons/react/24/outline";
-import User from "./../assets/user.png";
 import { useDispatch } from "react-redux";
 import { changeActiveSidebarMenu } from "../redux/slices/dashboardSlice.js";
 
@@ -51,7 +50,7 @@ const Header = () => {
               Search
             </label>
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 flex items-center pointer-events-none z-20 pl-4">
+              {/* <div className="absolute inset-y-0 left-0 flex items-center pointer-events-none z-20 pl-4">
                 <svg
                   className="h-4 w-4 text-gray-400"
                   xmlns="http://www.w3.org/2000/svg"
@@ -69,7 +68,7 @@ const Header = () => {
                 name="icon"
                 className="py-2 px-4 pl-11 block w-full border-gray-200 shadow-sm rounded-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
                 placeholder="Search"
-              />
+              /> */}
             </div>
           </div>
 
@@ -116,11 +115,13 @@ const Header = () => {
                 type="button"
                 className="hs-dropdown-toggle inline-flex flex-shrink-0 justify-center items-center gap-2 h-[2.375rem] w-[2.375rem] rounded-full font-medium bg-white text-gray-700 align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-xs dark:bg-gray-800 dark:hover:bg-slate-800 dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800"
               >
-                <img
+                {/* <img
                   className="h-7 w-7 inline-block rounded-full ring-2 ring-white dark:ring-gray-800"
                   src={User}
                   alt="User Avatar"
-                />
+                /> */}
+
+                <UserCircleIcon className="h-5 w-5" />
               </button>
 
               <div
