@@ -15,6 +15,7 @@ export const dashboardSlice = createSlice({
           laporan: false,
         }
       : activeMenu,
+
     loading: false,
     data: {
       labels: labels,
@@ -38,6 +39,8 @@ export const dashboardSlice = createSlice({
       suratproses: { detail: [], total: 0 },
       suratselesai: { detail: [], total: 0 },
     },
+    dataCabang: [],
+    dataSalesOrder: [],
   },
   reducers: {
     changeActiveSidebarMenu: (state, action) => {
@@ -53,7 +56,6 @@ export const dashboardSlice = createSlice({
       state.loading = true;
     },
     getDataSuccess: (state, action) => {
-      
       let dt = action.payload.res;
       let lbl = dt.suratmasuk.detail.map((x) => x.periode);
       let dtMasuk = dt.suratmasuk.detail.map((x) => x.total);
@@ -94,6 +96,36 @@ export const dashboardSlice = createSlice({
       state.loading = false;
       state.error = action.payload.message;
     },
+
+    getDataCabang: (state) => {
+      state.loading = true;
+    },
+    getDataCabangSuccess: (state, action) => {
+      let dt = action.payload.res;
+      state.dataCabang = dt.data;
+      state.dt = action.payload.res;
+      state.message = action.payload.message;
+      state.loading = false;
+    },
+    getDataCabangFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload.message;
+    },
+
+    getDataSalesOrder: (state) => {
+      state.loading = true;
+    },
+    getDataSalesOrderSuccess: (state, action) => {
+      let dt = action.payload.res;
+      state.dataSalesOrder = dt.data;
+      state.dt = action.payload.res;
+      state.message = action.payload.message;
+      state.loading = false;
+    },
+    getDataSalesOrderFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload.message;
+    },
   },
 });
 
@@ -103,6 +135,12 @@ export const {
   getData,
   getDataSuccess,
   getDataFailure,
+  getDataCabang,
+  getDataCabangFailure,
+  getDataCabangSuccess,
+  getDataSalesOrder,
+  getDataSalesOrderFailure,
+  getDataSalesOrderSuccess,
 } = dashboardSlice.actions;
 
 export default dashboardSlice.reducer;

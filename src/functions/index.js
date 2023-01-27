@@ -153,8 +153,8 @@ export function DataURIToBlob(dataURI) {
 export function merge(...arrays) {
   const merged = {};
 
-  arrays.forEach((data) =>
-    data.forEach((o) => Object.assign((merged[o.periodId] ??= {}), o))
+  arrays.forEach(
+    (data) => data.forEach((o) => Object.assign((merged[o.periodId] ??= {}), o)) // eslint-disable-line
   );
 
   return Object.values(merged);
@@ -476,4 +476,16 @@ export const dates = {
       ? start <= d && d <= end
       : NaN;
   },
+};
+
+export const handleDateAPI = (e) => {
+  var d = new Date(e),
+    month = "" + (d.getMonth() + 1),
+    day = "" + d.getDate(),
+    year = d.getFullYear();
+
+  if (month.length < 2) month = "0" + month;
+  if (day.length < 2) day = "0" + day;
+
+  return [year, month, day].join("");
 };

@@ -14,6 +14,10 @@ const Login = React.lazy(() => import("./pages/login"));
 const NotFound = React.lazy(() => import("./pages/notfound"));
 const Admin = React.lazy(() => import("./pages/admin/admin"));
 
+// const JadwalKedatangan = React.lazy(() => import("./pages/admin/jadwalkedatangan.jsx"));
+// const PPKB = React.lazy(() => import("./pages/admin/ppkb.jsx"));
+// const RealisasiPemanduan = React.lazy(() => import("./pages/admin/realisasipemanduan.jsx"));
+
 function App() {
   // init custom history object to allow navigation from
   // anywhere in the react app (inside or outside components)
@@ -31,6 +35,9 @@ function App() {
         }
       />
       <Route path="/login" element={<Login />} />
+      {/* <Route path="/jadwal" element={<JadwalKedatangan />} />
+      <Route path="/ppkb" element={<PPKB />} />
+      <Route path="/realisasi" element={<RealisasiPemanduan />} /> */}
       <Route path="/notfound" element={<NotFound />} />
       <Route path="*" element={<Navigate to="/notfound" replace />} />
     </Routes>

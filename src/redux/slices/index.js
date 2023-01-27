@@ -1,12 +1,12 @@
 import { combineReducers } from "redux";
 import authenticationReducer from "./authenticationSlice";
-import suratReducer from "./suratSlice";
+import jadwalReducer from "./jadwalSlice";
 import dashboardReducer from "./";
 
 const appReducer = combineReducers({
   authenticationReducer,
   dashboardReducer,
-  suratReducer,
+  jadwalReducer,
 });
 
 const rootReducer = (state, action) => {

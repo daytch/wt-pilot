@@ -1,4 +1,4 @@
-export const API_URL = "http://203.135.177.235:8093/api"; 
+export const API_URL = "http://203.135.177.235:8093/api";
 export const isProd = true;
 export const URL = {
   LOGIN: "/auth/login",
@@ -12,4 +12,7 @@ export const URL = {
   TRACKING: "/trackingpage",
   LAPORAN: "/laporan",
   SELFSERVICE: "/selfservice",
+  GET_CABANG: "/get-combocabang",
+  SALESORDER: "/get-combosearchsalesorderterminalindo",
+  PKK_INAPORTNET: "/get-pkkinaportnet",
 };

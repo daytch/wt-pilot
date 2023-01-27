@@ -4,6 +4,11 @@ import Sidebar from "./../../components/Sidebar";
 import { useSelector } from "react-redux";
 import ChangePassword from "./changepassword";
 import Loader from "../../components/Loader";
+import Dashboard from "../admin/dashboard";
+
+import JadwalKedatangan from "../admin/jadwalkedatangan";
+import PPKB from "../admin/ppkb";
+import Realisasi from "../admin/realisasipemanduan";
 
 const Admin = () => {
   const isActive = useSelector((state) => state.Dashboard.activeSidebarMenu);
@@ -14,19 +19,25 @@ const Admin = () => {
       <Dashboard />
     ) : isActive.ganti ? (
       <ChangePassword />
+    ) : isActive.jadwal ? (
+      <JadwalKedatangan />
+    ) : isActive.ppkb ? (
+      <PPKB />
+    ) : isActive.realisasi ? (
+      <Realisasi />
     ) : null;
   };
 
   return (
     <>
       <Loader isLoading={loading} />
-      <Header />
-      
+      {/* <Header /> */}
+
       <Sidebar />
-      
-      <div className="w-full pt-10 px-4 sm:px-6 md:px-8 lg:pl-72">
+
+      {/* <div className="w-full pt-10 px-4 sm:px-6 md:px-8 lg:pl-72">
         {renderMenu()}
-      </div>
+      </div> */}
     </>
   );
 };
