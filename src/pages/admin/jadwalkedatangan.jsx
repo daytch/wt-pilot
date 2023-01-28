@@ -131,7 +131,7 @@ const JadwalKedatangan = () => {
         <div className="flex flex-col">
           <div className="-m-1.5 overflow-x-auto">
             <div className="p-1.5 min-w-full inline-block align-middle">
-              <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden dark:bg-slate-900 dark:border-gray-700">
+              <div className="bg-white border overflow-y-auto h-[50rem] border-gray-200 rounded-xl shadow-sm overflow-hidden dark:bg-slate-900 dark:border-gray-700">
                 {/* {/* <!-- Header --> */}
                 <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-gray-700">
                   <div>
@@ -306,8 +306,7 @@ const JadwalKedatangan = () => {
                       </th>
                     </tr>
                   </thead>
-
-                  <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                  <tbody className="divide-y overflow-y-auto divide-gray-200 dark:divide-gray-700">
                     {data &&
                       data.map((item, idx) => {
                         return (
@@ -318,7 +317,7 @@ const JadwalKedatangan = () => {
                             <td className="h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
-                                href="javascript:;"
+                                href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
@@ -331,7 +330,7 @@ const JadwalKedatangan = () => {
                             <td className="h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
-                                href="javascript:;"
+                                href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
@@ -344,7 +343,7 @@ const JadwalKedatangan = () => {
                             <td className="h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
-                                href="javascript:;"
+                                href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
@@ -357,7 +356,7 @@ const JadwalKedatangan = () => {
                             <td className="h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
-                                href="javascript:;"
+                                href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
@@ -370,7 +369,7 @@ const JadwalKedatangan = () => {
                             <td className="h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
-                                href="javascript:;"
+                                href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
@@ -383,7 +382,7 @@ const JadwalKedatangan = () => {
                             <td className="h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
-                                href="javascript:;"
+                                href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
@@ -396,7 +395,7 @@ const JadwalKedatangan = () => {
                             <td className="h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
-                                href="javascript:;"
+                                href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
@@ -409,7 +408,7 @@ const JadwalKedatangan = () => {
                             <td className="h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
-                                href="javascript:;"
+                                href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
@@ -422,7 +421,7 @@ const JadwalKedatangan = () => {
                             <td className="h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
-                                href="javascript:;"
+                                href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
@@ -438,7 +437,7 @@ const JadwalKedatangan = () => {
                             <td className="h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
-                                href="javascript:;"
+                                href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
@@ -454,7 +453,7 @@ const JadwalKedatangan = () => {
                             <td className="h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
-                                href="javascript:;"
+                                href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
@@ -467,7 +466,7 @@ const JadwalKedatangan = () => {
                             <td className="h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
-                                href="javascript:;"
+                                href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
@@ -480,7 +479,7 @@ const JadwalKedatangan = () => {
                             <td className="h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
-                                href="javascript:;"
+                                href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
@@ -501,7 +500,7 @@ const JadwalKedatangan = () => {
                   <div>
                     <p className="text-sm text-gray-600 dark:text-gray-400">
                       <span className="font-semibold text-gray-800 dark:text-gray-200">
-                        9
+                        {data.length}
                       </span>{" "}
                       results
                     </p>
@@ -565,22 +564,22 @@ const JadwalKedatangan = () => {
 
       <div
         id="hs-bg-gray-on-hover-cards"
-        class="hs-overlay hidden w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto"
+        className="hs-overlay hidden w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto"
       >
-        <div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all lg:max-w-4xl lg:w-full m-3 lg:mx-auto">
-          <div class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700">
-            <div class="flex justify-between items-center py-3 px-4 border-b dark:border-gray-700">
-              <h3 class="font-bold text-gray-800 dark:text-gray-200">
+        <div className="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all lg:max-w-4xl lg:w-full m-3 lg:mx-auto">
+          <div className="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700">
+            <div className="flex justify-between items-center py-3 px-4 border-b dark:border-gray-700">
+              <h3 className="font-bold text-gray-800 dark:text-gray-200">
                 Detail Data
               </h3>
               <button
                 type="button"
-                class="inline-flex flex-shrink-0 justify-center items-center h-8 w-8 rounded-md text-gray-500 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-sm dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800"
+                className="inline-flex flex-shrink-0 justify-center items-center h-8 w-8 rounded-md text-gray-500 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-sm dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800"
                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
               >
-                <span class="sr-only">Close</span>
+                <span className="sr-only">Close</span>
                 <svg
-                  class="w-3.5 h-3.5"
+                  className="w-3.5 h-3.5"
                   width="8"
                   height="8"
                   viewBox="0 0 8 8"
@@ -595,32 +594,32 @@ const JadwalKedatangan = () => {
               </button>
             </div>
 
-            <div class="p-4 overflow-y-auto">
-              <div class="sm:divide-y divide-gray-200 dark:divide-gray-700">
-                <div class="py-3 sm:py-6">
-                  <div class="grid gap-2 sm:grid-cols-2 md:grid-cols-2">
+            <div className="p-4 overflow-y-auto">
+              <div className="sm:divide-y divide-gray-200 dark:divide-gray-700">
+                <div className="py-3 sm:py-6">
+                  <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-2">
                     <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                       <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                         <tr className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               Nomor PKK
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
                         </tr>
                         <tr>
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               NPWP
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
@@ -631,25 +630,25 @@ const JadwalKedatangan = () => {
                     <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                       <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                         <tr className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               Nama Perusahaan
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
                         </tr>
                         <tr>
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               Nomor Trayek
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
@@ -659,107 +658,107 @@ const JadwalKedatangan = () => {
                   </div>
                 </div>
 
-                <div class="py-3 sm:py-6">
-                  <h4 class="mb-2 text-xs font-semibold uppercase text-gray-600 dark:text-gray-400">
+                <div className="py-3 sm:py-6">
+                  <h4 className="mb-2 text-xs font-semibold uppercase text-gray-600 dark:text-gray-400">
                     Data Kapal
                   </h4>
 
                   {/* <!-- Data Kapal --> */}
-                  <div class="grid gap-2 sm:grid-cols-2 md:grid-cols-2">
+                  <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-2">
                     <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                       <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                         <tr className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               Nama Kapal
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
                         </tr>
                         <tr>
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               DRT
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
                         </tr>
                         <tr>
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               GRT
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
                         </tr>
                         <tr>
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               LOA
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
                         </tr>
                         <tr>
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               Lebar Kapal
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
                         </tr>
                         <tr>
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               Draft Max
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
                         </tr>
                         <tr>
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               Draft Depan
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
                         </tr>
                         <tr>
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               Jenis Trayek
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
@@ -770,97 +769,97 @@ const JadwalKedatangan = () => {
                     <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                       <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                         <tr className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               Nahkoda
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
                         </tr>
                         <tr>
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               Tanda Pendaftaran Kapal
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
                         </tr>
                         <tr>
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               Tahun Pembuatan
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
                         </tr>
                         <tr>
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               Bendera
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
                         </tr>
                         <tr>
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               Jenis Kapal
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
                         </tr>
                         <tr>
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               Draft Belakang
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
                         </tr>
                         <tr>
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               Draft Tengah
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
                         </tr>
                         <tr>
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               Call Sign
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
@@ -871,47 +870,47 @@ const JadwalKedatangan = () => {
                   {/* <!-- End Data Kapal --> */}
                 </div>
 
-                <div class="py-3 sm:py-6">
-                  <h4 class="mb-2 text-xs font-semibold uppercase text-gray-600 dark:text-gray-400">
+                <div className="py-3 sm:py-6">
+                  <h4 className="mb-2 text-xs font-semibold uppercase text-gray-600 dark:text-gray-400">
                     Pelabuhan
                   </h4>
 
                   {/* <!-- Grid --> */}
-                  <div class="grid gap-2 sm:grid-cols-2 md:grid-cols-2">
+                  <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-2">
                     <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                       <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                         <tr className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               Kode Pelabuhan Asal
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
                         </tr>
                         <tr>
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               Kode Pelabuhan Tujuan
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
                         </tr>
                         <tr>
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               Kode Tujuan Akhir Pelabuhan
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
@@ -922,37 +921,37 @@ const JadwalKedatangan = () => {
                     <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                       <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                         <tr className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               Pelabuhan Asal
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
                         </tr>
                         <tr>
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               Pelabuhan Tujuan
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
                         </tr>
                         <tr>
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               Pelabuhan Tujuan Akhir
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
@@ -963,49 +962,49 @@ const JadwalKedatangan = () => {
                     <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                       <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                         <tr className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               Nama Dermaga
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
                         </tr>
                         <tr>
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               Jenis Barang
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
                         </tr>
                         <tr>
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               Port Code
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
                         </tr>
                         <tr>
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               Tanggal ETA
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
@@ -1016,49 +1015,49 @@ const JadwalKedatangan = () => {
                     <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                       <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                         <tr className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               Status BM
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
                         </tr>
                         <tr>
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               Jumlah Muat
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
                         </tr>
                         <tr>
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               Status
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
                         </tr>
                         <tr>
-                          <td class="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               Tanggal ETD
                             </span>
                           </td>
-                          <td class="h-px w-4 text-center border-black border whitespace-nowrap">
-                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                          <td className="h-px w-4 text-center border-black border whitespace-nowrap">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
                               test
                             </span>
                           </td>
@@ -1068,10 +1067,10 @@ const JadwalKedatangan = () => {
                   </div>
                   {/* <!-- End Grid --> */}
 
-                  <p class="mt-4 text-xs text-gray-500">
+                  <p className="mt-4 text-xs text-gray-500">
                     Completely unstyled, fully accessible UI{" "}
                     <a
-                      class="inline-flex items-center gap-x-1.5 text-blue-600 decoration-2 hover:underline font-medium"
+                      className="inline-flex items-center gap-x-1.5 text-blue-600 decoration-2 hover:underline font-medium"
                       href="../plugins.html"
                     >
                       plugins
@@ -1083,14 +1082,14 @@ const JadwalKedatangan = () => {
               </div>
             </div>
 
-            <div class="flex justify-end items-center gap-x-2 py-3 px-4 border-t dark:border-gray-700">
+            <div className="flex justify-end items-center gap-x-2 py-3 px-4 border-t dark:border-gray-700">
               <a
-                class="inline-flex items-center gap-x-1.5 text-sm text-blue-600 decoration-2 hover:underline font-medium"
+                className="inline-flex items-center gap-x-1.5 text-sm text-blue-600 decoration-2 hover:underline font-medium"
                 href="../docs/index.html"
               >
                 Installation Guide
                 <svg
-                  class="w-2.5 h-2.5"
+                  className="w-2.5 h-2.5"
                   width="16"
                   height="16"
                   viewBox="0 0 16 16"
@@ -1099,8 +1098,8 @@ const JadwalKedatangan = () => {
                   <path
                     d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
                     stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
                   />
                 </svg>
               </a>
