@@ -73,11 +73,6 @@ export function datetimeToString(date) {
   );
 }
 export function formatDate(value) {
-  // let date = new Date(value)
-  // const day = date.toString('default', { day: '2-digit' })
-  // const month = date.toString('default', { month: 'short' })
-  // const year = date.toString('default', { year: 'numeric' })
-  // return day + '-' + month + '-' + year
   var monthNames = [
     "Jan",
     "Feb",
@@ -451,25 +446,12 @@ export const dates = {
       : NaN;
   },
   compare: function (a, b) {
-    // Compare two dates (could be of any type supported by the convert
-    // function above) and returns:
-    //  -1 : if a < b
-    //   0 : if a = b
-    //   1 : if a > b
-    // NaN : if a or b is an illegal date
-    // NOTE: The code inside isFinite does an assignment (=).
     return isFinite((a = this.convert(a).valueOf())) &&
       isFinite((b = this.convert(b).valueOf()))
       ? (a > b) - (a < b)
       : NaN;
   },
   inRange: function (d, start, end) {
-    // Checks if date in d is between dates in start and end.
-    // Returns a boolean or NaN:
-    //    true  : if d is between start and end (inclusive)
-    //    false : if d is before start or after end
-    //    NaN   : if one or more of the dates is illegal.
-    // NOTE: The code inside isFinite does an assignment (=).
     return isFinite((d = this.convert(d).valueOf())) &&
       isFinite((start = this.convert(start).valueOf())) &&
       isFinite((end = this.convert(end).valueOf()))

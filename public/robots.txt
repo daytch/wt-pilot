@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ula-bitung.vercel.app/sitemap.xml
+Sitemap: https://wtpilot.vercel.app/sitemap.xml

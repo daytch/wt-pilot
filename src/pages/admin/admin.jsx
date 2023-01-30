@@ -1,8 +1,6 @@
 import React from "react";
-import Header from "./../../components/Header";
 import Sidebar from "./../../components/Sidebar";
 import { useSelector } from "react-redux";
-import ChangePassword from "./changepassword";
 import Loader from "../../components/Loader";
 import Dashboard from "../admin/dashboard";
 
@@ -17,8 +15,6 @@ const Admin = () => {
   const renderMenu = () => {
     return isActive.dashboard ? (
       <Dashboard />
-    ) : isActive.ganti ? (
-      <ChangePassword />
     ) : isActive.jadwal ? (
       <JadwalKedatangan />
     ) : isActive.ppkb ? (
@@ -31,13 +27,8 @@ const Admin = () => {
   return (
     <>
       <Loader isLoading={loading} />
-      {/* <Header /> */}
 
       <Sidebar />
-
-      {/* <div className="w-full pt-10 px-4 sm:px-6 md:px-8 lg:pl-72">
-        {renderMenu()}
-      </div> */}
     </>
   );
 };
