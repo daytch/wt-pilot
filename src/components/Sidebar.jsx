@@ -70,6 +70,10 @@ const Sidebar = () => {
         })
       );
     },
+    logout: () => {
+      localStorage.clear();
+      window.location.href = "/";
+    },
   };
 
   const renderMenu = () => {
@@ -105,7 +109,7 @@ const Sidebar = () => {
   };
 
   const [open, setOpen] = useState(true);
-  
+
   const Menus = [
     { title: "Dashboard", name: "dashboard" },
     {

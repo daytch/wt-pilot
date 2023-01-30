@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useMemo } from "react";
-import Header from "./../../components/Header";
 import Sidebar from "./../../components/Sidebar";
 import { useEffectOnce, isObjectEmpty } from "./../../functions";
 import { getData, toogleLoading } from "../../redux/slices/dashboardSlice.js";
