@@ -21,7 +21,7 @@ import Realisasi from "./../pages/admin/realisasipemanduan";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
-  const username = JSON.parse(localStorage.getItem("userData")).UserName;
+  const username = JSON.parse(localStorage.getItem("userData")).displayUserName;
   const loading = useSelector((state) => state.Dashboard.loading);
   const isActive = useSelector((state) => state.Dashboard.activeSidebarMenu);
   const activeClass =

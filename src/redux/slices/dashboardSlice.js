@@ -41,6 +41,7 @@ export const dashboardSlice = createSlice({
     },
     dataCabang: [],
     dataSalesOrder: [],
+    dataRealisasiPandu: [],
   },
   reducers: {
     changeActiveSidebarMenu: (state, action) => {
@@ -126,6 +127,21 @@ export const dashboardSlice = createSlice({
       state.loading = false;
       state.error = action.payload.message;
     },
+
+    getDataRealisasiPandu: (state) => {
+      state.loading = true;
+    },
+    getDataRealisasiPanduSuccess: (state, action) => {
+      let dt = action.payload.res;
+      state.dataRealisasiPandu = dt.data;
+      state.dt = action.payload.res;
+      state.message = action.payload.message;
+      state.loading = false;
+    },
+    getDataRealisasiPanduFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload.message;
+    },
   },
 });
 
@@ -141,6 +157,9 @@ export const {
   getDataSalesOrder,
   getDataSalesOrderFailure,
   getDataSalesOrderSuccess,
+  getDataRealisasiPandu,
+  getDataRealisasiPanduFailure,
+  getDataRealisasiPanduSuccess,
 } = dashboardSlice.actions;
 
 export default dashboardSlice.reducer;

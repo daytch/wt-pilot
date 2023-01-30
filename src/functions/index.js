@@ -489,3 +489,9 @@ export const handleDateAPI = (e) => {
 
   return [year, month, day].join("");
 };
+
+export function sliceHour(text) {
+  var hasil = text.slice(0, 16);
+
+  return hasil;
+}

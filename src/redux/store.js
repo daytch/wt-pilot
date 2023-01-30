@@ -2,6 +2,7 @@ import createSagaMiddleware from "redux-saga";
 import authenticationSlice from "./slices/authenticationSlice";
 import dashboardSlice from "./slices/dashboardSlice";
 import jadwalSlice from "./slices/jadwalSlice";
+import realisasiSlice from "./slices/realisasiSlice";
 import rootSaga from "../redux/sagas/index";
 import { configureStore } from "@reduxjs/toolkit";
 
@@ -11,6 +12,7 @@ const store = configureStore({
     Authentication: authenticationSlice,
     Dashboard: dashboardSlice,
     Jadwal: jadwalSlice,
+    Realisasi: realisasiSlice,
   },
   middleware: [saga],
 });

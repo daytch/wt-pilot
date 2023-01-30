@@ -9,6 +9,8 @@ import {
   getDataCabangSuccess,
   getDataSalesOrderFailure,
   getDataSalesOrderSuccess,
+  getDataRealisasiPanduFailure,
+  getDataRealisasiPanduSuccess,
 } from "../slices/dashboardSlice";
 
 export function* getData() {
@@ -71,8 +73,33 @@ export function* getDataSalesOrder(action) {
   }
 }
 
+export function* getDataRealisasiPandu(action) {
+  try {
+    const res = yield call(
+      GET,
+      URL.REALISASI_PANDU + "?DariPihak=" + action.payload
+    );
+
+    if (!res) {
+      yield put(
+        getDataRealisasiPanduFailure({
+          isError: 1,
+          message: res.ErrorMessage,
+        })
+      );
+    } else {
+      yield put(getDataRealisasiPanduSuccess({ res }));
+    }
+  } catch (error) {
+    yield put(getDataRealisasiPanduFailure({ isError: 1, message: error }));
+  }
+}
+
 export default function* rootSaga() {
   yield all([takeEvery("Dashboard/getData", getData)]);
   yield all([takeEvery("Dashboard/getDataCabang", getDataCabang)]);
   yield all([takeEvery("Dashboard/getDataSalesOrder", getDataSalesOrder)]);
+  yield all([
+    takeEvery("Dashboard/getDataRealisasiPandu", getDataRealisasiPandu),
+  ]);
 }
