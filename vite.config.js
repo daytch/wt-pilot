@@ -10,6 +10,10 @@ export default defineConfig({
   },
   optimizeDeps: {
     esbuildOptions: {
+      loader: {
+        ".js": "jsx",
+        ".ts": "tsx",
+      },
       plugins: [
         // Solves:
         // https://github.com/vitejs/vite/issues/5308

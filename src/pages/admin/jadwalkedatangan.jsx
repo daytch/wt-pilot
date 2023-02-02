@@ -13,21 +13,29 @@ import Detail from "../../components/Detail";
 const JadwalKedatangan = () => {
   const dispatch = useDispatch();
   const UserData = JSON.parse(localStorage.getItem("userData"));
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(
+    sessionStorage.getItem("startDate")
+      ? new Date(sessionStorage.getItem("startDate"))
+      : new Date()
+  );
+  const [endDate, setEndDate] = useState(
+    sessionStorage.getItem("endDate")
+      ? new Date(sessionStorage.getItem("endDate"))
+      : new Date()
+  );
   const dariPihak = UserData.UserType;
   const UserLogin = UserData.UserId;
-  const [MMCode, setMMCode] = useState(localStorage.getItem("MMCode"));
+  const [MMCode, setMMCode] = useState(
+    sessionStorage.getItem("cabangJadwalKedatangan")
+  );
   const [Outstanding, setOutstanding] = useState("");
-  const [Code, setCode] = useState("");
+  const [Code, setCode] = useState(
+    sessionStorage.getItem("codeColumnSearchJadwalKedatangan") ?? ""
+  );
   const [ValueSearch, setValueSearch] = useState("");
   const [isShowModal, setIsShowModal] = useState(true);
   const [ViewBy, setViewBy] = useState(dariPihak);
   const [ViewValue, setViewValue] = useState(UserData.UserName);
-  const tanggalHariini = handleDateAPI(new Date());
-
-  const [FromDate, setFromDate] = useState(tanggalHariini);
-  const [ToDate, setToDate] = useState(tanggalHariini);
   const [FilterDate, setFilterDate] = useState("1");
   const [Status_Order, setStatus_Order] = useState("");
   const [AgentUserLogin, setAgentUserLogin] = useState(
@@ -41,12 +49,14 @@ const JadwalKedatangan = () => {
       ValueSearch == null
         ? `?ViewBy=${ViewBy}&ViewValue=${ViewValue}&FromDate=${handleDateAPI(
             startDate
-          )}&ToDate=${ToDate}&Filterdate=${FilterDate}&ColumnSearch=${Code}&ValueSearch&Outstanding=${Outstanding}&Status_Order=${Status_Order}&UserLogin=${UserLogin}&AgentUserLogin=${AgentUserLogin}&MMCode=${MMCode}`
+          )}&ToDate=${handleDateAPI(
+            endDate
+          )}&Filterdate=${FilterDate}&ColumnSearch=${Code}&ValueSearch&Outstanding=${Outstanding}&Status_Order=${Status_Order}&UserLogin=${UserLogin}&AgentUserLogin=${AgentUserLogin}&MMCode=${MMCode}`
         : `?ViewBy=${dariPihak}&ViewValue=${
             UserData.UserName
-          }&FromDate=${handleDateAPI(
-            startDate
-          )}&ToDate=${ToDate}&Filterdate=${FilterDate}&ColumnSearch=${Code}&ValueSearch=${ValueSearch}&Outstanding=${Outstanding}&Status_Order=${Status_Order}&UserLogin=${UserLogin}&AgentUserLogin=${AgentUserLogin}&MMCode=${MMCode}`;
+          }&FromDate=${handleDateAPI(startDate)}&ToDate=${handleDateAPI(
+            endDate
+          )}&Filterdate=${FilterDate}&ColumnSearch=${Code}&ValueSearch=${ValueSearch}&Outstanding=${Outstanding}&Status_Order=${Status_Order}&UserLogin=${UserLogin}&AgentUserLogin=${AgentUserLogin}&MMCode=${MMCode}`;
 
     dispatch(getDataPKKInaportnet(url));
   };
@@ -65,17 +75,13 @@ const JadwalKedatangan = () => {
   }, [dataCabang, dataSalesOrder]);
 
   useEffect(() => {
-    console.log("detail:", detail);
-  }, [detail]);
-
-  useEffect(() => {
     sessionStorage.setItem("dariTanggalJadwalKedatangan", startDate);
     sessionStorage.setItem("sampaiTanggalJadwalKedatangan", endDate);
     sessionStorage.setItem("codeColumnSearchJadwalKedatangan", Code);
     sessionStorage.setItem("valueColumnSearchJadwalKedatangan", ValueSearch);
     sessionStorage.setItem("cabangJadwalKedatangan", MMCode);
-    sessionStorage.setItem("startDate", startDate.getTime());
-    sessionStorage.setItem("endDate", endDate.getTime());
+    sessionStorage.setItem("startDate", startDate);
+    sessionStorage.setItem("endDate", endDate);
 
     setViewValue(localStorage.getItem("username"));
     setViewBy(localStorage.getItem("id"));
@@ -253,7 +259,7 @@ const JadwalKedatangan = () => {
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
-                                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                                  <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {idx + 1}
                                   </span>
                                 </div>
@@ -266,7 +272,7 @@ const JadwalKedatangan = () => {
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
-                                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                                  <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.nomor_pkk}
                                   </span>
                                 </div>
@@ -279,7 +285,7 @@ const JadwalKedatangan = () => {
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
-                                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                                  <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.nama_perusahaan}
                                   </span>
                                 </div>
@@ -292,7 +298,7 @@ const JadwalKedatangan = () => {
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
-                                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                                  <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.nama_kapal}
                                   </span>
                                 </div>
@@ -305,7 +311,7 @@ const JadwalKedatangan = () => {
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
-                                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                                  <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {parseFloat(item.grt)}
                                   </span>
                                 </div>
@@ -318,7 +324,7 @@ const JadwalKedatangan = () => {
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
-                                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                                  <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {parseFloat(item.loa)}
                                   </span>
                                 </div>
@@ -331,7 +337,7 @@ const JadwalKedatangan = () => {
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
-                                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                                  <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {parseFloat(item.draft_max)}
                                   </span>
                                 </div>
@@ -344,7 +350,7 @@ const JadwalKedatangan = () => {
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
-                                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                                  <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.bendera}
                                   </span>
                                 </div>
@@ -357,7 +363,7 @@ const JadwalKedatangan = () => {
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
-                                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                                  <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {new Date(item.tanggal_eta).getFullYear() <
                                     2000
                                       ? ""
@@ -373,7 +379,7 @@ const JadwalKedatangan = () => {
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
-                                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                                  <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {new Date(item.tanggal_etd).getFullYear() <
                                     2000
                                       ? ""
@@ -389,7 +395,7 @@ const JadwalKedatangan = () => {
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
-                                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                                  <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.pelabuhan_asal}
                                   </span>
                                 </div>
@@ -402,7 +408,7 @@ const JadwalKedatangan = () => {
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
-                                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                                  <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.pelabuhan_tujuan}
                                   </span>
                                 </div>
@@ -415,7 +421,7 @@ const JadwalKedatangan = () => {
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
-                                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                                  <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.pelabuhan_tujuan_akhir}
                                   </span>
                                 </div>
@@ -430,7 +436,7 @@ const JadwalKedatangan = () => {
                 {/* <!-- Footer --> */}
                 <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200 dark:border-gray-700">
                   <div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <p className="text-xs text-gray-600  dark:text-gray-400">
                       <span className="font-semibold text-gray-800 dark:text-gray-200">
                         {data.length}
                       </span>{" "}

@@ -12,22 +12,38 @@ import Detail from "../../components/Detail";
 import { sliceHour } from "../../functions/index.js";
 
 const RealisasiPemanduan = () => {
+  function isValidDate(d) {
+    return d instanceof Date && !isNaN(d);
+  }
   const dispatch = useDispatch();
   const UserData = JSON.parse(localStorage.getItem("userData"));
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(
+    sessionStorage.getItem("startDateRealisasiPemanduan")
+      ? new Date(sessionStorage.getItem("startDateRealisasiPemanduan"))
+      : new Date()
+  );
+  const [endDate, setEndDate] = useState(
+    sessionStorage.getItem("endDateRealisasiPemanduan")
+      ? new Date(sessionStorage.getItem("endDateRealisasiPemanduan"))
+      : new Date()
+  );
+
   const dariPihak = UserData.UserType;
   const UserLogin = UserData.UserId;
-  const [MMCode, setMMCode] = useState(localStorage.getItem("MMCode"));
+  const [MMCode, setMMCode] = useState(
+    sessionStorage.getItem("cabangRealisasiPemanduan") ?? ""
+  );
   const [Outstanding, setOutstanding] = useState("");
-  const [Code, setCode] = useState("");
+  const [Code, setCode] = useState(
+    sessionStorage.getItem("codeColumnSearchRealisasiPemanduan") ?? ""
+  );
   const [ValueSearch, setValueSearch] = useState("");
   const [isShowModal, setIsShowModal] = useState(true);
   const [ViewBy, setViewBy] = useState(dariPihak);
   const [ViewValue, setViewValue] = useState(UserData.UserName);
   const tanggalHariini = handleDateAPI(new Date());
-  const [FromDate, setFromDate] = useState(tanggalHariini);
-  const [ToDate, setToDate] = useState(tanggalHariini);
+  const [FromDate, setFromDate] = useState(new Date());
+  const [ToDate, setToDate] = useState(new Date());
   const [FilterDate, setFilterDate] = useState("1");
   const [Status_Order, setStatus_Order] = useState("");
   const [AgentUserLogin, setAgentUserLogin] = useState(
@@ -43,10 +59,14 @@ const RealisasiPemanduan = () => {
       ValueSearch == null
         ? `?ReportName=LAPORAN KEGIATAN PEMANDUAN DAN PENUNDAAN&CompanyName=PT WORLD TERMINALINDO&FromDate=${handleDateAPI(
             startDate
-          )}&ToDate=${ToDate}&Cabang=${MMCode}&Agen&Kapal&Pemandu`
+          )}&ToDate=${handleDateAPI(
+            ToDate
+          )}&Cabang=${MMCode}&Agen&Kapal&Pemandu`
         : `?ReportName=LAPORAN KEGIATAN PEMANDUAN DAN PENUNDAAN&CompanyName=PT WORLD TERMINALINDO&FromDate=${handleDateAPI(
             startDate
-          )}&ToDate=${ToDate}&Cabang=${MMCode}&Agen=${AgentUserLogin}&Kapal=${Kapal}&Pemandu=${Pemandu}`;
+          )}&ToDate=${handleDateAPI(
+            ToDate
+          )}&Cabang=${MMCode}&Agen=${AgentUserLogin}&Kapal=${Kapal}&Pemandu=${Pemandu}`;
 
     dispatch(getDataLaporan(url));
   };
@@ -85,10 +105,10 @@ const RealisasiPemanduan = () => {
       setMMCode(cabang);
     }
     if (startDates) {
-      setStartDate(new Date(parseInt(startDates)));
+      setStartDate(new Date(startDates));
     }
     if (endDates) {
-      setEndDate(new Date(parseInt(endDates)));
+      setEndDate(new Date(endDates));
     }
 
     if (kapals) {
@@ -105,8 +125,8 @@ const RealisasiPemanduan = () => {
     sessionStorage.setItem("codeColumnSearchRealisasiPemanduan", Code);
     sessionStorage.setItem("valueColumnSearchRealisasiPemanduan", ValueSearch);
     sessionStorage.setItem("cabangRealisasiPemanduan", MMCode);
-    sessionStorage.setItem("startDateRealisasiPemanduan", startDate.getTime());
-    sessionStorage.setItem("endDateRealisasiPemanduan", endDate.getTime());
+    sessionStorage.setItem("startDateRealisasiPemanduan", startDate);
+    sessionStorage.setItem("endDateRealisasiPemanduan", endDate);
 
     sessionStorage.setItem("kapalRealisasiPemanduan", Kapal);
     sessionStorage.setItem("agenRealisasiPemanduan", AgentUserLogin);
@@ -123,7 +143,7 @@ const RealisasiPemanduan = () => {
   const data = useSelector((state) => state.Realisasi.data);
   const dataCabang = useSelector((state) => state.Dashboard.dataCabang);
   const dataSalesOrder = useSelector((state) => state.Dashboard.dataSalesOrder);
-  
+
   return (
     <>
       <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
@@ -159,7 +179,7 @@ const RealisasiPemanduan = () => {
                 {/* <!-- End Accordion --> */}
 
                 {/* <!-- Table --> */}
-                <table className=" min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <table className="text-xs min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                   <thead className="bg-gray-50 dark:bg-slate-900">
                     <tr className=" text-center">
                       {/* <th rowSpan={3} className="border border-black"></th> */}
@@ -331,20 +351,19 @@ const RealisasiPemanduan = () => {
                   <tbody className="divide-y overflow-y-auto divide-gray-200 dark:divide-gray-700">
                     {data?.datadetail?.length > 0 &&
                       data.datadetail.map((item, idx) => {
-                        console.log("item:", item);
                         return (
                           <tr
                             key={idx}
                             className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800"
                           >
-                            <td className="h-px w-4 whitespace-nowrap">
+                            <td className="text-xs h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
                                 href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
-                                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                                  <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {idx + 1}
                                   </span>
                                 </div>
@@ -357,7 +376,7 @@ const RealisasiPemanduan = () => {
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
-                                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                                  <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.NamaKapal}
                                   </span>
                                 </div>
@@ -370,7 +389,7 @@ const RealisasiPemanduan = () => {
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
-                                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                                  <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.TglBPPTMasuk}
                                   </span>
                                 </div>
@@ -383,7 +402,7 @@ const RealisasiPemanduan = () => {
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
-                                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                                  <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.MulaiPanduMasuk &&
                                     new Date(
                                       item.MulaiPanduMasuk
@@ -401,7 +420,7 @@ const RealisasiPemanduan = () => {
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
-                                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                                  <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.SelesaiPanduMasuk &&
                                     new Date(
                                       item.SelesaiPanduMasuk
@@ -419,7 +438,7 @@ const RealisasiPemanduan = () => {
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
-                                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                                  <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.TotaljamPanduMasuk}
                                   </span>
                                 </div>
@@ -432,7 +451,7 @@ const RealisasiPemanduan = () => {
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
-                                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                                  <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.TanggalPindah}
                                   </span>
                                 </div>
@@ -445,7 +464,7 @@ const RealisasiPemanduan = () => {
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
-                                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                                  <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.MulaiPanduPindah &&
                                     new Date(
                                       item.MulaiPanduPindah
@@ -463,7 +482,7 @@ const RealisasiPemanduan = () => {
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
-                                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                                  <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.SelesaiPanduPindah &&
                                     new Date(
                                       item.SelesaiPanduPindah
@@ -481,7 +500,7 @@ const RealisasiPemanduan = () => {
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
-                                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                                  <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.TotaljamPanduPindah}
                                   </span>
                                 </div>
@@ -494,7 +513,7 @@ const RealisasiPemanduan = () => {
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
-                                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                                  <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.TanggalKeluar}
                                   </span>
                                 </div>
@@ -507,7 +526,7 @@ const RealisasiPemanduan = () => {
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
-                                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                                  <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.MulaiPanduKeluar &&
                                     new Date(
                                       item.MulaiPanduKeluar
@@ -525,7 +544,7 @@ const RealisasiPemanduan = () => {
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 <div className="px-6 py-2">
-                                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                                  <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.TotalJamPanduKeluar}
                                   </span>
                                 </div>
@@ -540,9 +559,9 @@ const RealisasiPemanduan = () => {
                 {/* <!-- Footer --> */}
                 <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200 dark:border-gray-700">
                   <div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <p className="text-xs text-gray-600  dark:text-gray-400">
                       <span className="font-semibold text-gray-800 dark:text-gray-200">
-                        {data.length}
+                        {data?.datadetail?.length}
                       </span>{" "}
                       results
                     </p>

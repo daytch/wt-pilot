@@ -8,7 +8,13 @@ import {
 
 const Detail = (props) => {
   const { detail, tipe } = props;
-  console.log("props:", props);
+
+  function sliceHour(text) {
+    var hasil = text.slice(0, 16);
+
+    return hasil;
+  }
+
   const renderDetail = {
     jadwal: (detail) => (
       <div className="p-4 overflow-y-auto">
@@ -499,23 +505,38 @@ const Detail = (props) => {
               No PKK
             </h4>
             <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-2">
+              <div className="grid grid-cols-2 divide-x divide-black divide-y">
+                <div className="grid justify-items-center content-center text-xs  bg-blue-200 text-gray-600 dark:text-gray-400">
+                  No BPJS
+                </div>
+                <div className="grid justify-items-center content-center text-xs  text-gray-600 dark:text-gray-400">
+                  {/* {detail.NoBPJP} */}
+                </div>
+                <div className="grid justify-items-center content-center text-xs  bg-blue-200 text-gray-600 dark:text-gray-400">
+                  Perusahaan / Agent
+                </div>
+                <div className="grid justify-items-center content-center text-xs  text-gray-600 dark:text-gray-400">
+                  {detail.Agent}
+                </div>
+              </div>
+
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                   <tr className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
-                    <td className="h-px max-w-sm text-center bg-blue-200 border-black border whitespace-nowrap">
-                      <span className="max-w-sm text-xs text-gray-600 dark:text-gray-400">
+                    <td className="h-px max-w-[0px] text-center bg-blue-200 border-black border whitespace-nowrap">
+                      <span className="max-w-xs text-xs text-gray-600 dark:text-gray-400">
                         No BPJS
                       </span>
                     </td>
                     <td className="text-center border-black border whitespace-nowrap">
                       <span className="text-xs text-gray-600 dark:text-gray-400">
-                        {/* {detail.nomor_pkk} */}
+                        {/* {detail.NoBPJP} */}
                       </span>
                     </td>
                   </tr>
                   <tr>
-                    <td className="h-px max-w-sm text-center bg-blue-200 border-black border whitespace-nowrap">
-                      <span className="max-w-sm text-xs text-gray-600 dark:text-gray-400">
+                    <td className="h-px max-w-[0px] text-center bg-blue-200 border-black border whitespace-nowrap">
+                      <span className="max-w-xs text-xs text-gray-600 dark:text-gray-400">
                         Perusahaan / Agent
                       </span>
                     </td>
@@ -526,8 +547,8 @@ const Detail = (props) => {
                     </td>
                   </tr>
                   <tr>
-                    <td className="h-px max-w-sm text-center bg-blue-200 border-black border whitespace-nowrap">
-                      <span className="max-w-sm text-xs text-gray-600 dark:text-gray-400">
+                    <td className="h-px max-w-[0px] text-center bg-blue-200 border-black border whitespace-nowrap">
+                      <span className="max-w-xs text-xs text-gray-600 dark:text-gray-400">
                         Nama Customer
                       </span>
                     </td>
@@ -543,26 +564,26 @@ const Detail = (props) => {
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                   <tr className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
-                    <td className="h-px max-w-sm text-center bg-blue-200 border-black border whitespace-nowrap">
-                      <span className="max-w-sm text-xs text-gray-600 dark:text-gray-400">
+                    <td className="h-px max-w-[0px] text-center bg-blue-200 border-black border whitespace-nowrap">
+                      <span className="max-w-xs text-xs text-gray-600 dark:text-gray-400">
                         GT Kecil
                       </span>
                     </td>
                     <td className="text-center border-black border whitespace-nowrap">
                       <span className="text-xs text-gray-600 dark:text-gray-400">
-                        {detail.nama_perusahaan}
+                        {detail.NoPKKGTKecil}
                       </span>
                     </td>
                   </tr>
                   <tr>
-                    <td className="h-px max-w-sm text-center bg-blue-200 border-black border whitespace-nowrap">
-                      <span className="max-w-sm text-xs text-gray-600 dark:text-gray-400">
+                    <td className="h-px max-w-[0px] text-center bg-blue-200 border-black border whitespace-nowrap">
+                      <span className="max-w-xs text-xs text-gray-600 dark:text-gray-400">
                         GT Besar
                       </span>
                     </td>
                     <td className="text-center border-black border whitespace-nowrap">
                       <span className="text-xs text-gray-600 dark:text-gray-400">
-                        {detail.nomor_trayek}
+                        {detail.NoPKKGTBesar}
                       </span>
                     </td>
                   </tr>
@@ -581,50 +602,50 @@ const Detail = (props) => {
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                   <tr className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
-                    <td className="h-px max-w-sm text-center bg-blue-200 border-black border whitespace-nowrap">
-                      <span className="max-w-sm text-xs text-gray-600 dark:text-gray-400">
+                    <td className="h-px max-w-[0px] text-center bg-blue-200 border-black border whitespace-nowrap">
+                      <span className="max-w-xs text-xs text-gray-600 dark:text-gray-400">
                         Pelabuhan Asal
                       </span>
                     </td>
                     <td className="text-center border-black border whitespace-nowrap">
                       <span className="text-xs text-gray-600 dark:text-gray-400">
-                        {detail.nama_kapal}
+                        {detail.PelabuhanAsal}
                       </span>
                     </td>
                   </tr>
                   <tr>
-                    <td className="h-px max-w-sm text-center bg-blue-200 border-black border whitespace-nowrap">
-                      <span className="max-w-sm text-xs text-gray-600 dark:text-gray-400">
+                    <td className="h-px max-w-[0px] text-center bg-blue-200 border-black border whitespace-nowrap">
+                      <span className="max-w-xs text-xs text-gray-600 dark:text-gray-400">
                         Nama Kapal
                       </span>
                     </td>
                     <td className="text-center border-black border whitespace-nowrap">
                       <span className="text-xs text-gray-600 dark:text-gray-400">
-                        {parseFloat(detail.drt)}
+                        {parseFloat(detail.NamaKapal)}
                       </span>
                     </td>
                   </tr>
                   <tr>
-                    <td className="h-px max-w-sm text-center bg-blue-200 border-black border whitespace-nowrap">
-                      <span className="text-xs text-gray-600 dark:text-gray-400">
+                    <td className="h-px max-w-[0px] text-center bg-blue-200 border-black border whitespace-nowrap">
+                      <span className="max-w-xs text-xs text-gray-600 dark:text-gray-400">
                         DWT
                       </span>
                     </td>
                     <td className="text-center border-black border whitespace-nowrap">
                       <span className="text-xs text-gray-600 dark:text-gray-400">
-                        {parseFloat(detail.grt)}
+                        {parseFloat(detail.grt).toFixed(2)}
                       </span>
                     </td>
                   </tr>
                   <tr>
-                    <td className="h-px max-w-sm text-center bg-blue-200 border-black border whitespace-nowrap">
-                      <span className="max-w-sm text-xs text-gray-600 dark:text-gray-400">
+                    <td className="h-px max-w-[0px] text-center bg-blue-200 border-black border whitespace-nowrap">
+                      <span className="max-w-xs text-xs text-gray-600 dark:text-gray-400">
                         LOA
                       </span>
                     </td>
                     <td className="text-center border-black border whitespace-nowrap">
                       <span className="text-xs text-gray-600 dark:text-gray-400">
-                        {parseFloat(detail.loa)}
+                        {parseFloat(detail.loa).toFixed(2)}
                       </span>
                     </td>
                   </tr>
@@ -634,38 +655,38 @@ const Detail = (props) => {
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                   <tr className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
-                    <td className="h-px max-w-sm text-center bg-blue-200 border-black border whitespace-nowrap">
-                      <span className="max-w-sm text-xs text-gray-600 dark:text-gray-400">
+                    <td className="text-center bg-blue-200 border-black border whitespace-nowrap">
+                      <span className="text-xs text-gray-600 dark:text-gray-400">
                         Pelabuhan Tujuan
                       </span>
                     </td>
                     <td className="text-center border-black border whitespace-nowrap">
                       <span className="text-xs text-gray-600 dark:text-gray-400">
-                        {detail.nahkoda}
+                        {/* {detail.nahkoda} */}
                       </span>
                     </td>
                   </tr>
                   <tr>
-                    <td className="h-px max-w-sm text-center bg-blue-200 border-black border whitespace-nowrap">
-                      <span className="max-w-sm text-xs text-gray-600 dark:text-gray-400">
+                    <td className="text-center bg-blue-200 border-black border whitespace-nowrap">
+                      <span className="text-xs text-gray-600 dark:text-gray-400">
                         Tipe Kapal
                       </span>
                     </td>
                     <td className="text-center border-black border whitespace-nowrap">
-                      <span className="text-xs text-gray-600 dark:text-gray-400">
-                        {detail.tanda_pendaftaran_kapal}
+                      <span className="text-gray-600 dark:text-gray-400">
+                        {/* {detail.tanda_pendaftaran_kapal} */}
                       </span>
                     </td>
                   </tr>
                   <tr>
-                    <td className="h-px max-w-sm text-center bg-blue-200 border-black border whitespace-nowrap">
-                      <span className="max-w-sm text-xs text-gray-600 dark:text-gray-400">
+                    <td className="text-center bg-blue-200 border-black border whitespace-nowrap">
+                      <span className="text-xs text-gray-600 dark:text-gray-400">
                         GRT
                       </span>
                     </td>
                     <td className="text-center border-black border whitespace-nowrap">
                       <span className="text-xs text-gray-600 dark:text-gray-400">
-                        {detail.tahun_pembuatan}
+                        {parseFloat(detail.GRT).toFixed(2)}
                       </span>
                     </td>
                   </tr>
@@ -685,7 +706,7 @@ const Detail = (props) => {
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <thead className="bg-gray-50 dark:bg-slate-900">
                   <tr>
-                    <th scope="col" colspan="2" className="px-6 py-3 text-left">
+                    <th scope="col" colSpan="2" className="px-6 py-3 text-left">
                       <div className="flex items-center gap-x-2">
                         <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                           Gerakan Kapal Masuk
@@ -696,50 +717,56 @@ const Detail = (props) => {
                 </thead>
                 <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                   <tr className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
-                    <td className="h-px max-w-sm  text-center bg-blue-200 border-black border whitespace-nowrap">
+                    <td className="h-px max-w-[0px]  text-center bg-blue-200 border-black border whitespace-nowrap">
                       <span className="text-xs text-gray-600 dark:text-gray-400">
                         masuk
                       </span>
                     </td>
                     <td className="text-center border-black border whitespace-nowrap">
                       <span className="text-xs text-gray-600 dark:text-gray-400">
-                        {detail.kode_pelabuhan_asal}
+                        {detail.TglBPPTMasuk}
                       </span>
                     </td>
                   </tr>
                   <tr>
-                    <td className="h-px max-w-sm text-center bg-blue-200 border-black border whitespace-nowrap">
+                    <td className="h-px max-w-[0px] text-center bg-blue-200 border-black border whitespace-nowrap">
                       <span className="text-xs text-gray-600 dark:text-gray-400">
                         waktu mulai
                       </span>
                     </td>
                     <td className="text-center border-black border whitespace-nowrap">
                       <span className="text-xs text-gray-600 dark:text-gray-400">
-                        {detail.kode_pelabuhan_tujuan}
+                        {isEmptyNullOrUndefined(detail.MulaiPanduMasuk)
+                          ? detail.MulaiPanduMasuk
+                          : sliceHour(detail.MulaiPanduMasuk)}
                       </span>
                     </td>
                   </tr>
                   <tr>
-                    <td className="h-px max-w-sm text-center bg-blue-200 border-black border whitespace-nowrap">
+                    <td className="h-px max-w-[0px] text-center bg-blue-200 border-black border whitespace-nowrap">
                       <span className="text-xs text-gray-600 dark:text-gray-400">
                         waktu selesai
                       </span>
                     </td>
                     <td className="text-center border-black border whitespace-nowrap">
                       <span className="text-xs text-gray-600 dark:text-gray-400">
-                        {detail.kode_tujuan_akhir_pelabuhan}
+                        {isEmptyNullOrUndefined(detail.SelesaiPanduMasuk)
+                          ? detail.SelesaiPanduMasuk
+                          : sliceHour(detail.SelesaiPanduMasuk)}
                       </span>
                     </td>
                   </tr>
                   <tr>
-                    <td className="h-px max-w-sm text-center bg-blue-200 border-black border whitespace-nowrap">
-                      <span className="max-w-sm text-xs text-gray-600 dark:text-gray-400">
+                    <td className="h-px max-w-[0px] text-center bg-blue-200 border-black border whitespace-nowrap">
+                      <span className="max-w-xs text-xs text-gray-600 dark:text-gray-400">
                         jam
                       </span>
                     </td>
                     <td className="text-center border-black border whitespace-nowrap">
                       <span className="text-xs text-gray-600 dark:text-gray-400">
-                        {detail.kode_tujuan_akhir_pelabuhan}
+                        {isEmptyNullOrUndefined(detail.TotaljamPanduMasuk)
+                          ? detail.TotaljamPanduMasuk
+                          : sliceHour(detail.TotaljamPanduMasuk)}
                       </span>
                     </td>
                   </tr>
@@ -749,7 +776,7 @@ const Detail = (props) => {
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <thead className="bg-gray-50 dark:bg-slate-900">
                   <tr>
-                    <th scope="col" colspan="2" className="px-6 py-3 text-left">
+                    <th scope="col" colSpan="2" className="px-6 py-3 text-left">
                       <div className="flex items-center gap-x-2">
                         <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                           Gerakan Kapal Pindah
@@ -760,20 +787,20 @@ const Detail = (props) => {
                 </thead>
                 <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                   <tr className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
-                    <td className="h-px max-w-sm text-center bg-blue-200 border-black border whitespace-nowrap">
+                    <td className="h-px max-w-[0px] text-center bg-blue-200 border-black border whitespace-nowrap">
                       <span className="text-xs text-gray-600 dark:text-gray-400">
                         Pindah
                       </span>
                     </td>
                     <td className="text-center border-black border whitespace-nowrap">
                       <span className="text-xs text-gray-600 dark:text-gray-400">
-                        {detail.pelabuhan_asal}
+                        {detail.JumlahUnitTundaPindah}
                       </span>
                     </td>
                   </tr>
                   <tr>
-                    <td className="h-px max-w-sm text-center bg-blue-200 border-black border whitespace-nowrap">
-                      <span className="max-w-sm text-xs text-gray-600 dark:text-gray-400">
+                    <td className="h-px max-w-[0px] text-center bg-blue-200 border-black border whitespace-nowrap">
+                      <span className="max-w-xs text-xs text-gray-600 dark:text-gray-400">
                         Waktu Mulai
                       </span>
                     </td>
@@ -784,8 +811,8 @@ const Detail = (props) => {
                     </td>
                   </tr>
                   <tr>
-                    <td className="h-px max-w-sm text-center bg-blue-200 border-black border whitespace-nowrap">
-                      <span className="max-w-sm text-xs text-gray-600 dark:text-gray-400">
+                    <td className="h-px max-w-[0px] text-center bg-blue-200 border-black border whitespace-nowrap">
+                      <span className="max-w-xs text-xs text-gray-600 dark:text-gray-400">
                         Waktu Selesai
                       </span>
                     </td>
@@ -796,8 +823,8 @@ const Detail = (props) => {
                     </td>
                   </tr>
                   <tr>
-                    <td className="h-px max-w-sm text-center bg-blue-200 border-black border whitespace-nowrap">
-                      <span className="max-w-sm text-xs text-gray-600 dark:text-gray-400">
+                    <td className="h-px max-w-[0px] text-center bg-blue-200 border-black border whitespace-nowrap">
+                      <span className="max-w-xs text-xs text-gray-600 dark:text-gray-400">
                         jam
                       </span>
                     </td>
@@ -813,7 +840,7 @@ const Detail = (props) => {
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <thead className="bg-gray-50 dark:bg-slate-900">
                   <tr>
-                    <th scope="col" colspan="2" className="px-6 py-3 text-left">
+                    <th scope="col" colSpan="2" className="px-6 py-3 text-left">
                       <div className="flex items-center gap-x-2">
                         <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                           Gerakan Kapal Keluar
@@ -824,8 +851,8 @@ const Detail = (props) => {
                 </thead>
                 <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                   <tr className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
-                    <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                      <span className="text-xs text-gray-600 dark:text-gray-400">
+                    <td className="h-px max-w-[0px] text-center bg-blue-200 border-black border whitespace-nowrap">
+                      <span className="max-w-xs text-xs text-gray-600 dark:text-gray-400">
                         Keluar
                       </span>
                     </td>
@@ -836,8 +863,8 @@ const Detail = (props) => {
                     </td>
                   </tr>
                   <tr>
-                    <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                      <span className="text-xs text-gray-600 dark:text-gray-400">
+                    <td className="h-px max-w-[0px] text-center bg-blue-200 border-black border whitespace-nowrap">
+                      <span className="max-w-xs text-xs text-gray-600 dark:text-gray-400">
                         Jenis Barang
                       </span>
                     </td>
@@ -848,8 +875,8 @@ const Detail = (props) => {
                     </td>
                   </tr>
                   <tr>
-                    <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                      <span className="text-xs text-gray-600 dark:text-gray-400">
+                    <td className="h-px max-w-[0px] text-center bg-blue-200 border-black border whitespace-nowrap">
+                      <span className="max-w-xs text-xs text-gray-600 dark:text-gray-400">
                         waktu mulai
                       </span>
                     </td>
@@ -860,8 +887,8 @@ const Detail = (props) => {
                     </td>
                   </tr>
                   <tr>
-                    <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                      <span className="text-xs text-gray-600 dark:text-gray-400">
+                    <td className="h-px max-w-[0px] text-center bg-blue-200 border-black border whitespace-nowrap">
+                      <span className="max-w-xs text-xs text-gray-600 dark:text-gray-400">
                         waktu selesai
                       </span>
                     </td>
@@ -874,8 +901,8 @@ const Detail = (props) => {
                     </td>
                   </tr>
                   <tr>
-                    <td className="h-px w-4 text-center bg-blue-200 border-black border whitespace-nowrap">
-                      <span className="text-xs text-gray-600 dark:text-gray-400">
+                    <td className="h-px max-w-[0px] text-center bg-blue-200 border-black border whitespace-nowrap">
+                      <span className="max-w-xs text-xs text-gray-600 dark:text-gray-400">
                         jam
                       </span>
                     </td>
@@ -893,7 +920,7 @@ const Detail = (props) => {
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <thead className="bg-gray-50 dark:bg-slate-900">
                   <tr>
-                    <th scope="col" colspan="2" className="px-6 py-3 text-left">
+                    <th scope="col" colSpan="2" className="px-6 py-3 text-left">
                       <div className="flex items-center gap-x-2">
                         <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                           Tunda Masuk
@@ -959,7 +986,7 @@ const Detail = (props) => {
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <thead className="bg-gray-50 dark:bg-slate-900">
                   <tr>
-                    <th scope="col" colspan="2" className="px-6 py-3 text-left">
+                    <th scope="col" colSpan="2" className="px-6 py-3 text-left">
                       <div className="flex items-center gap-x-2">
                         <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                           Tunda Pindah
@@ -1025,7 +1052,7 @@ const Detail = (props) => {
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <thead className="bg-gray-50 dark:bg-slate-900">
                   <tr>
-                    <th scope="col" colspan="2" className="px-6 py-3 text-left">
+                    <th scope="col" colSpan="2" className="px-6 py-3 text-left">
                       <div className="flex items-center gap-x-2">
                         <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                           Tunda Keluar
@@ -1036,8 +1063,8 @@ const Detail = (props) => {
                 </thead>
                 <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                   <tr className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
-                    <td className="h-px max-w-sm text-center bg-blue-200 border-black border whitespace-nowrap">
-                      <span className="max-w-sm text-xs text-gray-600 dark:text-gray-400">
+                    <td className="h-px max-w-[0px] text-center bg-blue-200 border-black border whitespace-nowrap">
+                      <span className="max-w-xs text-xs text-gray-600 dark:text-gray-400">
                         Unit
                       </span>
                     </td>
@@ -1048,7 +1075,7 @@ const Detail = (props) => {
                     </td>
                   </tr>
                   <tr>
-                    <td className="h-px max-w-sm text-center bg-blue-200 border-black border whitespace-nowrap">
+                    <td className="h-px max-w-[0px] text-center bg-blue-200 border-black border whitespace-nowrap">
                       <span className="text-xs text-gray-600 dark:text-gray-400">
                         Mulai
                       </span>
@@ -1060,8 +1087,8 @@ const Detail = (props) => {
                     </td>
                   </tr>
                   <tr>
-                    <td className="h-px max-w-sm text-center bg-blue-200 border-black border whitespace-nowrap">
-                      <span className="max-w-sm text-xs text-gray-600 dark:text-gray-400">
+                    <td className="h-px max-w-[0px] text-center bg-blue-200 border-black border whitespace-nowrap">
+                      <span className="max-w-xs text-xs text-gray-600 dark:text-gray-400">
                         Selesai
                       </span>
                     </td>
@@ -1072,8 +1099,8 @@ const Detail = (props) => {
                     </td>
                   </tr>
                   <tr>
-                    <td className="h-px max-w-sm ext-center bg-blue-200 border-black border whitespace-nowrap">
-                      <span className="max-w-sm text-xs text-gray-600 dark:text-gray-400">
+                    <td className="h-px max-w-[0px] ext-center bg-blue-200 border-black border whitespace-nowrap">
+                      <span className="max-w-xs text-xs text-gray-600 dark:text-gray-400">
                         Jam
                       </span>
                     </td>
@@ -1091,7 +1118,7 @@ const Detail = (props) => {
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <thead className="bg-gray-50 dark:bg-slate-900">
                   <tr>
-                    <th scope="col" colspan="2" className="px-6 py-3 text-left">
+                    <th scope="col" colSpan="2" className="px-6 py-3 text-left">
                       <div className="flex items-center gap-x-2">
                         <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                           Pandu Tunda
@@ -1102,8 +1129,8 @@ const Detail = (props) => {
                 </thead>
                 <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                   <tr className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
-                    <td className="h-px max-w-sm text-center bg-blue-200 border-black border whitespace-nowrap">
-                      <span className="max-w-sm text-xs text-gray-600 dark:text-gray-400">
+                    <td className="h-px max-w-[0px] text-center bg-blue-200 border-black border whitespace-nowrap">
+                      <span className="max-w-xs text-xs text-gray-600 dark:text-gray-400">
                         Nama Pandu
                       </span>
                     </td>
@@ -1114,8 +1141,8 @@ const Detail = (props) => {
                     </td>
                   </tr>
                   <tr>
-                    <td className="h-px max-w-sm text-center bg-blue-200 border-black border whitespace-nowrap">
-                      <span className="max-w-sm text-xs text-gray-600 dark:text-gray-400">
+                    <td className="h-px max-w-[0px] text-center bg-blue-200 border-black border whitespace-nowrap">
+                      <span className="max-w-xs text-xs text-gray-600 dark:text-gray-400">
                         Motor Pandu
                       </span>
                     </td>
@@ -1126,8 +1153,8 @@ const Detail = (props) => {
                     </td>
                   </tr>
                   <tr>
-                    <td className="h-px max-w-sm text-center bg-blue-200 border-black border whitespace-nowrap">
-                      <span className="max-w-sm text-xs text-gray-600 dark:text-gray-400">
+                    <td className="h-px max-w-[0px] text-center bg-blue-200 border-black border whitespace-nowrap">
+                      <span className="max-w-xs text-xs text-gray-600 dark:text-gray-400">
                         Kapal Pandu
                       </span>
                     </td>

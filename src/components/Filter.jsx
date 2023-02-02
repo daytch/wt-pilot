@@ -14,7 +14,7 @@ const Filter = (props) => {
   const dispatch = useDispatch();
   const UserData = JSON.parse(localStorage.getItem("userData"));
   const dariPihak = UserData.UserType;
-
+  // console.log("props:", props);
   const {
     MMCode,
     setMMCode,
@@ -38,7 +38,7 @@ const Filter = (props) => {
   const dataRealisasiPandu = useSelector(
     (state) => state.Dashboard.dataRealisasiPandu
   );
-  
+
   useEffect(() => {
     if (
       isEmptyNullOrUndefined(MMCode) &&
