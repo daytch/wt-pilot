@@ -186,7 +186,7 @@ const RealisasiPemanduan = () => {
                       <th
                         rowSpan={3}
                         scope="col"
-                        className="px-6 py-3 text-left border border-black"
+                        className="px-3 py-1 text-left border border-black"
                       >
                         <div className="flex justify-center gap-x-2">
                           <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
@@ -356,52 +356,52 @@ const RealisasiPemanduan = () => {
                             key={idx}
                             className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800"
                           >
-                            <td className="text-xs h-px w-4 whitespace-nowrap">
+                            <td className="border border-black text-xs h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
                                 href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
-                                <div className="px-6 py-2">
+                                <div className="px-3 py-1">
                                   <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {idx + 1}
                                   </span>
                                 </div>
                               </a>
                             </td>
-                            <td className="h-px w-4 whitespace-nowrap">
+                            <td className="border border-black h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
                                 href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
-                                <div className="px-6 py-2">
+                                <div className="px-3 py-1">
                                   <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.NamaKapal}
                                   </span>
                                 </div>
                               </a>
                             </td>
-                            <td className="h-px w-4 whitespace-nowrap">
+                            <td className="border border-black h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
                                 href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
-                                <div className="px-6 py-2">
+                                <div className="px-3 py-1">
                                   <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.TglBPPTMasuk}
                                   </span>
                                 </div>
                               </a>
                             </td>
-                            <td className="h-px w-4 whitespace-nowrap">
+                            <td className="border border-black h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
                                 href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
-                                <div className="px-6 py-2">
+                                <div className="px-3 py-1">
                                   <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.MulaiPanduMasuk &&
                                     new Date(
@@ -413,13 +413,13 @@ const RealisasiPemanduan = () => {
                                 </div>
                               </a>
                             </td>
-                            <td className="h-px w-4 whitespace-nowrap">
+                            <td className="border border-black h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
                                 href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
-                                <div className="px-6 py-2">
+                                <div className="px-3 py-1">
                                   <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.SelesaiPanduMasuk &&
                                     new Date(
@@ -431,39 +431,39 @@ const RealisasiPemanduan = () => {
                                 </div>
                               </a>
                             </td>
-                            <td className="h-px w-4 whitespace-nowrap">
+                            <td className="border border-black h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
                                 href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
-                                <div className="px-6 py-2">
+                                <div className="px-3 py-1">
                                   <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.TotaljamPanduMasuk}
                                   </span>
                                 </div>
                               </a>
                             </td>
-                            <td className="h-px w-4 whitespace-nowrap">
+                            <td className="border border-black h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
                                 href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
-                                <div className="px-6 py-2">
+                                <div className="px-3 py-1">
                                   <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.TanggalPindah}
                                   </span>
                                 </div>
                               </a>
                             </td>
-                            <td className="h-px w-4 whitespace-nowrap">
+                            <td className="border border-black h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
                                 href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
-                                <div className="px-6 py-2">
+                                <div className="px-3 py-1">
                                   <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.MulaiPanduPindah &&
                                     new Date(
@@ -475,13 +475,13 @@ const RealisasiPemanduan = () => {
                                 </div>
                               </a>
                             </td>
-                            <td className="h-px w-4 whitespace-nowrap">
+                            <td className="border border-black h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
                                 href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
-                                <div className="px-6 py-2">
+                                <div className="px-3 py-1">
                                   <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.SelesaiPanduPindah &&
                                     new Date(
@@ -493,39 +493,39 @@ const RealisasiPemanduan = () => {
                                 </div>
                               </a>
                             </td>
-                            <td className="h-px w-4 whitespace-nowrap">
+                            <td className="border border-black h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
                                 href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
-                                <div className="px-6 py-2">
+                                <div className="px-3 py-1">
                                   <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.TotaljamPanduPindah}
                                   </span>
                                 </div>
                               </a>
                             </td>
-                            <td className="h-px w-4 whitespace-nowrap">
+                            <td className="border border-black h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
                                 href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
-                                <div className="px-6 py-2">
+                                <div className="px-3 py-1">
                                   <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.TanggalKeluar}
                                   </span>
                                 </div>
                               </a>
                             </td>
-                            <td className="h-px w-4 whitespace-nowrap">
+                            <td className="border border-black h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
                                 href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
-                                <div className="px-6 py-2">
+                                <div className="px-3 py-1">
                                   <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.MulaiPanduKeluar &&
                                     new Date(
@@ -537,13 +537,13 @@ const RealisasiPemanduan = () => {
                                 </div>
                               </a>
                             </td>
-                            <td className="h-px w-4 whitespace-nowrap">
+                            <td className="border border-black h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
                                 href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
-                                <div className="px-6 py-2">
+                                <div className="px-3 py-1">
                                   <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.TotalJamPanduKeluar}
                                   </span>

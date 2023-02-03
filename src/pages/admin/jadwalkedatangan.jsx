@@ -138,7 +138,7 @@ const JadwalKedatangan = () => {
                 <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                   <thead className="bg-gray-50 dark:bg-slate-900">
                     <tr>
-                      <th scope="col" className="px-6 py-3 text-left">
+                      <th scope="col" className="px-3 py-1 text-left">
                         <div className="flex items-center gap-x-2">
                           <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                             no
@@ -146,7 +146,7 @@ const JadwalKedatangan = () => {
                         </div>
                       </th>
 
-                      <th scope="col" className="px-6 py-3 text-left">
+                      <th scope="col" className="px-3 py-1 text-left">
                         <div className="flex items-center gap-x-2">
                           <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                             nomor pkk
@@ -154,7 +154,7 @@ const JadwalKedatangan = () => {
                         </div>
                       </th>
 
-                      <th scope="col" className="px-6 py-3 text-left">
+                      <th scope="col" className="px-3 py-1 text-left">
                         <div className="flex items-center gap-x-2">
                           <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                             nama perusahaan
@@ -162,7 +162,7 @@ const JadwalKedatangan = () => {
                         </div>
                       </th>
 
-                      <th scope="col" className="px-6 py-3 text-left">
+                      <th scope="col" className="px-3 py-1 text-left">
                         <div className="flex items-center gap-x-2">
                           <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                             nama kapal
@@ -170,7 +170,7 @@ const JadwalKedatangan = () => {
                         </div>
                       </th>
 
-                      <th scope="col" className="px-6 py-3 text-left">
+                      <th scope="col" className="px-3 py-1 text-left">
                         <div className="flex items-center gap-x-2">
                           <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                             grt
@@ -178,7 +178,7 @@ const JadwalKedatangan = () => {
                         </div>
                       </th>
 
-                      <th scope="col" className="px-6 py-3 text-left">
+                      <th scope="col" className="px-3 py-1 text-left">
                         <div className="flex items-center gap-x-2">
                           <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                             loa
@@ -186,7 +186,7 @@ const JadwalKedatangan = () => {
                         </div>
                       </th>
 
-                      <th scope="col" className="px-6 py-3 text-left">
+                      <th scope="col" className="px-3 py-1 text-left">
                         <div className="flex items-center gap-x-2">
                           <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                             draft max
@@ -194,7 +194,7 @@ const JadwalKedatangan = () => {
                         </div>
                       </th>
 
-                      <th scope="col" className="px-6 py-3 text-left">
+                      <th scope="col" className="px-3 py-1 text-left">
                         <div className="flex items-center gap-x-2">
                           <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                             bendera
@@ -202,7 +202,7 @@ const JadwalKedatangan = () => {
                         </div>
                       </th>
 
-                      <th scope="col" className="px-6 py-3 text-left">
+                      <th scope="col" className="px-3 py-1 text-left">
                         <div className="flex items-center gap-x-2">
                           <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                             tanggal eta
@@ -210,7 +210,7 @@ const JadwalKedatangan = () => {
                         </div>
                       </th>
 
-                      <th scope="col" className="px-6 py-3 text-left">
+                      <th scope="col" className="px-3 py-1 text-left">
                         <div className="flex items-center gap-x-2">
                           <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                             tanggal etd
@@ -218,7 +218,7 @@ const JadwalKedatangan = () => {
                         </div>
                       </th>
 
-                      <th scope="col" className="px-6 py-3 text-left">
+                      <th scope="col" className="px-3 py-1 text-left">
                         <div className="flex items-center gap-x-2">
                           <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                             pelabuhan asal
@@ -226,7 +226,7 @@ const JadwalKedatangan = () => {
                         </div>
                       </th>
 
-                      <th scope="col" className="px-6 py-3 text-left">
+                      <th scope="col" className="px-3 py-1 text-left">
                         <div className="flex items-center gap-x-2">
                           <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                             pelabuhan tujuan
@@ -234,7 +234,7 @@ const JadwalKedatangan = () => {
                         </div>
                       </th>
 
-                      <th scope="col" className="px-6 py-3 text-left">
+                      <th scope="col" className="px-3 py-1 text-left">
                         <div className="flex items-center gap-x-2">
                           <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                             pelabuhan tujuan akhir
@@ -252,117 +252,117 @@ const JadwalKedatangan = () => {
                             className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800"
                             onClick={() => setDetail(item)}
                           >
-                            <td className="h-px w-4 whitespace-nowrap">
+                            <td className="border border-black h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
                                 href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
-                                <div className="px-6 py-2">
+                                <div className="px-3 py-1">
                                   <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {idx + 1}
                                   </span>
                                 </div>
                               </a>
                             </td>
-                            <td className="h-px w-4 whitespace-nowrap">
+                            <td className="border border-black h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
                                 href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
-                                <div className="px-6 py-2">
+                                <div className="px-3 py-1">
                                   <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.nomor_pkk}
                                   </span>
                                 </div>
                               </a>
                             </td>
-                            <td className="h-px w-4 whitespace-nowrap">
+                            <td className="border border-black h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
                                 href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
-                                <div className="px-6 py-2">
+                                <div className="px-3 py-1">
                                   <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.nama_perusahaan}
                                   </span>
                                 </div>
                               </a>
                             </td>
-                            <td className="h-px w-4 whitespace-nowrap">
+                            <td className="border border-black h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
                                 href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
-                                <div className="px-6 py-2">
+                                <div className="px-3 py-1">
                                   <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.nama_kapal}
                                   </span>
                                 </div>
                               </a>
                             </td>
-                            <td className="h-px w-4 whitespace-nowrap">
+                            <td className="border border-black h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
                                 href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
-                                <div className="px-6 py-2">
+                                <div className="px-3 py-1">
                                   <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {parseFloat(item.grt)}
                                   </span>
                                 </div>
                               </a>
                             </td>
-                            <td className="h-px w-4 whitespace-nowrap">
+                            <td className="border border-black h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
                                 href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
-                                <div className="px-6 py-2">
+                                <div className="px-3 py-1">
                                   <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {parseFloat(item.loa)}
                                   </span>
                                 </div>
                               </a>
                             </td>
-                            <td className="h-px w-4 whitespace-nowrap">
+                            <td className="border border-black h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
                                 href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
-                                <div className="px-6 py-2">
+                                <div className="px-3 py-1">
                                   <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {parseFloat(item.draft_max)}
                                   </span>
                                 </div>
                               </a>
                             </td>
-                            <td className="h-px w-4 whitespace-nowrap">
+                            <td className="border border-black h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
                                 href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
-                                <div className="px-6 py-2">
+                                <div className="px-3 py-1">
                                   <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.bendera}
                                   </span>
                                 </div>
                               </a>
                             </td>
-                            <td className="h-px w-4 whitespace-nowrap">
+                            <td className="border border-black h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
                                 href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
-                                <div className="px-6 py-2">
+                                <div className="px-3 py-1">
                                   <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {new Date(item.tanggal_eta).getFullYear() <
                                     2000
@@ -372,13 +372,13 @@ const JadwalKedatangan = () => {
                                 </div>
                               </a>
                             </td>
-                            <td className="h-px w-4 whitespace-nowrap">
+                            <td className="border border-black h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
                                 href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
-                                <div className="px-6 py-2">
+                                <div className="px-3 py-1">
                                   <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {new Date(item.tanggal_etd).getFullYear() <
                                     2000
@@ -388,39 +388,39 @@ const JadwalKedatangan = () => {
                                 </div>
                               </a>
                             </td>
-                            <td className="h-px w-4 whitespace-nowrap">
+                            <td className="border border-black h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
                                 href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
-                                <div className="px-6 py-2">
+                                <div className="px-3 py-1">
                                   <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.pelabuhan_asal}
                                   </span>
                                 </div>
                               </a>
                             </td>
-                            <td className="h-px w-4 whitespace-nowrap">
+                            <td className="border border-black h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
                                 href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
-                                <div className="px-6 py-2">
+                                <div className="px-3 py-1">
                                   <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.pelabuhan_tujuan}
                                   </span>
                                 </div>
                               </a>
                             </td>
-                            <td className="h-px w-4 whitespace-nowrap">
+                            <td className="border border-black h-px w-4 whitespace-nowrap">
                               <a
                                 className="block"
                                 href="#"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
-                                <div className="px-6 py-2">
+                                <div className="px-3 py-1">
                                   <span className="text-xs text-gray-600  dark:text-gray-400">
                                     {item.pelabuhan_tujuan_akhir}
                                   </span>
