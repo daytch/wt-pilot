@@ -355,6 +355,7 @@ const RealisasiPemanduan = () => {
                           <tr
                             key={idx}
                             className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800"
+                            onClick={() => setDetail(item)}
                           >
                             <td className="border border-black text-xs h-px w-4 whitespace-nowrap">
                               <a
@@ -532,6 +533,24 @@ const RealisasiPemanduan = () => {
                                       item.MulaiPanduKeluar
                                     ).getFullYear() > 2000
                                       ? sliceHour(item.MulaiPanduKeluar)
+                                      : ""}
+                                  </span>
+                                </div>
+                              </a>
+                            </td>
+                            <td className="border border-black h-px w-4 whitespace-nowrap">
+                              <a
+                                className="block"
+                                href="#"
+                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                              >
+                                <div className="px-3 py-1">
+                                  <span className="text-xs text-gray-600  dark:text-gray-400">
+                                    {item.SelesaiPanduKeluar &&
+                                    new Date(
+                                      item.SelesaiPanduKeluar
+                                    ).getFullYear() > 2000
+                                      ? sliceHour(item.SelesaiPanduKeluar)
                                       : ""}
                                   </span>
                                 </div>
