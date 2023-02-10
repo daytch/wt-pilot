@@ -25,6 +25,8 @@ const Filter = (props) => {
     Code,
     setCode,
     tipe,
+    notApproved,
+    setNotApproved,
   } = props;
 
   useEffectOnce(() => {
@@ -99,6 +101,22 @@ const Filter = (props) => {
                 </option>
               ))}
           </select>
+        ) : tipe === "ppkb" ? (
+          <>
+            <select
+              value={Code ?? dataRealisasiPandu[0]?.Code}
+              onChange={(e) => setCode(e.target.value)}
+              className="py-1 px-3 pr-6 block w-full bg-blue-100 border-gray-500 rounded-md text-xs focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+            >
+              {dataRealisasiPandu &&
+                dataRealisasiPandu.map((x, idx) => (
+                  <option key={idx} value={x.Code}>
+                    {x.Name}
+                  </option>
+                ))}
+            </select>
+            {/* <input type="checkbox" title="Test" /> */}
+          </>
         ) : (
           <select
             value={Code ?? dataRealisasiPandu[0]?.Code}
@@ -115,9 +133,42 @@ const Filter = (props) => {
         )}
 
         <input className="py-2 px-3 pr-9 block w-full bg-blue-100 border-gray-500 rounded-md text-xs focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400" />
+        {notApproved && (
+          <button
+            className="h-8 py-3 px-2 min-h-8 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-xs dark:focus:ring-offset-gray-800"
+            data-hs-overlay="#hs-bg-gray-on-hover-cards1"
+          >
+            input
+          </button>
+        )}
         <button className="h-8 py-3 px-2 min-h-8 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-xs dark:focus:ring-offset-gray-800">
           Search
         </button>
+
+        {tipe === "ppkb" && (
+          <>
+            <div className="md:flex md:items-center w-full">
+              <div className="md:w-1/5">
+                <input
+                  // className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckChecked"
+                  onChange={(e) => setNotApproved(e.currentTarget.checked)}
+                  checked={notApproved}
+                />
+              </div>
+              <div className="md:w-4/5">
+                <label
+                  className="form-check-label inline-block text-xs text-gray-800"
+                  htmlFor="flexCheckChecked"
+                >
+                  Belum Approved
+                </label>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
@@ -133,6 +184,8 @@ Filter.propTypes = {
   Code: PropTypes.string,
   setCode: PropTypes.func,
   tipe: PropTypes.string,
+  notApproved: PropTypes.bool,
+  setNotApproved: PropTypes.func,
 };
 
 export default Filter;

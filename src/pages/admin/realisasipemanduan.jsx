@@ -38,7 +38,7 @@ const RealisasiPemanduan = () => {
     sessionStorage.getItem("codeColumnSearchRealisasiPemanduan") ?? ""
   );
   const [ValueSearch, setValueSearch] = useState("");
-  const [isShowModal, setIsShowModal] = useState(true);
+  // const [isShowModal, setIsShowModal] = useState(true);
   const [ViewBy, setViewBy] = useState(dariPihak);
   const [ViewValue, setViewValue] = useState(UserData.UserName);
   const tanggalHariini = handleDateAPI(new Date());
@@ -181,7 +181,7 @@ const RealisasiPemanduan = () => {
                 {/* <!-- Table --> */}
                 <table className="text-xs min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                   <thead className="bg-gray-50 dark:bg-slate-900">
-                    <tr className=" text-center">
+                    <tr className="text-center">
                       {/* <th rowSpan={3} className="border border-black"></th> */}
                       <th
                         rowSpan={3}

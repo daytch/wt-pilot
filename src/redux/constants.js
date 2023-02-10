@@ -9,5 +9,10 @@ export const URL = {
   SALESORDER: "/get-combosearchsalesorderterminalindo",
   PKK_INAPORTNET: "/get-pkkinaportnet",
   LAPORAN_KEGIATAN_PANDU: "/get-laporankegiatanpandutunda",
-  REALISASI_PANDU: "get-combosearchrealisasipandu",
+  REALISASI_PANDU: "/get-combosearchrealisasipandu",
+  GET_HEADER_PKK: "get-headerpkk",
+  GET_HEADER_PKKB: "get-headerppkb",
+  GET_DETAIL_RKBM: "get-detailrkbm",
+  GET_DETAIL_PPKB: "get-detailppkb",
+  DELETE_PPKB: "post-deletedatappkb",
 };
