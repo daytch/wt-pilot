@@ -13,6 +13,9 @@ import {
 } from "../../functions/index.js";
 import "react-datepicker/dist/react-datepicker.css";
 import Filter from "../../components/Filter";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { CalendarDaysIcon, ClockIcon } from "@heroicons/react/24/outline";
 
 const Ppkb = () => {
   const dispatch = useDispatch();
@@ -128,13 +131,11 @@ const Ppkb = () => {
 
   useEffect(() => {
     if (dataHeaderPPKB.length > 0) {
-      
     }
   }, [dataHeaderPPKB]);
 
   useEffect(() => {
     if (dataHeaderPKK.length > 0) {
-      
     }
   }, [dataHeaderPKK]);
 
@@ -748,7 +749,7 @@ const Ppkb = () => {
                 <button
                   type="button"
                   className="inline-flex flex-shrink-0 justify-center items-center h-8 w-8 rounded-md text-gray-500 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-sm dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800"
-                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                  data-hs-overlay="#hs-bg-gray-on-hover-cards1"
                 >
                   <span className="sr-only">Close</span>
                   <svg
@@ -770,7 +771,6 @@ const Ppkb = () => {
               <div className="p-4 overflow-y-auto">
                 <div className="sm:divide-y divide-gray-200 dark:divide-gray-700">
                   <div className="py-3 sm:py-6">
-
                     <div className="grid gap-2">
                       <div className="grid gap-y-4">
                         <div className="grid md:grid-cols-3 gap-2">
@@ -820,26 +820,19 @@ const Ppkb = () => {
                               Tanggal PPKB
                             </label>
                             <div className="relative">
-                              <input
-                                type="text"
+                              <DatePicker
+                                wrapperClassName="wrapperdatePicker"
+                                className="dateandtimepicker-hp py-1 px-2 block w-full border-gray-300 rounded border-2 text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+                                dateFormat="dd-MM-yyyy"
+                                placeholderText="Tanggal PPKB"
+                                aria-describedby="tgl_ppkb-error"
                                 id="tgl_ppkb"
                                 name="tgl_ppkb"
-                                className="py-1 px-2 block w-full border-gray-300 rounded border-2 text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                                required
-                                placeholder="Tanggal PPKB"
-                                aria-describedby="tgl_ppkb-error"
+                                // selected={TanggalPPKB}
+                                // onChange={(e) => handleTanggalPPKB(e)}
                               />
-                              <div className="hidden absolute inset-y-0 right-0 items-center pointer-events-none pr-3">
-                                <svg
-                                  className="h-5 w-5 text-red-500"
-                                  width="16"
-                                  height="16"
-                                  fill="currentColor"
-                                  viewBox="0 0 16 16"
-                                  aria-hidden="true"
-                                >
-                                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                                </svg>
+                              <div className="flex absolute inset-y-0 right-0 items-center pointer-events-none pr-3">
+                                <CalendarDaysIcon className="h-5 w-5" />
                               </div>
                             </div>
                             <p
@@ -854,7 +847,7 @@ const Ppkb = () => {
                             <label
                               htmlFor="no_pkk"
                               className="block text-sm mb-2 dark:text-white"
-                            >                                                                                                                                                                                                                                                                                                                                              
+                            >
                               Nomor PKK
                             </label>
                             <div className="relative">
@@ -862,9 +855,9 @@ const Ppkb = () => {
                                 type="text"
                                 id="no_pkk"
                                 name="no_pkk"
-                                placeholder=""
+                                placeholder="Nomor PKK"
                                 className="py-1 px-2 block w-full border-gray-300 rounded border-2 text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                                required
+                                disabled
                                 aria-describedby="no_pkk-error"
                               />
                               <div className="hidden absolute inset-y-0 right-0 items-center pointer-events-none pr-3">
@@ -899,34 +892,21 @@ const Ppkb = () => {
                               Tanggal Rencana
                             </label>
                             <div className="relative">
-                              <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                className="py-1 px-2 block w-full border-gray-300 rounded border-2 text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                                required
-                                aria-describedby="email-error"
+                              <DatePicker
+                                wrapperClassName="wrapperdatePicker"
+                                className="dateandtimepicker-hp py-1 px-2 block w-full border-gray-300 rounded border-2 text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+                                dateFormat="dd-MM-yyyy"
+                                placeholderText="Tanggal PPKB"
+                                aria-describedby="tgl_ppkb-error"
+                                id="tgl_ppkb"
+                                name="tgl_ppkb"
+                                // selected={TanggalPPKB}
+                                // onChange={(e) => handleTanggalPPKB(e)}
                               />
-                              <div className="hidden absolute inset-y-0 right-0 items-center pointer-events-none pr-3">
-                                <svg
-                                  className="h-5 w-5 text-red-500"
-                                  width="16"
-                                  height="16"
-                                  fill="currentColor"
-                                  viewBox="0 0 16 16"
-                                  aria-hidden="true"
-                                >
-                                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                                </svg>
+                              <div className="flex absolute inset-y-0 right-0 items-center pointer-events-none pr-3">
+                                <CalendarDaysIcon className="h-5 w-5" />
                               </div>
                             </div>
-                            <p
-                              className="hidden text-xs text-red-600 mt-2"
-                              id="email-error"
-                            >
-                              Please include a valid email address so we can get
-                              back to you
-                            </p>
                           </div>
                           <div>
                             <label
@@ -936,34 +916,24 @@ const Ppkb = () => {
                               Jam Rencana
                             </label>
                             <div className="relative">
-                              <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                className="py-1 px-2 block w-full border-gray-300 rounded border-2 text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                                required
-                                aria-describedby="email-error"
+                              <DatePicker
+                                // selected={JamRencana}
+                                // onChange={(date) => handleJamRencana(date)}
+                                showTimeSelect
+                                showTimeSelectOnly
+                                timeFormat="HH:mm"
+                                timeIntervals={15}
+                                timeCaption="Pilih Jam"
+                                dateFormat="HH:mm"
+                                wrapperClassName="wrapperdatePicker"
+                                placeholderText="Jam Rencana"
+                                aria-describedby="jam_rencana-error"
+                                className="datepicker py-1 px-2 block w-full border-gray-300 rounded border-2 text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
                               />
-                              <div className="hidden absolute inset-y-0 right-0 items-center pointer-events-none pr-3">
-                                <svg
-                                  className="h-5 w-5 text-red-500"
-                                  width="16"
-                                  height="16"
-                                  fill="currentColor"
-                                  viewBox="0 0 16 16"
-                                  aria-hidden="true"
-                                >
-                                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                                </svg>
+                              <div className="flex absolute inset-y-0 right-0 items-center pointer-events-none pr-3">
+                                <ClockIcon className="h-5 w-5" />
                               </div>
                             </div>
-                            <p
-                              className="hidden text-xs text-red-600 mt-2"
-                              id="email-error"
-                            >
-                              Please include a valid email address so we can get
-                              back to you
-                            </p>
                           </div>
                         </div>
 
@@ -1082,23 +1052,189 @@ const Ppkb = () => {
                             back to you
                           </p>
                         </div>
-                        <div className="flex items-center">
-                          <div className="flex">
-                            <input
-                              id="remember-me"
-                              name="remember-me"
-                              type="checkbox"
-                              className="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-                            />
-                          </div>
-                          <div className="ml-3">
-                            <label
-                              htmlFor="remember-me"
-                              className="text-sm dark:text-white"
-                            >
-                              Remember me
-                            </label>
-                          </div>
+
+                        <div className="overflow-x-auto">
+                          <table className="text-xs min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                            <thead className="bg-gray-50 dark:bg-slate-900">
+                              <tr className="text-center">
+                                <td></td>
+                                <th className="border border-black">
+                                  <div className="flex justify-center gap-x-2">
+                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                      NO
+                                    </span>
+                                  </div>
+                                </th>
+                                <th className="border border-black">
+                                  <div className="flex justify-center gap-x-2">
+                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                      NOMOR RKBM
+                                    </span>
+                                  </div>
+                                </th>
+                                <th className="border border-black">
+                                  <div className="flex justify-center gap-x-2">
+                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                      NAMA BARANG
+                                    </span>
+                                  </div>
+                                </th>
+                                <th className="border border-black">
+                                  <div className="flex justify-center gap-x-2">
+                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                      BAHAYA
+                                    </span>
+                                  </div>
+                                </th>
+
+                                <th className="border border-black">
+                                  <div className="flex justify-center gap-x-2">
+                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                      GANGGU
+                                    </span>
+                                  </div>
+                                </th>
+
+                                <th className="border border-black">
+                                  <div className="flex justify-center gap-x-2">
+                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                      KEGIATAN
+                                    </span>
+                                  </div>
+                                </th>
+
+                                <th className="border border-black">
+                                  <div className="flex justify-center gap-x-2">
+                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                      UNIT
+                                    </span>
+                                  </div>
+                                </th>
+
+                                <th className="border border-black">
+                                  <div className="flex justify-center gap-x-2">
+                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                      TON
+                                    </span>
+                                  </div>
+                                </th>
+                                <th className="border border-black">
+                                  <div className="flex justify-center gap-x-2">
+                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                      M3
+                                    </span>
+                                  </div>
+                                </th>
+                                <th className="border border-black">
+                                  <div className="flex justify-center gap-x-2">
+                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                      PENYALURAN
+                                    </span>
+                                  </div>
+                                </th>
+                                <th className="border border-black">
+                                  <div className="flex justify-center gap-x-2">
+                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                      KADE
+                                    </span>
+                                  </div>
+                                </th>
+                                <th className="border border-black">
+                                  <div className="flex justify-center gap-x-2">
+                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                      PBM
+                                    </span>
+                                  </div>
+                                </th>
+                                <th className="border border-black">
+                                  <div className="flex justify-center gap-x-2">
+                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                      NPWP PBM
+                                    </span>
+                                  </div>
+                                </th>
+                                <th className="border border-black">
+                                  <div className="flex justify-center gap-x-2">
+                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                      CONSIGNEE
+                                    </span>
+                                  </div>
+                                </th>
+                                <th className="border border-black">
+                                  <div className="flex justify-center gap-x-2">
+                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                      SHIPPER
+                                    </span>
+                                  </div>
+                                </th>
+                                <th className="border border-black">
+                                  <div className="flex justify-center gap-x-2">
+                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                      NPWP SHIPPER
+                                    </span>
+                                  </div>
+                                </th>
+                                <th className="border border-black">
+                                  <div className="flex justify-center gap-x-2">
+                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                      NOMOR BILL OF LANDING
+                                    </span>
+                                  </div>
+                                </th>
+                                <th className="border border-black">
+                                  <div className="flex justify-center gap-x-2">
+                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                      JUMLAH GANG (Kelompok Kerja)
+                                    </span>
+                                  </div>
+                                </th>
+                                <th className="border border-black">
+                                  <div className="flex justify-center gap-x-2">
+                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                      PALKA
+                                    </span>
+                                  </div>
+                                </th>
+                                <th className="border border-black">
+                                  <div className="flex justify-center gap-x-2">
+                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                      NOMOR RKBM BONGKAR
+                                    </span>
+                                  </div>
+                                </th>
+                                <th className="border border-black">
+                                  <div className="flex justify-center gap-x-2">
+                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                      NOMOR RKBM MUAT
+                                    </span>
+                                  </div>
+                                </th>
+                                <th className="border border-black">
+                                  <div className="flex justify-center gap-x-2">
+                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                      RENCANA BONGKAR
+                                    </span>
+                                  </div>
+                                </th>
+                                <th className="border border-black">
+                                  <div className="flex justify-center gap-x-2">
+                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                      RENCANA MUAT
+                                    </span>
+                                  </div>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {isLoading === true ? (
+                                <div
+                                  className="spinner-border modal-dialog text-primary"
+                                  role="status"
+                                  style={{ position: "absolute", left: "50%" }}
+                                ></div>
+                              ) : null}
+                            </tbody>
+                          </table>
                         </div>
 
                         <button
