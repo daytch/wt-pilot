@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import LogoImage from "./../assets/logo-hd.png";
 import { useDispatch, useSelector } from "react-redux";
-import { changeActiveSidebarMenu } from "../redux/slices/dashboardSlice.js";
+import {
+  changeActiveSidebarMenu,
+  changeActiveTabMenu,
+} from "../redux/slices/dashboardSlice.js";
 import {
   CalendarDaysIcon,
   CircleStackIcon,
@@ -12,63 +15,102 @@ import {
   HomeIcon,
 } from "@heroicons/react/24/outline";
 import Loader from "./Loader";
-
 import Dashboard from "./../pages/admin/dashboard";
-
 import JadwalKedatangan from "./../pages/admin/jadwalkedatangan";
 import PPKB from "./../pages/admin/ppkb";
 import Realisasi from "./../pages/admin/realisasipemanduan";
+import { ConfirmationMessage } from "./Notification";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
   const username = JSON.parse(localStorage.getItem("userData")).displayUserName;
   const loading = useSelector((state) => state.Dashboard.loading);
   const isActive = useSelector((state) => state.Dashboard.activeSidebarMenu);
+  const isTabMenuActive = useSelector((state) => state.Dashboard.activeTabMenu);
   const activeClass =
     "flex rounded-md my-2 p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 bg-light-white";
   const inActiveClass =
     "flex rounded-md my-2 p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4";
+  const activeTabMenuClass =
+    "font-semibold px-4 py-3 hover:bg-[#51B1E7] bg-[#51B1E7]";
+  const inActiveTabMenuClass = "font-semibold px-4 py-3 hover:bg-[#51B1E7]";
 
   const menuAction = {
-    dashboard: () => {
-      dispatch(
-        changeActiveSidebarMenu({
-          dashboard: true,
-          jadwal: false,
-          ppkb: false,
-          realisasi: false,
-        })
-      );
+    dashboard: (isLeftmenu) => {
+      isLeftmenu
+        ? dispatch(
+            changeActiveSidebarMenu({
+              dashboard: true,
+              jadwal: false,
+              ppkb: false,
+              realisasi: false,
+            })
+          )
+        : dispatch(
+            changeActiveTabMenu({
+              dashboard: true,
+              jadwal: false,
+              ppkb: false,
+              realisasi: false,
+            })
+          );
     },
-    jadwal: () => {
-      dispatch(
-        changeActiveSidebarMenu({
-          dashboard: false,
-          jadwal: true,
-          ppkb: false,
-          realisasi: false,
-        })
-      );
+    jadwal: (isLeftmenu) => {
+      isLeftmenu
+        ? dispatch(
+            changeActiveSidebarMenu({
+              dashboard: false,
+              jadwal: true,
+              ppkb: false,
+              realisasi: false,
+            })
+          )
+        : dispatch(
+            changeActiveTabMenu({
+              dashboard: false,
+              jadwal: true,
+              ppkb: false,
+              realisasi: false,
+            })
+          );
     },
-    ppkb: () => {
-      dispatch(
-        changeActiveSidebarMenu({
-          dashboard: false,
-          jadwal: false,
-          ppkb: true,
-          realisasi: false,
-        })
-      );
+    ppkb: (isLeftmenu) => {
+      isLeftmenu
+        ? dispatch(
+            changeActiveSidebarMenu({
+              dashboard: false,
+              jadwal: false,
+              ppkb: true,
+              realisasi: false,
+            })
+          )
+        : dispatch(
+            changeActiveTabMenu({
+              dashboard: false,
+              jadwal: false,
+              ppkb: true,
+              realisasi: false,
+            })
+          );
     },
-    realisasi: () => {
-      dispatch(
-        changeActiveSidebarMenu({
-          dashboard: false,
-          jadwal: false,
-          ppkb: false,
-          realisasi: true,
-        })
-      );
+    realisasi: (isLeftmenu) => {
+      isLeftmenu
+        ? dispatch(
+            changeActiveSidebarMenu({
+              dashboard: false,
+              jadwal: false,
+              ppkb: false,
+              realisasi: true,
+            })
+          )
+        : dispatch(
+            changeActiveTabMenu({
+              dashboard: false,
+              jadwal: false,
+              ppkb: false,
+              realisasi: true,
+            })
+          );
     },
     logout: () => {
       localStorage.clear();
@@ -107,9 +149,21 @@ const Sidebar = () => {
       return <ArrowRightOnRectangleIcon className="h-5 w-5" />;
     },
   };
-
+  const cbConfirmation = (e) => {
+    if (e.isConfirmed) {
+      menuAction[selectedMenu.name](true);
+      menuAction[selectedMenu.name](false);
+    }
+  };
   const [open, setOpen] = useState(true);
-
+  const [tabOpen, setTabOpen] = useState(true);
+  const [tabMenu, setTabMenu] = useState(
+    localStorage.getItem("listTabMenu")
+      ? JSON.parse(localStorage.getItem("listTabMenu"))
+      : [{ title: "Dashboard", name: "dashboard" }]
+  );
+  
+  let selectedMenu = {};
   const Menus = [
     { title: "Dashboard", name: "dashboard" },
     {
@@ -162,7 +216,25 @@ const Sidebar = () => {
             <li
               key={index}
               className={isActive[Menu.name] ? activeClass : inActiveClass}
-              onClick={() => menuAction[Menu.name]()}
+              onClick={() => {
+                
+                if (tabMenu.map((x) => x.name).indexOf(Menu.name) > -1) {
+                  selectedMenu = Menu;
+                  ConfirmationMessage(
+                    "Confirmation?!",
+                    `<div>Menu <b><u>${Menu.title}</u></b> sudah di buka pada tab menu, apakah anda akan mengaktifkan menu <b><u>${Menu.title}</u></b> ?</div>`,
+                    cbConfirmation
+                  );
+                } else {
+                  setTabMenu((oldArr) => [...oldArr, Menu]);
+                  localStorage.setItem(
+                    "listTabMenu",
+                    JSON.stringify([...tabMenu, Menu])
+                  );
+                  menuAction[Menu.name](true);
+                  menuAction[Menu.name](false);
+                }
+              }}
             >
               {renderIcon[Menu.name]()}
               <span className={`${!open && "hidden"} origin-left duration-200`}>
@@ -173,7 +245,44 @@ const Sidebar = () => {
         </ul>
       </div>
 
-      <div className="h-screen flex-1 p-7">{renderMenu()}</div>
+      <div className="h-screen flex-1 p-7">
+        <header className="rounded-xl flex flex-wrap justify-start sm:flex-nowrap z-50 w-full bg-[#B4E7F7] border-b border-white/[.5] text-sm py-3 sm:py-0">
+          <nav
+            className="relative max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between" // sm:px-6 lg:px-8"
+            aria-label="Global"
+          >
+            <div
+              id="navbar-collapse-with-animation"
+              className="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow sm:block"
+            >
+              <div className="flex flex-col gap-y-4 gap-x-0 mt-5 sm:flex-row sm:items-center sm:justify-start sm:gap-y-0 sm:gap-x-7 sm:mt-0 sm:pl-7">
+                {tabMenu?.map((m, i) => {
+                  console.log("m:", m);
+                  return (
+                    <a
+                      key={i}
+                      className={
+                        isTabMenuActive[m.name]
+                          ? activeTabMenuClass
+                          : inActiveTabMenuClass
+                      }
+                      onClick={() => {
+                        menuAction[m.name](true);
+                        menuAction[m.name](false);
+                      }}
+                      href="#"
+                    >
+                      {m.title}
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          </nav>
+        </header>
+
+        {renderMenu()}
+      </div>
     </div>
   );
 };

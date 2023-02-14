@@ -102,7 +102,7 @@ const JadwalKedatangan = () => {
 
   return (
     <>
-      <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+      <div className="max-w-[85rem] py-3 mx-auto">
         {/* <!-- Card --> */}
         <div className="flex flex-col">
           <div className="-m-1.5 overflow-x-auto">
@@ -135,308 +135,312 @@ const JadwalKedatangan = () => {
                 {/* <!-- End Accordion --> */}
 
                 {/* <!-- Table --> */}
-                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                  <thead className="bg-gray-50 dark:bg-slate-900">
-                    <tr>
-                      <th scope="col" className="px-3 py-1 text-left">
-                        <div className="flex items-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            no
-                          </span>
-                        </div>
-                      </th>
+                <div className="px-3">
+                  <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                    <thead className="bg-gray-50 dark:bg-slate-900">
+                      <tr>
+                        <th scope="col" className="px-3 py-1 text-left">
+                          <div className="flex items-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              no
+                            </span>
+                          </div>
+                        </th>
 
-                      <th scope="col" className="px-3 py-1 text-left">
-                        <div className="flex items-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            nomor pkk
-                          </span>
-                        </div>
-                      </th>
+                        <th scope="col" className="px-3 py-1 text-left">
+                          <div className="flex items-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              nomor pkk
+                            </span>
+                          </div>
+                        </th>
 
-                      <th scope="col" className="px-3 py-1 text-left">
-                        <div className="flex items-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            nama perusahaan
-                          </span>
-                        </div>
-                      </th>
+                        <th scope="col" className="px-3 py-1 text-left">
+                          <div className="flex items-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              nama perusahaan
+                            </span>
+                          </div>
+                        </th>
 
-                      <th scope="col" className="px-3 py-1 text-left">
-                        <div className="flex items-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            nama kapal
-                          </span>
-                        </div>
-                      </th>
+                        <th scope="col" className="px-3 py-1 text-left">
+                          <div className="flex items-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              nama kapal
+                            </span>
+                          </div>
+                        </th>
 
-                      <th scope="col" className="px-3 py-1 text-left">
-                        <div className="flex items-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            grt
-                          </span>
-                        </div>
-                      </th>
+                        <th scope="col" className="px-3 py-1 text-left">
+                          <div className="flex items-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              grt
+                            </span>
+                          </div>
+                        </th>
 
-                      <th scope="col" className="px-3 py-1 text-left">
-                        <div className="flex items-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            loa
-                          </span>
-                        </div>
-                      </th>
+                        <th scope="col" className="px-3 py-1 text-left">
+                          <div className="flex items-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              loa
+                            </span>
+                          </div>
+                        </th>
 
-                      <th scope="col" className="px-3 py-1 text-left">
-                        <div className="flex items-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            draft max
-                          </span>
-                        </div>
-                      </th>
+                        <th scope="col" className="px-3 py-1 text-left">
+                          <div className="flex items-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              draft max
+                            </span>
+                          </div>
+                        </th>
 
-                      <th scope="col" className="px-3 py-1 text-left">
-                        <div className="flex items-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            bendera
-                          </span>
-                        </div>
-                      </th>
+                        <th scope="col" className="px-3 py-1 text-left">
+                          <div className="flex items-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              bendera
+                            </span>
+                          </div>
+                        </th>
 
-                      <th scope="col" className="px-3 py-1 text-left">
-                        <div className="flex items-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            tanggal eta
-                          </span>
-                        </div>
-                      </th>
+                        <th scope="col" className="px-3 py-1 text-left">
+                          <div className="flex items-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              tanggal eta
+                            </span>
+                          </div>
+                        </th>
 
-                      <th scope="col" className="px-3 py-1 text-left">
-                        <div className="flex items-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            tanggal etd
-                          </span>
-                        </div>
-                      </th>
+                        <th scope="col" className="px-3 py-1 text-left">
+                          <div className="flex items-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              tanggal etd
+                            </span>
+                          </div>
+                        </th>
 
-                      <th scope="col" className="px-3 py-1 text-left">
-                        <div className="flex items-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            pelabuhan asal
-                          </span>
-                        </div>
-                      </th>
+                        <th scope="col" className="px-3 py-1 text-left">
+                          <div className="flex items-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              pelabuhan asal
+                            </span>
+                          </div>
+                        </th>
 
-                      <th scope="col" className="px-3 py-1 text-left">
-                        <div className="flex items-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            pelabuhan tujuan
-                          </span>
-                        </div>
-                      </th>
+                        <th scope="col" className="px-3 py-1 text-left">
+                          <div className="flex items-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              pelabuhan tujuan
+                            </span>
+                          </div>
+                        </th>
 
-                      <th scope="col" className="px-3 py-1 text-left">
-                        <div className="flex items-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            pelabuhan tujuan akhir
-                          </span>
-                        </div>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y overflow-y-auto divide-gray-200 dark:divide-gray-700">
-                    {data &&
-                      data.map((item, idx) => {
-                        return (
-                          <tr
-                            key={idx}
-                            className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800"
-                            onClick={() => setDetail(item)}
-                          >
-                            <td className="border border-black h-px w-4 whitespace-nowrap">
-                              <a
-                                className="block"
-                                href="#"
-                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                              >
-                                <div className="px-3 py-1">
-                                  <span className="text-xs text-gray-600  dark:text-gray-400">
-                                    {idx + 1}
-                                  </span>
-                                </div>
-                              </a>
-                            </td>
-                            <td className="border border-black h-px w-4 whitespace-nowrap">
-                              <a
-                                className="block"
-                                href="#"
-                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                              >
-                                <div className="px-3 py-1">
-                                  <span className="text-xs text-gray-600  dark:text-gray-400">
-                                    {item.nomor_pkk}
-                                  </span>
-                                </div>
-                              </a>
-                            </td>
-                            <td className="border border-black h-px w-4 whitespace-nowrap">
-                              <a
-                                className="block"
-                                href="#"
-                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                              >
-                                <div className="px-3 py-1">
-                                  <span className="text-xs text-gray-600  dark:text-gray-400">
-                                    {item.nama_perusahaan}
-                                  </span>
-                                </div>
-                              </a>
-                            </td>
-                            <td className="border border-black h-px w-4 whitespace-nowrap">
-                              <a
-                                className="block"
-                                href="#"
-                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                              >
-                                <div className="px-3 py-1">
-                                  <span className="text-xs text-gray-600  dark:text-gray-400">
-                                    {item.nama_kapal}
-                                  </span>
-                                </div>
-                              </a>
-                            </td>
-                            <td className="border border-black h-px w-4 whitespace-nowrap">
-                              <a
-                                className="block"
-                                href="#"
-                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                              >
-                                <div className="px-3 py-1">
-                                  <span className="text-xs text-gray-600  dark:text-gray-400">
-                                    {parseFloat(item.grt)}
-                                  </span>
-                                </div>
-                              </a>
-                            </td>
-                            <td className="border border-black h-px w-4 whitespace-nowrap">
-                              <a
-                                className="block"
-                                href="#"
-                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                              >
-                                <div className="px-3 py-1">
-                                  <span className="text-xs text-gray-600  dark:text-gray-400">
-                                    {parseFloat(item.loa)}
-                                  </span>
-                                </div>
-                              </a>
-                            </td>
-                            <td className="border border-black h-px w-4 whitespace-nowrap">
-                              <a
-                                className="block"
-                                href="#"
-                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                              >
-                                <div className="px-3 py-1">
-                                  <span className="text-xs text-gray-600  dark:text-gray-400">
-                                    {parseFloat(item.draft_max)}
-                                  </span>
-                                </div>
-                              </a>
-                            </td>
-                            <td className="border border-black h-px w-4 whitespace-nowrap">
-                              <a
-                                className="block"
-                                href="#"
-                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                              >
-                                <div className="px-3 py-1">
-                                  <span className="text-xs text-gray-600  dark:text-gray-400">
-                                    {item.bendera}
-                                  </span>
-                                </div>
-                              </a>
-                            </td>
-                            <td className="border border-black h-px w-4 whitespace-nowrap">
-                              <a
-                                className="block"
-                                href="#"
-                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                              >
-                                <div className="px-3 py-1">
-                                  <span className="text-xs text-gray-600  dark:text-gray-400">
-                                    {new Date(item.tanggal_eta).getFullYear() <
-                                    2000
-                                      ? ""
-                                      : datetimeToString(item.tanggal_eta)}
-                                  </span>
-                                </div>
-                              </a>
-                            </td>
-                            <td className="border border-black h-px w-4 whitespace-nowrap">
-                              <a
-                                className="block"
-                                href="#"
-                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                              >
-                                <div className="px-3 py-1">
-                                  <span className="text-xs text-gray-600  dark:text-gray-400">
-                                    {new Date(item.tanggal_etd).getFullYear() <
-                                    2000
-                                      ? ""
-                                      : datetimeToString(item.tanggal_etd)}
-                                  </span>
-                                </div>
-                              </a>
-                            </td>
-                            <td className="border border-black h-px w-4 whitespace-nowrap">
-                              <a
-                                className="block"
-                                href="#"
-                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                              >
-                                <div className="px-3 py-1">
-                                  <span className="text-xs text-gray-600  dark:text-gray-400">
-                                    {item.pelabuhan_asal}
-                                  </span>
-                                </div>
-                              </a>
-                            </td>
-                            <td className="border border-black h-px w-4 whitespace-nowrap">
-                              <a
-                                className="block"
-                                href="#"
-                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                              >
-                                <div className="px-3 py-1">
-                                  <span className="text-xs text-gray-600  dark:text-gray-400">
-                                    {item.pelabuhan_tujuan}
-                                  </span>
-                                </div>
-                              </a>
-                            </td>
-                            <td className="border border-black h-px w-4 whitespace-nowrap">
-                              <a
-                                className="block"
-                                href="#"
-                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                              >
-                                <div className="px-3 py-1">
-                                  <span className="text-xs text-gray-600  dark:text-gray-400">
-                                    {item.pelabuhan_tujuan_akhir}
-                                  </span>
-                                </div>
-                              </a>
-                            </td>
-                          </tr>
-                        );
-                      })}
-                  </tbody>
-                </table>
+                        <th scope="col" className="px-3 py-1 text-left">
+                          <div className="flex items-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              pelabuhan tujuan akhir
+                            </span>
+                          </div>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y overflow-y-auto divide-gray-200 dark:divide-gray-700">
+                      {data &&
+                        data.map((item, idx) => {
+                          return (
+                            <tr
+                              key={idx}
+                              className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800"
+                              onClick={() => setDetail(item)}
+                            >
+                              <td className="border border-black h-px w-4 whitespace-nowrap">
+                                <a
+                                  className="block"
+                                  href="#"
+                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                                >
+                                  <div className="px-3 py-1">
+                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
+                                      {idx + 1}
+                                    </span>
+                                  </div>
+                                </a>
+                              </td>
+                              <td className="border border-black h-px w-4 whitespace-nowrap">
+                                <a
+                                  className="block"
+                                  href="#"
+                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                                >
+                                  <div className="px-3 py-1">
+                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
+                                      {item.nomor_pkk}
+                                    </span>
+                                  </div>
+                                </a>
+                              </td>
+                              <td className="border border-black h-px w-4 whitespace-nowrap">
+                                <a
+                                  className="block"
+                                  href="#"
+                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                                >
+                                  <div className="px-3 py-1">
+                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
+                                      {item.nama_perusahaan}
+                                    </span>
+                                  </div>
+                                </a>
+                              </td>
+                              <td className="border border-black h-px w-4 whitespace-nowrap">
+                                <a
+                                  className="block"
+                                  href="#"
+                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                                >
+                                  <div className="px-3 py-1">
+                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
+                                      {item.nama_kapal}
+                                    </span>
+                                  </div>
+                                </a>
+                              </td>
+                              <td className="border border-black h-px w-4 whitespace-nowrap">
+                                <a
+                                  className="block"
+                                  href="#"
+                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                                >
+                                  <div className="px-3 py-1">
+                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
+                                      {parseFloat(item.grt)}
+                                    </span>
+                                  </div>
+                                </a>
+                              </td>
+                              <td className="border border-black h-px w-4 whitespace-nowrap">
+                                <a
+                                  className="block"
+                                  href="#"
+                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                                >
+                                  <div className="px-3 py-1">
+                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
+                                      {parseFloat(item.loa)}
+                                    </span>
+                                  </div>
+                                </a>
+                              </td>
+                              <td className="border border-black h-px w-4 whitespace-nowrap">
+                                <a
+                                  className="block"
+                                  href="#"
+                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                                >
+                                  <div className="px-3 py-1">
+                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
+                                      {parseFloat(item.draft_max)}
+                                    </span>
+                                  </div>
+                                </a>
+                              </td>
+                              <td className="border border-black h-px w-4 whitespace-nowrap">
+                                <a
+                                  className="block"
+                                  href="#"
+                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                                >
+                                  <div className="px-3 py-1">
+                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
+                                      {item.bendera}
+                                    </span>
+                                  </div>
+                                </a>
+                              </td>
+                              <td className="border border-black h-px w-4 whitespace-nowrap">
+                                <a
+                                  className="block"
+                                  href="#"
+                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                                >
+                                  <div className="px-3 py-1">
+                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
+                                      {new Date(
+                                        item.tanggal_eta
+                                      ).getFullYear() < 2000
+                                        ? ""
+                                        : datetimeToString(item.tanggal_eta)}
+                                    </span>
+                                  </div>
+                                </a>
+                              </td>
+                              <td className="border border-black h-px w-4 whitespace-nowrap">
+                                <a
+                                  className="block"
+                                  href="#"
+                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                                >
+                                  <div className="px-3 py-1">
+                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
+                                      {new Date(
+                                        item.tanggal_etd
+                                      ).getFullYear() < 2000
+                                        ? ""
+                                        : datetimeToString(item.tanggal_etd)}
+                                    </span>
+                                  </div>
+                                </a>
+                              </td>
+                              <td className="border border-black h-px w-4 whitespace-nowrap">
+                                <a
+                                  className="block"
+                                  href="#"
+                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                                >
+                                  <div className="px-3 py-1">
+                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
+                                      {item.pelabuhan_asal}
+                                    </span>
+                                  </div>
+                                </a>
+                              </td>
+                              <td className="border border-black h-px w-4 whitespace-nowrap">
+                                <a
+                                  className="block"
+                                  href="#"
+                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                                >
+                                  <div className="px-3 py-1">
+                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
+                                      {item.pelabuhan_tujuan}
+                                    </span>
+                                  </div>
+                                </a>
+                              </td>
+                              <td className="border border-black h-px w-4 whitespace-nowrap">
+                                <a
+                                  className="block"
+                                  href="#"
+                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                                >
+                                  <div className="px-3 py-1">
+                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
+                                      {item.pelabuhan_tujuan_akhir}
+                                    </span>
+                                  </div>
+                                </a>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                    </tbody>
+                  </table>
+                </div>
                 {/* <!-- End Table --> */}
                 {/* <!-- Footer --> */}
                 <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200 dark:border-gray-700">
                   <div>
-                    <p className="text-xs text-gray-600  dark:text-gray-400">
+                    <p className="text-[10px] text-gray-600  dark:text-gray-400">
                       <span className="font-semibold text-gray-800 dark:text-gray-200">
                         {data.length}
                       </span>{" "}

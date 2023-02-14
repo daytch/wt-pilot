@@ -3,19 +3,26 @@ import { isObjectEmpty } from "./../../functions/index";
 
 const labels = ["January", "February", "March", "April", "May", "June", "July"];
 const activeMenu = JSON.parse(localStorage.getItem("activeMenu"));
+const activeTabMenu = JSON.parse(localStorage.getItem("activeTabMenu"));
 export const dashboardSlice = createSlice({
   name: "Dashboard",
   initialState: {
     activeSidebarMenu: isObjectEmpty(activeMenu)
       ? {
           dashboard: true,
-          input: false,
-          masuk: false,
-          keluar: false,
-          laporan: false,
+          jadwal: false,
+          ppkb: false,
+          realisasi: false,
         }
       : activeMenu,
-
+    activeTabMenu: isObjectEmpty(activeTabMenu)
+      ? {
+          dashboard: true,
+          jadwal: false,
+          ppkb: false,
+          realisasi: false,
+        }
+      : activeTabMenu,
     loading: false,
     data: {
       labels: labels,
@@ -47,6 +54,11 @@ export const dashboardSlice = createSlice({
     changeActiveSidebarMenu: (state, action) => {
       state.activeSidebarMenu = action.payload;
       localStorage.setItem("activeMenu", JSON.stringify(action.payload));
+    },
+
+    changeActiveTabMenu: (state, action) => {
+      state.activeTabMenu = action.payload;
+      localStorage.setItem("activeTabMenu", JSON.stringify(action.payload));
     },
 
     toogleLoading: (state, action) => {
@@ -147,6 +159,7 @@ export const dashboardSlice = createSlice({
 
 export const {
   changeActiveSidebarMenu,
+  changeActiveTabMenu,
   toogleLoading,
   getData,
   getDataSuccess,

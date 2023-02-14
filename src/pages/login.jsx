@@ -6,11 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { history } from "../helpers/history.js";
 import { isObjectEmpty } from "../functions/index.js";
 import Loader from "../components/Loader";
-// import Swal from "sweetalert2";
-// import withReactContent from "sweetalert2-react-content";
 import { ErrorMessage } from "../components/Notification";
-
-// const MySwal = withReactContent(Swal);
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -47,11 +43,6 @@ const Login = () => {
 
   useEffect(() => {
     if (error) {
-      // MySwal.fire({
-      //   title: <strong>Failed!</strong>,
-      //   html: error,
-      //   icon: "error",
-      // });
       ErrorMessage("", error);
     }
   }, [error]);

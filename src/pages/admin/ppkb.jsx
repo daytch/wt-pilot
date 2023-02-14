@@ -315,7 +315,7 @@ const Ppkb = () => {
 
   const renderHeader = () => {
     return notApproved ? (
-      <div>
+      <div className="px-3">
         <h5>PKK</h5>
         <div
           className="rounded-0"
@@ -324,117 +324,117 @@ const Ppkb = () => {
           <table style={{ whiteSpace: "nowrap" }} id="table">
             <thead className="bg-gray-50 dark:bg-slate-900">
               <tr className="text-center">
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black"></th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black"></th>
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NO
                 </th>
 
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NOMOR PKK
                 </th>
 
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NAMA PERUSAHAAN
                 </th>
 
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NPWP
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   TANDA PENDAFTARAN KAPAL
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NAMA KAPAL
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NAHKODA
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   DRT
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   GRT
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   LOA
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   JENIS KAPAL
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   TAHUN PEMBUATAN
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   LEBAR KAPAL
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   DRAFT MAX
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   DRAFT DEPAN
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   DRAFT BELAKANG
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   DRAFT TENGAH
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   JENIS TRAYEK
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   BENDERA
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   CALL SIGN
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   TANGGAL ETA
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   TANGGAL ETD
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   KODE PELABUHAN ASAL
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   PELABUHAN ASAL
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   KODE PELABUHAN TUJUAN
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   PELABUHAN TUJUAN
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   KODE TUJUAN AKHIR PELABUHAN
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   PELABUHAN TUJUAN AKHIR
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NOMOR TRAYEK
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   DERMAGA NAMA
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   STATUS BM
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   JENIS BARANG
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   JUMLAH MUAT
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   PORT CODE
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   STATUS
                 </th>
 
-                {/* <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">Option</th> */}
+                {/* <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">Option</th> */}
               </tr>
             </thead>
             <tbody>
@@ -452,7 +452,7 @@ const Ppkb = () => {
         </div>
       </div>
     ) : (
-      <div>
+      <div className="px-3">
         <h5>PPKB</h5>
         <div
           className="rounded-0"
@@ -461,37 +461,37 @@ const Ppkb = () => {
           <table style={{ whiteSpace: "nowrap" }} id="table">
             <thead className="bg-gray-50 dark:bg-slate-900">
               <tr className="text-center">
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black"></th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black"></th>
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NO
                 </th>
 
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NOMOR PKK
                 </th>
 
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NOMOR PPKB
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   TANGGAL PPKB
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NOMOR PPK
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   TANGGAL RENCANA
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   JAM RENCANA
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   LOKASI
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   KEGIATAN
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   KETERANGAN
                 </th>
               </tr>
@@ -514,82 +514,82 @@ const Ppkb = () => {
 
   const renderDetail = () => {
     return notApproved ? (
-      <div>
+      <div className="px-3">
         <h5>RKBM</h5>
         <div
           className="rounded-0"
           style={{ maxWidth: "100%", overflow: "auto", maxHeight: "30vh" }}
         >
-          <table className="text-xs min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+          <table className="text-[10px] min-w-full divide-y divide-gray-200 dark:divide-gray-700">
             <thead className="bg-gray-50 dark:bg-slate-900">
               <tr className="text-center">
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NO
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NOMOR RKBM
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NAMA BARANG
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   BAHAYA
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   GANGGU
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   KEGIATAN
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   UNIT
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   TON
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   M3
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   PENYALURAN
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   KADE
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   PBM
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NPWP PBM
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   CONSIGNEE
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   SHIPPER
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NPWP SHIPPER
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NOMOR BILL OF LANDING
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   JUMLAH GANG (Kelompok Kerja)
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   PALKA
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NOMOR RKBM BONGKAR
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NOMOR RKBM MUAT
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   RENCANA BONGKAR
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   RENCANA MUAT
                 </th>
               </tr>
@@ -609,76 +609,76 @@ const Ppkb = () => {
         </div>
       </div>
     ) : (
-      <div>
+      <div className="px-3">
         <h5>DETAIL PPKB</h5>
         <div
           className="rounded-0"
           style={{ maxWidth: "100%", overflow: "auto", maxHeight: "30vh" }}
         >
-          <table className="text-xs min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+          <table className="text-[10px] min-w-full divide-y divide-gray-200 dark:divide-gray-700">
             <thead className="bg-gray-50 dark:bg-slate-900">
               <tr className="text-center">
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NO
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NAMA BARANG
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   BAHAYA
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   GANGGU
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   KEGIATAN
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   UNIT TON
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   M3
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   PENYALURAN
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   KADE
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   PBM
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NPWP PBM
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   CONSIGNEE
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   SHIPPER
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NPWP SHIPPER
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NOMOR BILL OF LANDING
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   JUMLAH GANG (Kelompok Kerja)
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   PALKA
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NOMOR RKBM BONGKAR
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NOMOR RKBM MUAT
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   RENCANA BONGKAR
                 </th>
-                <th className="text-xs whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   RENCANA MUAT
                 </th>
               </tr>
@@ -702,7 +702,7 @@ const Ppkb = () => {
 
   return (
     <>
-      <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+      <div className="max-w-[85rem] py-3 mx-auto">
         {/* <!-- Card --> */}
         <div className="flex flex-col">
           <div className="-m-1.5 overflow-x-auto">
@@ -748,7 +748,7 @@ const Ppkb = () => {
                 </h3>
                 <button
                   type="button"
-                  className="inline-flex flex-shrink-0 justify-center items-center h-8 w-8 rounded-md text-gray-500 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-sm dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800"
+                  className="inline-flex flex-shrink-0 justify-center items-center h-8 w-8 rounded-md text-gray-500 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-[10px] dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800"
                   data-hs-overlay="#hs-bg-gray-on-hover-cards1"
                 >
                   <span className="sr-only">Close</span>
@@ -777,7 +777,7 @@ const Ppkb = () => {
                           <div>
                             <label
                               htmlFor="no_ppkb"
-                              className="block text-sm mb-2 dark:text-white"
+                              className="block text-[10px] mb-2 dark:text-white"
                             >
                               Nomor PPKB
                             </label>
@@ -787,7 +787,7 @@ const Ppkb = () => {
                                 id="no_ppkb"
                                 name="no_ppkb"
                                 placeholder="Nomor PPKB"
-                                className="py-1 px-2 block w-full border-gray-300 rounded border-2 text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+                                className="py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
                                 required
                                 aria-describedby="no_ppkb-error"
                               />
@@ -805,7 +805,7 @@ const Ppkb = () => {
                               </div>
                             </div>
                             <p
-                              className="hidden text-xs text-red-600 mt-2"
+                              className="hidden text-[10px] text-red-600 mt-2"
                               id="no_ppkb-error"
                             >
                               Please include a valid email address so we can get
@@ -815,14 +815,14 @@ const Ppkb = () => {
                           <div>
                             <label
                               htmlFor="tgl_ppkb"
-                              className="block text-sm mb-2 dark:text-white"
+                              className="block text-[10px] mb-2 dark:text-white"
                             >
                               Tanggal PPKB
                             </label>
                             <div className="relative">
                               <DatePicker
                                 wrapperClassName="wrapperdatePicker"
-                                className="dateandtimepicker-hp py-1 px-2 block w-full border-gray-300 rounded border-2 text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+                                className="dateandtimepicker-hp py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
                                 dateFormat="dd-MM-yyyy"
                                 placeholderText="Tanggal PPKB"
                                 aria-describedby="tgl_ppkb-error"
@@ -836,7 +836,7 @@ const Ppkb = () => {
                               </div>
                             </div>
                             <p
-                              className="hidden text-xs text-red-600 mt-2"
+                              className="hidden text-[10px] text-red-600 mt-2"
                               id="tgl_ppkb-error"
                             >
                               Please include a valid email address so we can get
@@ -846,7 +846,7 @@ const Ppkb = () => {
                           <div>
                             <label
                               htmlFor="no_pkk"
-                              className="block text-sm mb-2 dark:text-white"
+                              className="block text-[10px] mb-2 dark:text-white"
                             >
                               Nomor PKK
                             </label>
@@ -856,7 +856,7 @@ const Ppkb = () => {
                                 id="no_pkk"
                                 name="no_pkk"
                                 placeholder="Nomor PKK"
-                                className="py-1 px-2 block w-full border-gray-300 rounded border-2 text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+                                className="py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
                                 disabled
                                 aria-describedby="no_pkk-error"
                               />
@@ -874,7 +874,7 @@ const Ppkb = () => {
                               </div>
                             </div>
                             <p
-                              className="hidden text-xs text-red-600 mt-2"
+                              className="hidden text-[10px] text-red-600 mt-2"
                               id="email-error"
                             >
                               Please include a valid email address so we can get
@@ -887,14 +887,14 @@ const Ppkb = () => {
                           <div>
                             <label
                               htmlFor="email"
-                              className="block text-sm mb-2 dark:text-white"
+                              className="block text-[10px] mb-2 dark:text-white"
                             >
                               Tanggal Rencana
                             </label>
                             <div className="relative">
                               <DatePicker
                                 wrapperClassName="wrapperdatePicker"
-                                className="dateandtimepicker-hp py-1 px-2 block w-full border-gray-300 rounded border-2 text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+                                className="dateandtimepicker-hp py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
                                 dateFormat="dd-MM-yyyy"
                                 placeholderText="Tanggal PPKB"
                                 aria-describedby="tgl_ppkb-error"
@@ -911,7 +911,7 @@ const Ppkb = () => {
                           <div>
                             <label
                               htmlFor="email"
-                              className="block text-sm mb-2 dark:text-white"
+                              className="block text-[10px] mb-2 dark:text-white"
                             >
                               Jam Rencana
                             </label>
@@ -928,7 +928,7 @@ const Ppkb = () => {
                                 wrapperClassName="wrapperdatePicker"
                                 placeholderText="Jam Rencana"
                                 aria-describedby="jam_rencana-error"
-                                className="datepicker py-1 px-2 block w-full border-gray-300 rounded border-2 text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+                                className="datepicker py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
                               />
                               <div className="flex absolute inset-y-0 right-0 items-center pointer-events-none pr-3">
                                 <ClockIcon className="h-5 w-5" />
@@ -940,7 +940,7 @@ const Ppkb = () => {
                         <div>
                           <label
                             htmlFor="lokasi"
-                            className="block text-sm mb-2 dark:text-white"
+                            className="block text-[10px] mb-2 dark:text-white"
                           >
                             Lokasi
                           </label>
@@ -950,7 +950,7 @@ const Ppkb = () => {
                               id="lokasi"
                               name="lokasi"
                               placeholder="Lokasi"
-                              className="py-1 px-2 block w-full border-gray-300 rounded border-2 text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+                              className="py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
                               required
                               aria-describedby="lokasi-error"
                             />
@@ -968,7 +968,7 @@ const Ppkb = () => {
                             </div>
                           </div>
                           <p
-                            className="hidden text-xs text-red-600 mt-2"
+                            className="hidden text-[10px] text-red-600 mt-2"
                             id="lokasi-error"
                           >
                             Please include a valid email address so we can get
@@ -978,7 +978,7 @@ const Ppkb = () => {
                         <div>
                           <label
                             htmlFor="kegiatan"
-                            className="block text-sm mb-2 dark:text-white"
+                            className="block text-[10px] mb-2 dark:text-white"
                           >
                             Kegiatan
                           </label>
@@ -988,7 +988,7 @@ const Ppkb = () => {
                               id="kegiatan"
                               name="kegiatan"
                               placeholder="Kegiatan"
-                              className="py-1 px-2 block w-full border-gray-300 rounded border-2 text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+                              className="py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
                               required
                               aria-describedby="kegiatan-error"
                             />
@@ -1006,7 +1006,7 @@ const Ppkb = () => {
                             </div>
                           </div>
                           <p
-                            className="hidden text-xs text-red-600 mt-2"
+                            className="hidden text-[10px] text-red-600 mt-2"
                             id="kegiatan-error"
                           >
                             Please include a valid email address so we can get
@@ -1016,7 +1016,7 @@ const Ppkb = () => {
                         <div>
                           <label
                             htmlFor="email"
-                            className="block text-sm mb-2 dark:text-white"
+                            className="block text-[10px] mb-2 dark:text-white"
                           >
                             Keterangan
                           </label>
@@ -1027,7 +1027,7 @@ const Ppkb = () => {
                               id="keterangan"
                               name="keterangan"
                               placeholder="Keterangan"
-                              className="py-1 px-2 block w-full border-gray-300 rounded border-2 text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+                              className="py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
                               required
                               aria-describedby="keterangan-error"
                             ></textarea>
@@ -1045,7 +1045,7 @@ const Ppkb = () => {
                             </div>
                           </div>
                           <p
-                            className="hidden text-xs text-red-600 mt-2"
+                            className="hidden text-[10px] text-red-600 mt-2"
                             id="keterangan-error"
                           >
                             Please include a valid email address so we can get
@@ -1054,34 +1054,34 @@ const Ppkb = () => {
                         </div>
 
                         <div className="overflow-x-auto">
-                          <table className="text-xs min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                          <table className="text-[10px] min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                             <thead className="bg-gray-50 dark:bg-slate-900">
                               <tr className="text-center">
                                 <td></td>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       NO
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       NOMOR RKBM
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       NAMA BARANG
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       BAHAYA
                                     </span>
                                   </div>
@@ -1089,7 +1089,7 @@ const Ppkb = () => {
 
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       GANGGU
                                     </span>
                                   </div>
@@ -1097,7 +1097,7 @@ const Ppkb = () => {
 
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       KEGIATAN
                                     </span>
                                   </div>
@@ -1105,7 +1105,7 @@ const Ppkb = () => {
 
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       UNIT
                                     </span>
                                   </div>
@@ -1113,112 +1113,112 @@ const Ppkb = () => {
 
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       TON
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       M3
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       PENYALURAN
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       KADE
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       PBM
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       NPWP PBM
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       CONSIGNEE
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       SHIPPER
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       NPWP SHIPPER
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       NOMOR BILL OF LANDING
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       JUMLAH GANG (Kelompok Kerja)
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       PALKA
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       NOMOR RKBM BONGKAR
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       NOMOR RKBM MUAT
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       RENCANA BONGKAR
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-xs px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       RENCANA MUAT
                                     </span>
                                   </div>
@@ -1239,7 +1239,7 @@ const Ppkb = () => {
 
                         <button
                           type="submit"
-                          className="py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+                          className="py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-[10px] dark:focus:ring-offset-gray-800"
                         >
                           Sign in
                         </button>

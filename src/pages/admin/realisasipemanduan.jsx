@@ -66,8 +66,8 @@ const RealisasiPemanduan = () => {
             startDate
           )}&ToDate=${handleDateAPI(
             ToDate
-          )}&Cabang=${MMCode}&Agen=${AgentUserLogin}&Kapal=${Kapal}&Pemandu=${Pemandu}`;
-
+          )}&Cabang=${MMCode}&Agen=&Kapal=${Kapal}&Pemandu=${Pemandu}`;
+    // ${AgentUserLogin}
     dispatch(getDataLaporan(url));
   };
 
@@ -146,7 +146,7 @@ const RealisasiPemanduan = () => {
 
   return (
     <>
-      <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+      <div className="max-w-[85rem] py-3 mx-auto">
         {/* <!-- Card --> */}
         <div className="flex flex-col">
           <div className="-m-1.5 overflow-x-auto">
@@ -179,406 +179,408 @@ const RealisasiPemanduan = () => {
                 {/* <!-- End Accordion --> */}
 
                 {/* <!-- Table --> */}
-                <table className="text-xs min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                  <thead className="bg-gray-50 dark:bg-slate-900">
-                    <tr className="text-center">
-                      {/* <th rowSpan={3} className="border border-black"></th> */}
-                      <th
-                        rowSpan={3}
-                        scope="col"
-                        className="px-3 py-1 text-left border border-black"
-                      >
-                        <div className="flex justify-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            no.
-                          </span>
-                        </div>
-                      </th>
-                      <th rowSpan={3} className="border border-black">
-                        <div className="flex justify-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            nama kapal
-                          </span>
-                        </div>
-                      </th>
+                <div className="px-3">
+                  <table className="text-[10px] min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                    <thead className="bg-gray-50 dark:bg-slate-900">
+                      <tr className="text-center">
+                        {/* <th rowSpan={3} className="border border-black"></th> */}
+                        <th
+                          rowSpan={3}
+                          scope="col"
+                          className="px-3 py-1 text-left border border-black"
+                        >
+                          <div className="flex justify-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              no.
+                            </span>
+                          </div>
+                        </th>
+                        <th rowSpan={3} className="border border-black">
+                          <div className="flex justify-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              nama kapal
+                            </span>
+                          </div>
+                        </th>
 
-                      {/* <th rowSpan={3} className="border border-black">
+                        {/* <th rowSpan={3} className="border border-black">
                         <div className="flex justify-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                          <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                             GERAKAN KAPAL 
                           </span>
                         </div>
                       </th> */}
 
-                      <th colSpan={4} className="border border-black">
-                        <div className="flex justify-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            GERAKAN KAPAL masuk
-                          </span>
-                        </div>
-                      </th>
+                        <th colSpan={4} className="border border-black">
+                          <div className="flex justify-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              GERAKAN KAPAL masuk
+                            </span>
+                          </div>
+                        </th>
 
-                      <th colSpan={4} className="border border-black">
-                        <div className="flex justify-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            GERAKAN KAPAL pindah
-                          </span>
-                        </div>
-                      </th>
+                        <th colSpan={4} className="border border-black">
+                          <div className="flex justify-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              GERAKAN KAPAL pindah
+                            </span>
+                          </div>
+                        </th>
 
-                      <th colSpan={4} className="border border-black">
-                        <div className="flex justify-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            GERAKAN KAPAL keluar
-                          </span>
-                        </div>
-                      </th>
-                    </tr>
+                        <th colSpan={4} className="border border-black">
+                          <div className="flex justify-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              GERAKAN KAPAL keluar
+                            </span>
+                          </div>
+                        </th>
+                      </tr>
 
-                    <tr className="text-center">
-                      <th rowSpan={2} className="border border-black">
-                        <div className="flex justify-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            MASUK
-                          </span>
-                        </div>
-                      </th>
-                      <th colSpan={2} className="border border-black">
-                        <div className="flex justify-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            WAKTU
-                          </span>
-                        </div>
-                      </th>
-                      <th rowSpan={2} className="border border-black">
-                        <div className="flex justify-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            JAM
-                          </span>
-                        </div>
-                      </th>
+                      <tr className="text-center">
+                        <th rowSpan={2} className="border border-black">
+                          <div className="flex justify-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              MASUK
+                            </span>
+                          </div>
+                        </th>
+                        <th colSpan={2} className="border border-black">
+                          <div className="flex justify-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              WAKTU
+                            </span>
+                          </div>
+                        </th>
+                        <th rowSpan={2} className="border border-black">
+                          <div className="flex justify-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              JAM
+                            </span>
+                          </div>
+                        </th>
 
-                      <th rowSpan={2} className="border border-black">
-                        <div className="flex justify-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            PINDAH
-                          </span>
-                        </div>
-                      </th>
-                      <th colSpan={2} className="border border-black">
-                        <div className="flex justify-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            WAKTU
-                          </span>
-                        </div>
-                      </th>
-                      <th rowSpan={2} className="border border-black">
-                        <div className="flex justify-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            JAM
-                          </span>
-                        </div>
-                      </th>
+                        <th rowSpan={2} className="border border-black">
+                          <div className="flex justify-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              PINDAH
+                            </span>
+                          </div>
+                        </th>
+                        <th colSpan={2} className="border border-black">
+                          <div className="flex justify-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              WAKTU
+                            </span>
+                          </div>
+                        </th>
+                        <th rowSpan={2} className="border border-black">
+                          <div className="flex justify-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              JAM
+                            </span>
+                          </div>
+                        </th>
 
-                      <th rowSpan={2} className="border border-black">
-                        <div className="flex justify-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            KELUAR
-                          </span>
-                        </div>
-                      </th>
-                      <th colSpan={2} className="border border-black">
-                        <div className="flex justify-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            WAKTU
-                          </span>
-                        </div>
-                      </th>
-                      <th rowSpan={2} className="border border-black">
-                        <div className="flex justify-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            JAM
-                          </span>
-                        </div>
-                      </th>
-                    </tr>
+                        <th rowSpan={2} className="border border-black">
+                          <div className="flex justify-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              KELUAR
+                            </span>
+                          </div>
+                        </th>
+                        <th colSpan={2} className="border border-black">
+                          <div className="flex justify-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              WAKTU
+                            </span>
+                          </div>
+                        </th>
+                        <th rowSpan={2} className="border border-black">
+                          <div className="flex justify-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              JAM
+                            </span>
+                          </div>
+                        </th>
+                      </tr>
 
-                    <tr className="text-center">
-                      <th rowSpan={2} className="border border-black">
-                        <div className="flex justify-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            MULAI
-                          </span>
-                        </div>
-                      </th>
-                      <th rowSpan={2} className="border border-black">
-                        <div className="flex justify-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            SELESAI
-                          </span>
-                        </div>
-                      </th>
-                      <th rowSpan={2} className="border border-black">
-                        <div className="flex justify-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            MULAI
-                          </span>
-                        </div>
-                      </th>
-                      <th rowSpan={2} className="border border-black">
-                        <div className="flex justify-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            SELESAI
-                          </span>
-                        </div>
-                      </th>
-                      <th rowSpan={2} className="border border-black">
-                        <div className="flex justify-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            MULAI
-                          </span>
-                        </div>
-                      </th>
-                      <th rowSpan={2} className="border border-black">
-                        <div className="flex justify-center gap-x-2">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            SELESAI
-                          </span>
-                        </div>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y overflow-y-auto divide-gray-200 dark:divide-gray-700">
-                    {data?.datadetail?.length > 0 &&
-                      data.datadetail.map((item, idx) => {
-                        return (
-                          <tr
-                            key={idx}
-                            className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800"
-                            onClick={() => setDetail(item)}
-                          >
-                            <td className="border border-black text-xs h-px w-4 whitespace-nowrap">
-                              <a
-                                className="block"
-                                href="#"
-                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                              >
-                                <div className="px-3 py-1">
-                                  <span className="text-xs text-gray-600  dark:text-gray-400">
-                                    {idx + 1}
-                                  </span>
-                                </div>
-                              </a>
-                            </td>
-                            <td className="border border-black h-px w-4 whitespace-nowrap">
-                              <a
-                                className="block"
-                                href="#"
-                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                              >
-                                <div className="px-3 py-1">
-                                  <span className="text-xs text-gray-600  dark:text-gray-400">
-                                    {item.NamaKapal}
-                                  </span>
-                                </div>
-                              </a>
-                            </td>
-                            <td className="border border-black h-px w-4 whitespace-nowrap">
-                              <a
-                                className="block"
-                                href="#"
-                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                              >
-                                <div className="px-3 py-1">
-                                  <span className="text-xs text-gray-600  dark:text-gray-400">
-                                    {item.TglBPPTMasuk}
-                                  </span>
-                                </div>
-                              </a>
-                            </td>
-                            <td className="border border-black h-px w-4 whitespace-nowrap">
-                              <a
-                                className="block"
-                                href="#"
-                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                              >
-                                <div className="px-3 py-1">
-                                  <span className="text-xs text-gray-600  dark:text-gray-400">
-                                    {item.MulaiPanduMasuk &&
-                                    new Date(
-                                      item.MulaiPanduMasuk
-                                    ).getFullYear() > 2000
-                                      ? sliceHour(item.MulaiPanduMasuk)
-                                      : ""}
-                                  </span>
-                                </div>
-                              </a>
-                            </td>
-                            <td className="border border-black h-px w-4 whitespace-nowrap">
-                              <a
-                                className="block"
-                                href="#"
-                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                              >
-                                <div className="px-3 py-1">
-                                  <span className="text-xs text-gray-600  dark:text-gray-400">
-                                    {item.SelesaiPanduMasuk &&
-                                    new Date(
-                                      item.SelesaiPanduMasuk
-                                    ).getFullYear() > 2000
-                                      ? sliceHour(item.SelesaiPanduMasuk)
-                                      : ""}
-                                  </span>
-                                </div>
-                              </a>
-                            </td>
-                            <td className="border border-black h-px w-4 whitespace-nowrap">
-                              <a
-                                className="block"
-                                href="#"
-                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                              >
-                                <div className="px-3 py-1">
-                                  <span className="text-xs text-gray-600  dark:text-gray-400">
-                                    {item.TotaljamPanduMasuk}
-                                  </span>
-                                </div>
-                              </a>
-                            </td>
-                            <td className="border border-black h-px w-4 whitespace-nowrap">
-                              <a
-                                className="block"
-                                href="#"
-                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                              >
-                                <div className="px-3 py-1">
-                                  <span className="text-xs text-gray-600  dark:text-gray-400">
-                                    {item.TanggalPindah}
-                                  </span>
-                                </div>
-                              </a>
-                            </td>
-                            <td className="border border-black h-px w-4 whitespace-nowrap">
-                              <a
-                                className="block"
-                                href="#"
-                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                              >
-                                <div className="px-3 py-1">
-                                  <span className="text-xs text-gray-600  dark:text-gray-400">
-                                    {item.MulaiPanduPindah &&
-                                    new Date(
-                                      item.MulaiPanduPindah
-                                    ).getFullYear() > 2000
-                                      ? sliceHour(item.MulaiPanduPindah)
-                                      : ""}
-                                  </span>
-                                </div>
-                              </a>
-                            </td>
-                            <td className="border border-black h-px w-4 whitespace-nowrap">
-                              <a
-                                className="block"
-                                href="#"
-                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                              >
-                                <div className="px-3 py-1">
-                                  <span className="text-xs text-gray-600  dark:text-gray-400">
-                                    {item.SelesaiPanduPindah &&
-                                    new Date(
-                                      item.SelesaiPanduPindah
-                                    ).getFullYear() > 2000
-                                      ? sliceHour(item.SelesaiPanduPindah)
-                                      : ""}
-                                  </span>
-                                </div>
-                              </a>
-                            </td>
-                            <td className="border border-black h-px w-4 whitespace-nowrap">
-                              <a
-                                className="block"
-                                href="#"
-                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                              >
-                                <div className="px-3 py-1">
-                                  <span className="text-xs text-gray-600  dark:text-gray-400">
-                                    {item.TotaljamPanduPindah}
-                                  </span>
-                                </div>
-                              </a>
-                            </td>
-                            <td className="border border-black h-px w-4 whitespace-nowrap">
-                              <a
-                                className="block"
-                                href="#"
-                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                              >
-                                <div className="px-3 py-1">
-                                  <span className="text-xs text-gray-600  dark:text-gray-400">
-                                    {item.TanggalKeluar}
-                                  </span>
-                                </div>
-                              </a>
-                            </td>
-                            <td className="border border-black h-px w-4 whitespace-nowrap">
-                              <a
-                                className="block"
-                                href="#"
-                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                              >
-                                <div className="px-3 py-1">
-                                  <span className="text-xs text-gray-600  dark:text-gray-400">
-                                    {item.MulaiPanduKeluar &&
-                                    new Date(
-                                      item.MulaiPanduKeluar
-                                    ).getFullYear() > 2000
-                                      ? sliceHour(item.MulaiPanduKeluar)
-                                      : ""}
-                                  </span>
-                                </div>
-                              </a>
-                            </td>
-                            <td className="border border-black h-px w-4 whitespace-nowrap">
-                              <a
-                                className="block"
-                                href="#"
-                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                              >
-                                <div className="px-3 py-1">
-                                  <span className="text-xs text-gray-600  dark:text-gray-400">
-                                    {item.SelesaiPanduKeluar &&
-                                    new Date(
-                                      item.SelesaiPanduKeluar
-                                    ).getFullYear() > 2000
-                                      ? sliceHour(item.SelesaiPanduKeluar)
-                                      : ""}
-                                  </span>
-                                </div>
-                              </a>
-                            </td>
-                            <td className="border border-black h-px w-4 whitespace-nowrap">
-                              <a
-                                className="block"
-                                href="#"
-                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                              >
-                                <div className="px-3 py-1">
-                                  <span className="text-xs text-gray-600  dark:text-gray-400">
-                                    {item.TotalJamPanduKeluar}
-                                  </span>
-                                </div>
-                              </a>
-                            </td>
-                          </tr>
-                        );
-                      })}
-                  </tbody>
-                </table>
+                      <tr className="text-center">
+                        <th rowSpan={2} className="border border-black">
+                          <div className="flex justify-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              MULAI
+                            </span>
+                          </div>
+                        </th>
+                        <th rowSpan={2} className="border border-black">
+                          <div className="flex justify-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              SELESAI
+                            </span>
+                          </div>
+                        </th>
+                        <th rowSpan={2} className="border border-black">
+                          <div className="flex justify-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              MULAI
+                            </span>
+                          </div>
+                        </th>
+                        <th rowSpan={2} className="border border-black">
+                          <div className="flex justify-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              SELESAI
+                            </span>
+                          </div>
+                        </th>
+                        <th rowSpan={2} className="border border-black">
+                          <div className="flex justify-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              MULAI
+                            </span>
+                          </div>
+                        </th>
+                        <th rowSpan={2} className="border border-black">
+                          <div className="flex justify-center gap-x-2">
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                              SELESAI
+                            </span>
+                          </div>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y overflow-y-auto divide-gray-200 dark:divide-gray-700">
+                      {data?.datadetail?.length > 0 &&
+                        data.datadetail.map((item, idx) => {
+                          return (
+                            <tr
+                              key={idx}
+                              className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800"
+                              onClick={() => setDetail(item)}
+                            >
+                              <td className="border border-black text-[10px] h-px w-4 whitespace-nowrap">
+                                <a
+                                  className="block"
+                                  href="#"
+                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                                >
+                                  <div className="px-3 py-1">
+                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
+                                      {idx + 1}
+                                    </span>
+                                  </div>
+                                </a>
+                              </td>
+                              <td className="border border-black h-px w-4 whitespace-nowrap">
+                                <a
+                                  className="block"
+                                  href="#"
+                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                                >
+                                  <div className="px-3 py-1">
+                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
+                                      {item.NamaKapal}
+                                    </span>
+                                  </div>
+                                </a>
+                              </td>
+                              <td className="border border-black h-px w-4 whitespace-nowrap">
+                                <a
+                                  className="block"
+                                  href="#"
+                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                                >
+                                  <div className="px-3 py-1">
+                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
+                                      {item.TglBPPTMasuk}
+                                    </span>
+                                  </div>
+                                </a>
+                              </td>
+                              <td className="border border-black h-px w-4 whitespace-nowrap">
+                                <a
+                                  className="block"
+                                  href="#"
+                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                                >
+                                  <div className="px-3 py-1">
+                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
+                                      {item.MulaiPanduMasuk &&
+                                      new Date(
+                                        item.MulaiPanduMasuk
+                                      ).getFullYear() > 2000
+                                        ? sliceHour(item.MulaiPanduMasuk)
+                                        : ""}
+                                    </span>
+                                  </div>
+                                </a>
+                              </td>
+                              <td className="border border-black h-px w-4 whitespace-nowrap">
+                                <a
+                                  className="block"
+                                  href="#"
+                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                                >
+                                  <div className="px-3 py-1">
+                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
+                                      {item.SelesaiPanduMasuk &&
+                                      new Date(
+                                        item.SelesaiPanduMasuk
+                                      ).getFullYear() > 2000
+                                        ? sliceHour(item.SelesaiPanduMasuk)
+                                        : ""}
+                                    </span>
+                                  </div>
+                                </a>
+                              </td>
+                              <td className="border border-black h-px w-4 whitespace-nowrap">
+                                <a
+                                  className="block"
+                                  href="#"
+                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                                >
+                                  <div className="px-3 py-1">
+                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
+                                      {item.TotaljamPanduMasuk}
+                                    </span>
+                                  </div>
+                                </a>
+                              </td>
+                              <td className="border border-black h-px w-4 whitespace-nowrap">
+                                <a
+                                  className="block"
+                                  href="#"
+                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                                >
+                                  <div className="px-3 py-1">
+                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
+                                      {item.TanggalPindah}
+                                    </span>
+                                  </div>
+                                </a>
+                              </td>
+                              <td className="border border-black h-px w-4 whitespace-nowrap">
+                                <a
+                                  className="block"
+                                  href="#"
+                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                                >
+                                  <div className="px-3 py-1">
+                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
+                                      {item.MulaiPanduPindah &&
+                                      new Date(
+                                        item.MulaiPanduPindah
+                                      ).getFullYear() > 2000
+                                        ? sliceHour(item.MulaiPanduPindah)
+                                        : ""}
+                                    </span>
+                                  </div>
+                                </a>
+                              </td>
+                              <td className="border border-black h-px w-4 whitespace-nowrap">
+                                <a
+                                  className="block"
+                                  href="#"
+                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                                >
+                                  <div className="px-3 py-1">
+                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
+                                      {item.SelesaiPanduPindah &&
+                                      new Date(
+                                        item.SelesaiPanduPindah
+                                      ).getFullYear() > 2000
+                                        ? sliceHour(item.SelesaiPanduPindah)
+                                        : ""}
+                                    </span>
+                                  </div>
+                                </a>
+                              </td>
+                              <td className="border border-black h-px w-4 whitespace-nowrap">
+                                <a
+                                  className="block"
+                                  href="#"
+                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                                >
+                                  <div className="px-3 py-1">
+                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
+                                      {item.TotaljamPanduPindah}
+                                    </span>
+                                  </div>
+                                </a>
+                              </td>
+                              <td className="border border-black h-px w-4 whitespace-nowrap">
+                                <a
+                                  className="block"
+                                  href="#"
+                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                                >
+                                  <div className="px-3 py-1">
+                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
+                                      {item.TanggalKeluar}
+                                    </span>
+                                  </div>
+                                </a>
+                              </td>
+                              <td className="border border-black h-px w-4 whitespace-nowrap">
+                                <a
+                                  className="block"
+                                  href="#"
+                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                                >
+                                  <div className="px-3 py-1">
+                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
+                                      {item.MulaiPanduKeluar &&
+                                      new Date(
+                                        item.MulaiPanduKeluar
+                                      ).getFullYear() > 2000
+                                        ? sliceHour(item.MulaiPanduKeluar)
+                                        : ""}
+                                    </span>
+                                  </div>
+                                </a>
+                              </td>
+                              <td className="border border-black h-px w-4 whitespace-nowrap">
+                                <a
+                                  className="block"
+                                  href="#"
+                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                                >
+                                  <div className="px-3 py-1">
+                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
+                                      {item.SelesaiPanduKeluar &&
+                                      new Date(
+                                        item.SelesaiPanduKeluar
+                                      ).getFullYear() > 2000
+                                        ? sliceHour(item.SelesaiPanduKeluar)
+                                        : ""}
+                                    </span>
+                                  </div>
+                                </a>
+                              </td>
+                              <td className="border border-black h-px w-4 whitespace-nowrap">
+                                <a
+                                  className="block"
+                                  href="#"
+                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                                >
+                                  <div className="px-3 py-1">
+                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
+                                      {item.TotalJamPanduKeluar}
+                                    </span>
+                                  </div>
+                                </a>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                    </tbody>
+                  </table>
+                </div>
                 {/* <!-- End Table --> */}
                 {/* <!-- Footer --> */}
                 <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200 dark:border-gray-700">
                   <div>
-                    <p className="text-xs text-gray-600  dark:text-gray-400">
+                    <p className="text-[10px] text-gray-600  dark:text-gray-400">
                       <span className="font-semibold text-gray-800 dark:text-gray-200">
                         {data?.datadetail?.length}
                       </span>{" "}
