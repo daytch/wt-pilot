@@ -226,13 +226,13 @@ const Ppkb = () => {
             {item.kegiatan}
           </td>
           <td style={{ paddingLeft: "10px", paddingRight: "10px" }}>
-            {separateComma(parseFloat(item.unit).toFixed(2))}
+            {parseFloat(item.unit).toFixed(2)}
           </td>
           <td style={{ paddingLeft: "10px", paddingRight: "10px" }}>
-            {separateComma(parseFloat(item.ton).toFixed(2))}
+            {parseFloat(item.ton).toFixed(2)}
           </td>
           <td style={{ paddingLeft: "10px", paddingRight: "10px" }}>
-            {separateComma(parseFloat(item.m3).toFixed(2))}
+            {parseFloat(item.m3).toFixed(2)}
           </td>
           <td style={{ paddingLeft: "10px", paddingRight: "10px" }}>
             {item.penyaluran}
@@ -259,10 +259,10 @@ const Ppkb = () => {
             {item.no_bl}
           </td>
           <td style={{ paddingLeft: "10px", paddingRight: "10px" }}>
-            {separateComma(parseFloat(item.gang).toFixed(2))}
+            {parseFloat(item.gang).toFixed(2)}
           </td>
           <td style={{ paddingLeft: "10px", paddingRight: "10px" }}>
-            {separateComma(parseFloat(item.palka).toFixed(2))}
+            {parseFloat(item.palka).toFixed(2)}
           </td>
           <td style={{ paddingLeft: "10px", paddingRight: "10px" }}>
             {item.no_rkbm_bongkar}

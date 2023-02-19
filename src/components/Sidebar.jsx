@@ -18,12 +18,14 @@ import Loader from "./Loader";
 import Dashboard from "./../pages/admin/dashboard";
 import JadwalKedatangan from "./../pages/admin/jadwalkedatangan";
 import PPKB from "./../pages/admin/ppkb";
+import PNBP from "./../pages/admin/pnbp";
 import Realisasi from "./../pages/admin/realisasipemanduan";
 import { ConfirmationMessage } from "./Notification";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
-  const username = JSON.parse(localStorage.getItem("userData")).displayUserName;
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  const username = userData?.displayUserName;
   const loading = useSelector((state) => state.Dashboard.loading);
   const isActive = useSelector((state) => state.Dashboard.activeSidebarMenu);
   const isTabMenuActive = useSelector((state) => state.Dashboard.activeTabMenu);
@@ -44,6 +46,7 @@ const Sidebar = () => {
               jadwal: false,
               ppkb: false,
               realisasi: false,
+              pnbp: false,
             })
           )
         : dispatch(
@@ -52,6 +55,7 @@ const Sidebar = () => {
               jadwal: false,
               ppkb: false,
               realisasi: false,
+              pnbp: false,
             })
           );
     },
@@ -63,6 +67,7 @@ const Sidebar = () => {
               jadwal: true,
               ppkb: false,
               realisasi: false,
+              pnbp: false,
             })
           )
         : dispatch(
@@ -71,6 +76,7 @@ const Sidebar = () => {
               jadwal: true,
               ppkb: false,
               realisasi: false,
+              pnbp: false,
             })
           );
     },
@@ -82,6 +88,7 @@ const Sidebar = () => {
               jadwal: false,
               ppkb: true,
               realisasi: false,
+              pnbp: false,
             })
           )
         : dispatch(
@@ -90,6 +97,7 @@ const Sidebar = () => {
               jadwal: false,
               ppkb: true,
               realisasi: false,
+              pnbp: false,
             })
           );
     },
@@ -101,6 +109,7 @@ const Sidebar = () => {
               jadwal: false,
               ppkb: false,
               realisasi: true,
+              pnbp: false,
             })
           )
         : dispatch(
@@ -109,6 +118,28 @@ const Sidebar = () => {
               jadwal: false,
               ppkb: false,
               realisasi: true,
+              pnbp: false,
+            })
+          );
+    },
+    pnbp: (isLeftmenu) => {
+      isLeftmenu
+        ? dispatch(
+            changeActiveSidebarMenu({
+              dashboard: false,
+              jadwal: false,
+              ppkb: false,
+              realisasi: false,
+              pnbp: true,
+            })
+          )
+        : dispatch(
+            changeActiveTabMenu({
+              dashboard: false,
+              jadwal: false,
+              ppkb: false,
+              realisasi: false,
+              pnbp: true,
             })
           );
     },
@@ -127,6 +158,8 @@ const Sidebar = () => {
       <JadwalKedatangan />
     ) : isActive.ppkb ? (
       <PPKB />
+    ) : isActive.pnbp ? (
+      <PNBP />
     ) : isActive.realisasi ? (
       <Realisasi />
     ) : null;
@@ -145,6 +178,9 @@ const Sidebar = () => {
     realisasi: () => {
       return <MegaphoneIcon className="h-5 w-5" />;
     },
+    pnbp: () => {
+      return <CircleStackIcon className="h-5 w-5" />;
+    },
     logout: () => {
       return <ArrowRightOnRectangleIcon className="h-5 w-5" />;
     },
@@ -162,25 +198,44 @@ const Sidebar = () => {
       ? JSON.parse(localStorage.getItem("listTabMenu"))
       : [{ title: "Dashboard", name: "dashboard" }]
   );
-  
+
   let selectedMenu = {};
-  const Menus = [
-    { title: "Dashboard", name: "dashboard" },
-    {
-      title: "Jadwal Kedatangan",
-      name: "jadwal",
-    },
-    { title: "PPKB", name: "ppkb" },
-    {
-      title: "Realisasi Pemanduan ",
-      name: "realisasi",
-    },
-    {
-      title: "Logout ",
-      name: "logout",
-      gap: true,
-    },
-  ];
+  const Menus =
+    userData.UserType === "KSOP"
+      ? [
+          { title: "Dashboard", name: "dashboard" },
+          {
+            title: "Jadwal Kedatangan",
+            name: "jadwal",
+          },
+          { title: "PNBP", name: "pnbp" },
+          {
+            title: "Realisasi Pemanduan ",
+            name: "realisasi",
+          },
+          {
+            title: "Logout ",
+            name: "logout",
+            gap: true,
+          },
+        ]
+      : [
+          { title: "Dashboard", name: "dashboard" },
+          {
+            title: "Jadwal Kedatangan",
+            name: "jadwal",
+          },
+          { title: "PPKB", name: "ppkb" },
+          {
+            title: "Realisasi Pemanduan ",
+            name: "realisasi",
+          },
+          {
+            title: "Logout ",
+            name: "logout",
+            gap: true,
+          },
+        ];
 
   return (
     <div className="flex">
@@ -217,7 +272,6 @@ const Sidebar = () => {
               key={index}
               className={isActive[Menu.name] ? activeClass : inActiveClass}
               onClick={() => {
-                
                 if (tabMenu.map((x) => x.name).indexOf(Menu.name) > -1) {
                   selectedMenu = Menu;
                   ConfirmationMessage(

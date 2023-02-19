@@ -259,7 +259,7 @@ const JadwalKedatangan = () => {
                                   href="#"
                                   data-hs-overlay="#hs-bg-gray-on-hover-cards"
                                 >
-                                  <div className="px-3 py-1">
+                                  <div className="px-3 py-0">
                                     <span className="text-[10px] text-gray-600  dark:text-gray-400">
                                       {idx + 1}
                                     </span>
@@ -272,7 +272,7 @@ const JadwalKedatangan = () => {
                                   href="#"
                                   data-hs-overlay="#hs-bg-gray-on-hover-cards"
                                 >
-                                  <div className="px-3 py-1">
+                                  <div className="px-3 py-0">
                                     <span className="text-[10px] text-gray-600  dark:text-gray-400">
                                       {item.nomor_pkk}
                                     </span>
@@ -285,7 +285,7 @@ const JadwalKedatangan = () => {
                                   href="#"
                                   data-hs-overlay="#hs-bg-gray-on-hover-cards"
                                 >
-                                  <div className="px-3 py-1">
+                                  <div className="px-3 py-0">
                                     <span className="text-[10px] text-gray-600  dark:text-gray-400">
                                       {item.nama_perusahaan}
                                     </span>
@@ -298,7 +298,7 @@ const JadwalKedatangan = () => {
                                   href="#"
                                   data-hs-overlay="#hs-bg-gray-on-hover-cards"
                                 >
-                                  <div className="px-3 py-1">
+                                  <div className="px-3 py-0">
                                     <span className="text-[10px] text-gray-600  dark:text-gray-400">
                                       {item.nama_kapal}
                                     </span>
@@ -311,7 +311,7 @@ const JadwalKedatangan = () => {
                                   href="#"
                                   data-hs-overlay="#hs-bg-gray-on-hover-cards"
                                 >
-                                  <div className="px-3 py-1">
+                                  <div className="px-3 py-0">
                                     <span className="text-[10px] text-gray-600  dark:text-gray-400">
                                       {parseFloat(item.grt)}
                                     </span>
@@ -324,7 +324,7 @@ const JadwalKedatangan = () => {
                                   href="#"
                                   data-hs-overlay="#hs-bg-gray-on-hover-cards"
                                 >
-                                  <div className="px-3 py-1">
+                                  <div className="px-3 py-0">
                                     <span className="text-[10px] text-gray-600  dark:text-gray-400">
                                       {parseFloat(item.loa)}
                                     </span>
@@ -337,7 +337,7 @@ const JadwalKedatangan = () => {
                                   href="#"
                                   data-hs-overlay="#hs-bg-gray-on-hover-cards"
                                 >
-                                  <div className="px-3 py-1">
+                                  <div className="px-3 py-0">
                                     <span className="text-[10px] text-gray-600  dark:text-gray-400">
                                       {parseFloat(item.draft_max)}
                                     </span>
@@ -350,7 +350,7 @@ const JadwalKedatangan = () => {
                                   href="#"
                                   data-hs-overlay="#hs-bg-gray-on-hover-cards"
                                 >
-                                  <div className="px-3 py-1">
+                                  <div className="px-3 py-0">
                                     <span className="text-[10px] text-gray-600  dark:text-gray-400">
                                       {item.bendera}
                                     </span>
@@ -363,7 +363,7 @@ const JadwalKedatangan = () => {
                                   href="#"
                                   data-hs-overlay="#hs-bg-gray-on-hover-cards"
                                 >
-                                  <div className="px-3 py-1">
+                                  <div className="px-3 py-0">
                                     <span className="text-[10px] text-gray-600  dark:text-gray-400">
                                       {new Date(
                                         item.tanggal_eta
@@ -380,7 +380,7 @@ const JadwalKedatangan = () => {
                                   href="#"
                                   data-hs-overlay="#hs-bg-gray-on-hover-cards"
                                 >
-                                  <div className="px-3 py-1">
+                                  <div className="px-3 py-0">
                                     <span className="text-[10px] text-gray-600  dark:text-gray-400">
                                       {new Date(
                                         item.tanggal_etd
@@ -397,7 +397,7 @@ const JadwalKedatangan = () => {
                                   href="#"
                                   data-hs-overlay="#hs-bg-gray-on-hover-cards"
                                 >
-                                  <div className="px-3 py-1">
+                                  <div className="px-3 py-0">
                                     <span className="text-[10px] text-gray-600  dark:text-gray-400">
                                       {item.pelabuhan_asal}
                                     </span>
@@ -410,7 +410,7 @@ const JadwalKedatangan = () => {
                                   href="#"
                                   data-hs-overlay="#hs-bg-gray-on-hover-cards"
                                 >
-                                  <div className="px-3 py-1">
+                                  <div className="px-3 py-0">
                                     <span className="text-[10px] text-gray-600  dark:text-gray-400">
                                       {item.pelabuhan_tujuan}
                                     </span>
@@ -423,7 +423,7 @@ const JadwalKedatangan = () => {
                                   href="#"
                                   data-hs-overlay="#hs-bg-gray-on-hover-cards"
                                 >
-                                  <div className="px-3 py-1">
+                                  <div className="px-3 py-0">
                                     <span className="text-[10px] text-gray-600  dark:text-gray-400">
                                       {item.pelabuhan_tujuan_akhir}
                                     </span>

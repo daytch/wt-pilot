@@ -15,4 +15,5 @@ export const URL = {
   GET_DETAIL_RKBM: "get-detailrkbm",
   GET_DETAIL_PPKB: "get-detailppkb",
   DELETE_PPKB: "post-deletedatappkb",
+  GET_PNBP_REPORT: "get-laporanpnbp",
 };

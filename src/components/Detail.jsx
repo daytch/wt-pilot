@@ -870,6 +870,315 @@ const Detail = (props) => {
         </div>
       </div>
     ),
+    pnbp: (detail) => (
+      <div className="p-4 overflow-y-auto">
+        <div className="sm:divide-y divide-gray-200 dark:divide-gray-700">
+          <div className="py-3 sm:py-6">
+            <h4 className="mb-2 text-[10px] font-semibold uppercase text-gray-600 dark:text-gray-400">
+              No PKK
+            </h4>
+
+            <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-2">
+              <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                  <tr className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
+                    <td className="h-px w-4 text-[10px]  text-center bg-blue-200 border-black border whitespace-nowrap">
+                      GT Kecil
+                    </td>
+                    <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
+                      {detail.NoPKKGTKecil}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="h-px w-4 text-[10px]  text-center bg-blue-200 border-black border whitespace-nowrap">
+                      GT Besar
+                    </td>
+                    <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
+                      {detail.NoPKKGTBesar}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                  <tr className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
+                    <td className="h-px w-4 text-[10px]  text-center bg-blue-200 border-black border whitespace-nowrap">
+                      Jumlah PNBP
+                    </td>
+                    <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
+                      {parseFloat(detail.JumlahPNBP).toFixed(2)}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="h-px w-4 text-[10px]  text-center bg-blue-200 border-black border whitespace-nowrap">
+                      Nomor Invoice
+                    </td>
+                    <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
+                      {detail.NomorInv}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div className="py-3 sm:py-6">
+            <h4 className="mb-2 text-[10px] font-semibold uppercase text-gray-600 dark:text-gray-400">
+              Data Kapal
+            </h4>
+
+            {/* <!-- Data Kapal --> */}
+            <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-2">
+              <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                  <tr className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
+                    <td className="h-px w-4 text-[10px]  text-center bg-blue-200 border-black border whitespace-nowrap">
+                      Nama Kapal
+                    </td>
+                    <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
+                      {detail.NamaKapal}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="h-px w-4 text-[10px]  text-center bg-blue-200 border-black border whitespace-nowrap">
+                      Nama Tongkang
+                    </td>
+                    <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
+                      {detail.NamaTongkang}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="h-px w-4 text-[10px]  text-center bg-blue-200 border-black border whitespace-nowrap">
+                      Bendera
+                    </td>
+                    <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
+                      {detail.Bendera}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="h-px w-4 text-[10px]  text-center bg-blue-200 border-black border whitespace-nowrap">
+                      Pelabuhan Asal
+                    </td>
+                    <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
+                      {detail.PelabuhanAsal}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                  <tr className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
+                    <td className="h-px w-4 text-[10px]  text-center bg-blue-200 border-black border whitespace-nowrap">
+                      DWT
+                    </td>
+                    <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
+                      {parseFloat(detail.DWT).toFixed(2)}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="h-px w-4 text-[10px]  text-center bg-blue-200 border-black border whitespace-nowrap">
+                      GRT
+                    </td>
+                    <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
+                      {parseFloat(detail.GRT).toFixed(2)}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="h-px w-4 text-[10px]  text-center bg-blue-200 border-black border whitespace-nowrap">
+                      LOA
+                    </td>
+                    <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
+                      {parseFloat(detail.LOA).toFixed(2)}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="h-px w-4 text-[10px]  text-center bg-blue-200 border-black border whitespace-nowrap">
+                      Pelabuhan Tujuan
+                    </td>
+                    <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
+                      {detail.PelabuhanTujuan}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            {/* <!-- End Data Kapal --> */}
+          </div>
+
+          <div className="py-3 sm:py-6">
+            {/* <h4 className="mb-2 text-[10px] font-semibold uppercase text-gray-600 dark:text-gray-400">
+              Gerakan kapal
+            </h4> */}
+
+            {/* <!-- Grid --> */}
+            <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-2">
+              <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <thead className="bg-gray-50 dark:bg-slate-900">
+                  <th
+                    scope="col"
+                    colSpan="2"
+                    className="border border-black bg-[#778798] px-3 py-0 text-center"
+                  >
+                    <div className="flex justify-center items-center gap-x-2">
+                      <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                        Gerakan Kapal
+                      </span>
+                    </div>
+                  </th>
+                </thead>
+                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                  <tr className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
+                    <td className="h-px w-4 text-[10px]  text-center bg-blue-200 border-black border whitespace-nowrap">
+                      Tanggal Masuk
+                    </td>
+                    <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
+                      {detail.MulaiPanduMasuk === "" ||
+                      detail.MulaiPanduMasuk === null
+                        ? detail.MulaiPanduMasuk
+                        : sliceHour(detail.MulaiPanduMasuk)}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="h-px w-4 text-[10px]  text-center bg-blue-200 border-black border whitespace-nowrap">
+                      Tanggal Pindah
+                    </td>
+                    <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
+                      {/* {detail.MulaiPanduPindah} */}
+                      {detail.MulaiPanduPindah === "" ||
+                      detail.MulaiPanduPindah === null
+                        ? detail.MulaiPanduPindah
+                        : sliceHour(detail.MulaiPanduPindah)}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="h-px w-4 text-[10px]  text-center bg-blue-200 border-black border whitespace-nowrap">
+                      Tanggal Keluar
+                    </td>
+                    <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
+                      {detail.MulaiPanduKeluar === "" ||
+                      detail.MulaiPanduKeluar === null
+                        ? detail.MulaiPanduKeluar
+                        : sliceHour(detail.MulaiPanduKeluar)}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <thead className="bg-gray-50 dark:bg-slate-900">
+                  <th
+                    scope="col"
+                    colSpan="2"
+                    className="border border-black bg-[#778798] px-3 py-0 text-center"
+                  >
+                    <div className="flex justify-center items-center gap-x-2">
+                      <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                        Tunda
+                      </span>
+                    </div>
+                  </th>
+                </thead>
+                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                  <tr className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
+                    <td className="h-px w-4 text-[10px]  text-center bg-blue-200 border-black border whitespace-nowrap">
+                      Unit
+                    </td>
+                    <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
+                      {detail.JumlahUnitTundaKapal}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="h-px w-4 text-[10px]  text-center bg-blue-200 border-black border whitespace-nowrap">
+                      Jumlah Jam
+                    </td>
+                    <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
+                      {detail.TotalJamTundaKapal}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            {/* <!-- End Grid --> */}
+          </div>
+
+          <div className="py-3 sm:py-6">
+            {/* <!-- Grid --> */}
+            <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-2">
+              <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <thead className="bg-gray-50 dark:bg-slate-900">
+                  <th
+                    scope="col"
+                    colSpan="2"
+                    className="border border-black bg-[#778798] px-3 py-0 text-center"
+                  >
+                    <div className="flex justify-center items-center gap-x-2">
+                      <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                        Pendapatan
+                      </span>
+                    </div>
+                  </th>
+                </thead>
+                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                  <tr className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
+                    <td className="h-px w-4 text-[10px]  text-center bg-blue-200 border-black border whitespace-nowrap">
+                      Pemanduan
+                    </td>
+                    <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
+                      {detail.pelabuhan_asal}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="h-px w-4 text-[10px]  text-center bg-blue-200 border-black border whitespace-nowrap">
+                      Penundaan
+                    </td>
+                    <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
+                      {parseFloat(detail.TotalNilaiPanduPNBP).toFixed(2)}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <thead className="bg-gray-50 dark:bg-slate-900">
+                  <th
+                    scope="col"
+                    colSpan="2"
+                    className="border border-black bg-[#778798] px-3 py-0 text-center"
+                  >
+                    <div className="flex justify-center items-center gap-x-2">
+                      <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                        PNBP 5%
+                      </span>
+                    </div>
+                  </th>
+                </thead>
+                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                  <tr className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
+                    <td className="h-px w-4 text-[10px]  text-center bg-blue-200 border-black border whitespace-nowrap">
+                      Pemanduan
+                    </td>
+                    <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
+                      {/* {detail.MulaiPanduMasuk} */}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="h-px w-4 text-[10px]  text-center bg-blue-200 border-black border whitespace-nowrap">
+                      Penundaan
+                    </td>
+                    <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
+                      {parseFloat(detail.TotalNilaiTundaPNBP).toFixed(2)}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            {/* <!-- End Grid --> */}
+          </div>
+        </div>
+      </div>
+    ),
   };
 
   return (

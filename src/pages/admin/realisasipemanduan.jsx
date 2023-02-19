@@ -364,7 +364,7 @@ const RealisasiPemanduan = () => {
                                   href="#"
                                   data-hs-overlay="#hs-bg-gray-on-hover-cards"
                                 >
-                                  <div className="px-3 py-1">
+                                  <div className="px-3 py-0">
                                     <span className="text-[10px] text-gray-600  dark:text-gray-400">
                                       {idx + 1}
                                     </span>
@@ -377,7 +377,7 @@ const RealisasiPemanduan = () => {
                                   href="#"
                                   data-hs-overlay="#hs-bg-gray-on-hover-cards"
                                 >
-                                  <div className="px-3 py-1">
+                                  <div className="px-3 py-0">
                                     <span className="text-[10px] text-gray-600  dark:text-gray-400">
                                       {item.NamaKapal}
                                     </span>
@@ -390,7 +390,7 @@ const RealisasiPemanduan = () => {
                                   href="#"
                                   data-hs-overlay="#hs-bg-gray-on-hover-cards"
                                 >
-                                  <div className="px-3 py-1">
+                                  <div className="px-3 py-0">
                                     <span className="text-[10px] text-gray-600  dark:text-gray-400">
                                       {item.TglBPPTMasuk}
                                     </span>
@@ -403,7 +403,7 @@ const RealisasiPemanduan = () => {
                                   href="#"
                                   data-hs-overlay="#hs-bg-gray-on-hover-cards"
                                 >
-                                  <div className="px-3 py-1">
+                                  <div className="px-3 py-0">
                                     <span className="text-[10px] text-gray-600  dark:text-gray-400">
                                       {item.MulaiPanduMasuk &&
                                       new Date(
@@ -421,7 +421,7 @@ const RealisasiPemanduan = () => {
                                   href="#"
                                   data-hs-overlay="#hs-bg-gray-on-hover-cards"
                                 >
-                                  <div className="px-3 py-1">
+                                  <div className="px-3 py-0">
                                     <span className="text-[10px] text-gray-600  dark:text-gray-400">
                                       {item.SelesaiPanduMasuk &&
                                       new Date(
@@ -439,7 +439,7 @@ const RealisasiPemanduan = () => {
                                   href="#"
                                   data-hs-overlay="#hs-bg-gray-on-hover-cards"
                                 >
-                                  <div className="px-3 py-1">
+                                  <div className="px-3 py-0">
                                     <span className="text-[10px] text-gray-600  dark:text-gray-400">
                                       {item.TotaljamPanduMasuk}
                                     </span>
@@ -452,7 +452,7 @@ const RealisasiPemanduan = () => {
                                   href="#"
                                   data-hs-overlay="#hs-bg-gray-on-hover-cards"
                                 >
-                                  <div className="px-3 py-1">
+                                  <div className="px-3 py-0">
                                     <span className="text-[10px] text-gray-600  dark:text-gray-400">
                                       {item.TanggalPindah}
                                     </span>
@@ -465,7 +465,7 @@ const RealisasiPemanduan = () => {
                                   href="#"
                                   data-hs-overlay="#hs-bg-gray-on-hover-cards"
                                 >
-                                  <div className="px-3 py-1">
+                                  <div className="px-3 py-0">
                                     <span className="text-[10px] text-gray-600  dark:text-gray-400">
                                       {item.MulaiPanduPindah &&
                                       new Date(
@@ -483,7 +483,7 @@ const RealisasiPemanduan = () => {
                                   href="#"
                                   data-hs-overlay="#hs-bg-gray-on-hover-cards"
                                 >
-                                  <div className="px-3 py-1">
+                                  <div className="px-3 py-0">
                                     <span className="text-[10px] text-gray-600  dark:text-gray-400">
                                       {item.SelesaiPanduPindah &&
                                       new Date(
@@ -501,7 +501,7 @@ const RealisasiPemanduan = () => {
                                   href="#"
                                   data-hs-overlay="#hs-bg-gray-on-hover-cards"
                                 >
-                                  <div className="px-3 py-1">
+                                  <div className="px-3 py-0">
                                     <span className="text-[10px] text-gray-600  dark:text-gray-400">
                                       {item.TotaljamPanduPindah}
                                     </span>
@@ -514,7 +514,7 @@ const RealisasiPemanduan = () => {
                                   href="#"
                                   data-hs-overlay="#hs-bg-gray-on-hover-cards"
                                 >
-                                  <div className="px-3 py-1">
+                                  <div className="px-3 py-0">
                                     <span className="text-[10px] text-gray-600  dark:text-gray-400">
                                       {item.TanggalKeluar}
                                     </span>
@@ -527,7 +527,7 @@ const RealisasiPemanduan = () => {
                                   href="#"
                                   data-hs-overlay="#hs-bg-gray-on-hover-cards"
                                 >
-                                  <div className="px-3 py-1">
+                                  <div className="px-3 py-0">
                                     <span className="text-[10px] text-gray-600  dark:text-gray-400">
                                       {item.MulaiPanduKeluar &&
                                       new Date(
@@ -545,7 +545,7 @@ const RealisasiPemanduan = () => {
                                   href="#"
                                   data-hs-overlay="#hs-bg-gray-on-hover-cards"
                                 >
-                                  <div className="px-3 py-1">
+                                  <div className="px-3 py-0">
                                     <span className="text-[10px] text-gray-600  dark:text-gray-400">
                                       {item.SelesaiPanduKeluar &&
                                       new Date(
@@ -563,7 +563,7 @@ const RealisasiPemanduan = () => {
                                   href="#"
                                   data-hs-overlay="#hs-bg-gray-on-hover-cards"
                                 >
-                                  <div className="px-3 py-1">
+                                  <div className="px-3 py-0">
                                     <span className="text-[10px] text-gray-600  dark:text-gray-400">
                                       {item.TotalJamPanduKeluar}
                                     </span>

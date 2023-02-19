@@ -4,6 +4,7 @@ import dashboardSlice from "./slices/dashboardSlice";
 import jadwalSlice from "./slices/jadwalSlice";
 import realisasiSlice from "./slices/realisasiSlice";
 import ppkbSlice from "./slices/ppkbSlice";
+import pnbpSlice from "./slices/pnbpSlice";
 import rootSaga from "../redux/sagas/index";
 import { configureStore } from "@reduxjs/toolkit";
 
@@ -15,6 +16,7 @@ const store = configureStore({
     Jadwal: jadwalSlice,
     Realisasi: realisasiSlice,
     PPKB: ppkbSlice,
+    PNBP: pnbpSlice,
   },
   middleware: [saga],
 });

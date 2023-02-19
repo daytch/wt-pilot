@@ -3,6 +3,7 @@ import authenticationReducer from "./authenticationSlice";
 import jadwalReducer from "./jadwalSlice";
 import realisasiReducer from "./realisasiSlice";
 import ppkbReducer from "./ppkbSlice";
+import pnbpReducer from "./pnbpSlice";
 import dashboardReducer from "./";
 
 const appReducer = combineReducers({
@@ -11,6 +12,7 @@ const appReducer = combineReducers({
   jadwalReducer,
   realisasiReducer,
   ppkbReducer,
+  pnbpReducer,
 });
 
 const rootReducer = (state, action) => {

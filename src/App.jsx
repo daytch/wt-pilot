@@ -35,9 +35,6 @@ function App() {
         }
       />
       <Route path="/login" element={<Login />} />
-      {/* <Route path="/jadwal" element={<JadwalKedatangan />} />
-      <Route path="/ppkb" element={<PPKB />} />
-      <Route path="/realisasi" element={<RealisasiPemanduan />} /> */}
       <Route path="/notfound" element={<NotFound />} />
       <Route path="*" element={<Navigate to="/notfound" replace />} />
     </Routes>
