@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getReportPNBP } from "../../redux/slices/pnbpSlice";
 import {
+  sliceHour,
   handleDateAPI,
   isEmptyNullOrUndefined,
   datetimeToString,
@@ -40,11 +41,7 @@ const Pnbp = () => {
     dariPihak === "AGEN" ? UserLogin : ""
   );
   const [detail, setDetail] = useState({});
-  function sliceHour(text) {
-    var hasil = text.slice(0, 16);
-
-    return hasil;
-  }
+  
   var oldindex = "";
   const fetchData = () => {
     const url = `?ReportName=LAPORAN KEGIATAN PEMANDUAN DAN PENUNDAAN&CompanyName=PT WORLD TERMINALINDO&FromDate=${handleDateAPI(
@@ -503,7 +500,7 @@ const Pnbp = () => {
                           return (
                             <tr
                               key={idx}
-                              className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800"
+                              className="even:bg-white odd:bg-[#C0C0FD] dark:odd:bg-slate-900 dark:even:bg-slate-800"
                               onClick={() => setDetail(item)}
                             >
                               <td className="border border-black h-px w-4 whitespace-nowrap">

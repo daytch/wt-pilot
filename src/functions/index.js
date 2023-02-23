@@ -473,7 +473,7 @@ export const handleDateAPI = (e) => {
 };
 
 export function sliceHour(text) {
-  var hasil = text.slice(0, 16);
+  var hasil = text?.slice(0, 16);
 
   return hasil;
 }

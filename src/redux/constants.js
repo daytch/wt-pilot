@@ -16,4 +16,6 @@ export const URL = {
   GET_DETAIL_PPKB: "get-detailppkb",
   DELETE_PPKB: "post-deletedatappkb",
   GET_PNBP_REPORT: "get-laporanpnbp",
+  POST_PPKB: "post-insertgetppkb",
+  DELETE_PPKB: "post-deletedatappkb",
 };

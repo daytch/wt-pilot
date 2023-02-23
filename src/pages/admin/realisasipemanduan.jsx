@@ -355,7 +355,7 @@ const RealisasiPemanduan = () => {
                           return (
                             <tr
                               key={idx}
-                              className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800"
+                              className="even:bg-white odd:bg-[#C0C0FD] dark:odd:bg-slate-900 dark:even:bg-slate-800"
                               onClick={() => setDetail(item)}
                             >
                               <td className="border border-black text-[10px] h-px w-4 whitespace-nowrap">

@@ -17,7 +17,7 @@ export const ppkbSlice = createSlice({
       state.loading = true;
     },
     getHeaderPPKBSuccess: (state, action) => {
-      state.dataHeaderPPKB = action.payload.res;
+      state.dataHeaderPPKB = action.payload.res.data;
       state.message = action.payload.message;
       state.loading = false;
     },
@@ -30,7 +30,7 @@ export const ppkbSlice = createSlice({
       state.loading = true;
     },
     getDetailPPKBSuccess: (state, action) => {
-      state.dataDetailPPKB = action.payload.res;
+      state.dataDetailPPKB = action.payload.res.data;
       state.message = action.payload.message;
       state.loading = false;
     },
@@ -39,11 +39,37 @@ export const ppkbSlice = createSlice({
       state.error = action.payload.message;
     },
 
+    postDataPPKB: (state) => {
+      state.loading = true;
+    },
+    postDataPPKBSuccess: (state, action) => {
+      // state.dataHeaderPPKB = action.payload.res.data;
+      state.message = action.payload.message;
+      state.loading = false;
+    },
+    postDataPPKBFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload.message;
+    },
+
+    deleteDataPPKB: (state) => {
+      state.loading = true;
+    },
+    deleteDataPPKBSuccess: (state, action) => {
+      // state.dataHeaderPPKB = action.payload.res.data;
+      state.message = action.payload.message;
+      state.loading = false;
+    },
+    deleteDataPPKBFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload.message;
+    },
+
     getHeaderPKK: (state) => {
       state.loading = true;
     },
     getHeaderPKKSuccess: (state, action) => {
-      state.dataHeaderPKK = action.payload.res;
+      state.dataHeaderPKK = action.payload.res.data;
       state.message = action.payload.message;
       state.loading = false;
     },
@@ -56,7 +82,7 @@ export const ppkbSlice = createSlice({
       state.loading = true;
     },
     getDetailPKKSuccess: (state, action) => {
-      state.dataDetailPKK = action.payload.res;
+      state.dataDetailPKK = action.payload.res.data;
       state.message = action.payload.message;
       state.loading = false;
     },
@@ -74,6 +100,12 @@ export const {
   getDetailPPKB,
   getDetailPPKBSuccess,
   getDetailPPKBFailure,
+  postDataPPKB,
+  postDataPPKBFailure,
+  postDataPPKBSuccess,
+  deleteDataPPKB,
+  deleteDataPPKBFailure,
+  deleteDataPPKBSuccess,
   getHeaderPKK,
   getHeaderPKKSuccess,
   getHeaderPKKFailure,

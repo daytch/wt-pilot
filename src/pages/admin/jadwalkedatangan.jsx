@@ -14,13 +14,13 @@ const JadwalKedatangan = () => {
   const dispatch = useDispatch();
   const UserData = JSON.parse(localStorage.getItem("userData"));
   const [startDate, setStartDate] = useState(
-    sessionStorage.getItem("startDate")
-      ? new Date(sessionStorage.getItem("startDate"))
+    sessionStorage.getItem("dariTanggalJadwalKedatangan")
+      ? new Date(sessionStorage.getItem("dariTanggalJadwalKedatangan"))
       : new Date()
   );
   const [endDate, setEndDate] = useState(
-    sessionStorage.getItem("endDate")
-      ? new Date(sessionStorage.getItem("endDate"))
+    sessionStorage.getItem("sampaiTanggalJadwalKedatangan")
+      ? new Date(sessionStorage.getItem("sampaiTanggalJadwalKedatangan"))
       : new Date()
   );
   const dariPihak = UserData.UserType;
@@ -250,7 +250,7 @@ const JadwalKedatangan = () => {
                           return (
                             <tr
                               key={idx}
-                              className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800"
+                              className="even:bg-white odd:bg-[#C0C0FD] dark:odd:bg-slate-900 dark:even:bg-slate-800"
                               onClick={() => setDetail(item)}
                             >
                               <td className="border border-black h-px w-4 whitespace-nowrap">

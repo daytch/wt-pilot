@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import LogoImage from "./../assets/logo-hd.png";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -26,7 +26,14 @@ const Sidebar = () => {
   const dispatch = useDispatch();
   const userData = JSON.parse(localStorage.getItem("userData"));
   const username = userData?.displayUserName;
-  const loading = useSelector((state) => state.Dashboard.loading);
+  const [loading, setLoading] = useState(false);
+
+  const loadingD = useSelector((state) => state.Dashboard.loading);
+  const loadingJ = useSelector((state) => state.Jadwal.loading);
+  const loadingPn = useSelector((state) => state.PNBP.loading);
+  const loadingPp = useSelector((state) => state.PPKB.loading);
+  const loadingR = useSelector((state) => state.Realisasi.loading);
+
   const isActive = useSelector((state) => state.Dashboard.activeSidebarMenu);
   const isTabMenuActive = useSelector((state) => state.Dashboard.activeTabMenu);
   const activeClass =
@@ -148,6 +155,10 @@ const Sidebar = () => {
       window.location.href = "/";
     },
   };
+
+  useEffect(() => {
+    setLoading(loadingD || loadingJ || loadingPn /*|| loadingPp*/ || loadingR);
+  }, [loadingD, loadingJ, loadingPn, /*loadingPp,*/ loadingR]);
 
   const renderMenu = () => {
     return isActive.dashboard ? (
@@ -311,7 +322,6 @@ const Sidebar = () => {
             >
               <div className="flex flex-col gap-y-4 gap-x-0 mt-5 sm:flex-row sm:items-center sm:justify-start sm:gap-y-0 sm:gap-x-7 sm:mt-0 sm:pl-7">
                 {tabMenu?.map((m, i) => {
-                  console.log("m:", m);
                   return (
                     <a
                       key={i}

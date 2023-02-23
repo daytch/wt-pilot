@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getHeaderPPKB,
   getDetailPPKB,
   getHeaderPKK,
   getDetailPKK,
+  postDataPPKB,
 } from "../../redux/slices/ppkbSlice.js";
+import { toogleLoading } from "../../redux/slices/dashboardSlice.js";
 import {
+  sliceHour,
   handleDateAPI,
   isEmptyNullOrUndefined,
   datetimeToString,
@@ -20,12 +23,21 @@ import { CalendarDaysIcon, ClockIcon } from "@heroicons/react/24/outline";
 const Ppkb = () => {
   const dispatch = useDispatch();
   const UserData = JSON.parse(localStorage.getItem("userData"));
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(
+    sessionStorage.getItem("dariTanggalPPKB")
+      ? new Date(sessionStorage.getItem("dariTanggalPPKB"))
+      : new Date()
+  );
+  const [endDate, setEndDate] = useState(
+    sessionStorage.getItem("sampaiTanggalPPKB")
+      ? new Date(sessionStorage.getItem("sampaiTanggalPPKB"))
+      : new Date()
+  );
+  const [detail, setDetail] = useState({});
   const dariPihak = UserData.UserType;
   const UserLogin = UserData.UserId;
   const [MMCode, setMMCode] = useState(localStorage.getItem("MMCode"));
-  const [Outstanding, setOutstanding] = useState("");
+  const [Outstanding, setOutstanding] = useState("0");
   const [Code, setCode] = useState("");
   const [ValueSearch, setValueSearch] = useState("");
   const [isShowModal, setIsShowModal] = useState(true);
@@ -42,31 +54,25 @@ const Ppkb = () => {
   const [Page, setPage] = useState([]);
   const [Page2, setPage2] = useState([]);
   const [notApproved, setNotApproved] = useState(false);
+  const btnDetailRef = useRef();
+
+  const [keterangan, setKeterangan] = useState("");
+  const [kegiatan, setKegiatan] = useState("");
+  const [lokasi, setLokasi] = useState("");
+  const [tglPPKB, setTglPPKB] = useState("");
+  const [tglRencana, setTglRencana] = useState("");
+  const [jamRencana, setJamRencana] = useState("");
 
   var oldindex = "";
-  // const fetchData = () => {
-  //   const url =
-  //     ValueSearch == null
-  //       ? `?ViewBy=${ViewBy}&ViewValue=${ViewValue}&FromDate=${handleDateAPI(
-  //           startDate
-  //         )}&ToDate=${ToDate}&Filterdate=${FilterDate}&ColumnSearch=${Code}&ValueSearch&Outstanding=${Outstanding}&Status_Order=${Status_Order}&UserLogin=${UserLogin}&AgentUserLogin=${AgentUserLogin}&MMCode=${MMCode}`
-  //       : `?ViewBy=${dariPihak}&ViewValue=${
-  //           UserData.UserName
-  //         }&FromDate=${handleDateAPI(
-  //           startDate
-  //         )}&ToDate=${ToDate}&Filterdate=${FilterDate}&ColumnSearch=${Code}&ValueSearch=${ValueSearch}&Outstanding=${Outstanding}&Status_Order=${Status_Order}&UserLogin=${UserLogin}&AgentUserLogin=${AgentUserLogin}&MMCode=${MMCode}`;
-
-  //   dispatch(getDataPKKInaportnet(url));
-  // };
-
   const dataHeaderPPKB = useSelector((state) => state.PPKB.dataHeaderPPKB);
   const dataDetailPPKB = useSelector((state) => state.PPKB.dataDetailPPKB);
   const dataHeaderPKK = useSelector((state) => state.PPKB.dataHeaderPKK);
   const dataDetailPKK = useSelector((state) => state.PPKB.dataDetailPKK);
   const isLoading = useSelector((state) => state.PPKB.loading);
+  const loading = useSelector((state) => state.Dashboard.loading);
   const dataCabang = useSelector((state) => state.Dashboard.dataCabang);
   const dataSalesOrder = useSelector((state) => state.Dashboard.dataSalesOrder);
-
+  // console.log("dataHeaderPPKB:", dataHeaderPPKB);
   useEffect(() => {
     if (dataCabang?.length > 0 && isEmptyNullOrUndefined(MMCode)) {
       setMMCode(dataCabang[0].MMCode);
@@ -81,53 +87,56 @@ const Ppkb = () => {
     if (Outstanding === "1") {
       const url =
         ValueSearch === null
-          ? `?ViewBy=${ViewBy}&ViewValue=${ViewValue}&FromDate=${FromDate}&ToDate=${ToDate}&Filterdate=${FilterDate}&ColumnSearch=${Code}&ValueSearch&Outstanding=${Outstanding}&Status_Order=${Status_Order}&UserLogin=${UserLogin}&AgentUserLogin=${AgentUserLogin}&MMCode=${MMCode}`
-          : `?ViewBy=${ViewBy}&ViewValue=${ViewValue}&FromDate=${FromDate}&ToDate=${ToDate}&Filterdate=${FilterDate}&ColumnSearch=${Code}&ValueSearch=${ValueSearch}&Outstanding=${Outstanding}&Status_Order=${Status_Order}&UserLogin=${UserLogin}&AgentUserLogin=${AgentUserLogin}&MMCode=${MMCode}`;
+          ? `?ViewBy=${ViewBy}&ViewValue=${ViewValue}&FromDate=${handleDateAPI(
+              startDate
+            )}&ToDate=${handleDateAPI(
+              endDate
+            )}&Filterdate=${FilterDate}&ColumnSearch=${Code}&ValueSearch&Outstanding=${Outstanding}&Status_Order=${Status_Order}&UserLogin=${UserLogin}&AgentUserLogin=${AgentUserLogin}&MMCode=${MMCode}`
+          : `?ViewBy=${ViewBy}&ViewValue=${ViewValue}&FromDate=${handleDateAPI(
+              startDate
+            )}&ToDate=${handleDateAPI(
+              endDate
+            )}&Filterdate=${FilterDate}&ColumnSearch=${Code}&ValueSearch=${ValueSearch}&Outstanding=${Outstanding}&Status_Order=${Status_Order}&UserLogin=${UserLogin}&AgentUserLogin=${AgentUserLogin}&MMCode=${MMCode}`;
 
       dispatch(getHeaderPKK(url));
-      // const response = await axios.get(url);
-      // const data = await response.data;
-
-      // if (data.data != null) {
-      // setisLoading(false);
-      // setPage(post);
       if (max > 0) {
-        fetchData2(data.data[0]);
+        getDetail(data.data[0]);
         max = max - 1;
       }
-
-      // if (oldindex != "") {
-      //   selectedRow(0);
-      // }
-
-      // if (data.data.length == 0) {
-      //   const kosong = <tr></tr>;
-      //   setPage2(kosong);
-      // }
-      // }
     } else {
       const urlppkb =
         ValueSearch == null
-          ? `?ViewBy=${ViewBy}&ViewValue=${ViewValue}&FromDate=${FromDate}&ToDate=${ToDate}&Filterdate=${FilterDate}&ColumnSearch=${Code}&ValueSearch&Outstanding=${Outstanding}&Status_Order=${Status_Order}&UserLogin=${UserLogin}&AgentUserLogin=${AgentUserLogin}&MMCode=${MMCode}`
-          : `?ViewBy=${ViewBy}&ViewValue=${ViewValue}&FromDate=${FromDate}&ToDate=${ToDate}&Filterdate=${FilterDate}&ColumnSearch=${Code}&ValueSearch=${ValueSearch}&Outstanding=${Outstanding}&Status_Order=${Status_Order}&UserLogin=${UserLogin}&AgentUserLogin=${AgentUserLogin}&MMCode=${MMCode}`;
+          ? `?ViewBy=${ViewBy ? ViewBy : ""}&ViewValue=${
+              ViewValue ? ViewValue : ""
+            }&FromDate=${handleDateAPI(startDate)}&ToDate=${handleDateAPI(
+              endDate
+            )}&Filterdate=${FilterDate}&ColumnSearch=${Code}&ValueSearch&Outstanding=${Outstanding}&Status_Order=${Status_Order}&UserLogin=${UserLogin}&AgentUserLogin=${AgentUserLogin}&MMCode=${MMCode}`
+          : `?ViewBy=${ViewBy ? ViewBy : ""}&ViewValue=${
+              ViewValue ? ViewValue : ""
+            }&FromDate=${handleDateAPI(startDate)}&ToDate=${handleDateAPI(
+              endDate
+            )}&Filterdate=${FilterDate}&ColumnSearch=${Code}&ValueSearch=${ValueSearch}&Outstanding=${Outstanding}&Status_Order=${Status_Order}&UserLogin=${UserLogin}&AgentUserLogin=${AgentUserLogin}&MMCode=${MMCode}`;
       dispatch(getHeaderPPKB(urlppkb));
-      // const responseppkb = await axios.get(urlppkb);
-      // const datappkb = await responseppkb.data;
 
-      // if (datappkb.data != null) {
-      //   setisLoading(false);
-      //   setPage(post);
       if (max > 0) {
-        // fetchData2(datappkb.data[0]);
+        // getDetail(datappkb.data[0]);
         max = max - 1;
       }
 
       if (oldindex != "") {
         selectedRow(0);
       }
-      // }
     }
   };
+
+  useEffect(() => {
+    setKeterangan(detail?.Keterangan);
+    setLokasi(detail?.Lokasi);
+    setKegiatan(detail?.Kegiatan);
+    setTglPPKB(detail?.TglPPKB);
+    setTglRencana(detail?.TglRencana);
+    setJamRencana(detail?.JamRencana);
+  }, [detail]);
 
   useEffect(() => {
     if (dataHeaderPPKB.length > 0) {
@@ -139,33 +148,20 @@ const Ppkb = () => {
     }
   }, [dataHeaderPKK]);
 
-  const fetchData2 = async (item) => {
+  const getDetail = async (item) => {
     if (item !== undefined) {
       if (Outstanding === "1") {
         const nopkk = item.nomor_pkk;
         const url = `?Nomor_PKK=${nopkk}&Outstanding=${OutstandingRKBM}`;
         dispatch(getDetailPKK(url));
-        // const response = await axios.get(url);
-        // const data2 = await response.data;
-        // setIsActive((current) => !current);
-
-        // if (data2.data != null) {
-        //   setisLoading(false);
-        //   setPage2(post);
-        // }
       } else {
         const noppkb = item.NoPPKB;
         const urldetailppkb = `?NoPPKB=${noppkb}`;
         dispatch(getDetailPPKB(urldetailppkb));
-
-        // const responsedetailppkb = await axios.get(urldetailppkb);
-        // const datadetailppkb = await responsedetailppkb.data;
-        // setIsActive((current) => !current);
-
-        if (datadetailppkb != null) {
-          // setisLoading(false);
-          // setPage2(postdetailppkb);
-        }
+        // if (datadetailppkb != null) {
+        // setisLoading(false);
+        // setPage2(postdetailppkb);
+        // }
       }
     }
   };
@@ -210,70 +206,70 @@ const Ppkb = () => {
               X
             </button>
           </td>
-          <td style={{ paddingLeft: "10px", paddingRight: "10px" }}>
+          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
             {index + 1}
           </td>
-          <td style={{ paddingLeft: "10px", paddingRight: "10px" }}>
+          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
             {item.nama_barang}
           </td>
-          <td style={{ paddingLeft: "10px", paddingRight: "10px" }}>
+          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
             {item.bahaya}
           </td>
-          <td style={{ paddingLeft: "10px", paddingRight: "10px" }}>
+          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
             {item.ganggu}
           </td>
-          <td style={{ paddingLeft: "10px", paddingRight: "10px" }}>
+          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
             {item.kegiatan}
           </td>
-          <td style={{ paddingLeft: "10px", paddingRight: "10px" }}>
+          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
             {parseFloat(item.unit).toFixed(2)}
           </td>
-          <td style={{ paddingLeft: "10px", paddingRight: "10px" }}>
+          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
             {parseFloat(item.ton).toFixed(2)}
           </td>
-          <td style={{ paddingLeft: "10px", paddingRight: "10px" }}>
+          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
             {parseFloat(item.m3).toFixed(2)}
           </td>
-          <td style={{ paddingLeft: "10px", paddingRight: "10px" }}>
+          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
             {item.penyaluran}
           </td>
-          <td style={{ paddingLeft: "10px", paddingRight: "10px" }}>
+          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
             {item.kade}
           </td>
-          <td style={{ paddingLeft: "10px", paddingRight: "10px" }}>
+          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
             {item.pbm}
           </td>
-          <td style={{ paddingLeft: "10px", paddingRight: "10px" }}>
+          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
             {item.npwp_pbm}
           </td>
-          <td style={{ paddingLeft: "10px", paddingRight: "10px" }}>
+          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
             {item.consginee}
           </td>
-          <td style={{ paddingLeft: "10px", paddingRight: "10px" }}>
+          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
             {item.shipper}
           </td>
-          <td style={{ paddingLeft: "10px", paddingRight: "10px" }}>
+          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
             {item.npwp_shipper}
           </td>
-          <td style={{ paddingLeft: "10px", paddingRight: "10px" }}>
+          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
             {item.no_bl}
           </td>
-          <td style={{ paddingLeft: "10px", paddingRight: "10px" }}>
+          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
             {parseFloat(item.gang).toFixed(2)}
           </td>
-          <td style={{ paddingLeft: "10px", paddingRight: "10px" }}>
+          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
             {parseFloat(item.palka).toFixed(2)}
           </td>
-          <td style={{ paddingLeft: "10px", paddingRight: "10px" }}>
+          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
             {item.no_rkbm_bongkar}
           </td>
-          <td style={{ paddingLeft: "10px", paddingRight: "10px" }}>
+          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
             {item.no_rkbm_muat}
           </td>
-          <td style={{ paddingLeft: "10px", paddingRight: "10px" }}>
+          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
             {item.rencana_bongkar}
           </td>
-          <td style={{ paddingLeft: "10px", paddingRight: "10px" }}>
+          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
             {item.rencana_muat}
           </td>
         </tr>
@@ -284,11 +280,11 @@ const Ppkb = () => {
   };
 
   useEffect(() => {
-    sessionStorage.setItem("dariTanggalJadwalKedatangan", startDate);
-    sessionStorage.setItem("sampaiTanggalJadwalKedatangan", endDate);
-    sessionStorage.setItem("codeColumnSearchJadwalKedatangan", Code);
-    sessionStorage.setItem("valueColumnSearchJadwalKedatangan", ValueSearch);
-    sessionStorage.setItem("cabangJadwalKedatangan", MMCode);
+    sessionStorage.setItem("dariTanggalPPKB", startDate);
+    sessionStorage.setItem("sampaiTanggalPPKB", endDate);
+    sessionStorage.setItem("codeColumnSearchPPKB", Code);
+    sessionStorage.setItem("valueColumnSearchPPKB", ValueSearch);
+    sessionStorage.setItem("cabangPPKB", MMCode);
     // sessionStorage.setItem("startDate", startDate);
     // sessionStorage.setItem("endDate", endDate);
 
@@ -311,7 +307,23 @@ const Ppkb = () => {
 
   useEffect(() => {
     console.log("notApproved:", notApproved);
-  }, [notApproved]);
+  }, [detail]);
+
+  const openDetail = (e, item) => {
+    e.preventDefault();
+    switch (e.detail) {
+      case 2:
+        setDetail(item);
+        btnDetailRef.current.click();
+        break;
+      case 1:
+        console.log("click");
+        getDetail(item);
+        break;
+      default:
+        break;
+    }
+  };
 
   const renderHeader = () => {
     return notApproved ? (
@@ -438,7 +450,7 @@ const Ppkb = () => {
               </tr>
             </thead>
             <tbody>
-              {isLoading === true ? (
+              {/* {isLoading === true ? (
                 <div
                   className="spinner-border modal-dialog text-primary"
                   role="status"
@@ -446,7 +458,7 @@ const Ppkb = () => {
                 ></div>
               ) : (
                 Page
-              )}
+              )} */}
             </tbody>
           </table>
         </div>
@@ -461,7 +473,7 @@ const Ppkb = () => {
           <table style={{ whiteSpace: "nowrap" }} id="table">
             <thead className="bg-gray-50 dark:bg-slate-900">
               <tr className="text-center">
-                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black"></th>
+                {/* <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black"></th> */}
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NO
                 </th>
@@ -497,14 +509,190 @@ const Ppkb = () => {
               </tr>
             </thead>
             <tbody>
-              {isLoading === true ? (
-                <div
-                  className="spinner-border modal-dialog text-primary"
-                  role="status"
-                ></div>
-              ) : (
-                Page
-              )}
+              {Outstanding === "1" && dataHeaderPPKB?.length > 0
+                ? dataHeaderPPKB.map((item, idx) => {
+                    return (
+                      <tr
+                        key={idx}
+                        className="even:bg-white odd:bg-[#C0C0FD] dark:odd:bg-slate-900 dark:even:bg-slate-800"
+                        onClick={(e) => setDetail(item)}
+                      >
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {idx + 1}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.nomor_pkk}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.nama_perusahaan}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.npwp}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.tanda_pendaftaran_kapal}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.tanda_pendaftaran_kapal}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.nama_kapal}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.nahkoda}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {parseFloat(item.drt).toFixed(2)}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {parseFloat(item.grt).toFixed(2)}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {parseFloat(item.loa).toFixed(2)}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.jenis_kapal}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.tahun_pembuatan}
+                        </td>
+
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {parseFloat(item.lebar_kapal).toFixed(2)}
+                        </td>
+
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {parseFloat(item.draft_max).toFixed(2)}
+                        </td>
+
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {parseFloat(item.draft_depan).toFixed(2)}
+                        </td>
+
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {parseFloat(item.draft_tengah).toFixed(2)}
+                        </td>
+
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.jenis_trayek}
+                        </td>
+
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.bendera}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.call_sign}
+                        </td>
+
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {sliceHour(item.tanggal_eta)}
+                        </td>
+
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {sliceHour(item.tanggal_etd)}
+                        </td>
+
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.kode_pelabuhan_asal}
+                        </td>
+
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.pelabuhan_asal}
+                        </td>
+
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.kode_pelabuhan_tujuan}
+                        </td>
+
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.pelabuhan_tujuan}
+                        </td>
+
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.kode_tujuan_akhir_pelabuhan}
+                        </td>
+
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.pelabuhan_tujuan_akhir}
+                        </td>
+
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.nomor_trayek}
+                        </td>
+
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.dermaga_nama}
+                        </td>
+
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.status_bm}
+                        </td>
+
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.jenis_barang}
+                        </td>
+
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.port_code}
+                        </td>
+
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.status}
+                        </td>
+                      </tr>
+                    );
+                  })
+                : Outstanding !== "1" && dataHeaderPPKB?.length > 0
+                ? dataHeaderPPKB.map((item, idx) => {
+                    return (
+                      <tr
+                        key={idx}
+                        className="even:bg-white odd:bg-[#C0C0FD] dark:odd:bg-slate-900 dark:even:bg-slate-800"
+                        onClick={(e) => openDetail(e, item)}
+                      >
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {idx + 1}
+                        </td>
+
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.nomor_pkk}
+                        </td>
+
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.NoPPKB}
+                        </td>
+
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.TglPPKB}
+                        </td>
+
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {/* {item.nahkoda} */}
+                        </td>
+
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.TglRencana}
+                        </td>
+
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.JamRencana}
+                        </td>
+
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.Lokasi}
+                        </td>
+
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.Kegiatan}
+                        </td>
+
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.Keterangan}
+                        </td>
+                      </tr>
+                    );
+                  })
+                : null}
             </tbody>
           </table>
         </div>
@@ -595,7 +783,7 @@ const Ppkb = () => {
               </tr>
             </thead>
             <tbody>
-              {isLoading === true ? (
+              {/* {isLoading === true ? (
                 <div
                   className="spinner-border modal-dialog text-primary"
                   role="status"
@@ -603,7 +791,7 @@ const Ppkb = () => {
                 ></div>
               ) : (
                 Page2
-              )}
+              )} */}
             </tbody>
           </table>
         </div>
@@ -684,15 +872,83 @@ const Ppkb = () => {
               </tr>
             </thead>
             <tbody>
-              {isLoading === true ? (
-                <div
-                  className="spinner-border modal-dialog text-primary"
-                  role="status"
-                  style={{ position: "absolute", left: "50%" }}
-                ></div>
-              ) : (
-                Page2
-              )}
+              {dataDetailPPKB.length > 0
+                ? dataDetailPPKB.map((item, index) => {
+                    return (
+                      <tr
+                        key={index}
+                        className="even:bg-white odd:bg-[#C0C0FD] dark:odd:bg-slate-900 dark:even:bg-slate-800"
+                      >
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {index + 1}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.nama_barang}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.bahaya}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.ganggu}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.kegiatan}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {parseFloat(item.unit).toFixed(2)}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {parseFloat(item.ton).toFixed(2)}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {parseFloat(item.m3).toFixed(2)}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.penyaluran}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.kade}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.pbm}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.npwp_pbm}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.consginee}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.shipper}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.npwp_shipper}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.no_bl}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {parseFloat(item.gang).toFixed(2)}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {parseFloat(item.palka).toFixed(2)}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.no_rkbm_bongkar}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.no_rkbm_muat}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.rencana_bongkar}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.rencana_muat}
+                        </td>
+                      </tr>
+                    );
+                  })
+                : null}
             </tbody>
           </table>
         </div>
@@ -700,9 +956,46 @@ const Ppkb = () => {
     );
   };
 
+  const handleSaveData = () => {
+    // const oid = response.data.data[0].Oid;
+
+    const urledit = `?NomorPKK=${detail.nomor_pkk}&NoPPKB=${
+      detail.NoPPKB
+    }&TglPPKB=${tglPPKB.split("-").join("")}&NoRKBM_Oid=${
+      detail.Oid
+    }&TglRencana=${tglRencana
+      .split("-")
+      .join(
+        ""
+      )}&JamRencana=${jamRencana}&Lokasi=${lokasi}&Kegiatan=${kegiatan}&Keterangan=${keterangan}&UserId=${UserLogin}`;
+    dispatch(postDataPPKB(urledit));
+    // axios
+    //   .post(urledit)
+    //   .then((response) => {
+    //     handleSearch();
+    //     setShowEdit(false);
+    //   })
+    //   .catch((error) => {
+    //     alert(error);
+    //   });
+  };
+
+  const handleDeleteDataPPKB = async () => {
+    dispatch(deleteDataPPKB(`?NoPPKB=${detail.NoPPKB}`));
+    fetchData();
+    // ErrorMessage("", error);
+  };
+
   return (
     <>
       <div className="max-w-[85rem] py-3 mx-auto">
+        <button
+          ref={btnDetailRef}
+          data-hs-overlay="#hs-bg-gray-on-hover-cards1"
+          hidden
+        >
+          detail
+        </button>
         {/* <!-- Card --> */}
         <div className="flex flex-col">
           <div className="-m-1.5 overflow-x-auto">
@@ -740,9 +1033,9 @@ const Ppkb = () => {
           id="hs-bg-gray-on-hover-cards1"
           className="hs-overlay hidden w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto"
         >
-          <div className="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all lg:max-w-4xl lg:w-full m-3 lg:mx-auto">
-            <div className="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700">
-              <div className="flex justify-between items-center py-1 px-2 border-b dark:border-gray-700">
+          <div className="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all lg:w-[80vw] my-auto lg:mx-auto">
+            <div className="flex justify-between items-center w-[80vw] flex-col bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700">
+              <div className="flex justify-between w-[80vw] items-center py-1 px-2 border-b dark:border-gray-700">
                 <h3 className="font-bold text-gray-800 dark:text-gray-200">
                   Pengajuan Permintaan Pelayanan Kapal dan Barang
                 </h3>
@@ -771,6 +1064,23 @@ const Ppkb = () => {
               <div className="p-4 overflow-y-auto">
                 <div className="sm:divide-y divide-gray-200 dark:divide-gray-700">
                   <div className="py-3 sm:py-6">
+                    <div className="flex justify-end">
+                      <div className="row" style={{ marginLeft: "5px" }}>
+                        <button
+                          className="mr-3 py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-green-500 text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all text-[10px] dark:focus:ring-offset-gray-800"
+                          onClick={(e) => handleSaveData(e)}
+                        >
+                          Simpan
+                        </button>
+
+                        <button
+                          className="py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-red-500 text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-[10px] dark:focus:ring-offset-gray-800"
+                          onClick={(e) => handleDeleteDataPPKB(e)}
+                        >
+                          Hapus Data
+                        </button>
+                      </div>
+                    </div>
                     <div className="grid gap-2">
                       <div className="grid gap-y-4">
                         <div className="grid md:grid-cols-3 gap-2">
@@ -787,30 +1097,11 @@ const Ppkb = () => {
                                 id="no_ppkb"
                                 name="no_ppkb"
                                 placeholder="Nomor PPKB"
-                                className="py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                                required
-                                aria-describedby="no_ppkb-error"
+                                className="disabled:bg-gray-300 py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+                                disabled
+                                value={detail?.NoPPKB}
                               />
-                              <div className="hidden absolute inset-y-0 right-0 items-center pointer-events-none pr-3">
-                                <svg
-                                  className="h-5 w-5 text-red-500"
-                                  width="16"
-                                  height="16"
-                                  fill="currentColor"
-                                  viewBox="0 0 16 16"
-                                  aria-hidden="true"
-                                >
-                                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                                </svg>
-                              </div>
                             </div>
-                            <p
-                              className="hidden text-[10px] text-red-600 mt-2"
-                              id="no_ppkb-error"
-                            >
-                              Please include a valid email address so we can get
-                              back to you
-                            </p>
                           </div>
                           <div>
                             <label
@@ -825,23 +1116,19 @@ const Ppkb = () => {
                                 className="dateandtimepicker-hp py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
                                 dateFormat="dd-MM-yyyy"
                                 placeholderText="Tanggal PPKB"
-                                aria-describedby="tgl_ppkb-error"
                                 id="tgl_ppkb"
                                 name="tgl_ppkb"
-                                // selected={TanggalPPKB}
-                                // onChange={(e) => handleTanggalPPKB(e)}
+                                selected={
+                                  detail.TglPPKB
+                                    ? new Date(detail.TglPPKB)
+                                    : null
+                                }
+                                onChange={(e) => setTglPPKB(e)}
                               />
                               <div className="flex absolute inset-y-0 right-0 items-center pointer-events-none pr-3">
                                 <CalendarDaysIcon className="h-5 w-5" />
                               </div>
                             </div>
-                            <p
-                              className="hidden text-[10px] text-red-600 mt-2"
-                              id="tgl_ppkb-error"
-                            >
-                              Please include a valid email address so we can get
-                              back to you
-                            </p>
                           </div>
                           <div>
                             <label
@@ -856,30 +1143,11 @@ const Ppkb = () => {
                                 id="no_pkk"
                                 name="no_pkk"
                                 placeholder="Nomor PKK"
-                                className="py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+                                className="disabled:bg-gray-300 py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
                                 disabled
-                                aria-describedby="no_pkk-error"
+                                defaultValue={detail.nomor_pkk}
                               />
-                              <div className="hidden absolute inset-y-0 right-0 items-center pointer-events-none pr-3">
-                                <svg
-                                  className="h-5 w-5 text-red-500"
-                                  width="16"
-                                  height="16"
-                                  fill="currentColor"
-                                  viewBox="0 0 16 16"
-                                  aria-hidden="true"
-                                >
-                                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                                </svg>
-                              </div>
                             </div>
-                            <p
-                              className="hidden text-[10px] text-red-600 mt-2"
-                              id="email-error"
-                            >
-                              Please include a valid email address so we can get
-                              back to you
-                            </p>
                           </div>
                         </div>
 
@@ -896,12 +1164,20 @@ const Ppkb = () => {
                                 wrapperClassName="wrapperdatePicker"
                                 className="dateandtimepicker-hp py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
                                 dateFormat="dd-MM-yyyy"
-                                placeholderText="Tanggal PPKB"
-                                aria-describedby="tgl_ppkb-error"
-                                id="tgl_ppkb"
-                                name="tgl_ppkb"
-                                // selected={TanggalPPKB}
-                                // onChange={(e) => handleTanggalPPKB(e)}
+                                placeholderText="Tanggal Rencana"
+                                onChange={(e) => setTglRencana(e)}
+                                id="tgl_rencana"
+                                name="tgl_rencana"
+                                selected={
+                                  detail.TglRencana
+                                    ? new Date(detail.TglRencana)
+                                    : null
+                                }
+                                minDate={
+                                  detail.TglPPKB
+                                    ? new Date(detail.TglPPKB)
+                                    : new Date()
+                                }
                               />
                               <div className="flex absolute inset-y-0 right-0 items-center pointer-events-none pr-3">
                                 <CalendarDaysIcon className="h-5 w-5" />
@@ -917,8 +1193,14 @@ const Ppkb = () => {
                             </label>
                             <div className="relative">
                               <DatePicker
-                                // selected={JamRencana}
-                                // onChange={(date) => handleJamRencana(date)}
+                                onChange={(e) => setJamRencana(e)}
+                                selected={
+                                  detail.TglRencana
+                                    ? new Date(
+                                        "2022-12-12T" + detail.JamRencana
+                                      )
+                                    : null
+                                }
                                 showTimeSelect
                                 showTimeSelectOnly
                                 timeFormat="HH:mm"
@@ -927,7 +1209,6 @@ const Ppkb = () => {
                                 dateFormat="HH:mm"
                                 wrapperClassName="wrapperdatePicker"
                                 placeholderText="Jam Rencana"
-                                aria-describedby="jam_rencana-error"
                                 className="datepicker py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
                               />
                               <div className="flex absolute inset-y-0 right-0 items-center pointer-events-none pr-3">
@@ -951,29 +1232,10 @@ const Ppkb = () => {
                               name="lokasi"
                               placeholder="Lokasi"
                               className="py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                              required
-                              aria-describedby="lokasi-error"
+                              onChange={(e) => setLokasi(e.target.value)}
+                              value={lokasi}
                             />
-                            <div className="hidden absolute inset-y-0 right-0 items-center pointer-events-none pr-3">
-                              <svg
-                                className="h-5 w-5 text-red-500"
-                                width="16"
-                                height="16"
-                                fill="currentColor"
-                                viewBox="0 0 16 16"
-                                aria-hidden="true"
-                              >
-                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                              </svg>
-                            </div>
                           </div>
-                          <p
-                            className="hidden text-[10px] text-red-600 mt-2"
-                            id="lokasi-error"
-                          >
-                            Please include a valid email address so we can get
-                            back to you
-                          </p>
                         </div>
                         <div>
                           <label
@@ -989,29 +1251,10 @@ const Ppkb = () => {
                               name="kegiatan"
                               placeholder="Kegiatan"
                               className="py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                              required
-                              aria-describedby="kegiatan-error"
+                              onChange={(e) => setKegiatan(e.target.value)}
+                              value={kegiatan}
                             />
-                            <div className="hidden absolute inset-y-0 right-0 items-center pointer-events-none pr-3">
-                              <svg
-                                className="h-5 w-5 text-red-500"
-                                width="16"
-                                height="16"
-                                fill="currentColor"
-                                viewBox="0 0 16 16"
-                                aria-hidden="true"
-                              >
-                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                              </svg>
-                            </div>
                           </div>
-                          <p
-                            className="hidden text-[10px] text-red-600 mt-2"
-                            id="kegiatan-error"
-                          >
-                            Please include a valid email address so we can get
-                            back to you
-                          </p>
                         </div>
                         <div>
                           <label
@@ -1023,65 +1266,38 @@ const Ppkb = () => {
                           <div className="relative">
                             <textarea
                               rows="3"
-                              type="text"
                               id="keterangan"
                               name="keterangan"
                               placeholder="Keterangan"
                               className="py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                              required
-                              aria-describedby="keterangan-error"
+                              onChange={(e) => setKeterangan(e.target.value)}
+                              value={keterangan}
                             ></textarea>
-                            <div className="hidden absolute inset-y-0 right-0 items-center pointer-events-none pr-3">
-                              <svg
-                                className="h-5 w-5 text-red-500"
-                                width="16"
-                                height="16"
-                                fill="currentColor"
-                                viewBox="0 0 16 16"
-                                aria-hidden="true"
-                              >
-                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                              </svg>
-                            </div>
                           </div>
-                          <p
-                            className="hidden text-[10px] text-red-600 mt-2"
-                            id="keterangan-error"
-                          >
-                            Please include a valid email address so we can get
-                            back to you
-                          </p>
                         </div>
 
                         <div className="overflow-x-auto">
                           <table className="text-[10px] min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                             <thead className="bg-gray-50 dark:bg-slate-900">
                               <tr className="text-center">
-                                <td></td>
+                                <th className="border border-black"></th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       NO
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      NOMOR RKBM
-                                    </span>
-                                  </div>
-                                </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="whitespace-nowrap text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       NAMA BARANG
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       BAHAYA
                                     </span>
                                   </div>
@@ -1089,7 +1305,7 @@ const Ppkb = () => {
 
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       GANGGU
                                     </span>
                                   </div>
@@ -1097,7 +1313,7 @@ const Ppkb = () => {
 
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       KEGIATAN
                                     </span>
                                   </div>
@@ -1105,7 +1321,7 @@ const Ppkb = () => {
 
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       UNIT
                                     </span>
                                   </div>
@@ -1113,112 +1329,112 @@ const Ppkb = () => {
 
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       TON
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       M3
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       PENYALURAN
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       KADE
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       PBM
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       NPWP PBM
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       CONSIGNEE
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       SHIPPER
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="whitespace-nowrap text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       NPWP SHIPPER
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="whitespace-nowrap text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       NOMOR BILL OF LANDING
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="whitespace-nowrap text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       JUMLAH GANG (Kelompok Kerja)
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       PALKA
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="whitespace-nowrap text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       NOMOR RKBM BONGKAR
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="whitespace-nowrap text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       NOMOR RKBM MUAT
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="whitespace-nowrap text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       RENCANA BONGKAR
                                     </span>
                                   </div>
                                 </th>
                                 <th className="border border-black">
                                   <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-2 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    <span className="whitespace-nowrap text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                       RENCANA MUAT
                                     </span>
                                   </div>
@@ -1226,23 +1442,98 @@ const Ppkb = () => {
                               </tr>
                             </thead>
                             <tbody>
-                              {isLoading === true ? (
-                                <div
-                                  className="spinner-border modal-dialog text-primary"
-                                  role="status"
-                                  style={{ position: "absolute", left: "50%" }}
-                                ></div>
-                              ) : null}
+                              {dataDetailPPKB.length > 0
+                                ? dataDetailPPKB.map((item, index) => {
+                                    return (
+                                      <tr
+                                        key={index}
+                                        className="even:bg-white odd:bg-[#C0C0FD] dark:odd:bg-slate-900 dark:even:bg-slate-800"
+                                      >
+                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                                          <button
+                                            onClick={() =>
+                                              deleteDetailPPKB(item)
+                                            }
+                                            type="button"
+                                            className="text-[10px] py-0 px-1 inline-flex justify-center items-center gap-2 rounded-md bg-red-100 border border-transparent font-semibold text-red-500 hover:text-white hover:bg-red-100 focus:outline-none focus:ring-2 ring-offset-white focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+                                          >
+                                            X
+                                          </button>
+                                        </td>
+
+                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                                          {index + 1}
+                                        </td>
+                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                                          {item.nama_barang}
+                                        </td>
+                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                                          {item.bahaya}
+                                        </td>
+                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                                          {item.ganggu}
+                                        </td>
+                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                                          {item.kegiatan}
+                                        </td>
+                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                                          {parseFloat(item.unit).toFixed(2)}
+                                        </td>
+                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                                          {parseFloat(item.ton).toFixed(2)}
+                                        </td>
+                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                                          {parseFloat(item.m3).toFixed(2)}
+                                        </td>
+                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                                          {item.penyaluran}
+                                        </td>
+                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                                          {item.kade}
+                                        </td>
+                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                                          {item.pbm}
+                                        </td>
+                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                                          {item.npwp_pbm}
+                                        </td>
+                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                                          {item.consginee}
+                                        </td>
+                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                                          {item.shipper}
+                                        </td>
+                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                                          {item.npwp_shipper}
+                                        </td>
+                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                                          {item.no_bl}
+                                        </td>
+                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                                          {parseFloat(item.gang).toFixed(2)}
+                                        </td>
+                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                                          {parseFloat(item.palka).toFixed(2)}
+                                        </td>
+                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                                          {item.no_rkbm_bongkar}
+                                        </td>
+                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                                          {item.no_rkbm_muat}
+                                        </td>
+                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                                          {item.rencana_bongkar}
+                                        </td>
+                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                                          {item.rencana_muat}
+                                        </td>
+                                      </tr>
+                                    );
+                                  })
+                                : null}
                             </tbody>
                           </table>
                         </div>
-
-                        <button
-                          type="submit"
-                          className="py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-[10px] dark:focus:ring-offset-gray-800"
-                        >
-                          Sign in
-                        </button>
                       </div>
                     </div>
                   </div>

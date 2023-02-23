@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {
+  sliceHour,
   handleDateAPI,
   isEmptyNullOrUndefined,
   datetimeToString,
@@ -8,12 +9,6 @@ import {
 
 const Detail = (props) => {
   const { detail, tipe } = props;
-
-  function sliceHour(text) {
-    var hasil = text?.slice(0, 16);
-
-    return hasil;
-  }
 
   const renderDetail = {
     jadwal: (detail) => (
