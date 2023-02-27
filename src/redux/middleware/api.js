@@ -3,19 +3,7 @@ import { API_URL } from "./../constants";
 
 var token = localStorage.getItem("token");
 
-let api = axios.create({
-  baseURL: API_URL,
-  // timeout: 10000,
-  headers: {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Credentials": true,
-    "Access-Control-Allow-Methods": "GET,OPTIONS,PATCH,DELETE,POST,PUT",
-    "Access-Control-Allow-Headers":
-      "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version",
-    // "Content-Type": "application/json;charset=utf-8",
-    //   "x-access-token": token ? token : "",
-  },
-});
+let api = axios.create({ baseURL: API_URL });
 
 api.interceptors.request.use(
   function (config) {
