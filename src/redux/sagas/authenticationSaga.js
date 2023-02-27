@@ -15,6 +15,7 @@ import { history } from "../../helpers/history";
 export function* postLogin(action) {
   try {
     const data = action.payload;
+    
     const res = yield call(POST, URL.LOGIN, data);
 
     if (isEmptyNullOrUndefined(res.token)) {
