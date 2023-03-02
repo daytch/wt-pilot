@@ -41,7 +41,7 @@ const Pnbp = () => {
     dariPihak === "AGEN" ? UserLogin : ""
   );
   const [detail, setDetail] = useState({});
-  
+
   var oldindex = "";
   const fetchData = () => {
     const url = `?ReportName=LAPORAN KEGIATAN PEMANDUAN DAN PENUNDAAN&CompanyName=PT WORLD TERMINALINDO&FromDate=${handleDateAPI(
@@ -133,165 +133,109 @@ const Pnbp = () => {
                         <th
                           rowSpan={3}
                           scope="col"
-                          className="px-3 py-1 text-center border border-black"
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
-                          <div className="flex items-center gap-x-2 justify-center">
-                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                              NO.
-                            </span>
-                          </div>
+                          NO.
                         </th>
 
                         <th
                           rowSpan={3}
                           scope="col"
-                          className="px-3 py-1 text-center border border-black"
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
-                          <div className="flex items-center gap-x-2 justify-center">
-                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                              NAMA / KAPAL
-                            </span>
-                          </div>
+                          NAMA / KAPAL
                         </th>
 
                         <th
                           rowSpan={3}
                           scope="col"
-                          className="px-3 py-1 text-center border border-black"
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
-                          <div className="flex items-center gap-x-2 justify-center">
-                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                              NAMA TONGKANG
-                            </span>
-                          </div>
+                          NAMA TONGKANG
                         </th>
 
                         <th
                           colSpan={2}
                           scope="col"
-                          className="px-3 py-1 text-center border border-black"
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
-                          <div className="flex items-center gap-x-2 justify-center">
-                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                              NO PKK
-                            </span>
-                          </div>
+                          NO PKK
                         </th>
                         <th
                           rowSpan={3}
                           scope="col"
-                          className="px-3 py-1 text-center border border-black"
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
-                          <div className="flex items-center gap-x-2 justify-center">
-                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                              BENDERA
-                            </span>
-                          </div>
+                          BENDERA
                         </th>
                         <th
                           colSpan={3}
                           scope="col"
-                          className="px-3 py-1 text-center border border-black"
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
-                          <div className="flex items-center gap-x-2 justify-center">
-                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                              SPESIFIKASI KAPAL
-                            </span>
-                          </div>
+                          SPESIFIKASI KAPAL
                         </th>
                         <th
                           rowSpan={3}
                           scope="col"
-                          className="px-3 py-1 text-center border border-black"
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
-                          <div className="flex items-center gap-x-2 justify-center">
-                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                              PELABUHAN ASAL
-                            </span>
-                          </div>
+                          PELABUHAN ASAL
                         </th>
                         <th
                           rowSpan={3}
                           scope="col"
-                          className="px-3 py-1 text-center border border-black"
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
-                          <div className="flex items-center gap-x-2 justify-center">
-                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                              PELABUHAN TUJUAN
-                            </span>
-                          </div>
+                          PELABUHAN TUJUAN
                         </th>
 
                         <th
                           colSpan={3}
                           scope="col"
-                          className="px-3 py-1 text-center border border-black"
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
-                          <div className="flex items-center gap-x-2 justify-center">
-                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                              GERAKAN KAPAL
-                            </span>
-                          </div>
+                          GERAKAN KAPAL
                         </th>
 
                         <th
                           colSpan={2}
                           scope="col"
-                          className="px-3 py-1 text-center border border-black"
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
-                          <div className="flex items-center gap-x-2 justify-center">
-                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                              TUNDA
-                            </span>
-                          </div>
+                          TUNDA
                         </th>
 
                         <th
                           colSpan={2}
                           scope="col"
-                          className="px-3 py-1 text-center border border-black"
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
-                          <div className="flex items-center gap-x-2 justify-center">
-                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                              PENDAPATAN
-                            </span>
-                          </div>
+                          PENDAPATAN
                         </th>
 
                         <th
                           colSpan={2}
                           scope="col"
-                          className="px-3 py-1 text-center border border-black"
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
-                          <div className="flex items-center gap-x-2 justify-center">
-                            <span className="text-center text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                              PNBP
-                            </span>
-                          </div>
+                          PNBP
                         </th>
 
                         <th
                           rowSpan={3}
                           scope="col"
-                          className="px-3 py-1 text-center border border-black"
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
-                          <div className="flex items-center gap-x-2 justify-center">
-                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                              JUMLAH PNBP
-                            </span>
-                          </div>
+                          JUMLAH PNBP
                         </th>
 
                         <th
                           rowSpan={3}
                           scope="col"
-                          className="px-3 py-1 text-center border border-black"
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
-                          <div className="flex items-center gap-x-2 justify-center">
-                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                              NOMOR INVOICE
-                            </span>
-                          </div>
+                          NOMOR INVOICE
                         </th>
                       </tr>
 
@@ -300,59 +244,39 @@ const Pnbp = () => {
                         <th
                           rowSpan={2}
                           scope="col"
-                          className="px-3 py-1 text-center border border-black"
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
-                          <div className="flex items-center gap-x-2 justify-center">
-                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                              GT KECIL
-                            </span>
-                          </div>
+                          GT KECIL
                         </th>
                         <th
                           rowSpan={2}
                           scope="col"
-                          className="px-3 py-1 text-center border border-black"
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
-                          <div className="flex items-center gap-x-2 justify-center">
-                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                              GT BESAR
-                            </span>
-                          </div>
+                          GT BESAR
                         </th>
 
                         {/* SPESIFIKASI KAPAL */}
                         <th
                           rowSpan={2}
                           scope="col"
-                          className="px-3 py-1 text-center border border-black"
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
-                          <div className="flex items-center gap-x-2 justify-center">
-                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                              DWT
-                            </span>
-                          </div>
+                          DWT
                         </th>
                         <th
                           rowSpan={2}
                           scope="col"
-                          className="px-3 py-1 text-center border border-black"
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
-                          <div className="flex items-center gap-x-2 justify-center">
-                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                              GT
-                            </span>
-                          </div>
+                          GT
                         </th>
                         <th
                           rowSpan={2}
                           scope="col"
-                          className="px-3 py-1 text-center border border-black"
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
-                          <div className="flex items-center gap-x-2 justify-center">
-                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                              LOA
-                            </span>
-                          </div>
+                          LOA
                         </th>
 
                         {/* GERAKAN KAPAL*/}
@@ -360,75 +284,51 @@ const Pnbp = () => {
                         <th
                           colSpan={3}
                           scope="col"
-                          className="px-3 py-1 text-center border border-black"
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
-                          <div className="flex items-center gap-x-2 justify-center">
-                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                              TANGGAL
-                            </span>
-                          </div>
+                          TANGGAL
                         </th>
 
                         {/* TUNDA */}
                         <th
                           rowSpan={2}
                           scope="col"
-                          className="px-3 py-1 text-center border border-black"
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
-                          <div className="flex items-center gap-x-2 justify-center">
-                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                              UNIT
-                            </span>
-                          </div>
+                          UNIT
                         </th>
 
                         <th
                           rowSpan={2}
                           scope="col"
-                          className="px-3 py-1 text-center border border-black"
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
-                          <div className="flex items-center gap-x-2 justify-center">
-                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                              JUMLAH JAM
-                            </span>
-                          </div>
+                          JUMLAH JAM
                         </th>
 
                         {/* TUNDA */}
                         <th
                           rowSpan={2}
                           scope="col"
-                          className="px-3 py-1 text-center border border-black"
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
-                          <div className="flex items-center gap-x-2 justify-center">
-                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                              UNIT
-                            </span>
-                          </div>
+                          UNIT
                         </th>
                         <th
                           rowSpan={2}
                           scope="col"
-                          className="px-3 py-1 text-center border border-black"
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
-                          <div className="flex items-center gap-x-2 justify-center">
-                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                              JAM
-                            </span>
-                          </div>
+                          JAM
                         </th>
 
                         {/* PNBP */}
                         <th
                           colSpan={2}
                           scope="col"
-                          className="px-3 py-1 text-center border border-black"
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
-                          <div className="flex items-center gap-x-2 justify-center">
-                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                              5 %
-                            </span>
-                          </div>
+                          5 %
                         </th>
                       </tr>
 
@@ -437,60 +337,40 @@ const Pnbp = () => {
                         <th
                           rowSpan={1}
                           scope="col"
-                          className="px-3 py-1 text-center border border-black"
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
-                          <div className="flex items-center gap-x-2 justify-center">
-                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                              MASUK
-                            </span>
-                          </div>
+                          MASUK
                         </th>
                         <th
                           rowSpan={1}
                           scope="col"
-                          className="px-3 py-1 text-center border border-black"
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
-                          <div className="flex items-center gap-x-2 justify-center">
-                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                              PINDAH
-                            </span>
-                          </div>
+                          PINDAH
                         </th>
                         <th
                           rowSpan={1}
                           scope="col"
-                          className="px-3 py-1 text-center border border-black"
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
-                          <div className="flex items-center gap-x-2 justify-center">
-                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                              KELUAR
-                            </span>
-                          </div>
+                          KELUAR
                         </th>
 
                         {/* PNBP 5% */}
                         <th
                           rowSpan={1}
                           scope="col"
-                          className="px-3 py-1 text-center border border-black"
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
-                          <div className="flex items-center gap-x-2 justify-center">
-                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                              PEMANDUAN
-                            </span>
-                          </div>
+                          PEMANDUAN
                         </th>
 
                         <th
                           rowSpan={1}
                           scope="col"
-                          className="px-3 py-1 text-center border border-black"
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
-                          <div className="flex items-center gap-x-2 justify-center">
-                            <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                              PENUNDAAN
-                            </span>
-                          </div>
+                          PENUNDAAN
                         </th>
                       </tr>
                     </thead>
@@ -503,303 +383,156 @@ const Pnbp = () => {
                               className="even:bg-white odd:bg-[#C0C0FD] dark:odd:bg-slate-900 dark:even:bg-slate-800"
                               onClick={() => setDetail(item)}
                             >
-                              <td className="border border-black h-px w-4 whitespace-nowrap">
-                                <a
-                                  className="block"
-                                  href="#"
-                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                                >
-                                  <div className="px-3 py-0">
-                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
-                                      {idx + 1}
-                                    </span>
-                                  </div>
-                                </a>
+                              <td
+                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                              >
+                                {idx + 1}
                               </td>
-                              <td className="border border-black h-px w-4 whitespace-nowrap">
-                                <a
-                                  className="block"
-                                  href="#"
-                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                                >
-                                  <div className="px-3 py-0">
-                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
-                                      {item.NamaKapal}
-                                    </span>
-                                  </div>
-                                </a>
+                              <td
+                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                              >
+                                {item.NamaKapal}
                               </td>
-                              <td className="border border-black h-px w-4 whitespace-nowrap">
-                                <a
-                                  className="block"
-                                  href="#"
-                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                                >
-                                  <div className="px-3 py-0">
-                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
-                                      {item.NamaTongkang}
-                                    </span>
-                                  </div>
-                                </a>
+                              <td
+                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                              >
+                                {item.NamaTongkang}
                               </td>
-                              <td className="border border-black h-px w-4 whitespace-nowrap">
-                                <a
-                                  className="block"
-                                  href="#"
-                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                                >
-                                  <div className="px-3 py-0">
-                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
-                                      {item.NoPKKGTKecil}
-                                    </span>
-                                  </div>
-                                </a>
+                              <td
+                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                              >
+                                {item.NoPKKGTKecil};.
                               </td>
-                              <td className="border border-black h-px w-4 whitespace-nowrap">
-                                <a
-                                  className="block"
-                                  href="#"
-                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                                >
-                                  <div className="px-3 py-0">
-                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
-                                      {item.NoPKKGTBesar}
-                                    </span>
-                                  </div>
-                                </a>
+                              <td
+                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                              >
+                                {item.NoPKKGTBesar}
                               </td>
-                              <td className="border border-black h-px w-4 whitespace-nowrap">
-                                <a
-                                  className="block"
-                                  href="#"
-                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                                >
-                                  <div className="px-3 py-0">
-                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
-                                      {item.Bendera}
-                                    </span>
-                                  </div>
-                                </a>
+                              <td
+                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                              >
+                                {item.Bendera}
                               </td>
-                              <td className="border border-black h-px w-4 whitespace-nowrap">
-                                <a
-                                  className="block"
-                                  href="#"
-                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                                >
-                                  <div className="px-3 py-0">
-                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
-                                      {parseFloat(item.DWT)}
-                                    </span>
-                                  </div>
-                                </a>
+                              <td
+                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                              >
+                                {item.DWT ? parseFloat(item.DWT) : ""}
                               </td>
-                              <td className="border border-black h-px w-4 whitespace-nowrap">
-                                <a
-                                  className="block"
-                                  href="#"
-                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                                >
-                                  <div className="px-3 py-0">
-                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
-                                      {parseFloat(item.GRT)}
-                                    </span>
-                                  </div>
-                                </a>
+                              <td
+                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                              >
+                                {item.GRT ? parseFloat(item.GRT) : ""}
                               </td>
-                              <td className="border border-black h-px w-4 whitespace-nowrap">
-                                <a
-                                  className="block"
-                                  href="#"
-                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                                >
-                                  <div className="px-3 py-0">
-                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
-                                      {parseFloat(item.LOA)}
-                                    </span>
-                                  </div>
-                                </a>
+                              <td
+                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                              >
+                                {item.LOA ? parseFloat(item.LOA) : ""}
                               </td>
-                              <td className="border border-black h-px w-4 whitespace-nowrap">
-                                <a
-                                  className="block"
-                                  href="#"
-                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                                >
-                                  <div className="px-3 py-0">
-                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
-                                      {item.PelabuhanAsal}
-                                    </span>
-                                  </div>
-                                </a>
+                              <td
+                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                              >
+                                {item.PelabuhanAsal}
                               </td>
-                              <td className="border border-black h-px w-4 whitespace-nowrap">
-                                <a
-                                  className="block"
-                                  href="#"
-                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                                >
-                                  <div className="px-3 py-0">
-                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
-                                      {item.PelabuhanTujuan}
-                                    </span>
-                                  </div>
-                                </a>
+                              <td
+                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                              >
+                                {item.PelabuhanTujuan}
                               </td>
-                              <td className="border border-black h-px w-4 whitespace-nowrap">
-                                <a
-                                  className="block"
-                                  href="#"
-                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                                >
-                                  <div className="px-3 py-0">
-                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
-                                      {item.MulaiPanduMasuk === "" ||
-                                      item.MulaiPanduMasuk === null
-                                        ? item.MulaiPanduMasuk
-                                        : sliceHour(item.MulaiPanduMasuk)}
-                                    </span>
-                                  </div>
-                                </a>
+                              <td
+                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                              >
+                                {item.MulaiPanduMasuk === "" ||
+                                item.MulaiPanduMasuk === null
+                                  ? item.MulaiPanduMasuk
+                                  : sliceHour(item.MulaiPanduMasuk)}
                               </td>
-                              <td className="border border-black h-px w-4 whitespace-nowrap">
-                                <a
-                                  className="block"
-                                  href="#"
-                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                                >
-                                  <div className="px-3 py-0">
-                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
-                                      {item.MulaiPanduPindah}
-                                    </span>
-                                  </div>
-                                </a>
+                              <td
+                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                              >
+                                {item.MulaiPanduPindah}
                               </td>
-                              <td className="border border-black h-px w-4 whitespace-nowrap">
-                                <a
-                                  className="block"
-                                  href="#"
-                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                                >
-                                  <div className="px-3 py-0">
-                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
-                                      {item.MulaiPanduKeluar === "" ||
-                                      item.MulaiPanduKeluar === null
-                                        ? item.MulaiPanduKeluar
-                                        : sliceHour(item.MulaiPanduKeluar)}
-                                    </span>
-                                  </div>
-                                </a>
+                              <td
+                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                              >
+                                {item.MulaiPanduKeluar === "" ||
+                                item.MulaiPanduKeluar === null
+                                  ? item.MulaiPanduKeluar
+                                  : sliceHour(item.MulaiPanduKeluar)}
                               </td>
-                              <td className="border border-black h-px w-4 whitespace-nowrap">
-                                <a
-                                  className="block"
-                                  href="#"
-                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                                >
-                                  <div className="px-3 py-0">
-                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
-                                      {item.JumlahUnitTundaKapal}
-                                    </span>
-                                  </div>
-                                </a>
+                              <td
+                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                              >
+                                {item.JumlahUnitTundaKapal}
                               </td>
-                              <td className="border border-black h-px w-4 whitespace-nowrap">
-                                <a
-                                  className="block"
-                                  href="#"
-                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                                >
-                                  <div className="px-3 py-0">
-                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
-                                      {parseFloat(
-                                        item.TotalJamTundaKapal
-                                      ).toFixed(2)}
-                                    </span>
-                                  </div>
-                                </a>
+                              <td
+                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                              >
+                                {item.TotalJamTundaKapal
+                                  ? parseFloat(item.TotalJamTundaKapal).toFixed(
+                                      2
+                                    )
+                                  : ""}
                               </td>
-                              <td className="border border-black h-px w-4 whitespace-nowrap">
-                                <a
-                                  className="block"
-                                  href="#"
-                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                                >
-                                  <div className="px-3 py-0">
-                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
-                                      {/* {item.JumlahUnitTundaKapal} */}
-                                    </span>
-                                  </div>
-                                </a>
+                              <td
+                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                              >{/* {item.JumlahUnitTundaKapal} */}
                               </td>
-                              <td className="border border-black h-px w-4 whitespace-nowrap">
-                                <a
-                                  className="block"
-                                  href="#"
-                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                                >
-                                  <div className="px-3 py-0">
-                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
-                                      {/* {item.TotalJamTundaKapal} */}
-                                    </span>
-                                  </div>
-                                </a>
+                              <td
+                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                              >
+                                {/* {item.TotalJamTundaKapal} */}
                               </td>
-                              <td className="border border-black h-px w-4 whitespace-nowrap">
-                                <a
-                                  className="block"
-                                  href="#"
-                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                                >
-                                  <div className="px-3 py-0">
-                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
-                                      {parseFloat(
-                                        item.TotalNilaiPanduPNBP
-                                      ).toFixed(2)}
-                                    </span>
-                                  </div>
-                                </a>
+                              <td
+                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                              >
+                                {item.TotalNilaiPanduPNBP
+                                  ? parseFloat(
+                                      item.TotalNilaiPanduPNBP
+                                    ).toFixed(2)
+                                  : ""}
                               </td>
-                              <td className="border border-black h-px w-4 whitespace-nowrap">
-                                <a
-                                  className="block"
-                                  href="#"
-                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                                >
-                                  <div className="px-3 py-0">
-                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
-                                      {parseFloat(
-                                        item.TotalNilaiTundaPNBP
-                                      ).toFixed(2)}
-                                    </span>
-                                  </div>
-                                </a>
+                              <td
+                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                              >
+                                {item.TotalNilaiTundaPNBP
+                                  ? parseFloat(
+                                      item.TotalNilaiTundaPNBP
+                                    ).toFixed(2)
+                                  : ""}
                               </td>
-                              <td className="border border-black h-px w-4 whitespace-nowrap">
-                                <a
-                                  className="block"
-                                  href="#"
-                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                                >
-                                  <div className="px-3 py-0">
-                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
-                                      {parseFloat(item.JumlahPNBP).toFixed(2)}
-                                    </span>
-                                  </div>
-                                </a>
+                              <td
+                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                              >
+                                {item.JumlahPNBP
+                                  ? parseFloat(item.JumlahPNBP).toFixed(2)
+                                  : ""}
                               </td>
-                              <td className="border border-black h-px w-4 whitespace-nowrap">
-                                <a
-                                  className="block"
-                                  href="#"
-                                  data-hs-overlay="#hs-bg-gray-on-hover-cards"
-                                >
-                                  <div className="px-3 py-0">
-                                    <span className="text-[10px] text-gray-600  dark:text-gray-400">
-                                      {item.NomorInv}
-                                    </span>
-                                  </div>
-                                </a>
+                              <td
+                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                              >
+                                {item.NomorInv}
                               </td>
                             </tr>
                           );
@@ -817,54 +550,6 @@ const Pnbp = () => {
                       </span>
                       results
                     </p>
-                  </div>
-
-                  <div>
-                    <div className="inline-flex gap-x-2">
-                      <button
-                        type="button"
-                        className="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800"
-                      >
-                        <svg
-                          className="w-3 h-3"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 16 15"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M10.506 1.64001L4.85953 7.28646C4.66427 7.48172 4.66427 7.79831 4.85953 7.99357L10.506 13.64"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                          />
-                        </svg>
-                        Prev
-                      </button>
-
-                      <button
-                        type="button"
-                        className="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800"
-                      >
-                        Next
-                        <svg
-                          className="w-3 h-3"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M4.50598 2L10.1524 7.64645C10.3477 7.84171 10.3477 8.15829 10.1524 8.35355L4.50598 14"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                          />
-                        </svg>
-                      </button>
-                    </div>
                   </div>
                 </div>
                 {/* <!-- End Footer --> */}

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import {
   getDataCabang,
@@ -40,6 +40,26 @@ const Filter = (props) => {
   const dataRealisasiPandu = useSelector(
     (state) => state.Dashboard.dataRealisasiPandu
   );
+  const [listSalesOrder, setListSalesOrder] = useState([
+    { Code: "0", Name: "Cari" },
+  ]);
+  const [listPandu, setListPandu] = useState([{ Code: "0", Name: "Cari" }]);
+  useEffect(() => {
+    if (dataSalesOrder?.length > 0 && listSalesOrder.length < 2) {
+      let arrSales = [...listSalesOrder];
+      dataSalesOrder.forEach((element) => {
+        arrSales.push(element);
+      });
+      setListSalesOrder(arrSales);
+    }
+    if (dataRealisasiPandu?.length > 0 && listPandu.length < 2) {
+      let arrPandu = [...listPandu];
+      dataRealisasiPandu.forEach((element) => {
+        arrPandu.push(element);
+      });
+      setListPandu(arrPandu);
+    }
+  }, [dataSalesOrder, dataRealisasiPandu]);
 
   useEffect(() => {
     if (
@@ -64,7 +84,8 @@ const Filter = (props) => {
         <select
           value={MMCode ?? dataCabang[0]?.MMCode}
           onChange={(e) => setMMCode(e.target.value)}
-          className="py-1 px-3 pr-6 block w-full bg-blue-100 border-gray-500 rounded-md text-xs focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+          disabled={UserData.MMCode ? true : false}
+          className="py-1 px-3 pr-6 block w-full disabled:bg-gray-300 bg-blue-100 border-gray-500 rounded-md text-xs focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
         >
           {dataCabang &&
             dataCabang.map((x, idx) => (
@@ -77,6 +98,7 @@ const Filter = (props) => {
         <DatePicker
           className="py-2 px-3 pr-9 block w-full bg-blue-100 border-gray-500 rounded-md text-xs focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
           selected={startDate}
+          dateFormat="dd-MM-yyyy"
           onChange={(date) => setStartDate(date)}
         />
         <span className="inline-block align-middle mt-1.5 text-sm">
@@ -86,6 +108,7 @@ const Filter = (props) => {
         <DatePicker
           className="py-2 px-3 pr-9 block w-full bg-blue-100 border-gray-500 rounded-md text-xs focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
           selected={endDate}
+          dateFormat="dd-MM-yyyy"
           onChange={(date) => setEndDate(date)}
         />
         {tipe === "jadwal" ? (
@@ -94,8 +117,8 @@ const Filter = (props) => {
             onChange={(e) => setCode(e.target.value)}
             className="py-1 px-3 pr-6 block w-full bg-blue-100 border-gray-500 rounded-md text-xs focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
           >
-            {dataSalesOrder &&
-              dataSalesOrder.map((x, idx) => (
+            {listSalesOrder &&
+              listSalesOrder.map((x, idx) => (
                 <option key={idx} value={x.Code}>
                   {x.Name}
                 </option>
@@ -108,8 +131,8 @@ const Filter = (props) => {
               onChange={(e) => setCode(e.target.value)}
               className="py-1 px-3 pr-6 block w-full bg-blue-100 border-gray-500 rounded-md text-xs focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
             >
-              {dataRealisasiPandu &&
-                dataRealisasiPandu.map((x, idx) => (
+              {listPandu &&
+                listPandu.map((x, idx) => (
                   <option key={idx} value={x.Code}>
                     {x.Name}
                   </option>
@@ -123,8 +146,8 @@ const Filter = (props) => {
             onChange={(e) => setCode(e.target.value)}
             className="py-1 px-3 pr-6 block w-full bg-blue-100 border-gray-500 rounded-md text-xs focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
           >
-            {dataRealisasiPandu &&
-              dataRealisasiPandu.map((x, idx) => (
+            {listPandu &&
+              listPandu.map((x, idx) => (
                 <option key={idx} value={x.Code}>
                   {x.Name}
                 </option>

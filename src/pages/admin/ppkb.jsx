@@ -1281,163 +1281,75 @@ const Ppkb = () => {
                             <thead className="bg-gray-50 dark:bg-slate-900">
                               <tr className="text-center">
                                 <th className="border border-black"></th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      NO
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  NO
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="whitespace-nowrap text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      NAMA BARANG
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  NAMA BARANG
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      BAHAYA
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  BAHAYA
                                 </th>
 
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      GANGGU
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  GANGGU
                                 </th>
 
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      KEGIATAN
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  KEGIATAN
                                 </th>
 
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      UNIT
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  UNIT
                                 </th>
 
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      TON
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  TON
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      M3
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  M3
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      PENYALURAN
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  PENYALURAN
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      KADE
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  KADE
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      PBM
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  PBM
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      NPWP PBM
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  NPWP PBM
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      CONSIGNEE
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  CONSIGNEE
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      SHIPPER
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  SHIPPER
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="whitespace-nowrap text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      NPWP SHIPPER
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  NPWP SHIPPER
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="whitespace-nowrap text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      NOMOR BILL OF LANDING
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  NOMOR BILL OF LANDING
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="whitespace-nowrap text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      JUMLAH GANG (Kelompok Kerja)
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  JUMLAH GANG (Kelompok Kerja)
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      PALKA
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  PALKA
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="whitespace-nowrap text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      NOMOR RKBM BONGKAR
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  NOMOR RKBM BONGKAR
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="whitespace-nowrap text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      NOMOR RKBM MUAT
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  NOMOR RKBM MUAT
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="whitespace-nowrap text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      RENCANA BONGKAR
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  RENCANA BONGKAR
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="whitespace-nowrap text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      RENCANA MUAT
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  RENCANA MUAT
                                 </th>
                               </tr>
                             </thead>

@@ -1,91 +1,206 @@
-import { all, call, put, takeEvery } from "redux-saga/effects";
-import { URL } from "./../constants";
-import { isEmptyNullOrUndefined } from "../../functions/index";
-import { POST } from "./../middleware/index";
+import { all, call, put, takeEvery } from "redux-saga/effects"
+import { URL } from "./../constants"
+import { isEmptyNullOrUndefined } from "../../functions/index"
+import { POST } from "./../middleware/index"
 import {
   postLoginFailure,
   postLoginSuccess,
-  postCaptchaSuccess,
-  postCaptchaFailure,
-  postChangePasswordFailure,
-  postChangePasswordSuccess,
-} from "../slices/authenticationSlice";
-import { history } from "../../helpers/history";
+  postUserRegistrationSuccess,
+  postUserRegistrationFailure,
+  forgotPasswordFailure,
+  forgotPasswordSuccess,
+  checkUserRegistrationFailure,
+  checkUserRegistrationSuccess,
+  saveUserRegistrationFailure,
+  saveUserRegistrationSuccess,
+} from "../slices/authenticationSlice"
+import { history } from "../../helpers/history"
 
 export function* postLogin(action) {
   try {
-    const data = action.payload;
-    
-    const res = yield call(POST, URL.LOGIN, data);
+    const data = action.payload
+
+    const res = yield call(POST, URL.LOGIN, data)
 
     if (isEmptyNullOrUndefined(res.token)) {
       yield put(
         postLoginFailure({
           error: "Email atau Password anda tidak sesuai, mohon cek kembali.",
         })
-      );
-    }
-    // else if (res.message !== "User Found") {
-    //   yield put(postLoginFailure({ error: res.message }));
-    // }
-    else {
-      let user = res.user[0];
-      user.token = res.token;
-      localStorage.setItem("expires_in", res.expires_in);
-      localStorage.setItem("token", res.token);
-      localStorage.setItem("user", JSON.stringify(user));
-
-      yield put(postLoginSuccess({ data: user }));
-      const { from } = history.location.state || { from: { pathname: "/" } };
-    }
-  } catch (error) {
-    yield put(postLoginFailure({ isError: 1, message: error }));
-  }
-}
-
-export function* postCapcay(action) {
-  try {
-    const data = action.payload;
-    const res = yield call(POST, URL.CAPTCHA, data);
-
-    if (!res && res.ErrorCode > 0) {
-      yield put(
-        postCaptchaFailure({
-          isError: 1,
-          message: res.message ? res.message : res.statusText,
-        })
-      );
+      )
     } else {
-      yield put(postCaptchaSuccess({ data: res.Data }));
+      let user = res.user[0]
+      user.token = res.token
+      user.isLogin = true
+      localStorage.setItem("expires_in", res.expires_in)
+      localStorage.setItem("token", res.token)
+      localStorage.setItem("user", JSON.stringify(user))
+
+      yield put(postLoginSuccess({ data: user }))
+      const { from } = history.location.state || { from: { pathname: "/" } }
     }
   } catch (error) {
-    yield put(postCaptchaFailure({ isError: 1, message: error }));
+    yield put(postLoginFailure({ isError: 1, message: error }))
   }
 }
 
-export function* postChangePassword(action) {
+export function* postUserRegistration(action) {
   try {
-    const res = yield call(POST, URL.CHANGE_PASSWORD, action.payload);
+    const data = action.payload
 
-    if (res.message.toLowerCase().indexOf("success") === -1) {
+    const fmData = new FormData()
+    fmData.append("UserId", data.UserId)
+    const res = yield call(POST, URL.REGISTER, fmData)
+
+    if (!res && res.data.length < 1) {
       yield put(
-        postChangePasswordFailure({
+        postUserRegistrationFailure({
+          isError: 1,
+          message: "UserId tidak ada",
+        })
+      )
+    } else {
+      const resData = res.data[0]
+      let text = resData.Email
+      let result = text ? text.replace(/^\s+|\s+$/gm, "") : ""
+
+      if (isEmptyNullOrUndefined(result)) {
+        const dataPayload = new FormData()
+        dataPayload.append("UserId", data.UserId)
+        dataPayload.append("Email", data.Email)
+
+        const resCheck = yield call(
+          POST,
+          URL.CHECK_USER_REGISTRASION,
+          dataPayload
+        )
+        debugger
+        if (resCheck.data?.length < 1) {
+          const data3 = new FormData()
+          data3.append("UserId", data.UserId)
+          data3.append("Email", data.Email)
+          data3.append("Handphone", data.NoHP)
+          data3.append("Password", "")
+
+          const resSave = yield call(POST, URL.SAVE_USER_REGISTRASION, data3)
+
+          if (!resSave && resSave.data.length < 1) {
+            yield put(
+              saveUserRegistrationFailure({
+                isError: 1,
+                message: "Gagal Registrasi",
+              })
+            )
+          } else {
+            yield put(
+              postUserRegistrationSuccess({
+                message: "Link sudah terkirim ke email " + resSave.data[0].Info,
+              })
+            )
+          }
+        } else {
+          yield put(
+            postUserRegistrationFailure({
+              isError: 1,
+              message: "Email sudah digunakan",
+            })
+          )
+        }
+      } else {
+        yield put(
+          postUserRegistrationFailure({
+            isError: 1,
+            message: "Akun sudah terdaftar",
+          })
+        )
+      }
+    }
+  } catch (error) {
+    yield put(postUserRegistrationFailure({ isError: 1, message: error }))
+  }
+}
+
+export function* checkUserRegistration(action) {
+  try {
+    const data = action.payload
+    const res = yield call(POST, URL.CHECK_USER_REGISTRASION, data)
+
+    if (!res && res.data.length < 1) {
+      yield put(
+        checkUserRegistrationFailure({
+          isError: 1,
+          message: "UserId tidak ada",
+        })
+      )
+    } else {
+      const data = res.data[0]
+      let text = item.Email
+      let result = data ? text.replace(/^\s+|\s+$/gm, "") : ""
+      if (isEmptyNullOrUndefined(result)) {
+        yield put(checkUserRegistrationSuccess({ data }))
+      } else {
+        yield put(
+          checkUserRegistrationFailure({
+            isError: 1,
+            message: "Email sudah digunakan",
+          })
+        )
+      }
+    }
+  } catch (error) {
+    yield put(checkUserRegistrationFailure({ isError: 1, message: error }))
+  }
+}
+
+export function* saveUserRegistration(action) {
+  try {
+    const data = action.payload
+    const res = yield call(POST, URL.SAVE_USER_REGISTRASION, data)
+
+    if (!res && res.data.length < 1) {
+      yield put(
+        saveUserRegistrationFailure({
+          isError: 1,
+          message: "UserId tidak ada",
+        })
+      )
+    } else {
+      yield put(saveUserRegistrationSuccess({ data }))
+    }
+  } catch (error) {
+    yield put(checkUserRegistrationFailure({ isError: 1, message: error }))
+  }
+}
+
+export function* forgotPassword(action) {
+  try {
+    const data = action.payload
+    const res = yield call(
+      POST,
+      URL.FORGOT + "?userid=" + data.userId + "&email=" + data.email
+    )
+
+    if (isEmptyNullOrUndefined(res.message)) {
+      yield put(
+        forgotPasswordFailure({
           isError: 1,
           message: res.message,
         })
-      );
+      )
     } else {
-      yield put(postChangePasswordSuccess({ res }));
+      yield put(forgotPasswordSuccess({ res }))
     }
   } catch (error) {
-    yield put(postChangePasswordFailure({ isError: 1, error: error }));
+    yield put(forgotPasswordFailure({ isError: 1, error: error }))
   }
 }
 
 export default function* rootSaga() {
   yield all([
     takeEvery("Authentication/postLogin", postLogin),
-    takeEvery("Authentication/postChangePassword", postChangePassword),
-    takeEvery("Authentication/postCaptcha", postCapcay),
-  ]);
+    takeEvery("Authentication/forgotPassword", forgotPassword),
+    takeEvery("Authentication/postUserRegistration", postUserRegistration),
+    takeEvery("Authentication/checkUserRegistration", checkUserRegistration),
+    takeEvery("Authentication/saveUserRegistration", saveUserRegistration),
+  ])
 }

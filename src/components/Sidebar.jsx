@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import LogoImage from "./../assets/logo-hd.png";
 import { useDispatch, useSelector } from "react-redux";
 import {
   changeActiveSidebarMenu,
   changeActiveTabMenu,
 } from "../redux/slices/dashboardSlice.js";
+import { postLogin } from "./../redux/slices/authenticationSlice.js";
 import {
   CalendarDaysIcon,
   CircleStackIcon,
@@ -27,12 +28,16 @@ const Sidebar = () => {
   const userData = JSON.parse(localStorage.getItem("userData"));
   const username = userData?.displayUserName;
   const [loading, setLoading] = useState(false);
-
+  
   const loadingD = useSelector((state) => state.Dashboard.loading);
   const loadingJ = useSelector((state) => state.Jadwal.loading);
   const loadingPn = useSelector((state) => state.PNBP.loading);
   const loadingPp = useSelector((state) => state.PPKB.loading);
   const loadingR = useSelector((state) => state.Realisasi.loading);
+
+  const token = useSelector((state) => state.Authentication.token);
+  const data = useSelector((state) => state.Authentication.data);
+  const loadingA = useSelector((state) => state.Authentication.loading);
 
   const isActive = useSelector((state) => state.Dashboard.activeSidebarMenu);
   const isTabMenuActive = useSelector((state) => state.Dashboard.activeTabMenu);
@@ -43,6 +48,11 @@ const Sidebar = () => {
   const activeTabMenuClass =
     "font-semibold px-4 py-3 hover:bg-[#51B1E7] bg-[#51B1E7]";
   const inActiveTabMenuClass = "font-semibold px-4 py-3 hover:bg-[#51B1E7]";
+
+  const backDropActive =
+    "hs-overlay backdrop-blur-sm w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto [--overlay-backdrop:static] open";
+  const backDroopNonActive =
+    "hs-overlay hidden backdrop-blur-sm w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto [--overlay-backdrop:static]"; //"hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto"
 
   const menuAction = {
     dashboard: (isLeftmenu) => {
@@ -157,8 +167,22 @@ const Sidebar = () => {
   };
 
   useEffect(() => {
-    setLoading(loadingD || loadingJ || loadingPn /*|| loadingPp*/ || loadingR);
-  }, [loadingD, loadingJ, loadingPn, /*loadingPp,*/ loadingR]);
+    if (token) {
+      localStorage.setItem("token", token);
+      localStorage.setItem("userData", JSON.stringify(data));
+      if (token && data) {
+        localStorage.setItem("isUserActive", true);
+        // btnReloginModalRef.current.click();
+        // history.navigate("/");
+      }
+    }
+  }, [loadingA, data]);
+
+  useEffect(() => {
+    setLoading(
+      loadingD || loadingJ || loadingPn /*|| loadingPp*/ || loadingR || loadingA
+    );
+  }, [loadingD, loadingJ, loadingPn, /*loadingPp,*/ loadingR, loadingA]);
 
   const renderMenu = () => {
     return isActive.dashboard ? (
@@ -311,6 +335,7 @@ const Sidebar = () => {
       </div>
 
       <div className="h-screen flex-1 p-7">
+       
         <header className="rounded-xl flex flex-wrap justify-start sm:flex-nowrap z-50 w-full bg-[#B4E7F7] border-b border-white/[.5] text-sm py-3 sm:py-0">
           <nav
             className="relative max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between" // sm:px-6 lg:px-8"

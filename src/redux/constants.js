@@ -1,9 +1,8 @@
-export const API_URL = "http://203.135.177.235:8093/api";
-export const isProd = true;
+export const API_URL = "http://203.135.177.235:8093/api"
+export const isProd = true
 export const URL = {
   LOGIN: "/auth/login",
   CHANGE_PASSWORD: "/user/changePassword",
-  REGISTER: "/user/register",
   DASHBOARD: "/dashboard",
   GET_CABANG: "/get-combocabang",
   SALESORDER: "/get-combosearchsalesorderterminalindo",
@@ -18,4 +17,9 @@ export const URL = {
   GET_PNBP_REPORT: "get-laporanpnbp",
   POST_PPKB: "post-insertgetppkb",
   DELETE_PPKB: "post-deletedatappkb",
-};
+  REGISTER: "post-userregistrasi",
+  CHECK_USER_REGISTRASION: "post-checkuserregistrasi",
+  SAVE_USER_REGISTRASION: "post-saveuserregistrasi",
+  FORGOT: "email-forgot",
+}
+export const timeOut = 5 // in minutes
