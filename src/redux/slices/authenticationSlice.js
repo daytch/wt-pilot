@@ -66,8 +66,8 @@ export const authenticationSlice = createSlice({
       state.data = action.payload.data
       state.token = action.payload.data.token
       state.error = ""
-      state.message = "berhasil login"
-      state.reloginMessage = !isLogin
+      state.message = ""
+      state.reloginMessage = !action.payload.data.isLogin
         ? `Welcome back ${action.payload.data.displayUserName}`
         : ""
       state.loading = false

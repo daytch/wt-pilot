@@ -1,90 +1,88 @@
-import React, { useState, useRef, useEffect } from "react";
-import Sidebar from "./../../components/Sidebar";
-import { useSelector, useDispatch } from "react-redux";
-import Loader from "../../components/Loader";
-import Dashboard from "../admin/dashboard";
-import { postLogin } from "../../redux/slices/authenticationSlice.js";
+import React, { useState, useRef, useEffect } from "react"
+import Sidebar from "./../../components/Sidebar"
+import { useSelector, useDispatch } from "react-redux"
+import Loader from "../../components/Loader"
+import Dashboard from "../admin/dashboard"
+import { postLogin } from "../../redux/slices/authenticationSlice.js"
 
-import JadwalKedatangan from "../admin/jadwalkedatangan";
-import PPKB from "../admin/ppkb";
-import Realisasi from "../admin/realisasipemanduan";
+import JadwalKedatangan from "../admin/jadwalkedatangan"
+import PPKB from "../admin/ppkb"
+import Realisasi from "../admin/realisasipemanduan"
 
-import { useIdleTimer } from "react-idle-timer";
-import { timeOut } from "../../redux/constants.js";
-import { isEmptyNullOrUndefined } from "../../functions/index.js";
-import { ErrorMessage, SuccessMessage } from "../../components/Notification";
+import { useIdleTimer } from "react-idle-timer"
+import { timeOut } from "../../redux/constants.js"
+import { isEmptyNullOrUndefined } from "../../functions/index.js"
+import { ErrorMessage, SuccessMessage } from "../../components/Notification"
 
 const Admin = () => {
-  const userData = JSON.parse(localStorage.getItem("userData"));
-  const isActive = useSelector((state) => state.Dashboard.activeSidebarMenu);
-  const loading = useSelector((state) => state.Dashboard.loading);
-  const dispatch = useDispatch();
+  const userData = JSON.parse(localStorage.getItem("userData"))
+  const isActive = useSelector((state) => state.Dashboard.activeSidebarMenu)
+  const loading = useSelector((state) => state.Dashboard.loading)
+  const dispatch = useDispatch()
 
-  const passwordRef = useRef();
-  const btnReloginModalRef = useRef();
+  const passwordRef = useRef()
+  const btnReloginModalRef = useRef()
 
-  const token = useSelector((state) => state.Authentication.token);
-  const data = useSelector((state) => state.Authentication.data);
+  const token = useSelector((state) => state.Authentication.token)
+  const data = useSelector((state) => state.Authentication.data)
   const reloginMessage = useSelector(
     (state) => state.Authentication.reloginMessage
-  );
-  const reloginError = useSelector(
-    (state) => state.Authentication.reloginError
-  );
+  )
+  const reloginError = useSelector((state) => state.Authentication.reloginError)
 
   const [isUserActive, setIsUserActive] = useState(
     isEmptyNullOrUndefined(localStorage.getItem("isUserActive"))
       ? true
       : localStorage.getItem("isUserActive")
-  );
+  )
 
   useEffect(() => {
     if (token) {
-      localStorage.setItem("token", token);
-      localStorage.setItem("userData", JSON.stringify(data));
+      localStorage.setItem("token", token)
+      localStorage.setItem("userData", JSON.stringify(data))
+      
       if (token && data) {
-        btnReloginModalRef.current.click();
-        setIsUserActive(true);
-        localStorage.setItem("isUserActive", true);
-        SuccessMessage("", reloginMessage);
+        btnReloginModalRef.current.click()
+        setIsUserActive(true)
+        localStorage.setItem("isUserActive", true)
+        if (reloginMessage) SuccessMessage("", reloginMessage)
       }
     } else if (reloginError) {
-      ErrorMessage("", reloginError);
+      ErrorMessage("", reloginError)
     }
-  }, [token, data, reloginError]);
+  }, [token, data, reloginError])
 
-  var firstClick = true;
+  var firstClick = true
   useEffect(() => {
-    var elementExists = document.getElementById("btnModalRelogin");
-    var backDrop = document.getElementById("hs-static-backdrop-modal");
+    var elementExists = document.getElementById("btnModalRelogin")
+    var backDrop = document.getElementById("hs-static-backdrop-modal")
     if (!isUserActive && elementExists && backDrop && firstClick) {
-      // debugger;
-      btnReloginModalRef.current.click();
-      localStorage.setItem("isUserActive", isUserActive);
-      firstClick = false;
+      btnReloginModalRef.current.click()
+      localStorage.setItem("isUserActive", isUserActive)
+      firstClick = false
     }
-  }, []);
+  }, [])
 
   const onIdle = () => {
     if (isUserActive) {
-      btnReloginModalRef.current.click();
-      localStorage.setItem("isUserActive", false);
-      setIsUserActive(false);
+      btnReloginModalRef.current.click()
+      localStorage.setItem("isUserActive", false)
+      setIsUserActive(false)
     }
-  };
+  }
 
   const { getRemainingTime } = useIdleTimer({
     onIdle,
     timeout: isUserActive ? timeOut * 60000 : 0,
     throttle: 500,
-  });
+  })
 
   function handleLogin(e) {
-    e.preventDefault();
-    const data = new FormData();
-    data.append("Email", userData.Email);
-    data.append("Password", passwordRef.current.value);
-    dispatch(postLogin(data));
+    e.preventDefault()
+    const data = new FormData()
+    data.append("Email", userData.Email)
+    data.append("Password", passwordRef.current.value)
+    dispatch(postLogin(data))
   }
 
   const renderMenu = () => {
@@ -96,13 +94,13 @@ const Admin = () => {
       <PPKB />
     ) : isActive.realisasi ? (
       <Realisasi />
-    ) : null;
-  };
+    ) : null
+  }
 
   const backDropActive =
-    "hs-overlay backdrop-blur-sm w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto [--overlay-backdrop:static] open";
+    "hs-overlay backdrop-blur-sm w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto [--overlay-backdrop:static] open"
   const backDroopNonActive =
-    "hs-overlay hidden backdrop-blur-sm w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto [--overlay-backdrop:static]"; //"hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto"
+    "hs-overlay hidden backdrop-blur-sm w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto [--overlay-backdrop:static]" //"hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto"
 
   return (
     <>
@@ -174,7 +172,7 @@ const Admin = () => {
 
       <Sidebar />
     </>
-  );
-};
+  )
+}
 
-export default Admin;
+export default Admin

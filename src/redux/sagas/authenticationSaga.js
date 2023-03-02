@@ -35,7 +35,7 @@ export function* postLogin(action) {
       localStorage.setItem("expires_in", res.expires_in)
       localStorage.setItem("token", res.token)
       localStorage.setItem("user", JSON.stringify(user))
-
+      
       yield put(postLoginSuccess({ data: user }))
       const { from } = history.location.state || { from: { pathname: "/" } }
     }
@@ -74,7 +74,7 @@ export function* postUserRegistration(action) {
           URL.CHECK_USER_REGISTRASION,
           dataPayload
         )
-        debugger
+        
         if (resCheck.data?.length < 1) {
           const data3 = new FormData()
           data3.append("UserId", data.UserId)

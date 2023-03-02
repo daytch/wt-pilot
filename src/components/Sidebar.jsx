@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import LogoImage from "./../assets/logo-hd.png";
+import LogoImage from "./../assets/logo-hd.webp";
 import { useDispatch, useSelector } from "react-redux";
 import {
   changeActiveSidebarMenu,
@@ -236,7 +236,7 @@ const Sidebar = () => {
 
   let selectedMenu = {};
   const Menus =
-    userData.UserType === "KSOP"
+    userData?.UserType === "KSOP"
       ? [
           { title: "Dashboard", name: "dashboard" },
           {
@@ -281,14 +281,14 @@ const Sidebar = () => {
         } bg-dark-purple h-screen p-5 pt-8 relative duration-300`}
       >
         <img
-          src="./src/assets/control.png"
+          src="./src/assets/control.webp"
           className={`absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple
            border-2 rounded-full  ${!open && "rotate-180"}`}
           onClick={() => setOpen(!open)}
         />
         <div className="flex gap-x-4 items-center">
           <img
-            src="./src/assets/logo.png"
+            src="./src/assets/logo.webp"
             className={`cursor-pointer duration-500 w-[40px] h-auto ${
               open && "rotate-[360deg]"
             }`}

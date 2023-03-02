@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react"
 import { getImageUrl } from "./../functions"
-import LogoImage from "./../assets/logo-hd.png"
+import LogoImage from "./../assets/logo-hd.webp"
 import {
   postLogin,
   postUserRegistration,
@@ -49,6 +49,7 @@ const Login = () => {
   const lsData = JSON.parse(localStorage.getItem("userData"))
 
   useEffect(() => {
+    
     if (!isObjectEmpty(lsData)) {
       history.navigate("/")
     }
@@ -65,6 +66,7 @@ const Login = () => {
     if (error) {
       ErrorMessage("", error)
     }
+    
     if (message) {
       SuccessMessage("", message)
     }
