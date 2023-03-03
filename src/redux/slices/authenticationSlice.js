@@ -31,34 +31,6 @@ export const authenticationSlice = createSlice({
       state.isPostRegistrationSuccess = false
     },
 
-    checkUserRegistration: (state) => {
-      state.loading = true
-    },
-    checkUserRegistrationSuccess: (state, action) => {
-      state.dataRegistration = action.payload.data
-      state.loading = false
-      state.isCheckUserSuccess = true
-    },
-    checkUserRegistrationFailure: (state, action) => {
-      state.loading = false
-      state.error = action.payload.message
-      state.isCheckUserSuccess = false
-    },
-
-    saveUserRegistration: (state) => {
-      state.loading = true
-    },
-    saveUserRegistrationSuccess: (state, action) => {
-      state.dataRegistration = action.payload.data
-      state.loading = false
-      state.isSaveUserSuccess = true
-    },
-    saveUserRegistrationFailure: (state, action) => {
-      state.loading = false
-      state.error = action.payload.message
-      state.isCheckUserSuccess = false
-    },
-
     postLogin: (state) => {
       state.loading = true
     },
@@ -84,14 +56,27 @@ export const authenticationSlice = createSlice({
       state.loading = true
     },
     forgotPasswordSuccess: (state, action) => {
-      state.data = action.payload.data
       state.loading = false
-      state.message = "Password Berhasil diganti."
+      state.message = action.payload.resForgot.message
       state.error = ""
     },
     forgotPasswordFailure: (state, action) => {
       state.loading = false
-      state.error = action.payload.error
+      state.error = action.payload.message
+      state.message = ""
+    },
+
+    resetPassword: (state) => {
+      state.loading = true
+    },
+    resetPasswordSuccess: (state, action) => {
+      state.loading = false
+      state.message = action.payload.message
+      state.error = ""
+    },
+    resetPasswordFailure: (state, action) => {
+      state.loading = false
+      state.error = action.payload.message
       state.message = ""
     },
   },
@@ -104,15 +89,12 @@ export const {
   postUserRegistration,
   postUserRegistrationFailure,
   postUserRegistrationSuccess,
-  checkUserRegistration,
-  checkUserRegistrationFailure,
-  checkUserRegistrationSuccess,
-  saveUserRegistration,
-  saveUserRegistrationFailure,
-  saveUserRegistrationSuccess,
   forgotPassword,
   forgotPasswordFailure,
   forgotPasswordSuccess,
+  resetPassword,
+  resetPasswordFailure,
+  resetPasswordSuccess,
 } = authenticationSlice.actions
 
 export default authenticationSlice.reducer

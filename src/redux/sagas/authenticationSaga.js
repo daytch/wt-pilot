@@ -9,10 +9,8 @@ import {
   postUserRegistrationFailure,
   forgotPasswordFailure,
   forgotPasswordSuccess,
-  checkUserRegistrationFailure,
-  checkUserRegistrationSuccess,
-  saveUserRegistrationFailure,
-  saveUserRegistrationSuccess,
+  resetPasswordFailure,
+  resetPasswordSuccess,
 } from "../slices/authenticationSlice"
 import { history } from "../../helpers/history"
 
@@ -35,7 +33,7 @@ export function* postLogin(action) {
       localStorage.setItem("expires_in", res.expires_in)
       localStorage.setItem("token", res.token)
       localStorage.setItem("user", JSON.stringify(user))
-      
+
       yield put(postLoginSuccess({ data: user }))
       const { from } = history.location.state || { from: { pathname: "/" } }
     }
@@ -74,7 +72,7 @@ export function* postUserRegistration(action) {
           URL.CHECK_USER_REGISTRASION,
           dataPayload
         )
-        
+
         if (resCheck.data?.length < 1) {
           const data3 = new FormData()
           data3.append("UserId", data.UserId)
@@ -86,7 +84,7 @@ export function* postUserRegistration(action) {
 
           if (!resSave && resSave.data.length < 1) {
             yield put(
-              saveUserRegistrationFailure({
+              postUserRegistrationFailure({
                 isError: 1,
                 message: "Gagal Registrasi",
               })
@@ -120,78 +118,49 @@ export function* postUserRegistration(action) {
   }
 }
 
-export function* checkUserRegistration(action) {
-  try {
-    const data = action.payload
-    const res = yield call(POST, URL.CHECK_USER_REGISTRASION, data)
-
-    if (!res && res.data.length < 1) {
-      yield put(
-        checkUserRegistrationFailure({
-          isError: 1,
-          message: "UserId tidak ada",
-        })
-      )
-    } else {
-      const data = res.data[0]
-      let text = item.Email
-      let result = data ? text.replace(/^\s+|\s+$/gm, "") : ""
-      if (isEmptyNullOrUndefined(result)) {
-        yield put(checkUserRegistrationSuccess({ data }))
-      } else {
-        yield put(
-          checkUserRegistrationFailure({
-            isError: 1,
-            message: "Email sudah digunakan",
-          })
-        )
-      }
-    }
-  } catch (error) {
-    yield put(checkUserRegistrationFailure({ isError: 1, message: error }))
-  }
-}
-
-export function* saveUserRegistration(action) {
-  try {
-    const data = action.payload
-    const res = yield call(POST, URL.SAVE_USER_REGISTRASION, data)
-
-    if (!res && res.data.length < 1) {
-      yield put(
-        saveUserRegistrationFailure({
-          isError: 1,
-          message: "UserId tidak ada",
-        })
-      )
-    } else {
-      yield put(saveUserRegistrationSuccess({ data }))
-    }
-  } catch (error) {
-    yield put(checkUserRegistrationFailure({ isError: 1, message: error }))
-  }
-}
-
 export function* forgotPassword(action) {
   try {
     const data = action.payload
-    const res = yield call(
-      POST,
-      URL.FORGOT + "?userid=" + data.userId + "&email=" + data.email
-    )
 
-    if (isEmptyNullOrUndefined(res.message)) {
-      yield put(
-        forgotPasswordFailure({
-          isError: 1,
-          message: res.message,
-        })
-      )
+    const fmData = new FormData()
+    fmData.append("UserId", data.UserId)
+    const res = yield call(POST, URL.REGISTER, fmData)
+
+    if (res.data?.length > 0) {
+      const resData = res.data[0]
+      let text = resData.Email
+      let result = text ? text.replace(/^\s+|\s+$/gm, "") : ""
+
+      if (!isEmptyNullOrUndefined(result)) {
+        const resForgot = yield call(
+          GET,
+          URL.FORGOT + `?userid=${data.UserId}&email=${text}`
+        )
+
+        yield put(forgotPasswordSuccess({ resForgot }))
+      } else {
+        yield put(forgotPasswordFailure({ message: "Email kosong" }))
+      }
     } else {
-      yield put(forgotPasswordSuccess({ res }))
+      yield put(forgotPasswordFailure({ message: "Data kosong" }))
     }
   } catch (error) {
-    yield put(forgotPasswordFailure({ isError: 1, error: error }))
+    yield put(forgotPasswordFailure({ message: error }))
+  }
+}
+
+export function* resetPassword(action) {
+  try {
+    const data = action.payload
+    const res = yield call(POST, URL.RESET_PASSWORD, data)
+
+    if (res.data?.length > 0) {
+      yield put(resetPasswordSuccess({ message: "Berhasil ganti password" }))
+    } else {
+      yield put(resetPasswordFailure({ message: "Gagal" }))
+    }
+  } catch (error) {
+    yield put(resetPasswordFailure({ message: error }))
   }
 }
 
@@ -199,8 +168,7 @@ export default function* rootSaga() {
   yield all([
     takeEvery("Authentication/postLogin", postLogin),
     takeEvery("Authentication/forgotPassword", forgotPassword),
+    takeEvery("Authentication/resetPassword", resetPassword),
     takeEvery("Authentication/postUserRegistration", postUserRegistration),
-    takeEvery("Authentication/checkUserRegistration", checkUserRegistration),
-    takeEvery("Authentication/saveUserRegistration", saveUserRegistration),
   ])
 }

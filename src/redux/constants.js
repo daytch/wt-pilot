@@ -21,5 +21,6 @@ export const URL = {
   CHECK_USER_REGISTRASION: "post-checkuserregistrasi",
   SAVE_USER_REGISTRASION: "post-saveuserregistrasi",
   FORGOT: "email-forgot",
+  RESET_PASSWORD: "post-resetpassword",
 }
 export const timeOut = 5 // in minutes

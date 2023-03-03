@@ -4,8 +4,7 @@ import LogoImage from "./../assets/logo-hd.webp"
 import {
   postLogin,
   postUserRegistration,
-  checkUserRegistration,
-  saveUserRegistration,
+  forgotPassword,
 } from "./../redux/slices/authenticationSlice.js"
 import { useDispatch, useSelector } from "react-redux"
 import { history } from "../helpers/history.js"
@@ -207,7 +206,7 @@ const Login = () => {
   const renderModalForgotPassword = () => {
     return (
       <div
-        id="hs-focus-management-modal"
+        id="hs-forgot-password"
         className="hs-overlay hidden w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto"
       >
         <div className="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
@@ -245,13 +244,13 @@ const Login = () => {
                   />
                 </section>
                 <div className="header-card flex flex-col justify-center items-center">
-                  <p className="font-light text-base">Register User</p>
+                  <p className="font-light text-base">Isi email untuk menerima link reset password</p>
                 </div>
               </div>
               <div>
                 <label
                   htmlFor="forgot_userid"
-                  className="block text-sm mb-1 mt-3 dark:text-white"
+                  className="block text-sm mb-1 mt-4 dark:text-white"
                 >
                   UserID
                 </label>
@@ -272,7 +271,7 @@ const Login = () => {
                 className="py-2 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
                 onClick={submitForgotPassword}
               >
-                Submit
+                Kirim link
               </button>
             </div>
           </div>
@@ -343,6 +342,7 @@ const Login = () => {
                 <a
                   className="text-blue-600 decoration-2 hover:underline font-medium"
                   href="#"
+                  data-hs-overlay="#hs-forgot-password"
                 >
                   Lupa Password?
                 </a>
