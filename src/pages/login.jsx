@@ -244,7 +244,7 @@ const Login = () => {
                   />
                 </section>
                 <div className="header-card flex flex-col justify-center items-center">
-                  <p className="font-light text-base">Isi email untuk menerima link reset password</p>
+                  <p className="font-light text-base">Isi user id untuk menerima link reset password pada email anda</p>
                 </div>
               </div>
               <div>
