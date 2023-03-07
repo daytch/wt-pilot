@@ -121,9 +121,10 @@ export function* postUserRegistration(action) {
 export function* forgotPassword(action) {
   try {
     const data = action.payload
-
+debugger
     const fmData = new FormData()
-    fmData.append("UserId", data.UserId)
+    fmData.append("UserId", data.userId)
+    fmData.append("Email", data.email)
     const res = yield call(POST, URL.REGISTER, fmData)
 
     if (res.data?.length > 0) {

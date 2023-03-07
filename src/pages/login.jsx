@@ -48,7 +48,6 @@ const Login = () => {
   const lsData = JSON.parse(localStorage.getItem("userData"))
 
   useEffect(() => {
-    
     if (!isObjectEmpty(lsData)) {
       history.navigate("/")
     }
@@ -65,7 +64,7 @@ const Login = () => {
     if (error) {
       ErrorMessage("", error)
     }
-    
+
     if (message) {
       SuccessMessage("", message)
     }
@@ -88,7 +87,16 @@ const Login = () => {
   }
 
   const submitForgotPassword = () => {
-    dispatch(forgotPassword({ userId: "", email: "" }))
+    if (forgotUserIdRef.current.value) {
+      dispatch(
+        forgotPassword({
+          userId: forgotUserIdRef.current.value,
+          email: forgotUserIdRef.current.value,
+        })
+      )
+    } else {
+      ErrorMessage("", "User ID is mandatory field.")
+    }
   }
 
   const renderModalRegister = () => {
@@ -216,7 +224,7 @@ const Login = () => {
               <button
                 type="button"
                 className="hs-dropdown-toggle inline-flex flex-shrink-0 justify-center items-center h-8 w-8 rounded-md text-gray-500 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-sm dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800"
-                data-hs-overlay="#hs-focus-management-modal"
+                data-hs-overlay="#hs-forgot-password"
               >
                 <span className="sr-only">Close</span>
                 <svg
@@ -244,7 +252,10 @@ const Login = () => {
                   />
                 </section>
                 <div className="header-card flex flex-col justify-center items-center">
-                  <p className="font-light text-base">Isi user id untuk menerima link reset password pada email anda</p>
+                  <p className="font-light text-base">
+                    Isi user id untuk menerima link reset password pada email
+                    anda
+                  </p>
                 </div>
               </div>
               <div>
