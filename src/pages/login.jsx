@@ -44,6 +44,7 @@ const Login = () => {
   const isSaveUserSuccess = useSelector(
     (state) => state.Authentication.isSaveUserSuccess
   )
+  const errorCount = useSelector((state) => state.Authentication.errorCount)
 
   const lsData = JSON.parse(localStorage.getItem("userData"))
 
@@ -68,7 +69,7 @@ const Login = () => {
     if (message) {
       SuccessMessage("", message)
     }
-  }, [error, message])
+  }, [error, message, errorCount])
 
   const submitRegistration = () => {
     if (

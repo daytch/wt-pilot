@@ -14,6 +14,7 @@ export const authenticationSlice = createSlice({
     reloginMessage: "",
     message: "",
     token: "",
+    errorCount: 0,
   },
   reducers: {
     postUserRegistration: (state) => {
@@ -50,6 +51,7 @@ export const authenticationSlice = createSlice({
       state.reloginError =
         "You input wrong password, please type a correct password.."
       state.message = ""
+      state.errorCount = state.errorCount + 1
     },
 
     forgotPassword: (state) => {
