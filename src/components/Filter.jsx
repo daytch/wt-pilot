@@ -171,7 +171,7 @@ const Filter = (props) => {
         {tipe === "ppkb" && (
           <>
             <div className="md:flex md:items-center w-full">
-              <div className="md:w-1/5">
+              <div className="md:w-1/5 flex justify-center">
                 <input
                   // className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                   type="checkbox"
@@ -183,7 +183,7 @@ const Filter = (props) => {
               </div>
               <div className="md:w-4/5">
                 <label
-                  className="form-check-label inline-block text-xs text-gray-800"
+                  className="form-check-label inline-block text-xs text-gray-800 mb-2"
                   htmlFor="flexCheckChecked"
                 >
                   Belum Approved
