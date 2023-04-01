@@ -23,4 +23,4 @@ export const URL = {
   FORGOT: "email-forgot",
   RESET_PASSWORD: "post-resetpassword",
 }
-export const timeOut = 5 // in minutes
+export const timeOut = 10 // in minutes
