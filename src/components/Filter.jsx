@@ -1,19 +1,20 @@
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react"
+import PropTypes from "prop-types"
 import {
   getDataCabang,
   getDataSalesOrder,
   getDataRealisasiPandu,
-} from "../redux/slices/dashboardSlice.js";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffectOnce } from "../functions/index.js";
-import DatePicker from "react-datepicker";
-import { isEmptyNullOrUndefined } from "../functions/index.js";
+} from "../redux/slices/dashboardSlice.js"
+import { useDispatch, useSelector } from "react-redux"
+import { useEffectOnce } from "../functions/index.js"
+import DatePicker from "react-datepicker"
+import { isEmptyNullOrUndefined } from "../functions/index.js"
+import { ErrorMessage } from "./Notification"
 
 const Filter = (props) => {
-  const dispatch = useDispatch();
-  const UserData = JSON.parse(localStorage.getItem("userData"));
-  const dariPihak = UserData.UserType;
+  const dispatch = useDispatch()
+  const UserData = JSON.parse(localStorage.getItem("userData"))
+  const dariPihak = UserData.UserType
   // console.log("props:", props);
   const {
     MMCode,
@@ -27,19 +28,39 @@ const Filter = (props) => {
     tipe,
     notApproved,
     setNotApproved,
-  } = props;
+  } = props
 
   useEffectOnce(() => {
-    dispatch(getDataCabang());
-    dispatch(getDataSalesOrder(dariPihak));
-    dispatch(getDataRealisasiPandu(dariPihak));
-  });
+    dispatch(getDataCabang())
+    dispatch(getDataSalesOrder(dariPihak))
+    dispatch(getDataRealisasiPandu(dariPihak))
+  })
 
-  const dataCabang = useSelector((state) => state.Dashboard.dataCabang);
-  const dataSalesOrder = useSelector((state) => state.Dashboard.dataSalesOrder);
+  const dataCabang = useSelector((state) => state.Dashboard.dataCabang)
+  const dataSalesOrder = useSelector((state) => state.Dashboard.dataSalesOrder)
   const dataRealisasiPandu = useSelector(
     (state) => state.Dashboard.dataRealisasiPandu
-  );
+  )
+  const [listSalesOrder, setListSalesOrder] = useState([
+    { Code: "0", Name: "Cari" },
+  ])
+  const [listPandu, setListPandu] = useState([{ Code: "0", Name: "Cari" }])
+  useEffect(() => {
+    if (dataSalesOrder?.length > 0 && listSalesOrder.length < 2) {
+      let arrSales = [...listSalesOrder]
+      dataSalesOrder.forEach((element) => {
+        arrSales.push(element)
+      })
+      setListSalesOrder(arrSales)
+    }
+    if (dataRealisasiPandu?.length > 0 && listPandu.length < 2) {
+      let arrPandu = [...listPandu]
+      dataRealisasiPandu.forEach((element) => {
+        arrPandu.push(element)
+      })
+      setListPandu(arrPandu)
+    }
+  }, [dataSalesOrder, dataRealisasiPandu])
 
   useEffect(() => {
     if (
@@ -47,16 +68,41 @@ const Filter = (props) => {
       tipe === "jadwal" &&
       dataSalesOrder.length > 0
     ) {
-      setMMCode(dataSalesOrder[0].Code);
+      setMMCode(dataSalesOrder[0].Code)
     }
     if (
       isEmptyNullOrUndefined(MMCode) &&
       tipe === "realisasi" &&
       dataRealisasiPandu.length > 0
     ) {
-      setMMCode(dataRealisasiPandu[0].Code);
+      setMMCode(dataRealisasiPandu[0].Code)
     }
-  }, [MMCode]);
+  }, [MMCode])
+
+  const onchangeStartDate = (e) => {
+    
+    if (e && e > endDate) {
+      ErrorMessage("", "Start Date must less than or equals End Date")
+    } else {
+      setStartDate(e)
+    }
+  }
+
+  const onchangeEndDate = (e) => {
+    
+    if (startDate) {
+      if (e < startDate) {
+        ErrorMessage("", "End Date must greater than or equals Start Date")
+      } else {
+        setEndDate(e)
+      }
+    } else {
+      ErrorMessage(
+        "",
+        "Please select start date first before you select end date"
+      )
+    }
+  }
 
   return (
     <div>
@@ -64,7 +110,8 @@ const Filter = (props) => {
         <select
           value={MMCode ?? dataCabang[0]?.MMCode}
           onChange={(e) => setMMCode(e.target.value)}
-          className="py-1 px-3 pr-6 block w-full bg-blue-100 border-gray-500 rounded-md text-xs focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+          disabled={UserData.MMCode ? true : false}
+          className="py-1 px-3 pr-6 block w-full disabled:bg-gray-300 bg-blue-100 border-gray-500 rounded-md text-xs focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
         >
           {dataCabang &&
             dataCabang.map((x, idx) => (
@@ -77,16 +124,17 @@ const Filter = (props) => {
         <DatePicker
           className="py-2 px-3 pr-9 block w-full bg-blue-100 border-gray-500 rounded-md text-xs focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
           selected={startDate}
-          onChange={(date) => setStartDate(date)}
+          dateFormat="dd-MM-yyyy"
+          onChange={(date) => onchangeStartDate(date)} //setStartDate(date)}
         />
         <span className="inline-block align-middle mt-1.5 text-sm">
-          {" "}
-          Sampai:{" "}
+          Sampai:
         </span>
         <DatePicker
           className="py-2 px-3 pr-9 block w-full bg-blue-100 border-gray-500 rounded-md text-xs focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
           selected={endDate}
-          onChange={(date) => setEndDate(date)}
+          dateFormat="dd-MM-yyyy"
+          onChange={(date) => onchangeEndDate(date)} // setEndDate(date)}
         />
         {tipe === "jadwal" ? (
           <select
@@ -94,8 +142,8 @@ const Filter = (props) => {
             onChange={(e) => setCode(e.target.value)}
             className="py-1 px-3 pr-6 block w-full bg-blue-100 border-gray-500 rounded-md text-xs focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
           >
-            {dataSalesOrder &&
-              dataSalesOrder.map((x, idx) => (
+            {listSalesOrder &&
+              listSalesOrder.map((x, idx) => (
                 <option key={idx} value={x.Code}>
                   {x.Name}
                 </option>
@@ -108,8 +156,8 @@ const Filter = (props) => {
               onChange={(e) => setCode(e.target.value)}
               className="py-1 px-3 pr-6 block w-full bg-blue-100 border-gray-500 rounded-md text-xs focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
             >
-              {dataRealisasiPandu &&
-                dataRealisasiPandu.map((x, idx) => (
+              {listPandu &&
+                listPandu.map((x, idx) => (
                   <option key={idx} value={x.Code}>
                     {x.Name}
                   </option>
@@ -123,8 +171,8 @@ const Filter = (props) => {
             onChange={(e) => setCode(e.target.value)}
             className="py-1 px-3 pr-6 block w-full bg-blue-100 border-gray-500 rounded-md text-xs focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
           >
-            {dataRealisasiPandu &&
-              dataRealisasiPandu.map((x, idx) => (
+            {listPandu &&
+              listPandu.map((x, idx) => (
                 <option key={idx} value={x.Code}>
                   {x.Name}
                 </option>
@@ -148,7 +196,7 @@ const Filter = (props) => {
         {tipe === "ppkb" && (
           <>
             <div className="md:flex md:items-center w-full">
-              <div className="md:w-1/5">
+              <div className="md:w-1/5 flex justify-center">
                 <input
                   // className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                   type="checkbox"
@@ -160,7 +208,7 @@ const Filter = (props) => {
               </div>
               <div className="md:w-4/5">
                 <label
-                  className="form-check-label inline-block text-xs text-gray-800"
+                  className="form-check-label inline-block text-xs text-gray-800 mb-2"
                   htmlFor="flexCheckChecked"
                 >
                   Belum Approved
@@ -171,8 +219,8 @@ const Filter = (props) => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
 Filter.propTypes = {
   MMCode: PropTypes.string,
@@ -186,6 +234,6 @@ Filter.propTypes = {
   tipe: PropTypes.string,
   notApproved: PropTypes.bool,
   setNotApproved: PropTypes.func,
-};
+}
 
-export default Filter;
+export default Filter

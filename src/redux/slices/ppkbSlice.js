@@ -26,6 +26,19 @@ export const ppkbSlice = createSlice({
       state.error = action.payload.message;
     },
 
+    getHeaderPPKBWeb: (state) => {
+      state.loading = true;
+    },
+    getHeaderPPKBWebSuccess: (state, action) => {
+      state.dataHeaderPPKB = action.payload.res.data;
+      state.message = action.payload.message;
+      state.loading = false;
+    },
+    getHeaderPPKBWebFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload.message;
+    },
+
     getDetailPPKB: (state) => {
       state.loading = true;
     },
@@ -97,6 +110,9 @@ export const {
   getHeaderPPKB,
   getHeaderPPKBSuccess,
   getHeaderPPKBFailure,
+  getHeaderPPKBWeb,
+  getHeaderPPKBWebSuccess,
+  getHeaderPPKBWebFailure,
   getDetailPPKB,
   getDetailPPKBSuccess,
   getDetailPPKBFailure,

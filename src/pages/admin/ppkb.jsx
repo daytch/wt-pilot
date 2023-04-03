@@ -1,192 +1,184 @@
-import React, { useEffect, useState, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState, useRef } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import {
   getHeaderPPKB,
+  getHeaderPPKBWeb,
   getDetailPPKB,
   getHeaderPKK,
   getDetailPKK,
   postDataPPKB,
-} from "../../redux/slices/ppkbSlice.js";
-import { toogleLoading } from "../../redux/slices/dashboardSlice.js";
+} from "../../redux/slices/ppkbSlice.js"
+import { toogleLoading } from "../../redux/slices/dashboardSlice.js"
 import {
   sliceHour,
   handleDateAPI,
   isEmptyNullOrUndefined,
   datetimeToString,
-} from "../../functions/index.js";
-import "react-datepicker/dist/react-datepicker.css";
-import Filter from "../../components/Filter";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { CalendarDaysIcon, ClockIcon } from "@heroicons/react/24/outline";
+} from "../../functions/index.js"
+import "react-datepicker/dist/react-datepicker.css"
+import Filter from "../../components/Filter"
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css"
+import { CalendarDaysIcon, ClockIcon } from "@heroicons/react/24/outline"
 
 const Ppkb = () => {
-  const dispatch = useDispatch();
-  const UserData = JSON.parse(localStorage.getItem("userData"));
+  const dispatch = useDispatch()
+  const UserData = JSON.parse(localStorage.getItem("userData"))
   const [startDate, setStartDate] = useState(
     sessionStorage.getItem("dariTanggalPPKB")
       ? new Date(sessionStorage.getItem("dariTanggalPPKB"))
       : new Date()
-  );
+  )
   const [endDate, setEndDate] = useState(
     sessionStorage.getItem("sampaiTanggalPPKB")
       ? new Date(sessionStorage.getItem("sampaiTanggalPPKB"))
       : new Date()
-  );
-  const [detail, setDetail] = useState({});
-  const dariPihak = UserData.UserType;
-  const UserLogin = UserData.UserId;
-  const [MMCode, setMMCode] = useState(localStorage.getItem("MMCode"));
-  const [Outstanding, setOutstanding] = useState("0");
-  const [Code, setCode] = useState("");
-  const [ValueSearch, setValueSearch] = useState("");
-  const [isShowModal, setIsShowModal] = useState(true);
-  const [ViewBy, setViewBy] = useState(dariPihak);
-  const [ViewValue, setViewValue] = useState(UserData.UserName);
-  const tanggalHariini = handleDateAPI(new Date());
-  const [FromDate, setFromDate] = useState(tanggalHariini);
-  const [ToDate, setToDate] = useState(tanggalHariini);
-  const [FilterDate, setFilterDate] = useState("1");
-  const [Status_Order, setStatus_Order] = useState("");
+  )
+  const [detail, setDetail] = useState({})
+  const dariPihak = UserData.UserType
+  const UserLogin = UserData.UserId
+  const UserType = UserData.UserType
+  const [MMCode, setMMCode] = useState(localStorage.getItem("MMCode"))
+  const [Outstanding, setOutstanding] = useState("0")
+  const [Code, setCode] = useState("")
+  const [ValueSearch, setValueSearch] = useState("")
+  const [isShowModal, setIsShowModal] = useState(true)
+  const [ViewBy, setViewBy] = useState(dariPihak)
+  const [ViewValue, setViewValue] = useState(UserData.UserName)
+  const tanggalHariini = handleDateAPI(new Date())
+  const [FromDate, setFromDate] = useState(tanggalHariini)
+  const [ToDate, setToDate] = useState(tanggalHariini)
+  const [FilterDate, setFilterDate] = useState("1")
+  const [Status_Order, setStatus_Order] = useState("")
   const [AgentUserLogin, setAgentUserLogin] = useState(
     dariPihak === "AGEN" ? UserLogin : ""
-  );
-  const [Page, setPage] = useState([]);
-  const [Page2, setPage2] = useState([]);
-  const [notApproved, setNotApproved] = useState(false);
-  const btnDetailRef = useRef();
+  )
+  const [Page, setPage] = useState([])
+  const [Page2, setPage2] = useState([])
+  const [notApproved, setNotApproved] = useState(false)
+  const btnDetailRef = useRef()
 
-  const [keterangan, setKeterangan] = useState("");
-  const [kegiatan, setKegiatan] = useState("");
-  const [lokasi, setLokasi] = useState("");
-  const [tglPPKB, setTglPPKB] = useState("");
-  const [tglRencana, setTglRencana] = useState("");
-  const [jamRencana, setJamRencana] = useState("");
+  const [keterangan, setKeterangan] = useState("")
+  const [kegiatan, setKegiatan] = useState("")
+  const [lokasi, setLokasi] = useState("")
+  const [tglPPKB, setTglPPKB] = useState("")
+  const [tglRencana, setTglRencana] = useState("")
+  const [jamRencana, setJamRencana] = useState("")
 
-  var oldindex = "";
-  const dataHeaderPPKB = useSelector((state) => state.PPKB.dataHeaderPPKB);
-  const dataDetailPPKB = useSelector((state) => state.PPKB.dataDetailPPKB);
-  const dataHeaderPKK = useSelector((state) => state.PPKB.dataHeaderPKK);
-  const dataDetailPKK = useSelector((state) => state.PPKB.dataDetailPKK);
-  const isLoading = useSelector((state) => state.PPKB.loading);
-  const loading = useSelector((state) => state.Dashboard.loading);
-  const dataCabang = useSelector((state) => state.Dashboard.dataCabang);
-  const dataSalesOrder = useSelector((state) => state.Dashboard.dataSalesOrder);
-  // console.log("dataHeaderPPKB:", dataHeaderPPKB);
+  var oldindex = ""
+  const dataHeaderPPKB = useSelector((state) => state.PPKB.dataHeaderPPKB)
+  const dataDetailPPKB = useSelector((state) => state.PPKB.dataDetailPPKB)
+  const dataHeaderPKK = useSelector((state) => state.PPKB.dataHeaderPKK)
+  const dataDetailPKK = useSelector((state) => state.PPKB.dataDetailPKK)
+  const isLoading = useSelector((state) => state.PPKB.loading)
+  const loading = useSelector((state) => state.Dashboard.loading)
+  const dataCabang = useSelector((state) => state.Dashboard.dataCabang)
+  const dataSalesOrder = useSelector((state) => state.Dashboard.dataSalesOrder)
+  console.log("dataDetailPKK:", dataDetailPKK)
+
+  useEffect(() => {
+    if (dataHeaderPKK.length > 0) {
+      getDetail(dataHeaderPKK[0])
+    }
+  }, [dataHeaderPKK])
+
+  useEffect(() => {
+    setOutstanding(notApproved ? 1 : 0)
+    setFilterDate(notApproved ? 0 : 1)
+  }, [notApproved])
+
   useEffect(() => {
     if (dataCabang?.length > 0 && isEmptyNullOrUndefined(MMCode)) {
-      setMMCode(dataCabang[0].MMCode);
+      setMMCode(dataCabang[0].MMCode)
     }
     if (dataSalesOrder?.length > 0 && isEmptyNullOrUndefined(Code)) {
-      setCode(dataSalesOrder[0].Code);
+      setCode(dataSalesOrder[0].Code)
     }
-  }, [dataCabang, dataSalesOrder]);
+  }, [dataCabang, dataSalesOrder])
 
-  var max = 1;
+  var max = 1
   const fetchData = async () => {
-    if (Outstanding === "1") {
-      const url =
-        ValueSearch === null
-          ? `?ViewBy=${ViewBy}&ViewValue=${ViewValue}&FromDate=${handleDateAPI(
-              startDate
-            )}&ToDate=${handleDateAPI(
-              endDate
-            )}&Filterdate=${FilterDate}&ColumnSearch=${Code}&ValueSearch&Outstanding=${Outstanding}&Status_Order=${Status_Order}&UserLogin=${UserLogin}&AgentUserLogin=${AgentUserLogin}&MMCode=${MMCode}`
-          : `?ViewBy=${ViewBy}&ViewValue=${ViewValue}&FromDate=${handleDateAPI(
-              startDate
-            )}&ToDate=${handleDateAPI(
-              endDate
-            )}&Filterdate=${FilterDate}&ColumnSearch=${Code}&ValueSearch=${ValueSearch}&Outstanding=${Outstanding}&Status_Order=${Status_Order}&UserLogin=${UserLogin}&AgentUserLogin=${AgentUserLogin}&MMCode=${MMCode}`;
+    const urlppkb = `?MMCode=${
+      !isEmptyNullOrUndefined(MMCode) ? MMCode : ""
+    }&Filterdate=${
+      !isEmptyNullOrUndefined(FilterDate) ? FilterDate : ""
+    }&FromDate=${handleDateAPI(startDate)}&ToDate=${handleDateAPI(
+      endDate
+    )}&ColumnSearch=${!isEmptyNullOrUndefined(Code) ? Code : ""}&ValueSearch=${
+      !isEmptyNullOrUndefined(ValueSearch) ? ValueSearch : ""
+    }&Outstanding=${
+      !isEmptyNullOrUndefined(Outstanding) ? Outstanding : ""
+    }&UserType=${!isEmptyNullOrUndefined(UserType) ? UserType : ""}&UserLogin=${
+      !isEmptyNullOrUndefined(UserLogin) ? UserLogin : ""
+    }`
 
-      dispatch(getHeaderPKK(url));
-      if (max > 0) {
-        getDetail(data.data[0]);
-        max = max - 1;
-      }
-    } else {
-      const urlppkb =
-        ValueSearch == null
-          ? `?ViewBy=${ViewBy ? ViewBy : ""}&ViewValue=${
-              ViewValue ? ViewValue : ""
-            }&FromDate=${handleDateAPI(startDate)}&ToDate=${handleDateAPI(
-              endDate
-            )}&Filterdate=${FilterDate}&ColumnSearch=${Code}&ValueSearch&Outstanding=${Outstanding}&Status_Order=${Status_Order}&UserLogin=${UserLogin}&AgentUserLogin=${AgentUserLogin}&MMCode=${MMCode}`
-          : `?ViewBy=${ViewBy ? ViewBy : ""}&ViewValue=${
-              ViewValue ? ViewValue : ""
-            }&FromDate=${handleDateAPI(startDate)}&ToDate=${handleDateAPI(
-              endDate
-            )}&Filterdate=${FilterDate}&ColumnSearch=${Code}&ValueSearch=${ValueSearch}&Outstanding=${Outstanding}&Status_Order=${Status_Order}&UserLogin=${UserLogin}&AgentUserLogin=${AgentUserLogin}&MMCode=${MMCode}`;
-      dispatch(getHeaderPPKB(urlppkb));
+    dispatch(getHeaderPPKBWeb(urlppkb))
 
-      if (max > 0) {
-        // getDetail(datappkb.data[0]);
-        max = max - 1;
-      }
-
-      if (oldindex != "") {
-        selectedRow(0);
-      }
+    if (max > 0) {
+      // getDetail(datappkb.data[0]);
+      max = max - 1
     }
-  };
+
+    if (oldindex != "") {
+      selectedRow(0)
+    }
+  }
 
   useEffect(() => {
-    setKeterangan(detail?.Keterangan);
-    setLokasi(detail?.Lokasi);
-    setKegiatan(detail?.Kegiatan);
-    setTglPPKB(detail?.TglPPKB);
-    setTglRencana(detail?.TglRencana);
-    setJamRencana(detail?.JamRencana);
-  }, [detail]);
+    setKeterangan(detail?.Keterangan)
+    setLokasi(detail?.Lokasi)
+    setKegiatan(detail?.Kegiatan)
+    setTglPPKB(detail?.TglPPKB)
+    setTglRencana(detail?.TglRencana)
+    setJamRencana(detail?.JamRencana)
+  }, [detail])
 
   useEffect(() => {
     if (dataHeaderPPKB.length > 0) {
     }
-  }, [dataHeaderPPKB]);
+  }, [dataHeaderPPKB])
 
   useEffect(() => {
     if (dataHeaderPKK.length > 0) {
     }
-  }, [dataHeaderPKK]);
+  }, [dataHeaderPKK])
 
   const getDetail = async (item) => {
-    if (item !== undefined) {
-      if (Outstanding === "1") {
-        const nopkk = item.nomor_pkk;
-        const url = `?Nomor_PKK=${nopkk}&Outstanding=${OutstandingRKBM}`;
-        dispatch(getDetailPKK(url));
-      } else {
-        const noppkb = item.NoPPKB;
-        const urldetailppkb = `?NoPPKB=${noppkb}`;
-        dispatch(getDetailPPKB(urldetailppkb));
-        // if (datadetailppkb != null) {
-        // setisLoading(false);
-        // setPage2(postdetailppkb);
-        // }
-      }
+    if (Outstanding === 1) {
+      const url = `?Nomor_PKK=${item.nomor_pkk}&Outstanding=${Outstanding}`
+      dispatch(getDetailPKK(url))
+    } else {
+      const noppkb = item.NoPPKB
+      const urldetailppkb = `?NoPPKB=${noppkb}`
+      dispatch(getDetailPPKB(urldetailppkb))
+      // if (datadetailppkb != null) {
+      // setisLoading(false);
+      // setPage2(postdetailppkb);
+      // }
     }
-  };
+  }
 
   const fetchDataInput = async () => {
-    const nopkk = ppkb.nomor_pkk;
-    const url = `api/get-detailrkbm?Nomor_PKK=${nopkk}&Outstanding=1`;
+    const nopkk = ppkb.nomor_pkk
+    const url = `api/get-detailrkbm?Nomor_PKK=${nopkk}&Outstanding=1`
 
-    const response = await axios.get(url);
-    const datainput = await response.data;
-    setIsActive((current) => !current);
+    const response = await axios.get(url)
+    const datainput = await response.data
+    setIsActive((current) => !current)
 
     if (datainput.data != null) {
       // setisLoading(false);
       // setPageInput(post);
     }
-  };
+  }
 
   const fetchEditPPKB = async (item) => {
-    const noppkb = item.NoPPKB;
-    const urldetailppkb = `api/get-detailppkb?NoPPKB=${noppkb}`;
+    const noppkb = item.NoPPKB
+    const urldetailppkb = `api/get-detailppkb?NoPPKB=${noppkb}`
 
-    const responsedetailppkb = await axios.get(urldetailppkb);
-    const datadetailppkb = await responsedetailppkb.data;
-    setIsActive((current) => !current);
+    const responsedetailppkb = await axios.get(urldetailppkb)
+    const datadetailppkb = await responsedetailppkb.data
+    setIsActive((current) => !current)
 
     if (datadetailppkb != null) {
       const postdetailppkb = datadetailppkb.data.map((item, index) => (
@@ -273,57 +265,58 @@ const Ppkb = () => {
             {item.rencana_muat}
           </td>
         </tr>
-      ));
-      setisLoading(false);
-      setPageEdit(postdetailppkb);
+      ))
+      setisLoading(false)
+      setPageEdit(postdetailppkb)
     }
-  };
+  }
 
   useEffect(() => {
-    sessionStorage.setItem("dariTanggalPPKB", startDate);
-    sessionStorage.setItem("sampaiTanggalPPKB", endDate);
-    sessionStorage.setItem("codeColumnSearchPPKB", Code);
-    sessionStorage.setItem("valueColumnSearchPPKB", ValueSearch);
-    sessionStorage.setItem("cabangPPKB", MMCode);
+    sessionStorage.setItem("dariTanggalPPKB", startDate)
+    sessionStorage.setItem("sampaiTanggalPPKB", endDate)
+    sessionStorage.setItem("codeColumnSearchPPKB", Code)
+    sessionStorage.setItem("valueColumnSearchPPKB", ValueSearch)
+    sessionStorage.setItem("cabangPPKB", MMCode)
     // sessionStorage.setItem("startDate", startDate);
     // sessionStorage.setItem("endDate", endDate);
 
-    setViewValue(localStorage.getItem("username"));
-    setViewBy(localStorage.getItem("id"));
+    setViewValue(localStorage.getItem("username"))
+    setViewBy(localStorage.getItem("id"))
 
     const deleteSelected = () => {
-      var table = document.getElementById("table");
-      oldindex = "";
+      var table = document.getElementById("table")
+      oldindex = ""
 
       for (var i = 1; i < table?.rows?.length; i++) {
-        table.rows[i].classList.remove("selected");
-        table.rows[i].cells[0].classList.remove("arrowright");
+        table.rows[i].classList.remove("selected")
+        table.rows[i].cells[0].classList.remove("arrowright")
       }
-    };
+    }
 
-    deleteSelected();
-    fetchData();
-  }, [startDate, endDate, Code, ValueSearch, MMCode, Outstanding]);
+    deleteSelected()
+
+    fetchData()
+  }, [startDate, endDate, Code, ValueSearch, MMCode, Outstanding])
 
   useEffect(() => {
-    console.log("notApproved:", notApproved);
-  }, [detail]);
+    console.log("notApproved:", notApproved)
+  }, [detail])
 
   const openDetail = (e, item) => {
-    e.preventDefault();
+    e.preventDefault()
     switch (e.detail) {
       case 2:
-        setDetail(item);
-        btnDetailRef.current.click();
-        break;
+        setDetail(item)
+        btnDetailRef.current.click()
+        break
       case 1:
-        console.log("click");
-        getDetail(item);
-        break;
+        console.log("click")
+        getDetail(item)
+        break
       default:
-        break;
+        break
     }
-  };
+  }
 
   const renderHeader = () => {
     return notApproved ? (
@@ -336,19 +329,15 @@ const Ppkb = () => {
           <table style={{ whiteSpace: "nowrap" }} id="table">
             <thead className="bg-gray-50 dark:bg-slate-900">
               <tr className="text-center">
-                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black"></th>
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NO
                 </th>
-
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NOMOR PKK
                 </th>
-
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NAMA PERUSAHAAN
                 </th>
-
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NPWP
                 </th>
@@ -445,20 +434,147 @@ const Ppkb = () => {
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   STATUS
                 </th>
-
-                {/* <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">Option</th> */}
               </tr>
             </thead>
             <tbody>
-              {/* {isLoading === true ? (
-                <div
-                  className="spinner-border modal-dialog text-primary"
-                  role="status"
-                  style={{ position: "absolute", left: "50%" }}
-                ></div>
-              ) : (
-                Page
-              )} */}
+              {dataHeaderPKK &&
+                dataHeaderPKK.map((item, idx) => {
+                  
+                  return (
+                    <tr
+                      key={idx}
+                      className="even:bg-white odd:bg-[#C0C0FD] dark:odd:bg-slate-900 dark:even:bg-slate-800"
+                      onClick={(e) => setDetail(item)}
+                    >
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {idx + 1}
+                      </td>
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.nomor_pkk}
+                      </td>
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.nama_perusahaan}
+                      </td>
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.npwp}
+                      </td>
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.tanda_pendaftaran_kapal}
+                      </td>
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.tanda_pendaftaran_kapal}
+                      </td>
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.nama_kapal}
+                      </td>
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.nahkoda}
+                      </td>
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {parseFloat(item.drt).toFixed(2)}
+                      </td>
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {parseFloat(item.grt).toFixed(2)}
+                      </td>
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {parseFloat(item.loa).toFixed(2)}
+                      </td>
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.jenis_kapal}
+                      </td>
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.tahun_pembuatan}
+                      </td>
+
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {parseFloat(item.lebar_kapal).toFixed(2)}
+                      </td>
+
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {parseFloat(item.draft_max).toFixed(2)}
+                      </td>
+
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {parseFloat(item.draft_depan).toFixed(2)}
+                      </td>
+
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {parseFloat(item.draft_tengah).toFixed(2)}
+                      </td>
+
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.jenis_trayek}
+                      </td>
+
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.bendera}
+                      </td>
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.call_sign}
+                      </td>
+
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {sliceHour(item.tanggal_eta)}
+                      </td>
+
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {sliceHour(item.tanggal_etd)}
+                      </td>
+
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.kode_pelabuhan_asal}
+                      </td>
+
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.pelabuhan_asal}
+                      </td>
+
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.kode_pelabuhan_tujuan}
+                      </td>
+
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.pelabuhan_tujuan}
+                      </td>
+
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.kode_tujuan_akhir_pelabuhan}
+                      </td>
+
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.pelabuhan_tujuan_akhir}
+                      </td>
+
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.nomor_trayek}
+                      </td>
+
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.dermaga_nama}
+                      </td>
+
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.status_bm}
+                      </td>
+
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.jenis_barang}
+                      </td>
+
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {parseFloat(item.jumlah_muat).toFixed(2)}
+                      </td>
+
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.port_code}
+                      </td>
+
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.status}
+                      </td>
+                    </tr>
+                  )
+                })}
             </tbody>
           </table>
         </div>
@@ -640,7 +756,7 @@ const Ppkb = () => {
                           {item.status}
                         </td>
                       </tr>
-                    );
+                    )
                   })
                 : Outstanding !== "1" && dataHeaderPPKB?.length > 0
                 ? dataHeaderPPKB.map((item, idx) => {
@@ -690,15 +806,15 @@ const Ppkb = () => {
                           {item.Keterangan}
                         </td>
                       </tr>
-                    );
+                    )
                   })
                 : null}
             </tbody>
           </table>
         </div>
       </div>
-    );
-  };
+    )
+  }
 
   const renderDetail = () => {
     return notApproved ? (
@@ -783,15 +899,97 @@ const Ppkb = () => {
               </tr>
             </thead>
             <tbody>
-              {/* {isLoading === true ? (
-                <div
-                  className="spinner-border modal-dialog text-primary"
-                  role="status"
-                  style={{ position: "absolute", left: "50%" }}
-                ></div>
-              ) : (
-                Page2
-              )} */}
+              {dataDetailPKK &&
+                dataDetailPKK.map((item, idx) => {
+                  
+                  return (
+                    <tr
+                      key={idx}
+                      className="even:bg-white odd:bg-[#C0C0FD] dark:odd:bg-slate-900 dark:even:bg-slate-800"
+                      onClick={(e) => setDetail(item)}
+                    >
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {idx + 1}
+                      </td>
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.noRKBM}
+                      </td>
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.nama_barang}
+                      </td>
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.bahaya}
+                      </td>
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.ganggu}
+                      </td>
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.kegiatan}
+                      </td>
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {parseFloat(item.unit)}
+                      </td>
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {parseFloat(item.ton)}
+                      </td>
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {parseFloat(item.m3).toFixed(2)}
+                      </td>
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.penyaluran}
+                      </td>
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.kade}
+                      </td>
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.pbm}
+                      </td>
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.npwp_pbm}
+                      </td>
+
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.consignee}
+                      </td>
+
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.shipper}
+                      </td>
+
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.npwp_shipper}
+                      </td>
+
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.noRKBM}
+                      </td>
+
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {parseFloat(item.gang)}
+                      </td>
+
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {parseFloat(item.palka)}
+                      </td>
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.no_rkbm_bongkar}
+                      </td>
+
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.no_rkbm_muat}
+                      </td>
+
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {sliceHour(item.rencana_bongkar)}
+                      </td>
+
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {sliceHour(item.rencana_muat)}
+                      </td>
+
+                    </tr>
+                  )
+                })}
             </tbody>
           </table>
         </div>
@@ -940,21 +1138,21 @@ const Ppkb = () => {
                           {item.no_rkbm_muat}
                         </td>
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                          {item.rencana_bongkar}
+                          {datetimeToString(item.rencana_bongkar)}
                         </td>
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                          {item.rencana_muat}
+                          {datetimeToString(item.rencana_muat)}
                         </td>
                       </tr>
-                    );
+                    )
                   })
                 : null}
             </tbody>
           </table>
         </div>
       </div>
-    );
-  };
+    )
+  }
 
   const handleSaveData = () => {
     // const oid = response.data.data[0].Oid;
@@ -967,8 +1165,8 @@ const Ppkb = () => {
       .split("-")
       .join(
         ""
-      )}&JamRencana=${jamRencana}&Lokasi=${lokasi}&Kegiatan=${kegiatan}&Keterangan=${keterangan}&UserId=${UserLogin}`;
-    dispatch(postDataPPKB(urledit));
+      )}&JamRencana=${jamRencana}&Lokasi=${lokasi}&Kegiatan=${kegiatan}&Keterangan=${keterangan}&UserId=${UserLogin}`
+    dispatch(postDataPPKB(urledit))
     // axios
     //   .post(urledit)
     //   .then((response) => {
@@ -978,13 +1176,13 @@ const Ppkb = () => {
     //   .catch((error) => {
     //     alert(error);
     //   });
-  };
+  }
 
   const handleDeleteDataPPKB = async () => {
-    dispatch(deleteDataPPKB(`?NoPPKB=${detail.NoPPKB}`));
-    fetchData();
+    dispatch(deleteDataPPKB(`?NoPPKB=${detail.NoPPKB}`))
+    fetchData()
     // ErrorMessage("", error);
-  };
+  }
 
   return (
     <>
@@ -1281,163 +1479,75 @@ const Ppkb = () => {
                             <thead className="bg-gray-50 dark:bg-slate-900">
                               <tr className="text-center">
                                 <th className="border border-black"></th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      NO
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  NO
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="whitespace-nowrap text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      NAMA BARANG
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  NAMA BARANG
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      BAHAYA
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  BAHAYA
                                 </th>
 
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      GANGGU
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  GANGGU
                                 </th>
 
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      KEGIATAN
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  KEGIATAN
                                 </th>
 
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      UNIT
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  UNIT
                                 </th>
 
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      TON
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  TON
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      M3
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  M3
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      PENYALURAN
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  PENYALURAN
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      KADE
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  KADE
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      PBM
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  PBM
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      NPWP PBM
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  NPWP PBM
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      CONSIGNEE
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  CONSIGNEE
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      SHIPPER
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  SHIPPER
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="whitespace-nowrap text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      NPWP SHIPPER
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  NPWP SHIPPER
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="whitespace-nowrap text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      NOMOR BILL OF LANDING
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  NOMOR BILL OF LANDING
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="whitespace-nowrap text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      JUMLAH GANG (Kelompok Kerja)
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  JUMLAH GANG (Kelompok Kerja)
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      PALKA
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  PALKA
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="whitespace-nowrap text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      NOMOR RKBM BONGKAR
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  NOMOR RKBM BONGKAR
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="whitespace-nowrap text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      NOMOR RKBM MUAT
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  NOMOR RKBM MUAT
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="whitespace-nowrap text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      RENCANA BONGKAR
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  RENCANA BONGKAR
                                 </th>
-                                <th className="border border-black">
-                                  <div className="flex justify-center gap-x-2">
-                                    <span className="whitespace-nowrap text-[10px] px-1 font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                      RENCANA MUAT
-                                    </span>
-                                  </div>
+                                <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">
+                                  RENCANA MUAT
                                 </th>
                               </tr>
                             </thead>
@@ -1528,7 +1638,7 @@ const Ppkb = () => {
                                           {item.rencana_muat}
                                         </td>
                                       </tr>
-                                    );
+                                    )
                                   })
                                 : null}
                             </tbody>
@@ -1544,7 +1654,7 @@ const Ppkb = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Ppkb;
+export default Ppkb

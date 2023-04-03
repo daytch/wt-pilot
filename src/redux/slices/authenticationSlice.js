@@ -1,71 +1,102 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit"
 
 export const authenticationSlice = createSlice({
   name: "Authentication",
   initialState: {
     data: {},
+    dataRegistration: {},
+    isPostRegistrationSuccess: false,
+    isCheckUserSuccess: false,
+    isSaveUserSuccess: false,
     loading: false,
     error: "",
+    reloginError: "",
+    reloginMessage: "",
     message: "",
     token: "",
+    errorCount: 0,
   },
   reducers: {
-    postCaptcha: (state) => {
-      state.loading = true;
+    postUserRegistration: (state) => {
+      state.loading = true
     },
-    postCaptchaSuccess: (state, action) => {
-      state.data = action.payload.data;
-      state.loading = false;
+    postUserRegistrationSuccess: (state, action) => {
+      state.dataRegistration = action.payload.data
+      state.message = action.payload.message
+      state.loading = false
+      state.isPostRegistrationSuccess = true
     },
-    postCaptchaFailure: (state, action) => {
-      state.loading = false;
-      state.error = action.payload.message;
+    postUserRegistrationFailure: (state, action) => {
+      state.loading = false
+      state.error = action.payload.message
+      state.isPostRegistrationSuccess = false
     },
 
     postLogin: (state) => {
-      state.loading = true;
+      state.loading = true
     },
     postLoginSuccess: (state, action) => {
-      
-      state.data = action.payload.data;
-      state.token = action.payload.data.token;
-      state.error = "";
-      state.message = "berhasil login";
-      state.loading = false;
+      state.data = action.payload.data
+      state.token = action.payload.data.token
+      state.error = ""
+      state.message = ""
+      state.reloginMessage = !action.payload.data.isLogin
+        ? `Welcome back ${action.payload.data.displayUserName}`
+        : ""
+      state.loading = false
     },
     postLoginFailure: (state, action) => {
-      state.loading = false;
-      state.error = action.payload.error;
-      state.message = "";
+      state.loading = false
+      state.error = action.payload.error
+      state.reloginError =
+        "You input wrong password, please type a correct password.."
+      state.message = ""
+      state.errorCount = state.errorCount + 1
     },
 
-    postChangePassword: (state) => {
-      state.loading = true;
+    forgotPassword: (state) => {
+      state.loading = true
     },
-    postChangePasswordSuccess: (state, action) => {
-      state.data = action.payload.data;
-      state.loading = false;
-      state.message = "Password Berhasil diganti.";
-      state.error = "";
+    forgotPasswordSuccess: (state, action) => {
+      state.loading = false
+      state.message = action.payload.resForgot.message
+      state.error = ""
     },
-    postChangePasswordFailure: (state, action) => {
-      state.loading = false;
-      state.error = action.payload.error;
-      state.message = "";
+    forgotPasswordFailure: (state, action) => {
+      state.loading = false
+      state.error = action.payload.message
+      state.message = ""
+    },
+
+    resetPassword: (state) => {
+      state.loading = true
+    },
+    resetPasswordSuccess: (state, action) => {
+      state.loading = false
+      state.message = action.payload.message
+      state.error = ""
+    },
+    resetPasswordFailure: (state, action) => {
+      state.loading = false
+      state.error = action.payload.message
+      state.message = ""
     },
   },
-});
+})
 
 export const {
   postLogin,
   postLoginSuccess,
   postLoginFailure,
-  postCaptcha,
-  postCaptchaFailure,
-  postCaptchaSuccess,
-  postChangePassword,
-  postChangePasswordFailure,
-  postChangePasswordSuccess,
-} = authenticationSlice.actions;
+  postUserRegistration,
+  postUserRegistrationFailure,
+  postUserRegistrationSuccess,
+  forgotPassword,
+  forgotPasswordFailure,
+  forgotPasswordSuccess,
+  resetPassword,
+  resetPasswordFailure,
+  resetPasswordSuccess,
+} = authenticationSlice.actions
 
-export default authenticationSlice.reducer;
+export default authenticationSlice.reducer

@@ -9,7 +9,7 @@ import {
 
 const Detail = (props) => {
   const { detail, tipe } = props;
-
+  // console.log("props: ", props);
   const renderDetail = {
     jadwal: (detail) => (
       <div className="p-4 overflow-y-auto">
@@ -23,7 +23,7 @@ const Detail = (props) => {
                       Nomor PKK
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.nomor_pkk}
+                      {detail?.nomor_pkk}
                     </td>
                   </tr>
                   <tr>
@@ -31,7 +31,7 @@ const Detail = (props) => {
                       NPWP
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.npwp}
+                      {detail?.npwp}
                     </td>
                   </tr>
                 </tbody>
@@ -44,7 +44,7 @@ const Detail = (props) => {
                       Nama Perusahaan
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.nama_perusahaan}
+                      {detail?.nama_perusahaan}
                     </td>
                   </tr>
                   <tr>
@@ -52,7 +52,7 @@ const Detail = (props) => {
                       Nomor Trayek
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.nomor_trayek}
+                      {detail?.nomor_trayek}
                     </td>
                   </tr>
                 </tbody>
@@ -74,7 +74,7 @@ const Detail = (props) => {
                       Nama Kapal
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.nama_kapal}
+                      {detail?.nama_kapal}
                     </td>
                   </tr>
                   <tr>
@@ -82,7 +82,7 @@ const Detail = (props) => {
                       DRT
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {parseFloat(detail.drt)}
+                      {parseFloat(detail?.drt)}
                     </td>
                   </tr>
                   <tr>
@@ -90,7 +90,7 @@ const Detail = (props) => {
                       GRT
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {parseFloat(detail.grt)}
+                      {parseFloat(detail?.grt)}
                     </td>
                   </tr>
                   <tr>
@@ -98,7 +98,7 @@ const Detail = (props) => {
                       LOA
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {parseFloat(detail.loa)}
+                      {parseFloat(detail?.loa)}
                     </td>
                   </tr>
                   <tr>
@@ -106,7 +106,7 @@ const Detail = (props) => {
                       Lebar Kapal
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {parseFloat(detail.lebar_kapal)}
+                      {parseFloat(detail?.lebar_kapal)}
                     </td>
                   </tr>
                   <tr>
@@ -114,7 +114,7 @@ const Detail = (props) => {
                       Draft Max
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {parseFloat(detail.draft_max)}
+                      {parseFloat(detail?.draft_max)}
                     </td>
                   </tr>
                   <tr>
@@ -122,7 +122,7 @@ const Detail = (props) => {
                       Draft Depan
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {parseFloat(detail.draft_depan)}
+                      {parseFloat(detail?.draft_depan)}
                     </td>
                   </tr>
                   <tr>
@@ -130,7 +130,7 @@ const Detail = (props) => {
                       Jenis Trayek
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.jenis_trayek}
+                      {detail?.jenis_trayek}
                     </td>
                   </tr>
                 </tbody>
@@ -143,7 +143,7 @@ const Detail = (props) => {
                       Nahkoda
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.nahkoda}
+                      {detail?.nahkoda}
                     </td>
                   </tr>
                   <tr>
@@ -151,7 +151,7 @@ const Detail = (props) => {
                       Tanda Pendaftaran Kapal
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.tanda_pendaftaran_kapal}
+                      {detail?.tanda_pendaftaran_kapal}
                     </td>
                   </tr>
                   <tr>
@@ -159,7 +159,7 @@ const Detail = (props) => {
                       Tahun Pembuatan
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.tahun_pembuatan}
+                      {detail?.tahun_pembuatan}
                     </td>
                   </tr>
                   <tr>
@@ -167,7 +167,7 @@ const Detail = (props) => {
                       Bendera
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.bendera}
+                      {detail?.bendera}
                     </td>
                   </tr>
                   <tr>
@@ -175,7 +175,7 @@ const Detail = (props) => {
                       Jenis Kapal
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.jenis_kapal}
+                      {detail?.jenis_kapal}
                     </td>
                   </tr>
                   <tr>
@@ -183,7 +183,7 @@ const Detail = (props) => {
                       Draft Belakang
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {parseFloat(detail.draft_belakang)}
+                      {parseFloat(detail?.draft_belakang)}
                     </td>
                   </tr>
                   <tr>
@@ -191,7 +191,7 @@ const Detail = (props) => {
                       Draft Tengah
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {parseFloat(detail.draft_tengah)}
+                      {parseFloat(detail?.draft_tengah)}
                     </td>
                   </tr>
                   <tr>
@@ -199,7 +199,7 @@ const Detail = (props) => {
                       Call Sign
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.call_sign}
+                      {detail?.call_sign}
                     </td>
                   </tr>
                 </tbody>
@@ -222,7 +222,7 @@ const Detail = (props) => {
                       Kode Pelabuhan Asal
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.kode_pelabuhan_asal}
+                      {detail?.kode_pelabuhan_asal}
                     </td>
                   </tr>
                   <tr>
@@ -230,7 +230,7 @@ const Detail = (props) => {
                       Kode Pelabuhan Tujuan
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.kode_pelabuhan_tujuan}
+                      {detail?.kode_pelabuhan_tujuan}
                     </td>
                   </tr>
                   <tr>
@@ -238,7 +238,7 @@ const Detail = (props) => {
                       Kode Tujuan Akhir Pelabuhan
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.kode_tujuan_akhir_pelabuhan}
+                      {detail?.kode_tujuan_akhir_pelabuhan}
                     </td>
                   </tr>
                 </tbody>
@@ -251,7 +251,7 @@ const Detail = (props) => {
                       Pelabuhan Asal
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.pelabuhan_asal}
+                      {detail?.pelabuhan_asal}
                     </td>
                   </tr>
                   <tr>
@@ -259,7 +259,7 @@ const Detail = (props) => {
                       Pelabuhan Tujuan
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.pelabuhan_tujuan}
+                      {detail?.pelabuhan_tujuan}
                     </td>
                   </tr>
                   <tr>
@@ -267,7 +267,7 @@ const Detail = (props) => {
                       Pelabuhan Tujuan Akhir
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.pelabuhan_tujuan_akhir}
+                      {detail?.pelabuhan_tujuan_akhir}
                     </td>
                   </tr>
                 </tbody>
@@ -280,7 +280,7 @@ const Detail = (props) => {
                       Nama Dermaga
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.dermaga_nama}
+                      {detail?.dermaga_nama}
                     </td>
                   </tr>
                   <tr>
@@ -288,7 +288,7 @@ const Detail = (props) => {
                       Jenis Barang
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.jenis_barang}
+                      {detail?.jenis_barang}
                     </td>
                   </tr>
                   <tr>
@@ -296,7 +296,7 @@ const Detail = (props) => {
                       Port Code
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.port_code}
+                      {detail?.port_code}
                     </td>
                   </tr>
                   <tr>
@@ -304,9 +304,9 @@ const Detail = (props) => {
                       Tanggal ETA
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {new Date(detail.tanggal_eta).getFullYear() < 2000
+                      {new Date(detail?.tanggal_eta).getFullYear() < 2000
                         ? ""
-                        : datetimeToString(detail.tanggal_eta)}
+                        : datetimeToString(detail?.tanggal_eta)}
                     </td>
                   </tr>
                 </tbody>
@@ -319,7 +319,7 @@ const Detail = (props) => {
                       Status BM
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.status_bm}
+                      {detail?.status_bm}
                     </td>
                   </tr>
                   <tr>
@@ -327,7 +327,7 @@ const Detail = (props) => {
                       Jumlah Muat
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {parseFloat(detail.jumlah_muat)}
+                      {parseFloat(detail?.jumlah_muat)}
                     </td>
                   </tr>
                   <tr>
@@ -335,7 +335,7 @@ const Detail = (props) => {
                       Status
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.status}
+                      {detail?.status}
                     </td>
                   </tr>
                   <tr>
@@ -343,9 +343,9 @@ const Detail = (props) => {
                       Tanggal ETD
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {new Date(detail.tanggal_etd).getFullYear() < 2000
+                      {new Date(detail?.tanggal_etd).getFullYear() < 2000
                         ? ""
-                        : datetimeToString(detail.tanggal_etd)}
+                        : datetimeToString(detail?.tanggal_etd)}
                     </td>
                   </tr>
                 </tbody>
@@ -371,7 +371,7 @@ const Detail = (props) => {
                       No BPJS
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {/* {detail.NoBPJP} */}
+                      {/* {detail?.NoBPJP} */}
                     </td>
                   </tr>
                   <tr>
@@ -379,7 +379,7 @@ const Detail = (props) => {
                       Perusahaan / Agent
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {detail.Agent}
+                      {detail?.Agent}
                     </td>
                   </tr>
                   <tr>
@@ -387,7 +387,7 @@ const Detail = (props) => {
                       Nama Customer
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {detail.CustomerName}
+                      {detail?.CustomerName}
                     </td>
                   </tr>
                 </tbody>
@@ -400,7 +400,7 @@ const Detail = (props) => {
                       GT Kecil
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {detail.NoPKKGTKecil}
+                      {detail?.NoPKKGTKecil}
                     </td>
                   </tr>
                   <tr>
@@ -408,7 +408,7 @@ const Detail = (props) => {
                       GT Besar
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {detail.NoPKKGTBesar}
+                      {detail?.NoPKKGTBesar}
                     </td>
                   </tr>
                 </tbody>
@@ -430,7 +430,7 @@ const Detail = (props) => {
                       Pelabuhan Asal
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {detail.PelabuhanAsal}
+                      {detail?.PelabuhanAsal}
                     </td>
                   </tr>
                   <tr>
@@ -438,7 +438,7 @@ const Detail = (props) => {
                       Nama Kapal
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {detail.NamaKapal}
+                      {detail?.NamaKapal}
                     </td>
                   </tr>
                   <tr>
@@ -446,9 +446,9 @@ const Detail = (props) => {
                       DWT
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {isEmptyNullOrUndefined(detail.DWT)
-                        ? detail.DWT
-                        : parseFloat(detail.DWT).toFixed(2)}
+                      {isEmptyNullOrUndefined(detail?.DWT)
+                        ? detail?.DWT
+                        : parseFloat(detail?.DWT).toFixed(2)}
                     </td>
                   </tr>
                   <tr>
@@ -456,9 +456,9 @@ const Detail = (props) => {
                       LOA
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {isEmptyNullOrUndefined(detail.LOA)
-                        ? detail.LOA
-                        : parseFloat(detail.LOA).toFixed(2)}
+                      {isEmptyNullOrUndefined(detail?.LOA)
+                        ? detail?.LOA
+                        : parseFloat(detail?.LOA).toFixed(2)}
                     </td>
                   </tr>
                 </tbody>
@@ -471,7 +471,7 @@ const Detail = (props) => {
                       Pelabuhan Tujuan
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {detail.PelabuhanTujuan}
+                      {detail?.PelabuhanTujuan}
                     </td>
                   </tr>
                   <tr>
@@ -479,7 +479,7 @@ const Detail = (props) => {
                       Tipe Kapal
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {/* {detail.TypeKapal} */}
+                      {/* {detail?.TypeKapal} */}
                     </td>
                   </tr>
                   <tr>
@@ -487,9 +487,9 @@ const Detail = (props) => {
                       GRT
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {isEmptyNullOrUndefined(detail.GRT)
-                        ? detail.GRT
-                        : parseFloat(detail.GRT).toFixed(2)}
+                      {isEmptyNullOrUndefined(detail?.GRT)
+                        ? detail?.GRT
+                        : parseFloat(detail?.GRT).toFixed(2)}
                     </td>
                   </tr>
                 </tbody>
@@ -519,7 +519,7 @@ const Detail = (props) => {
                       Masuk
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {detail.TglBPPTMasuk}
+                      {detail?.TglBPPTMasuk}
                     </td>
                   </tr>
                   <tr>
@@ -527,9 +527,9 @@ const Detail = (props) => {
                       Waktu Mulai
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {isEmptyNullOrUndefined(detail.MulaiPanduMasuk)
-                        ? detail.MulaiPanduMasuk
-                        : sliceHour(detail.MulaiPanduMasuk)}
+                      {isEmptyNullOrUndefined(detail?.MulaiPanduMasuk)
+                        ? detail?.MulaiPanduMasuk
+                        : sliceHour(detail?.MulaiPanduMasuk)}
                     </td>
                   </tr>
                   <tr>
@@ -537,9 +537,9 @@ const Detail = (props) => {
                       Waktu Selesai
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {isEmptyNullOrUndefined(detail.SelesaiPanduMasuk)
-                        ? detail.SelesaiPanduMasuk
-                        : sliceHour(detail.SelesaiPanduMasuk)}
+                      {isEmptyNullOrUndefined(detail?.SelesaiPanduMasuk)
+                        ? detail?.SelesaiPanduMasuk
+                        : sliceHour(detail?.SelesaiPanduMasuk)}
                     </td>
                   </tr>
                   <tr>
@@ -547,9 +547,9 @@ const Detail = (props) => {
                       Jam
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {isEmptyNullOrUndefined(detail.TotaljamPanduMasuk)
-                        ? detail.TotaljamPanduMasuk
-                        : sliceHour(detail.TotaljamPanduMasuk)}
+                      {isEmptyNullOrUndefined(detail?.TotaljamPanduMasuk)
+                        ? detail?.TotaljamPanduMasuk
+                        : sliceHour(detail?.TotaljamPanduMasuk)}
                     </td>
                   </tr>
                 </tbody>
@@ -573,7 +573,7 @@ const Detail = (props) => {
                       Pindah
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {detail.JumlahUnitTundaPindah}
+                      {detail?.JumlahUnitTundaPindah}
                     </td>
                   </tr>
                   <tr>
@@ -581,7 +581,7 @@ const Detail = (props) => {
                       Waktu Mulai
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {detail.pelabuhan_tujuan}
+                      {detail?.pelabuhan_tujuan}
                     </td>
                   </tr>
                   <tr>
@@ -589,7 +589,7 @@ const Detail = (props) => {
                       Waktu Selesai
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {detail.pelabuhan_tujuan_akhir}
+                      {detail?.pelabuhan_tujuan_akhir}
                     </td>
                   </tr>
                   <tr>
@@ -597,7 +597,7 @@ const Detail = (props) => {
                       Jam
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {detail.pelabuhan_tujuan_akhir}
+                      {detail?.pelabuhan_tujuan_akhir}
                     </td>
                   </tr>
                 </tbody>
@@ -619,7 +619,7 @@ const Detail = (props) => {
                       Keluar
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {detail.TanggalKeluar}
+                      {detail?.TanggalKeluar}
                     </td>
                   </tr>
                   {/* <tr>
@@ -627,7 +627,7 @@ const Detail = (props) => {
                       Jenis Barang
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {detail.jenis_barang}
+                      {detail?.jenis_barang}
                     </td>
                   </tr> */}
                   <tr>
@@ -635,10 +635,10 @@ const Detail = (props) => {
                       Waktu Mulai
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {detail.MulaiPanduKeluar === "" ||
-                      detail.MulaiPanduKeluar === null
-                        ? detail.MulaiPanduKeluar
-                        : sliceHour(detail.MulaiPanduKeluar)}
+                      {detail?.MulaiPanduKeluar === "" ||
+                      detail?.MulaiPanduKeluar === null
+                        ? detail?.MulaiPanduKeluar
+                        : sliceHour(detail?.MulaiPanduKeluar)}
                     </td>
                   </tr>
                   <tr>
@@ -646,10 +646,10 @@ const Detail = (props) => {
                       Waktu Selesai
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {detail.SelesaiPanduKeluar === "" ||
-                      detail.SelesaiPanduKeluar === null
-                        ? detail.SelesaiPanduKeluar
-                        : sliceHour(detail.SelesaiPanduKeluar)}
+                      {detail?.SelesaiPanduKeluar === "" ||
+                      detail?.SelesaiPanduKeluar === null
+                        ? detail?.SelesaiPanduKeluar
+                        : sliceHour(detail?.SelesaiPanduKeluar)}
                     </td>
                   </tr>
                   <tr>
@@ -657,7 +657,7 @@ const Detail = (props) => {
                       Jam
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {detail.TotalJamPanduKeluar}
+                      {detail?.TotalJamPanduKeluar}
                     </td>
                   </tr>
                 </tbody>
@@ -680,7 +680,7 @@ const Detail = (props) => {
                     </td>
 
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {detail.JumlahUnitTundaMasuk}
+                      {detail?.JumlahUnitTundaMasuk}
                     </td>
                   </tr>
                   <tr>
@@ -688,10 +688,10 @@ const Detail = (props) => {
                       Mulai
                     </td>
                     <td className="px-3 py-0 h-px w-4 text-[10px] text-center border-black border whitespace-nowrap">
-                      {detail.MulaiPanduMasuk === "" ||
-                      detail.MulaiPanduMasuk === null
-                        ? detail.MulaiPanduMasuk
-                        : sliceHour(detail.MulaiPanduMasuk)}
+                      {detail?.MulaiPanduMasuk === "" ||
+                      detail?.MulaiPanduMasuk === null
+                        ? detail?.MulaiPanduMasuk
+                        : sliceHour(detail?.MulaiPanduMasuk)}
                     </td>
                   </tr>
                   <tr>
@@ -699,10 +699,10 @@ const Detail = (props) => {
                       Selesai
                     </td>
                     <td className="px-3 py-0 h-px w-4 text-[10px] text-center border-black border whitespace-nowrap">
-                      {detail.SelesaiPanduMasuk === "" ||
-                      detail.SelesaiPanduMasuk === null
-                        ? detail.SelesaiPanduMasuk
-                        : sliceHour(detail.SelesaiPanduMasuk)}
+                      {detail?.SelesaiPanduMasuk === "" ||
+                      detail?.SelesaiPanduMasuk === null
+                        ? detail?.SelesaiPanduMasuk
+                        : sliceHour(detail?.SelesaiPanduMasuk)}
                     </td>
                   </tr>
                   <tr>
@@ -710,7 +710,7 @@ const Detail = (props) => {
                       Jam
                     </td>
                     <td className="px-3 py-0 h-px w-4 text-[10px] text-center border-black border whitespace-nowrap">
-                      {detail.TotalJamPanduMasuk}
+                      {detail?.TotalJamPanduMasuk}
                     </td>
                   </tr>
                 </tbody>
@@ -733,7 +733,7 @@ const Detail = (props) => {
                     </td>
 
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {detail.JumlahUnitTundaPindah}
+                      {detail?.JumlahUnitTundaPindah}
                     </td>
                   </tr>
                   <tr>
@@ -741,10 +741,10 @@ const Detail = (props) => {
                       Mulai
                     </td>
                     <td className="px-3 py-0 h-px w-4 text-[10px] text-center border-black border whitespace-nowrap">
-                      {detail.MulaiPanduPindah === "" ||
-                      detail.MulaiPanduPindah === null
-                        ? detail.MulaiPanduPindah
-                        : sliceHour(detail.MulaiPanduPindah)}
+                      {detail?.MulaiPanduPindah === "" ||
+                      detail?.MulaiPanduPindah === null
+                        ? detail?.MulaiPanduPindah
+                        : sliceHour(detail?.MulaiPanduPindah)}
                     </td>
                   </tr>
                   <tr>
@@ -752,10 +752,10 @@ const Detail = (props) => {
                       Selesai
                     </td>
                     <td className="px-3 py-0 h-px w-4 text-[10px] text-center border-black border whitespace-nowrap">
-                      {detail.SelesaiPanduPindah === "" ||
-                      detail.SelesaiPanduPindah === null
-                        ? detail.SelesaiPanduPindah
-                        : sliceHour(detail.SelesaiPanduPindah)}
+                      {detail?.SelesaiPanduPindah === "" ||
+                      detail?.SelesaiPanduPindah === null
+                        ? detail?.SelesaiPanduPindah
+                        : sliceHour(detail?.SelesaiPanduPindah)}
                     </td>
                   </tr>
                   <tr>
@@ -763,7 +763,7 @@ const Detail = (props) => {
                       Jam
                     </td>
                     <td className="px-3 py-0 h-px w-4 text-[10px] text-center border-black border whitespace-nowrap">
-                      {detail.TotalJamPanduPindah}
+                      {detail?.TotalJamPanduPindah}
                     </td>
                   </tr>
                 </tbody>
@@ -786,7 +786,7 @@ const Detail = (props) => {
                     </td>
 
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {detail.JumlahUnitTundaKeluar}
+                      {detail?.JumlahUnitTundaKeluar}
                     </td>
                   </tr>
                   <tr>
@@ -794,10 +794,10 @@ const Detail = (props) => {
                       Mulai
                     </td>
                     <td className="px-3 py-0 h-px w-4 text-[10px] text-center border-black border whitespace-nowrap">
-                      {detail.MulaiPanduKeluar === "" ||
-                      detail.MulaiPanduKeluar === null
-                        ? detail.MulaiPanduKeluar
-                        : sliceHour(detail.MulaiPanduKeluar)}
+                      {detail?.MulaiPanduKeluar === "" ||
+                      detail?.MulaiPanduKeluar === null
+                        ? detail?.MulaiPanduKeluar
+                        : sliceHour(detail?.MulaiPanduKeluar)}
                     </td>
                   </tr>
                   <tr>
@@ -805,10 +805,10 @@ const Detail = (props) => {
                       Selesai
                     </td>
                     <td className="px-3 py-0 h-px w-4 text-[10px] text-center border-black border whitespace-nowrap">
-                      {detail.SelesaiPanduKeluar === "" ||
-                      detail.SelesaiPanduKeluar === null
-                        ? detail.SelesaiPanduKeluar
-                        : sliceHour(detail.SelesaiPanduKeluar)}
+                      {detail?.SelesaiPanduKeluar === "" ||
+                      detail?.SelesaiPanduKeluar === null
+                        ? detail?.SelesaiPanduKeluar
+                        : sliceHour(detail?.SelesaiPanduKeluar)}
                     </td>
                   </tr>
                   <tr>
@@ -816,7 +816,7 @@ const Detail = (props) => {
                       Jam
                     </td>
                     <td className="px-3 py-0 h-px w-4 text-[10px] text-center border-black border whitespace-nowrap">
-                      {detail.TotalJamPanduKeluar}
+                      {detail?.TotalJamPanduKeluar}
                     </td>
                   </tr>
                 </tbody>
@@ -838,7 +838,7 @@ const Detail = (props) => {
                       Nama Pandu
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {detail.NamaPandu}
+                      {detail?.NamaPandu}
                     </td>
                   </tr>
                   <tr>
@@ -846,7 +846,7 @@ const Detail = (props) => {
                       Motor Pandu
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {detail.MotorPandu}
+                      {detail?.MotorPandu}
                     </td>
                   </tr>
                   <tr>
@@ -854,7 +854,7 @@ const Detail = (props) => {
                       Kapal Pandu
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {detail.KapalTunda}
+                      {detail?.KapalTunda}
                     </td>
                   </tr>
                 </tbody>
@@ -881,7 +881,7 @@ const Detail = (props) => {
                       GT Kecil
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.NoPKKGTKecil}
+                      {detail?.NoPKKGTKecil}
                     </td>
                   </tr>
                   <tr>
@@ -889,7 +889,7 @@ const Detail = (props) => {
                       GT Besar
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.NoPKKGTBesar}
+                      {detail?.NoPKKGTBesar}
                     </td>
                   </tr>
                 </tbody>
@@ -902,7 +902,7 @@ const Detail = (props) => {
                       Jumlah PNBP
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {parseFloat(detail.JumlahPNBP).toFixed(2)}
+                      {parseFloat(detail?.JumlahPNBP).toFixed(2)}
                     </td>
                   </tr>
                   <tr>
@@ -910,7 +910,7 @@ const Detail = (props) => {
                       Nomor Invoice
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.NomorInv}
+                      {detail?.NomorInv}
                     </td>
                   </tr>
                 </tbody>
@@ -932,7 +932,7 @@ const Detail = (props) => {
                       Nama Kapal
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.NamaKapal}
+                      {detail?.NamaKapal}
                     </td>
                   </tr>
                   <tr>
@@ -940,7 +940,7 @@ const Detail = (props) => {
                       Nama Tongkang
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.NamaTongkang}
+                      {detail?.NamaTongkang}
                     </td>
                   </tr>
                   <tr>
@@ -948,7 +948,7 @@ const Detail = (props) => {
                       Bendera
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.Bendera}
+                      {detail?.Bendera}
                     </td>
                   </tr>
                   <tr>
@@ -956,7 +956,7 @@ const Detail = (props) => {
                       Pelabuhan Asal
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.PelabuhanAsal}
+                      {detail?.PelabuhanAsal}
                     </td>
                   </tr>
                 </tbody>
@@ -969,7 +969,7 @@ const Detail = (props) => {
                       DWT
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {parseFloat(detail.DWT).toFixed(2)}
+                      {parseFloat(detail?.DWT).toFixed(2)}
                     </td>
                   </tr>
                   <tr>
@@ -977,7 +977,7 @@ const Detail = (props) => {
                       GRT
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {parseFloat(detail.GRT).toFixed(2)}
+                      {parseFloat(detail?.GRT).toFixed(2)}
                     </td>
                   </tr>
                   <tr>
@@ -985,7 +985,7 @@ const Detail = (props) => {
                       LOA
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {parseFloat(detail.LOA).toFixed(2)}
+                      {parseFloat(detail?.LOA).toFixed(2)}
                     </td>
                   </tr>
                   <tr>
@@ -993,7 +993,7 @@ const Detail = (props) => {
                       Pelabuhan Tujuan
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.PelabuhanTujuan}
+                      {detail?.PelabuhanTujuan}
                     </td>
                   </tr>
                 </tbody>
@@ -1029,10 +1029,10 @@ const Detail = (props) => {
                       Tanggal Masuk
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.MulaiPanduMasuk === "" ||
-                      detail.MulaiPanduMasuk === null
-                        ? detail.MulaiPanduMasuk
-                        : sliceHour(detail.MulaiPanduMasuk)}
+                      {detail?.MulaiPanduMasuk === "" ||
+                      detail?.MulaiPanduMasuk === null
+                        ? detail?.MulaiPanduMasuk
+                        : sliceHour(detail?.MulaiPanduMasuk)}
                     </td>
                   </tr>
                   <tr>
@@ -1040,11 +1040,11 @@ const Detail = (props) => {
                       Tanggal Pindah
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {/* {detail.MulaiPanduPindah} */}
-                      {detail.MulaiPanduPindah === "" ||
-                      detail.MulaiPanduPindah === null
-                        ? detail.MulaiPanduPindah
-                        : sliceHour(detail.MulaiPanduPindah)}
+                      {/* {detail?.MulaiPanduPindah} */}
+                      {detail?.MulaiPanduPindah === "" ||
+                      detail?.MulaiPanduPindah === null
+                        ? detail?.MulaiPanduPindah
+                        : sliceHour(detail?.MulaiPanduPindah)}
                     </td>
                   </tr>
                   <tr>
@@ -1052,10 +1052,10 @@ const Detail = (props) => {
                       Tanggal Keluar
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.MulaiPanduKeluar === "" ||
-                      detail.MulaiPanduKeluar === null
-                        ? detail.MulaiPanduKeluar
-                        : sliceHour(detail.MulaiPanduKeluar)}
+                      {detail?.MulaiPanduKeluar === "" ||
+                      detail?.MulaiPanduKeluar === null
+                        ? detail?.MulaiPanduKeluar
+                        : sliceHour(detail?.MulaiPanduKeluar)}
                     </td>
                   </tr>
                 </tbody>
@@ -1081,7 +1081,7 @@ const Detail = (props) => {
                       Unit
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.JumlahUnitTundaKapal}
+                      {detail?.JumlahUnitTundaKapal}
                     </td>
                   </tr>
                   <tr>
@@ -1089,7 +1089,7 @@ const Detail = (props) => {
                       Jumlah Jam
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.TotalJamTundaKapal}
+                      {detail?.TotalJamTundaKapal}
                     </td>
                   </tr>
                 </tbody>
@@ -1121,7 +1121,7 @@ const Detail = (props) => {
                       Pemanduan
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail.pelabuhan_asal}
+                      {detail?.pelabuhan_asal}
                     </td>
                   </tr>
                   <tr>
@@ -1129,7 +1129,7 @@ const Detail = (props) => {
                       Penundaan
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {parseFloat(detail.TotalNilaiPanduPNBP).toFixed(2)}
+                      {parseFloat(detail?.TotalNilaiPanduPNBP).toFixed(2)}
                     </td>
                   </tr>
                 </tbody>
@@ -1155,7 +1155,7 @@ const Detail = (props) => {
                       Pemanduan
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {/* {detail.MulaiPanduMasuk} */}
+                      {/* {detail?.MulaiPanduMasuk} */}
                     </td>
                   </tr>
                   <tr>
@@ -1163,7 +1163,7 @@ const Detail = (props) => {
                       Penundaan
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {parseFloat(detail.TotalNilaiTundaPNBP).toFixed(2)}
+                      {parseFloat(detail?.TotalNilaiTundaPNBP).toFixed(2)}
                     </td>
                   </tr>
                 </tbody>

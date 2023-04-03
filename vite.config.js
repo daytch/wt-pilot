@@ -1,10 +1,11 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import { viteCommonjs, esbuildCommonjs } from "@originjs/vite-plugin-commonjs";
+import { defineConfig } from "vite"
+import react from "@vitejs/plugin-react"
+import { viteCommonjs, esbuildCommonjs } from "@originjs/vite-plugin-commonjs"
+import viteCompression from "vite-plugin-compression"
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [viteCommonjs(), react()],
+  plugins: [viteCommonjs(), react(), viteCompression()],
   server: {
     port: 3000,
   },
@@ -31,10 +32,10 @@ export default defineConfig({
               .toString()
               .split("node_modules/")[1]
               .split("/")[0]
-              .toString();
+              .toString()
           }
         },
       },
     },
   },
-});
+})
