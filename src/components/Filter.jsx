@@ -75,9 +75,34 @@ const Filter = (props) => {
       tipe === "realisasi" &&
       dataRealisasiPandu.length > 0
     ) {
-      setMMCode(dataRealisasiPandu[0].Code);
+      setMMCode(dataRealisasiPandu[0].Code)
     }
-  }, [MMCode]);
+  }, [MMCode])
+
+  const onchangeStartDate = (e) => {
+    
+    if (e && e > endDate) {
+      ErrorMessage("", "Start Date must less than or equals End Date")
+    } else {
+      setStartDate(e)
+    }
+  }
+
+  const onchangeEndDate = (e) => {
+    
+    if (startDate) {
+      if (e < startDate) {
+        ErrorMessage("", "End Date must greater than or equals Start Date")
+      } else {
+        setEndDate(e)
+      }
+    } else {
+      ErrorMessage(
+        "",
+        "Please select start date first before you select end date"
+      )
+    }
+  }
 
   return (
     <div>
