@@ -1,0 +1,15 @@
+{
+  "ignoreUnresolved": [],
+  "ignoreUnused": [
+    "@originjs/vite-plugin-commonjs",
+    "@react-pdf/renderer",
+    "@vitejs/plugin-react-refresh",
+    "autoprefixer",
+    "events",
+    "react-vite-range-datepicker",
+    "tailwindcss"
+  ],
+  "ignoreUnimported": [
+    "src/redux/slices/index.js"
+  ]
+}
