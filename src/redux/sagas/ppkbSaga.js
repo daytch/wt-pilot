@@ -150,7 +150,7 @@ export function* getHeaderPKK(action) {
 
 export function* getDetailPKK(action) {
   try {
-    debugger
+    
     const res = yield call(GET, URL.GET_DETAIL_RKBM + action.payload)
 
     if (!res) {

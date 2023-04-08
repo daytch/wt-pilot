@@ -83,7 +83,7 @@ export function* resetPassword(action) {
 export default function* rootSaga() {
   yield all([
     takeEvery("Authentication/postLogin", postLogin),
-    takeEvery("Authentication/forgotPassword", forgotPassword),
+    // takeEvery("Authentication/forgotPassword", forgotPassword),
     takeEvery("Authentication/resetPassword", resetPassword),
     takeEvery("Authentication/postUserRegistration", postUserRegistration),
   ])
