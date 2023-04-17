@@ -78,6 +78,18 @@ export const ppkbSlice = createSlice({
       state.error = action.payload.message;
     },
 
+    deleteDetailPPKB: (state) => {
+      state.loading = true;
+    },
+    deleteDetailPPKBSuccess: (state, action) => {
+      state.message = action.payload.message;
+      state.loading = false;
+    },
+    deleteDetailPPKBFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload.message;
+    },
+
     getHeaderPKK: (state) => {
       state.loading = true;
     },
@@ -122,6 +134,9 @@ export const {
   deleteDataPPKB,
   deleteDataPPKBFailure,
   deleteDataPPKBSuccess,
+  deleteDetailPPKB,
+  deleteDetailPPKBFailure,
+  deleteDetailPPKBSuccess,
   getHeaderPKK,
   getHeaderPKKSuccess,
   getHeaderPKKFailure,

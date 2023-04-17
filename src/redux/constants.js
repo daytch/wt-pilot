@@ -19,11 +19,11 @@ export const URL = {
   DELETE_PPKB: "post-deletedatappkb",
   GET_PNBP_REPORT: "get-laporanpnbp",
   POST_PPKB: "post-insertgetppkb",
-  DELETE_PPKB: "post-deletedatappkb",
   REGISTER: "post-userregistrasi",
   CHECK_USER_REGISTRASION: "post-checkuserregistrasi",
   SAVE_USER_REGISTRASION: "post-saveuserregistrasi",
   FORGOT: "email-forgot",
   RESET_PASSWORD: "post-resetpassword",
+  DELETE_DETAIL_RKBM: "post-deletedetilrkbmppkb",
 }
 export const timeOut = 10 // in minutes

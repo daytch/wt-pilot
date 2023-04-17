@@ -17,6 +17,8 @@ import {
   postDataPPKBSuccess,
   deleteDataPPKBFailure,
   deleteDataPPKBSuccess,
+  deleteDetailPPKBFailure,
+  deleteDetailPPKBSuccess,
 } from "../slices/ppkbSlice"
 import { history } from "../../helpers/history"
 
@@ -129,6 +131,25 @@ export function* deleteDataPPKB(action) {
   }
 }
 
+export function* deleteDetailPPKB(action) {
+  try {
+    const res = yield call(POST, URL.DELETE_PPKB + action.payload)
+
+    if (!res) {
+      yield put(
+        deleteDetailPPKBFailure({
+          isError: 1,
+          message: res.ErrorMessage,
+        })
+      )
+    } else {
+      yield put(deleteDetailPPKBSuccess({ res }))
+    }
+  } catch (error) {
+    yield put(deleteDetailPPKBFailure({ isError: 1, message: error }))
+  }
+}
+
 export function* getHeaderPKK(action) {
   try {
     const res = yield call(GET, URL.GET_HEADER_PKKB + action.payload)
@@ -177,5 +198,6 @@ export default function* rootSaga() {
     takeEvery("PPKB/getDetailPKK", getDetailPKK),
     takeEvery("PPKB/postDataPPKB", postDataPPKB),
     takeEvery("PPKB/deleteDataPPKB", deleteDataPPKB),
+    takeEvery("PPKB/deleteDetailPPKB", deleteDetailPPKB),
   ])
 }

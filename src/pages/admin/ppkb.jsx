@@ -7,6 +7,7 @@ import {
   getHeaderPKK,
   getDetailPKK,
   postDataPPKB,
+  deleteDetailPPKB,
 } from "../../redux/slices/ppkbSlice.js"
 import { toogleLoading } from "../../redux/slices/dashboardSlice.js"
 import {
@@ -42,7 +43,7 @@ const Ppkb = () => {
   const [Outstanding, setOutstanding] = useState("0")
   const [Code, setCode] = useState("")
   const [ValueSearch, setValueSearch] = useState("")
-  const [isShowModal, setIsShowModal] = useState(true)
+  const [isCreatedNew, setIsCreatedNew] = useState(false)
   const [ViewBy, setViewBy] = useState(dariPihak)
   const [ViewValue, setViewValue] = useState(UserData.UserName)
   const tanggalHariini = handleDateAPI(new Date())
@@ -75,7 +76,7 @@ const Ppkb = () => {
   const loading = useSelector((state) => state.Dashboard.loading)
   const dataCabang = useSelector((state) => state.Dashboard.dataCabang)
   const dataSalesOrder = useSelector((state) => state.Dashboard.dataSalesOrder)
-  console.log("dataDetailPKK:", dataDetailPKK)
+  console.log("jamRencana:", jamRencana)
 
   useEffect(() => {
     if (dataHeaderPKK.length > 0) {
@@ -273,7 +274,7 @@ const Ppkb = () => {
       setPageEdit(postdetailppkb)
     }
   }
-
+  console.log("Outstanding:", Outstanding)
   useEffect(() => {
     sessionStorage.setItem("dariTanggalPPKB", startDate)
     sessionStorage.setItem("sampaiTanggalPPKB", endDate)
@@ -310,11 +311,9 @@ const Ppkb = () => {
 
     switch (e.detail) {
       case 2:
-        
+        setIsCreatedNew(false)
         setDetail(item)
-        if (Outstanding === "1" || Outstanding === 1) {
-          btnDetailPKKRef.current.click()
-        } else {
+        if (Outstanding === 0) {
           btnDetailRef.current.click()
         }
         break
@@ -1160,6 +1159,225 @@ const Ppkb = () => {
     )
   }
 
+  const renderDetailModalPKK = () => {
+    return (
+      <tbody>
+        {dataDetailPKK.length > 0
+          ? dataDetailPKK.map((item, index) => {
+              // debugger
+              return (
+                <tr
+                  key={index}
+                  className="even:bg-white odd:bg-[#C0C0FD] dark:odd:bg-slate-900 dark:even:bg-slate-800"
+                >
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      onClick={(e) => addOrRemoveRKBM(e, item.Oid)}
+                    />
+                  </td>
+
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {index + 1}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.nama_barang}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.bahaya}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.ganggu}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.kegiatan}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {parseFloat(item.unit).toFixed(2)}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {parseFloat(item.ton).toFixed(2)}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {parseFloat(item.m3).toFixed(2)}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.penyaluran}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.kade}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.pbm}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.npwp_pbm}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.consginee}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.shipper}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.npwp_shipper}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.no_bl}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {parseFloat(item.gang).toFixed(2)}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {parseFloat(item.palka).toFixed(2)}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.no_rkbm_bongkar}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.no_rkbm_muat}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.rencana_bongkar}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.rencana_muat}
+                  </td>
+                </tr>
+              )
+            })
+          : null}
+      </tbody>
+    )
+  }
+
+  const handleDeleteDetailPPKB = (item) => {
+    const urldelete = `?NoPPKB=${detail.NoPPKB}&NoRKBMDetil_Oid=${item.Oid}`
+    dispatch(deleteDetailPPKB(urldelete))
+  }
+
+  const renderDetailModalPPKB = () => {
+    return (
+      <tbody>
+        {dataDetailPPKB.length > 0
+          ? dataDetailPPKB.map((item, index) => {
+              return (
+                <tr
+                  key={index}
+                  className="even:bg-white odd:bg-[#C0C0FD] dark:odd:bg-slate-900 dark:even:bg-slate-800"
+                >
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    <button
+                      onClick={() => handleDeleteDetailPPKB(item)}
+                      type="button"
+                      className="text-[10px] py-0 px-1 inline-flex justify-center items-center gap-2 rounded-md bg-red-100 border border-transparent font-semibold text-red-500 hover:text-white hover:bg-red-100 focus:outline-none focus:ring-2 ring-offset-white focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+                    >
+                      X
+                    </button>
+                  </td>
+
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {index + 1}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.nama_barang}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.bahaya}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.ganggu}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.kegiatan}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {parseFloat(item.unit).toFixed(2)}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {parseFloat(item.ton).toFixed(2)}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {parseFloat(item.m3).toFixed(2)}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.penyaluran}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.kade}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.pbm}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.npwp_pbm}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.consginee}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.shipper}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.npwp_shipper}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.no_bl}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {parseFloat(item.gang).toFixed(2)}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {parseFloat(item.palka).toFixed(2)}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.no_rkbm_bongkar}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.no_rkbm_muat}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.rencana_bongkar}
+                  </td>
+                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                    {item.rencana_muat}
+                  </td>
+                </tr>
+              )
+            })
+          : null}
+      </tbody>
+    )
+  }
+  var allRKBM = []
+  const addOrRemoveRKBM = (event, item) => {
+    if (event.target.checked) {
+      allRKBM.push(item)
+    } else {
+      const no = allRKBM.indexOf(item)
+      allRKBM.splice(no, 1)
+    }
+    setIsTableChecked((current) => !current)
+  }
+  const handleSaveInputData = () => {
+    allRKBM.forEach(async (e) => {
+      const url = `api/post-insertgetppkb?NomorPKK=${detail?.nomor_pkk}&NoPPKB=${detail?.NoPPKB}&TglPPKB=${tglPPKB}&NoRKBM_Oid=${e}&TglRencana=${tglRencana}&JamRencana=${jamRencana}&Lokasi=${lokasi}&Kegiatan=${kegiatan}&Keterangan=${keterangan}&UserId=${UserLogin}`
+
+      axios
+        .post(url)
+        .then((response) => {})
+        .catch((error) => {
+          alert(error)
+        })
+    })
+    // handleSearch();
+    setTanggalPPKB(today)
+    setTanggalRencana(today)
+    setJamRencana(jam)
+    // setShow(false);
+    // setAllRKBM([]);
+  }
+
   const handleSaveData = () => {
     // const oid = response.data.data[0].Oid;
 
@@ -1187,7 +1405,6 @@ const Ppkb = () => {
   const handleDeleteDataPPKB = async () => {
     dispatch(deleteDataPPKB(`?NoPPKB=${detail?.NoPPKB}`))
     fetchData()
-    // ErrorMessage("", error);
   }
 
   return (
@@ -1199,13 +1416,6 @@ const Ppkb = () => {
           hidden
         >
           detail
-        </button>
-        <button
-          ref={btnDetailPKKRef}
-          data-hs-overlay="#hs-vertically-centered-modal"
-          hidden
-        >
-          detail pkk
         </button>
         {/* <!-- Card --> */}
         <div className="flex flex-col">
@@ -1226,6 +1436,8 @@ const Ppkb = () => {
                     tipe="ppkb"
                     setNotApproved={setNotApproved}
                     notApproved={notApproved}
+                    setIsCreatedNew={setIsCreatedNew}
+                    isCreatedNew={isCreatedNew}
                   />
                 </div>
                 {/* <!-- End Accordion --> */}
@@ -1248,7 +1460,9 @@ const Ppkb = () => {
             <div className="flex justify-between items-center w-[80vw] flex-col bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700">
               <div className="flex justify-between w-[80vw] items-center py-1 px-2 border-b dark:border-gray-700">
                 <h3 className="font-bold text-gray-800 dark:text-gray-200">
-                  Detail PKK
+                  {isCreatedNew
+                    ? "Pengajuan Permintaan Pelayanan Kapal dan Barang"
+                    : "Edit Permintaan Pelayanan Kapal dan Barang"}
                 </h3>
                 <button
                   type="button"
@@ -1279,17 +1493,24 @@ const Ppkb = () => {
                       <div className="row" style={{ marginLeft: "5px" }}>
                         <button
                           className="mr-3 py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-green-500 text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all text-[10px] dark:focus:ring-offset-gray-800"
-                          onClick={(e) => handleSaveData(e)}
+                          onClick={(e) => {
+                            if (Outstanding === 1) {
+                              handleSaveInputData(e)
+                            } else {
+                              handleSaveData(e)
+                            }
+                          }}
                         >
                           Simpan
                         </button>
-
-                        <button
-                          className="py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-red-500 text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-[10px] dark:focus:ring-offset-gray-800"
-                          onClick={(e) => handleDeleteDataPPKB(e)}
-                        >
-                          Hapus Data
-                        </button>
+                        {!isCreatedNew && (
+                          <button
+                            className="py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-red-500 text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-[10px] dark:focus:ring-offset-gray-800"
+                            onClick={(e) => handleDeleteDataPPKB(e)}
+                          >
+                            Hapus Data
+                          </button>
+                        )}
                       </div>
                     </div>
                     <div className="grid gap-2">
@@ -1309,7 +1530,7 @@ const Ppkb = () => {
                                 name="no_ppkb"
                                 placeholder="Nomor PPKB"
                                 className="disabled:bg-gray-300 py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                                disabled
+                                disabled={Outstanding === 0}
                                 value={detail?.NoPPKB}
                               />
                             </div>
@@ -1329,11 +1550,7 @@ const Ppkb = () => {
                                 placeholderText="Tanggal PPKB"
                                 id="tgl_ppkb"
                                 name="tgl_ppkb"
-                                selected={
-                                  detail?.TglPPKB
-                                    ? new Date(detail?.TglPPKB)
-                                    : null
-                                }
+                                selected={tglPPKB ? new Date(tglPPKB) : null}
                                 onChange={(e) => setTglPPKB(e)}
                               />
                               <div className="flex absolute inset-y-0 right-0 items-center pointer-events-none pr-3">
@@ -1380,14 +1597,10 @@ const Ppkb = () => {
                                 id="tgl_rencana"
                                 name="tgl_rencana"
                                 selected={
-                                  detail?.TglRencana
-                                    ? new Date(detail?.TglRencana)
-                                    : null
+                                  tglRencana ? new Date(tglRencana) : null
                                 }
                                 minDate={
-                                  detail?.TglPPKB
-                                    ? new Date(detail?.TglPPKB)
-                                    : new Date()
+                                  tglRencana ? new Date(tglRencana) : new Date()
                                 }
                               />
                               <div className="flex absolute inset-y-0 right-0 items-center pointer-events-none pr-3">
@@ -1406,11 +1619,7 @@ const Ppkb = () => {
                               <DatePicker
                                 onChange={(e) => setJamRencana(e)}
                                 selected={
-                                  detail?.TglRencana
-                                    ? new Date(
-                                        "2022-12-12T" + detail?.JamRencana
-                                      )
-                                    : null
+                                  jamRencana ? new Date(jamRencana) : null
                                 }
                                 showTimeSelect
                                 showTimeSelectOnly
@@ -1564,357 +1773,10 @@ const Ppkb = () => {
                                 </th>
                               </tr>
                             </thead>
-                            <tbody>
-                              {dataDetailPPKB.length > 0
-                                ? dataDetailPPKB.map((item, index) => {
-                                    return (
-                                      <tr
-                                        key={index}
-                                        className="even:bg-white odd:bg-[#C0C0FD] dark:odd:bg-slate-900 dark:even:bg-slate-800"
-                                      >
-                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                                          <button
-                                            onClick={() =>
-                                              deleteDetailPPKB(item)
-                                            }
-                                            type="button"
-                                            className="text-[10px] py-0 px-1 inline-flex justify-center items-center gap-2 rounded-md bg-red-100 border border-transparent font-semibold text-red-500 hover:text-white hover:bg-red-100 focus:outline-none focus:ring-2 ring-offset-white focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
-                                          >
-                                            X
-                                          </button>
-                                        </td>
-
-                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                                          {index + 1}
-                                        </td>
-                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                                          {item.nama_barang}
-                                        </td>
-                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                                          {item.bahaya}
-                                        </td>
-                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                                          {item.ganggu}
-                                        </td>
-                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                                          {item.kegiatan}
-                                        </td>
-                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                                          {parseFloat(item.unit).toFixed(2)}
-                                        </td>
-                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                                          {parseFloat(item.ton).toFixed(2)}
-                                        </td>
-                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                                          {parseFloat(item.m3).toFixed(2)}
-                                        </td>
-                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                                          {item.penyaluran}
-                                        </td>
-                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                                          {item.kade}
-                                        </td>
-                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                                          {item.pbm}
-                                        </td>
-                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                                          {item.npwp_pbm}
-                                        </td>
-                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                                          {item.consginee}
-                                        </td>
-                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                                          {item.shipper}
-                                        </td>
-                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                                          {item.npwp_shipper}
-                                        </td>
-                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                                          {item.no_bl}
-                                        </td>
-                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                                          {parseFloat(item.gang).toFixed(2)}
-                                        </td>
-                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                                          {parseFloat(item.palka).toFixed(2)}
-                                        </td>
-                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                                          {item.no_rkbm_bongkar}
-                                        </td>
-                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                                          {item.no_rkbm_muat}
-                                        </td>
-                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                                          {item.rencana_bongkar}
-                                        </td>
-                                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                                          {item.rencana_muat}
-                                        </td>
-                                      </tr>
-                                    )
-                                  })
-                                : null}
-                            </tbody>
+                            {Outstanding === 0
+                              ? renderDetailModalPPKB()
+                              : renderDetailModalPKK()}
                           </table>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div
-          id="hs-vertically-centered-modal"
-          className="hs-overlay hidden w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto"
-        >
-          <div className="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all lg:w-[60vw] my-auto lg:mx-auto">
-            <div className="flex justify-between items-center w-[60vw] flex-col bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700">
-              <div className="flex justify-between w-[60vw] items-center py-1 px-2 border-b dark:border-gray-700">
-                <h3 className="font-bold text-gray-800 dark:text-gray-200">
-                  Detail PKK
-                </h3>
-                <button
-                  type="button"
-                  className="inline-flex flex-shrink-0 justify-center items-center h-8 w-8 rounded-md text-gray-500 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-[10px] dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800"
-                  data-hs-overlay="#hs-vertically-centered-modal"
-                >
-                  <span className="sr-only">Close</span>
-                  <svg
-                    className="w-3.5 h-3.5"
-                    width="8"
-                    height="8"
-                    viewBox="0 0 8 8"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0.258206 1.00652C0.351976 0.912791 0.479126 0.860131 0.611706 0.860131C0.744296 0.860131 0.871447 0.912791 0.965207 1.00652L3.61171 3.65302L6.25822 1.00652C6.30432 0.958771 6.35952 0.920671 6.42052 0.894471C6.48152 0.868271 6.54712 0.854471 6.61352 0.853901C6.67992 0.853321 6.74572 0.865971 6.80722 0.891111C6.86862 0.916251 6.92442 0.953381 6.97142 1.00032C7.01832 1.04727 7.05552 1.1031 7.08062 1.16454C7.10572 1.22599 7.11842 1.29183 7.11782 1.35822C7.11722 1.42461 7.10342 1.49022 7.07722 1.55122C7.05102 1.61222 7.01292 1.6674 6.96522 1.71352L4.31871 4.36002L6.96522 7.00648C7.05632 7.10078 7.10672 7.22708 7.10552 7.35818C7.10442 7.48928 7.05182 7.61468 6.95912 7.70738C6.86642 7.80018 6.74102 7.85268 6.60992 7.85388C6.47882 7.85498 6.35252 7.80458 6.25822 7.71348L3.61171 5.06702L0.965207 7.71348C0.870907 7.80458 0.744606 7.85498 0.613506 7.85388C0.482406 7.85268 0.357007 7.80018 0.264297 7.70738C0.171597 7.61468 0.119017 7.48928 0.117877 7.35818C0.116737 7.22708 0.167126 7.10078 0.258206 7.00648L2.90471 4.36002L0.258206 1.71352C0.164476 1.61976 0.111816 1.4926 0.111816 1.36002C0.111816 1.22744 0.164476 1.10028 0.258206 1.00652Z"
-                      fill="currentColor"
-                    />
-                  </svg>
-                </button>
-              </div>
-
-              <div className="p-4 overflow-y-auto">
-                <div className="sm:divide-y divide-gray-200 dark:divide-gray-700">
-                  <div className="py-3 sm:py-6">
-                    <div className="flex justify-end">
-                      <div className="row" style={{ marginLeft: "5px" }}>
-                        <button
-                          className="mr-3 py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-green-500 text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all text-[10px] dark:focus:ring-offset-gray-800"
-                          onClick={(e) => handleSaveData(e)}
-                        >
-                          Simpan
-                        </button>
-
-                        <button
-                          className="py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-red-500 text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-[10px] dark:focus:ring-offset-gray-800"
-                          onClick={(e) => handleDeleteDataPPKB(e)}
-                        >
-                          Hapus Data
-                        </button>
-                      </div>
-                    </div>
-                    <div className="grid gap-2">
-                      <div className="grid gap-y-4">
-                        <div className="grid md:grid-cols-3 gap-2">
-                          <div>
-                            <label
-                              htmlFor="no_ppkb"
-                              className="block text-[10px] mb-2 dark:text-white"
-                            >
-                              Nomor PPKB
-                            </label>
-                            <div className="relative">
-                              <input
-                                type="text"
-                                id="no_ppkb"
-                                name="no_ppkb"
-                                placeholder="Nomor PPKB"
-                                className="disabled:bg-gray-300 py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                                disabled
-                                value={detail?.NoPPKB}
-                              />
-                            </div>
-                          </div>
-                          <div>
-                            <label
-                              htmlFor="tgl_ppkb"
-                              className="block text-[10px] mb-2 dark:text-white"
-                            >
-                              Tanggal PPKB
-                            </label>
-                            <div className="relative">
-                              <DatePicker
-                                wrapperClassName="wrapperdatePicker"
-                                className="dateandtimepicker-hp py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                                dateFormat="dd-MM-yyyy"
-                                placeholderText="Tanggal PPKB"
-                                id="tgl_ppkb"
-                                name="tgl_ppkb"
-                                selected={
-                                  detail?.TglPPKB
-                                    ? new Date(detail?.TglPPKB)
-                                    : null
-                                }
-                                onChange={(e) => setTglPPKB(e)}
-                              />
-                              <div className="flex absolute inset-y-0 right-0 items-center pointer-events-none pr-3">
-                                <CalendarDaysIcon className="h-5 w-5" />
-                              </div>
-                            </div>
-                          </div>
-                          <div>
-                            <label
-                              htmlFor="no_pkk"
-                              className="block text-[10px] mb-2 dark:text-white"
-                            >
-                              Nomor PKK
-                            </label>
-                            <div className="relative">
-                              <input
-                                type="text"
-                                id="no_pkk"
-                                name="no_pkk"
-                                placeholder="Nomor PKK"
-                                className="disabled:bg-gray-300 py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                                disabled
-                                defaultValue={detail?.nomor_pkk}
-                              />
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="grid md:grid-cols-2 gap-2">
-                          <div>
-                            <label
-                              htmlFor="email"
-                              className="block text-[10px] mb-2 dark:text-white"
-                            >
-                              Tanggal Rencana
-                            </label>
-                            <div className="relative">
-                              <DatePicker
-                                wrapperClassName="wrapperdatePicker"
-                                className="dateandtimepicker-hp py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                                dateFormat="dd-MM-yyyy"
-                                placeholderText="Tanggal Rencana"
-                                onChange={(e) => setTglRencana(e)}
-                                id="tgl_rencana"
-                                name="tgl_rencana"
-                                selected={
-                                  detail?.TglRencana
-                                    ? new Date(detail?.TglRencana)
-                                    : new Date()
-                                }
-                                minDate={
-                                  detail?.TglPPKB
-                                    ? new Date(detail?.TglPPKB)
-                                    : new Date()
-                                }
-                              />
-                              <div className="flex absolute inset-y-0 right-0 items-center pointer-events-none pr-3">
-                                <CalendarDaysIcon className="h-5 w-5" />
-                              </div>
-                            </div>
-                          </div>
-                          <div>
-                            <label
-                              htmlFor="email"
-                              className="block text-[10px] mb-2 dark:text-white"
-                            >
-                              Jam Rencana
-                            </label>
-                            <div className="relative">
-                              <DatePicker
-                                onChange={(e) => setJamRencana(e)}
-                                selected={
-                                  detail?.TglRencana
-                                    ? new Date(
-                                        "2022-12-12T" + detail?.JamRencana
-                                      )
-                                    : new Date()
-                                }
-                                showTimeSelect
-                                showTimeSelectOnly
-                                timeFormat="HH:mm"
-                                timeIntervals={15}
-                                timeCaption="Pilih Jam"
-                                dateFormat="HH:mm"
-                                wrapperClassName="wrapperdatePicker"
-                                placeholderText="Jam Rencana"
-                                className="datepicker py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                              />
-                              <div className="flex absolute inset-y-0 right-0 items-center pointer-events-none pr-3">
-                                <ClockIcon className="h-5 w-5" />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div>
-                          <label
-                            htmlFor="lokasi"
-                            className="block text-[10px] mb-2 dark:text-white"
-                          >
-                            Lokasi
-                          </label>
-                          <div className="relative">
-                            <input
-                              type="text"
-                              id="lokasi"
-                              name="lokasi"
-                              placeholder="Lokasi"
-                              className="py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                              onChange={(e) => setLokasi(e.target.value)}
-                              value={lokasi}
-                            />
-                          </div>
-                        </div>
-                        <div>
-                          <label
-                            htmlFor="kegiatan"
-                            className="block text-[10px] mb-2 dark:text-white"
-                          >
-                            Kegiatan
-                          </label>
-                          <div className="relative">
-                            <input
-                              type="text"
-                              id="kegiatan"
-                              name="kegiatan"
-                              placeholder="Kegiatan"
-                              className="py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                              onChange={(e) => setKegiatan(e.target.value)}
-                              value={kegiatan}
-                            />
-                          </div>
-                        </div>
-                        <div>
-                          <label
-                            htmlFor="email"
-                            className="block text-[10px] mb-2 dark:text-white"
-                          >
-                            Keterangan
-                          </label>
-                          <div className="relative">
-                            <textarea
-                              rows="3"
-                              id="keterangan"
-                              name="keterangan"
-                              placeholder="Keterangan"
-                              className="py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                              onChange={(e) => setKeterangan(e.target.value)}
-                              value={keterangan}
-                            ></textarea>
-                          </div>
-                        </div>
-
-                        <div className="overflow-x-auto">
-                          {renderDetail(Outstanding)}
                         </div>
                       </div>
                     </div>
