@@ -1,29 +1,29 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react"
 
 export function isEmptyNullOrUndefined(param) {
   if (param === undefined) {
-    return true;
+    return true
   }
   if (param === null) {
-    return true;
+    return true
   }
   if (isString(param)) {
-    return param.replace(/\s+/g, "") === "";
+    return param.replace(/\s+/g, "") === ""
   }
-  return false;
+  return false
 }
 
 export function isString(param) {
-  return Object.prototype.toString.call(param) === "[object String]";
+  return Object.prototype.toString.call(param) === "[object String]"
 }
 export function isObjectEmpty(object) {
-  var isEmpty = true;
+  var isEmpty = true
   // eslint-disable-next-line no-unused-vars
   for (var keys in object) {
-    isEmpty = false;
-    break; // exiting since we found that the object is not empty
+    isEmpty = false
+    break // exiting since we found that the object is not empty
   }
-  return isEmpty;
+  return isEmpty
 }
 
 export function dateToString(date) {
@@ -31,13 +31,13 @@ export function dateToString(date) {
   let month =
     (new Date(date).getMonth() + 1).toString().length < 2
       ? "0" + (new Date(date).getMonth() + 1)
-      : new Date(date).getMonth() + 1;
+      : new Date(date).getMonth() + 1
 
   let day =
     new Date(date).getDate().toString().length < 2
       ? "0" + new Date(date).getDate()
-      : new Date(date).getDate();
-  return new Date(date).getFullYear() + "-" + month + "-" + day;
+      : new Date(date).getDate()
+  return new Date(date).getFullYear() + "-" + month + "-" + day
 }
 
 export function datetimeToString(date) {
@@ -45,21 +45,21 @@ export function datetimeToString(date) {
   let month =
     (new Date(date).getMonth() + 1).toString().length < 2
       ? "0" + (new Date(date).getMonth() + 1)
-      : new Date(date).getMonth() + 1;
+      : new Date(date).getMonth() + 1
 
   let day =
     new Date(date).getDate().toString().length < 2
       ? "0" + new Date(date).getDate()
-      : new Date(date).getDate();
+      : new Date(date).getDate()
 
   let hour =
     new Date(date).getHours().toString().length < 2
       ? "0" + new Date(date).getHours()
-      : new Date(date).getHours();
+      : new Date(date).getHours()
   let minutes =
     new Date(date).getMinutes().toString().length < 2
       ? "0" + new Date(date).getMinutes()
-      : new Date(date).getMinutes();
+      : new Date(date).getMinutes()
   return (
     new Date(date).getFullYear() +
     "-" +
@@ -70,7 +70,7 @@ export function datetimeToString(date) {
     hour +
     ":" +
     minutes
-  );
+  )
 }
 export function formatDate(value) {
   var monthNames = [
@@ -86,15 +86,15 @@ export function formatDate(value) {
     "Oct",
     "Nov",
     "Dec",
-  ];
-  var date = new Date(value);
+  ]
+  var date = new Date(value)
   date =
     date.getDate() +
     "-" +
     monthNames[date.getMonth()] +
     "-" +
-    date.getFullYear();
-  return date;
+    date.getFullYear()
+  return date
 }
 
 export function diffDate(date1, date2, interval) {
@@ -102,125 +102,125 @@ export function diffDate(date1, date2, interval) {
     minute = second * 60,
     hour = minute * 60,
     day = hour * 24,
-    week = day * 7;
-  date1 = new Date(date1);
-  date2 = new Date(date2);
-  var timediff = date2 - date1;
-  if (isNaN(timediff)) return NaN;
+    week = day * 7
+  date1 = new Date(date1)
+  date2 = new Date(date2)
+  var timediff = date2 - date1
+  if (isNaN(timediff)) return NaN
   switch (interval) {
     case "years":
-      return date2.getFullYear() - date1.getFullYear();
+      return date2.getFullYear() - date1.getFullYear()
     case "months":
       return (
         date2.getFullYear() * 12 +
         date2.getMonth() -
         (date1.getFullYear() * 12 + date1.getMonth())
-      );
+      )
     case "weeks":
-      return Math.floor(timediff / week);
+      return Math.floor(timediff / week)
     case "days":
-      return Math.floor(timediff / day);
+      return Math.floor(timediff / day)
     case "hours":
-      return Math.floor(timediff / hour);
+      return Math.floor(timediff / hour)
     case "minutes":
-      return Math.floor(timediff / minute);
+      return Math.floor(timediff / minute)
     case "seconds":
-      return Math.floor(timediff / second);
+      return Math.floor(timediff / second)
     default:
-      return undefined;
+      return undefined
   }
 }
 
 export function DataURIToBlob(dataURI) {
-  const splitDataURI = dataURI.split(",");
+  const splitDataURI = dataURI.split(",")
   const byteString =
     splitDataURI[0].indexOf("base64") >= 0
       ? atob(splitDataURI[1])
-      : decodeURI(splitDataURI[1]);
-  const mimeString = splitDataURI[0].split(":")[1].split(";")[0];
+      : decodeURI(splitDataURI[1])
+  const mimeString = splitDataURI[0].split(":")[1].split(";")[0]
 
-  const ia = new Uint8Array(byteString.length);
-  for (let i = 0; i < byteString.length; i++) ia[i] = byteString.charCodeAt(i);
+  const ia = new Uint8Array(byteString.length)
+  for (let i = 0; i < byteString.length; i++) ia[i] = byteString.charCodeAt(i)
 
-  return new Blob([ia], { type: mimeString });
+  return new Blob([ia], { type: mimeString })
 }
 
 export function merge(...arrays) {
-  const merged = {};
+  const merged = {}
 
   arrays.forEach(
     (data) => data.forEach((o) => Object.assign((merged[o.periodId] ??= {}), o)) // eslint-disable-line
-  );
+  )
 
-  return Object.values(merged);
+  return Object.values(merged)
 }
 export const returnFlattenObject = (arr) => {
-  const flatObject = {};
+  const flatObject = {}
   for (let i = 0; i < arr.length; i++) {
     for (const property in arr[i]) {
-      flatObject[`${property}_${i}`] = arr[i][property];
+      flatObject[`${property}_${i}`] = arr[i][property]
     }
   }
-  return flatObject;
-};
+  return flatObject
+}
 
 export const getExclamationMark = (total) => {
-  let tndaPentung = "";
+  let tndaPentung = ""
   for (let index = 0; index < total; index++) {
-    tndaPentung = tndaPentung + "!";
+    tndaPentung = tndaPentung + "!"
   }
-  return tndaPentung;
-};
+  return tndaPentung
+}
 export const useEffectOnce = (effect) => {
-  const destroyFunc = useRef();
-  const effectCalled = useRef(false);
-  const renderAfterCalled = useRef(false);
-  const [val, setVal] = useState(0);
+  const destroyFunc = useRef()
+  const effectCalled = useRef(false)
+  const renderAfterCalled = useRef(false)
+  const [val, setVal] = useState(0)
 
   if (effectCalled.current) {
-    renderAfterCalled.current = true;
+    renderAfterCalled.current = true
   }
 
   useEffect(() => {
     // only execute the effect first time around
     if (!effectCalled.current) {
-      destroyFunc.current = effect();
-      effectCalled.current = true;
+      destroyFunc.current = effect()
+      effectCalled.current = true
     }
 
     // this forces one render after the effect is run
-    setVal((val) => val + 1);
+    setVal((val) => val + 1)
     // console.log(val);
     return () => {
       // if the comp didn't render since the useEffect was called,
       // we know it's the dummy React cycle
       if (!renderAfterCalled.current) {
-        return;
+        return
       }
       if (destroyFunc.current) {
-        destroyFunc.current();
+        destroyFunc.current()
       }
-    };
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-};
+  }, [])
+}
 
 export function formatNumber(angka, prefix) {
-  return generalNumberConverter(angka, prefix, "");
+  return generalNumberConverter(angka, prefix, "")
 }
 export function formatRupiah(angka, prefix) {
-  return generalNumberConverter(angka, prefix, "rupiah");
+  return generalNumberConverter(angka, prefix, "rupiah")
 }
 export function convertDate(tgl) {
-  const today = new Date(tgl);
-  const yyyy = today.getFullYear();
-  let mm = today.getMonth() + 1; // Months start at 0!
-  let dd = today.getDate();
-  let hh = today.getHours();
-  let min = today.getMinutes();
+  const today = new Date(tgl)
+  const yyyy = today.getFullYear()
+  let mm = today.getMonth() + 1 // Months start at 0!
+  let dd = today.getDate()
+  let hh = today.getHours()
+  let min = today.getMinutes()
 
-  if (dd < 10) dd = "0" + dd;
-  if (mm < 10) mm = "0" + mm;
+  if (dd < 10) dd = "0" + dd
+  if (mm < 10) mm = "0" + mm
 
   return (
     dd +
@@ -232,7 +232,7 @@ export function convertDate(tgl) {
     (hh.toString().length < 2 ? "0" + hh : hh) +
     ":" +
     (min.toString().length < 2 ? "0" + min : min)
-  );
+  )
 }
 export const generalNumberConverter = (angka, prefix, tipe) => {
   if (angka) {
@@ -240,24 +240,24 @@ export const generalNumberConverter = (angka, prefix, tipe) => {
       split = number_string.split(","),
       sisa = split[0].length % 3,
       rupiah = split[0].substr(0, sisa),
-      ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+      ribuan = split[0].substr(sisa).match(/\d{3}/gi)
 
     // tambahkan titik jika yang di input sudah menjadi angka ribuan
     if (ribuan) {
-      let separator = sisa ? "." : "";
-      rupiah += separator + ribuan.join(".");
+      let separator = sisa ? "." : ""
+      rupiah += separator + ribuan.join(".")
     }
 
-    rupiah = split[1] !== undefined ? rupiah + "," + split[1] : rupiah;
+    rupiah = split[1] !== undefined ? rupiah + "," + split[1] : rupiah
     if (tipe === "rupiah") {
-      return prefix === undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
+      return prefix === undefined ? rupiah : rupiah ? "Rp. " + rupiah : ""
     } else {
-      return prefix === undefined ? rupiah : rupiah ? rupiah : "";
+      return prefix === undefined ? rupiah : rupiah ? rupiah : ""
     }
   } else {
-    return "";
+    return ""
   }
-};
+}
 
 /**
  * Normalisasi nomor HP lokal
@@ -265,13 +265,13 @@ export const generalNumberConverter = (angka, prefix, tipe) => {
  * @return {string}
  */
 export function normalisasiNomorHP(phone) {
-  phone = String(phone).trim();
+  phone = String(phone).trim()
   if (phone.startsWith("+62")) {
-    phone = "0" + phone.slice(3);
+    phone = "0" + phone.slice(3)
   } else if (phone.startsWith("62")) {
-    phone = "0" + phone.slice(2);
+    phone = "0" + phone.slice(2)
   }
-  return phone.replace(/[- .]/g, "");
+  return phone.replace(/[- .]/g, "")
 }
 
 /**
@@ -281,9 +281,9 @@ export function normalisasiNomorHP(phone) {
  */
 export function tesNomorHP(phone) {
   if (!phone || !/^08[1-9][0-9]{7,10}$/.test(phone)) {
-    return false;
+    return false
   }
-  return true;
+  return true
 }
 
 /**
@@ -292,13 +292,13 @@ export function tesNomorHP(phone) {
  * @return {string?}
  */
 export function deteksiOperatorSeluler(phone) {
-  const prefix = phone.slice(0, 4);
-  if (["0831", "0832", "0833", "0838"].includes(prefix)) return "axis";
-  if (["0895", "0896", "0897", "0898", "0899"].includes(prefix)) return "three";
+  const prefix = phone.slice(0, 4)
+  if (["0831", "0832", "0833", "0838"].includes(prefix)) return "axis"
+  if (["0895", "0896", "0897", "0898", "0899"].includes(prefix)) return "three"
   if (["0817", "0818", "0819", "0859", "0878", "0877"].includes(prefix))
-    return "xl";
+    return "xl"
   if (["0814", "0815", "0816", "0855", "0856", "0857", "0858"].includes(prefix))
-    return "indosat";
+    return "indosat"
   if (
     [
       "0812",
@@ -313,7 +313,7 @@ export function deteksiOperatorSeluler(phone) {
       "0854",
     ].includes(prefix)
   )
-    return "telkomsel";
+    return "telkomsel"
   if (
     [
       "0881",
@@ -327,8 +327,8 @@ export function deteksiOperatorSeluler(phone) {
       "0889",
     ].includes(prefix)
   )
-    return "smartfren";
-  return null;
+    return "smartfren"
+  return null
 }
 
 /**
@@ -337,90 +337,90 @@ export function deteksiOperatorSeluler(phone) {
  * @return {boolean}
  */
 export function validasiNomorSeluler(phone) {
-  phone = normalisasiNomorHP(phone);
-  return tesNomorHP(phone) && !!deteksiOperatorSeluler(phone);
+  phone = normalisasiNomorHP(phone)
+  return tesNomorHP(phone) && !!deteksiOperatorSeluler(phone)
 }
 export function validateEmail(mail) {
   return mail.match(
     // eslint-disable-next-line no-useless-escape
     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  );
+  )
 }
 
 // source: https://overreacted.io/making-setinterval-declarative-with-react-hooks/
 export function useInterval(callback, delay) {
-  const savedCallback = useRef();
+  const savedCallback = useRef()
 
   // Remember the latest callback.
   useEffect(() => {
-    savedCallback.current = callback;
-  }, [callback]);
+    savedCallback.current = callback
+  }, [callback])
 
   // Set up the interval.
   useEffect(() => {
     function tick() {
-      savedCallback.current();
+      savedCallback.current()
     }
     if (delay !== null) {
-      let id = setInterval(tick, delay);
-      return () => clearInterval(id);
+      let id = setInterval(tick, delay)
+      return () => clearInterval(id)
     }
-  }, [delay]);
+  }, [delay])
 }
 
 // https://stackoverflow.com/a/2998874/1673761
-export const twoDigits = (num) => String(num).padStart(2, "0");
+export const twoDigits = (num) => String(num).padStart(2, "0")
 
 export function useQuery() {
-  return new URLSearchParams(window.location.search);
+  return new URLSearchParams(window.location.search)
 }
 
 export function getImageUrl(name) {
-  return new URL(`./${name}`, import.meta.url).href;
+  return new URL(`./${name}`, import.meta.url).href
 }
 
 function getOperatingSystem(window) {
-  let operatingSystem = "Not known";
+  let operatingSystem = "Not known"
   if (window.navigator.appVersion.indexOf("Win") !== -1) {
-    operatingSystem = "Windows OS";
+    operatingSystem = "Windows OS"
   }
   if (window.navigator.appVersion.indexOf("Mac") !== -1) {
-    operatingSystem = "MacOS";
+    operatingSystem = "MacOS"
   }
   if (window.navigator.appVersion.indexOf("X11") !== -1) {
-    operatingSystem = "UNIX OS";
+    operatingSystem = "UNIX OS"
   }
   if (window.navigator.appVersion.indexOf("Linux") !== -1) {
-    operatingSystem = "Linux OS";
+    operatingSystem = "Linux OS"
   }
 
-  return operatingSystem;
+  return operatingSystem
 }
 
 function getBrowser(window) {
-  let currentBrowser = "Not known";
+  let currentBrowser = "Not known"
   if (window.navigator.userAgent.indexOf("Chrome") !== -1) {
-    currentBrowser = "Google Chrome";
+    currentBrowser = "Google Chrome"
   } else if (window.navigator.userAgent.indexOf("Firefox") !== -1) {
-    currentBrowser = "Mozilla Firefox";
+    currentBrowser = "Mozilla Firefox"
   } else if (window.navigator.userAgent.indexOf("MSIE") !== -1) {
-    currentBrowser = "Internet Exployer";
+    currentBrowser = "Internet Exployer"
   } else if (window.navigator.userAgent.indexOf("Edge") !== -1) {
-    currentBrowser = "Edge";
+    currentBrowser = "Edge"
   } else if (window.navigator.userAgent.indexOf("Safari") !== -1) {
-    currentBrowser = "Safari";
+    currentBrowser = "Safari"
   } else if (window.navigator.userAgent.indexOf("Opera") !== -1) {
-    currentBrowser = "Opera";
+    currentBrowser = "Opera"
   } else if (window.navigator.userAgent.indexOf("Opera") !== -1) {
-    currentBrowser = "YaBrowser";
+    currentBrowser = "YaBrowser"
   } else {
-    console.log("Others");
+    console.log("Others")
   }
 
-  return currentBrowser;
+  return currentBrowser
 }
-export const OS = (window) => getOperatingSystem(window);
-export const currentBrowser = (window) => getBrowser(window);
+export const OS = (window) => getOperatingSystem(window)
+export const currentBrowser = (window) => getBrowser(window)
 
 export const dates = {
   convert: function (d) {
@@ -443,37 +443,39 @@ export const dates = {
       ? new Date(d)
       : typeof d === "object"
       ? new Date(d.year, d.month, d.date)
-      : NaN;
+      : NaN
   },
   compare: function (a, b) {
     return isFinite((a = this.convert(a).valueOf())) &&
       isFinite((b = this.convert(b).valueOf()))
       ? (a > b) - (a < b)
-      : NaN;
+      : NaN
   },
   inRange: function (d, start, end) {
     return isFinite((d = this.convert(d).valueOf())) &&
       isFinite((start = this.convert(start).valueOf())) &&
       isFinite((end = this.convert(end).valueOf()))
       ? start <= d && d <= end
-      : NaN;
+      : NaN
   },
-};
+}
 
 export const handleDateAPI = (e) => {
   var d = new Date(e),
     month = "" + (d.getMonth() + 1),
     day = "" + d.getDate(),
-    year = d.getFullYear();
+    year = d.getFullYear()
 
-  if (month.length < 2) month = "0" + month;
-  if (day.length < 2) day = "0" + day;
+  if (month.length < 2) month = "0" + month
+  if (day.length < 2) day = "0" + day
 
-  return [year, month, day].join("");
-};
+  return [year, month, day].join("")
+}
+
+export const handleHourAPI = (e) => e.toString().slice(16, 21)
 
 export function sliceHour(text) {
-  var hasil = text?.slice(0, 16);
+  var hasil = text?.slice(0, 16)
 
-  return hasil;
+  return hasil
 }

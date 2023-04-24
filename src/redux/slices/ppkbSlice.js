@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit"
 
 export const ppkbSlice = createSlice({
   name: "PPKB",
@@ -13,110 +13,133 @@ export const ppkbSlice = createSlice({
     isSuccess: false,
   },
   reducers: {
+    selectedRowHeaderPPKB: (state, action) => {
+      state.dataHeaderPPKB = action.payload
+    },
+    selectedRowHeaderPPK: (state, action) => {
+      state.dataHeaderPKK = action.payload
+    },
+
     getHeaderPPKB: (state) => {
-      state.loading = true;
+      state.loading = true
     },
     getHeaderPPKBSuccess: (state, action) => {
-      state.dataHeaderPPKB = action.payload.res.data;
-      state.message = action.payload.message;
-      state.loading = false;
+      state.dataHeaderPPKB = action.payload.data
+      state.message = action.payload.message
+      state.loading = false
+      // state.isSuccess = true
     },
     getHeaderPPKBFailure: (state, action) => {
-      state.loading = false;
-      state.error = action.payload.message;
+      state.loading = false
+      state.error = action.payload.message
+      // state.isSuccess = false
     },
 
     getHeaderPPKBWeb: (state) => {
-      state.loading = true;
+      state.loading = true
     },
     getHeaderPPKBWebSuccess: (state, action) => {
-      state.dataHeaderPPKB = action.payload.res.data;
-      state.message = action.payload.message;
-      state.loading = false;
+      state.dataHeaderPPKB = action.payload.res.data
+      state.message = action.payload.message
+      state.loading = false
+      // state.isSuccess = true
     },
     getHeaderPPKBWebFailure: (state, action) => {
-      state.loading = false;
-      state.error = action.payload.message;
+      state.loading = false
+      state.error = action.payload.message
+      // state.isSuccess = false
     },
 
     getDetailPPKB: (state) => {
-      state.loading = true;
+      state.loading = true
     },
     getDetailPPKBSuccess: (state, action) => {
-      state.dataDetailPPKB = action.payload.res.data;
-      state.message = action.payload.message;
-      state.loading = false;
+      state.dataDetailPPKB = action.payload.res.data
+      state.message = action.payload.message
+      state.loading = false
+      // state.isSuccess = true
     },
     getDetailPPKBFailure: (state, action) => {
-      state.loading = false;
-      state.error = action.payload.message;
+      state.loading = false
+      state.error = action.payload.message
+      // state.isSuccess = false
     },
 
     postDataPPKB: (state) => {
-      state.loading = true;
+      state.loading = true
     },
     postDataPPKBSuccess: (state, action) => {
       // state.dataHeaderPPKB = action.payload.res.data;
-      state.message = action.payload.message;
-      state.loading = false;
+      state.message = action.payload.message
+      state.loading = false
+      state.isSuccess = true
     },
     postDataPPKBFailure: (state, action) => {
-      state.loading = false;
-      state.error = action.payload.message;
+      state.loading = false
+      state.error = action.payload.error
+      state.isSuccess = false
     },
 
     deleteDataPPKB: (state) => {
-      state.loading = true;
+      state.loading = true
     },
     deleteDataPPKBSuccess: (state, action) => {
       // state.dataHeaderPPKB = action.payload.res.data;
-      state.message = action.payload.message;
-      state.loading = false;
+      state.message = action.payload.message
+      state.loading = false
+      state.isSuccess = true
     },
     deleteDataPPKBFailure: (state, action) => {
-      state.loading = false;
-      state.error = action.payload.message;
+      state.loading = false
+      state.error = action.payload.message
+      state.isSuccess = false
     },
 
     deleteDetailPPKB: (state) => {
-      state.loading = true;
+      state.loading = true
     },
     deleteDetailPPKBSuccess: (state, action) => {
-      state.message = action.payload.message;
-      state.loading = false;
+      state.message = action.payload.message
+      state.loading = false
+      state.isSuccess = true
     },
     deleteDetailPPKBFailure: (state, action) => {
-      state.loading = false;
-      state.error = action.payload.message;
+      state.loading = false
+      state.error = action.payload.message
+      state.isSuccess = false
     },
 
     getHeaderPKK: (state) => {
-      state.loading = true;
+      state.loading = true
     },
     getHeaderPKKSuccess: (state, action) => {
-      state.dataHeaderPKK = action.payload.res.data;
-      state.message = action.payload.message;
-      state.loading = false;
+      state.dataHeaderPKK = action.payload.data
+      state.message = action.payload.message
+      state.loading = false
+      state.isSuccess = true
     },
     getHeaderPKKFailure: (state, action) => {
-      state.loading = false;
-      state.error = action.payload.message;
+      state.loading = false
+      state.error = action.payload.message
+      state.isSuccess = false
     },
 
     getDetailPKK: (state) => {
-      state.loading = true;
+      state.loading = true
     },
     getDetailPKKSuccess: (state, action) => {
-      state.dataDetailPKK = action.payload.res.data;
-      state.message = action.payload.message;
-      state.loading = false;
+      state.dataDetailPKK = action.payload.res.data
+      state.message = action.payload.message
+      state.loading = false
+      state.isSuccess = true
     },
     getDetailPKKFailure: (state, action) => {
-      state.loading = false;
-      state.error = action.payload.message;
+      state.loading = false
+      state.error = action.payload.message
+      state.isSuccess = false
     },
   },
-});
+})
 
 export const {
   getHeaderPPKB,
@@ -143,6 +166,8 @@ export const {
   getDetailPKK,
   getDetailPKKSuccess,
   getDetailPKKFailure,
-} = ppkbSlice.actions;
+  selectedRowHeaderPPKB,
+  selectedRowHeaderPPK,
+} = ppkbSlice.actions
 
-export default ppkbSlice.reducer;
+export default ppkbSlice.reducer

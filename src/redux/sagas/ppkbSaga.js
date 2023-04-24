@@ -34,7 +34,15 @@ export function* getHeaderPPKB(action) {
         })
       )
     } else {
-      yield put(getHeaderPPKBSuccess({ res }))
+      let dat = []
+      if (res.data.length > 0) {
+        dat = res.data.map((item, idx) => {
+          let i = { ...item }
+          i.isSelected = idx < 1
+          return i
+        })
+      }
+      yield put(getHeaderPPKBSuccess({ data: dat }))
     }
   } catch (error) {
     yield put(getHeaderPPKBFailure({ isError: 1, message: error }))
@@ -54,7 +62,16 @@ export function* getHeaderPPKBWeb(action) {
           })
         )
       } else {
-        yield put(getHeaderPKKSuccess({ res }))
+        let dat = []
+
+        if (res.data.length > 0) {
+          dat = res.data.map((item, idx) => {
+            let i = { ...item }
+            i.isSelected = idx < 1
+            return i
+          })
+        }
+        yield put(getHeaderPKKSuccess({ data: dat }))
       }
     } else {
       if (!res) {
@@ -68,7 +85,6 @@ export function* getHeaderPPKBWeb(action) {
         yield put(getHeaderPPKBSuccess({ res }))
       }
     }
-    
   } catch (error) {
     yield put(getHeaderPPKBFailure({ isError: 1, message: error }))
   }
@@ -97,18 +113,13 @@ export function* postDataPPKB(action) {
   try {
     const res = yield call(POST, URL.POST_PPKB + action.payload)
 
-    if (!res) {
-      yield put(
-        postDataPPKBFailure({
-          isError: 1,
-          message: res.ErrorMessage,
-        })
-      )
+    if (res.status !== "ok") {
+      yield put(postDataPPKBFailure({ error: "Failed when save data" }))
     } else {
-      yield put(postDataPPKBSuccess({ res }))
+      yield put(postDataPPKBSuccess({ message: "Data has been saved." }))
     }
   } catch (error) {
-    yield put(postDataPPKBFailure({ isError: 1, message: error }))
+    yield put(postDataPPKBFailure({ isError: 1, error: error }))
   }
 }
 
@@ -171,7 +182,6 @@ export function* getHeaderPKK(action) {
 
 export function* getDetailPKK(action) {
   try {
-    
     const res = yield call(GET, URL.GET_DETAIL_RKBM + action.payload)
 
     if (!res) {

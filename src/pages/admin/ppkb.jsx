@@ -8,6 +8,8 @@ import {
   getDetailPKK,
   postDataPPKB,
   deleteDetailPPKB,
+  selectedRowHeaderPPKB,
+  selectedRowHeaderPPK,
 } from "../../redux/slices/ppkbSlice.js"
 import { toogleLoading } from "../../redux/slices/dashboardSlice.js"
 import {
@@ -15,12 +17,14 @@ import {
   handleDateAPI,
   isEmptyNullOrUndefined,
   datetimeToString,
+  handleHourAPI,
 } from "../../functions/index.js"
 import "react-datepicker/dist/react-datepicker.css"
 import Filter from "../../components/Filter"
 import DatePicker from "react-datepicker"
-import "react-datepicker/dist/react-datepicker.css"
 import { CalendarDaysIcon, ClockIcon } from "@heroicons/react/24/outline"
+import RightChevron from "../../assets/right-chevron.png"
+import { ErrorMessage, SuccessMessage } from "../../components/Notification"
 
 const Ppkb = () => {
   const dispatch = useDispatch()
@@ -66,6 +70,9 @@ const Ppkb = () => {
   const [tglPPKB, setTglPPKB] = useState("")
   const [tglRencana, setTglRencana] = useState("")
   const [jamRencana, setJamRencana] = useState("")
+  const [nomorPKK, setNomorPKK] = useState("")
+  const [noPPKB, setNoPPKB] = useState("")
+  const [oid, setOid] = useState("")
 
   var oldindex = ""
   const dataHeaderPPKB = useSelector((state) => state.PPKB.dataHeaderPPKB)
@@ -73,16 +80,27 @@ const Ppkb = () => {
   const dataHeaderPKK = useSelector((state) => state.PPKB.dataHeaderPKK)
   const dataDetailPKK = useSelector((state) => state.PPKB.dataDetailPKK)
   const isLoading = useSelector((state) => state.PPKB.loading)
+  const error = useSelector((state) => state.PPKB.error)
+  const message = useSelector((state) => state.PPKB.message)
   const loading = useSelector((state) => state.Dashboard.loading)
   const dataCabang = useSelector((state) => state.Dashboard.dataCabang)
   const dataSalesOrder = useSelector((state) => state.Dashboard.dataSalesOrder)
-  console.log("jamRencana:", jamRencana)
 
   useEffect(() => {
     if (dataHeaderPKK.length > 0) {
       getDetail(dataHeaderPKK[0])
     }
   }, [dataHeaderPKK])
+
+  useEffect(() => {
+    dispatch(toogleLoading(isLoading))
+    if (!isEmptyNullOrUndefined(error)) {
+      ErrorMessage("", error)
+    }
+    if (!isEmptyNullOrUndefined(message)) {
+      SuccessMessage("", message)
+    }
+  }, [isLoading, error, message])
 
   useEffect(() => {
     setOutstanding(notApproved ? 1 : 0)
@@ -127,16 +145,30 @@ const Ppkb = () => {
   }
 
   useEffect(() => {
+    console.log("detail: ", detail)
     setKeterangan(detail?.Keterangan)
     setLokasi(detail?.Lokasi)
     setKegiatan(detail?.Kegiatan)
     setTglPPKB(detail?.TglPPKB)
     setTglRencana(detail?.TglRencana)
     setJamRencana(detail?.JamRencana)
+    setNomorPKK(detail?.nomor_pkk)
+    setNoPPKB(detail?.NoPPKB)
+    setOid(detail?.Oid)
   }, [detail])
 
   useEffect(() => {
-    if (dataHeaderPPKB.length > 0) {
+    const itm =
+      Outstanding === 1
+        ? dataDetailPKK.filter((itm) => itm.isSelected)
+        : dataDetailPPKB.filter((itm) => itm.isSelected)
+    if (itm.length > 0) {
+      setDetail(itm[0])
+    }
+  }, [isCreatedNew])
+
+  useEffect(() => {
+    if (dataHeaderPPKB?.length > 0) {
     }
   }, [dataHeaderPPKB])
 
@@ -162,118 +194,6 @@ const Ppkb = () => {
     }
   }
 
-  const fetchDataInput = async () => {
-    const nopkk = ppkb.nomor_pkk
-    const url = `api/get-detailrkbm?Nomor_PKK=${nopkk}&Outstanding=1`
-
-    const response = await axios.get(url)
-    const datainput = await response.data
-    setIsActive((current) => !current)
-
-    if (datainput.data != null) {
-      // setisLoading(false);
-      // setPageInput(post);
-    }
-  }
-
-  const fetchEditPPKB = async (item) => {
-    const noppkb = item.NoPPKB
-    const urldetailppkb = `api/get-detailppkb?NoPPKB=${noppkb}`
-
-    const responsedetailppkb = await axios.get(urldetailppkb)
-    const datadetailppkb = await responsedetailppkb.data
-    setIsActive((current) => !current)
-
-    if (datadetailppkb != null) {
-      const postdetailppkb = datadetailppkb.data.map((item, index) => (
-        <tr className={index % 2 == 0 ? "warnabiru " : "warnaputih"}>
-          {/* <td style={{ paddingLeft: "5px", paddingRight: "5px" }}>
-            <input
-              type="checkbox"
-              onClick={(e) => addOrRemoveRKBM(e, item.Oid)}
-            ></input>
-          </td> */}
-          <td style={{ paddingLeft: "5px", paddingRight: "5px" }}>
-            <button
-              className="btn btn-danger"
-              style={{ fontSize: "10px", padding: "2px 5px" }}
-              onClick={(e) => handleDeleteDetailRKBMPPKB(noppkb, item)}
-            >
-              X
-            </button>
-          </td>
-          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-            {index + 1}
-          </td>
-          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-            {item.nama_barang}
-          </td>
-          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-            {item.bahaya}
-          </td>
-          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-            {item.ganggu}
-          </td>
-          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-            {item.kegiatan}
-          </td>
-          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-            {parseFloat(item.unit).toFixed(2)}
-          </td>
-          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-            {parseFloat(item.ton).toFixed(2)}
-          </td>
-          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-            {parseFloat(item.m3).toFixed(2)}
-          </td>
-          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-            {item.penyaluran}
-          </td>
-          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-            {item.kade}
-          </td>
-          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-            {item.pbm}
-          </td>
-          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-            {item.npwp_pbm}
-          </td>
-          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-            {item.consginee}
-          </td>
-          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-            {item.shipper}
-          </td>
-          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-            {item.npwp_shipper}
-          </td>
-          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-            {item.no_bl}
-          </td>
-          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-            {parseFloat(item.gang).toFixed(2)}
-          </td>
-          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-            {parseFloat(item.palka).toFixed(2)}
-          </td>
-          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-            {item.no_rkbm_bongkar}
-          </td>
-          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-            {item.no_rkbm_muat}
-          </td>
-          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-            {item.rencana_bongkar}
-          </td>
-          <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-            {item.rencana_muat}
-          </td>
-        </tr>
-      ))
-      setisLoading(false)
-      setPageEdit(postdetailppkb)
-    }
-  }
   console.log("Outstanding:", Outstanding)
   useEffect(() => {
     sessionStorage.setItem("dariTanggalPPKB", startDate)
@@ -302,17 +222,24 @@ const Ppkb = () => {
     fetchData()
   }, [startDate, endDate, Code, ValueSearch, MMCode, Outstanding])
 
-  useEffect(() => {
-    console.log("notApproved:", notApproved)
-  }, [detail])
-
   const openDetail = (e, item) => {
     e.preventDefault()
+    var newData = Outstanding === 1 ? dataHeaderPKK : dataHeaderPPKB
+    const dt = newData.map((elm) => {
+      let it = { ...elm }
+      it.isSelected = it.nomor_pkk === item.nomor_pkk
+      return it
+    })
 
+    if (Outstanding === 1) {
+      dispatch(selectedRowHeaderPPK(dt))
+    } else {
+      dispatch(selectedRowHeaderPPKB(dt))
+    }
+    setDetail(item)
     switch (e.detail) {
       case 2:
         setIsCreatedNew(false)
-        setDetail(item)
         if (Outstanding === 0) {
           btnDetailRef.current.click()
         }
@@ -337,6 +264,7 @@ const Ppkb = () => {
           <table style={{ whiteSpace: "nowrap" }} id="table">
             <thead className="bg-gray-50 dark:bg-slate-900">
               <tr className="text-center">
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black"></th>
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NO
                 </th>
@@ -450,9 +378,17 @@ const Ppkb = () => {
                   return (
                     <tr
                       key={idx}
-                      className="even:bg-white odd:bg-[#C0C0FD] dark:odd:bg-slate-900 dark:even:bg-slate-800"
+                      className={
+                        "dark:odd:bg-slate-900 dark:even:bg-slate-800" +
+                        (item.isSelected
+                          ? " even:bg-slate-400 odd:bg-slate-400"
+                          : " even:bg-white odd:bg-[#C0C0FD]")
+                      }
                       onClick={(e) => openDetail(e, item)}
                     >
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        {item.isSelected && <img src={RightChevron} />}
+                      </td>
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {idx + 1}
                       </td>
@@ -1164,7 +1100,6 @@ const Ppkb = () => {
       <tbody>
         {dataDetailPKK.length > 0
           ? dataDetailPKK.map((item, index) => {
-              // debugger
               return (
                 <tr
                   key={index}
@@ -1357,23 +1292,25 @@ const Ppkb = () => {
       const no = allRKBM.indexOf(item)
       allRKBM.splice(no, 1)
     }
-    setIsTableChecked((current) => !current)
+    // setIsTableChecked((current) => !current)
   }
   const handleSaveInputData = () => {
     allRKBM.forEach(async (e) => {
-      const url = `api/post-insertgetppkb?NomorPKK=${detail?.nomor_pkk}&NoPPKB=${detail?.NoPPKB}&TglPPKB=${tglPPKB}&NoRKBM_Oid=${e}&TglRencana=${tglRencana}&JamRencana=${jamRencana}&Lokasi=${lokasi}&Kegiatan=${kegiatan}&Keterangan=${keterangan}&UserId=${UserLogin}`
-
-      axios
-        .post(url)
-        .then((response) => {})
-        .catch((error) => {
-          alert(error)
-        })
+      const url = `?NomorPKK=${nomorPKK}&NoPPKB=${
+        noPPKB ? noPPKB : ""
+      }&TglPPKB=${
+        tglPPKB ? handleDateAPI(tglPPKB) : ""
+      }&NoRKBM_Oid=${e}&TglRencana=${
+        tglRencana ? handleDateAPI(tglRencana) : ""
+      }&JamRencana=${
+        jamRencana ? handleHourAPI(jamRencana) : ""
+      }&Lokasi=${lokasi}&Kegiatan=${kegiatan}&Keterangan=${keterangan}&UserId=${UserLogin}`
+      dispatch(postDataPPKB(url))
     })
     // handleSearch();
-    setTanggalPPKB(today)
-    setTanggalRencana(today)
-    setJamRencana(jam)
+    // setTanggalPPKB(today)
+    // setTanggalRencana(today)
+    // setJamRencana(jam)
     // setShow(false);
     // setAllRKBM([]);
   }
@@ -1381,11 +1318,9 @@ const Ppkb = () => {
   const handleSaveData = () => {
     // const oid = response.data.data[0].Oid;
 
-    const urledit = `?NomorPKK=${detail?.nomor_pkk}&NoPPKB=${
-      detail?.NoPPKB
-    }&TglPPKB=${tglPPKB.split("-").join("")}&NoRKBM_Oid=${
-      detail?.Oid
-    }&TglRencana=${tglRencana
+    const urledit = `?NomorPKK=${nomorPKK}&NoPPKB=${noPPKB}&TglPPKB=${tglPPKB
+      .split("-")
+      .join("")}&NoRKBM_Oid=${oid}&TglRencana=${tglRencana
       .split("-")
       .join(
         ""
@@ -1403,7 +1338,7 @@ const Ppkb = () => {
   }
 
   const handleDeleteDataPPKB = async () => {
-    dispatch(deleteDataPPKB(`?NoPPKB=${detail?.NoPPKB}`))
+    dispatch(deleteDataPPKB(`?NoPPKB=${noPPKB}`))
     fetchData()
   }
 
@@ -1531,7 +1466,8 @@ const Ppkb = () => {
                                 placeholder="Nomor PPKB"
                                 className="disabled:bg-gray-300 py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
                                 disabled={Outstanding === 0}
-                                value={detail?.NoPPKB}
+                                value={noPPKB}
+                                onChange={(e) => setNoPPKB(e.target.value)}
                               />
                             </div>
                           </div>
@@ -1571,9 +1507,10 @@ const Ppkb = () => {
                                 id="no_pkk"
                                 name="no_pkk"
                                 placeholder="Nomor PKK"
+                                onChange={(e) => nomorPKK(e.target.value)}
                                 className="disabled:bg-gray-300 py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
                                 disabled
-                                defaultValue={detail?.nomor_pkk}
+                                defaultValue={nomorPKK}
                               />
                             </div>
                           </div>
