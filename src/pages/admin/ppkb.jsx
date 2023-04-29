@@ -106,10 +106,10 @@ const Ppkb = () => {
     }
   }, [isLoading, error, message])
 
-  // useEffect(() => {
-  //   setOutstanding(notApproved ? 1 : 0)
-  //   setFilterDate(notApproved ? 0 : 1)
-  // }, [notApproved])
+  useEffect(() => {
+    setOutstanding(notApproved ? 1 : 0)
+    setFilterDate(notApproved ? 0 : 1)
+  }, [notApproved])
 
   useEffect(() => {
     if (dataCabang?.length > 0 && isEmptyNullOrUndefined(MMCode)) {
@@ -212,7 +212,7 @@ const Ppkb = () => {
     }
 
     deleteSelected()
-
+    firstLoad = false
     fetchData()
   }, [startDate, endDate, Code, ValueSearch, MMCode, Outstanding])
 
