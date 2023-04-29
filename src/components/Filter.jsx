@@ -181,7 +181,7 @@ const Filter = (props) => {
         )}
 
         <input className="py-2 px-3 pr-9 block w-full bg-blue-100 border-gray-500 rounded-md text-xs focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400" />
-        {notApproved && (
+        {/* {notApproved && (
           <button
             className="h-8 py-3 px-2 min-h-8 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-xs dark:focus:ring-offset-gray-800"
             data-hs-overlay="#hs-bg-gray-on-hover-cards1"
@@ -189,7 +189,7 @@ const Filter = (props) => {
           >
             input
           </button>
-        )}
+        )} */}
         <button className="h-8 py-3 px-2 min-h-8 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-xs dark:focus:ring-offset-gray-800">
           Search
         </button>

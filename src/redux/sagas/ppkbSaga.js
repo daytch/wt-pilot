@@ -25,7 +25,7 @@ import { history } from "../../helpers/history"
 export function* getHeaderPPKB(action) {
   try {
     const res = yield call(GET, URL.GET_HEADER_PKKB + action.payload)
-
+    // debugger;
     if (!res) {
       yield put(
         getHeaderPPKBFailure({
@@ -39,6 +39,7 @@ export function* getHeaderPPKB(action) {
         dat = res.data.map((item, idx) => {
           let i = { ...item }
           i.isSelected = idx < 1
+          i.idx = idx
           return i
         })
       }
@@ -52,9 +53,9 @@ export function* getHeaderPPKB(action) {
 export function* getHeaderPPKBWeb(action) {
   try {
     const res = yield call(GET, URL.GET_HEADER_PKKB_WEB + action.payload)
-
+    //  debugger
     if (action.payload.indexOf("Outstanding=0") < 0) {
-      if (!res) {
+      if (!res || res.status !== "ok") {
         yield put(
           getHeaderPKKFailure({
             isError: 1,
@@ -63,18 +64,18 @@ export function* getHeaderPPKBWeb(action) {
         )
       } else {
         let dat = []
-
         if (res.data.length > 0) {
           dat = res.data.map((item, idx) => {
             let i = { ...item }
             i.isSelected = idx < 1
+            i.idx = idx
             return i
           })
         }
         yield put(getHeaderPKKSuccess({ data: dat }))
       }
     } else {
-      if (!res) {
+      if (!res || res.status !== "ok") {
         yield put(
           getHeaderPPKBFailure({
             isError: 1,
@@ -82,7 +83,17 @@ export function* getHeaderPPKBWeb(action) {
           })
         )
       } else {
-        yield put(getHeaderPPKBSuccess({ res }))
+        let dat = []
+        if (res.data.length > 0) {
+          dat = res.data.map((item, idx) => {
+            let i = { ...item }
+            i.isSelected = idx < 1
+            i.idx = idx
+            return i
+          })
+        }
+        yield put(getHeaderPPKBSuccess({ data: dat }))
+        // yield put(getHeaderPPKBSuccess({ res }))
       }
     }
   } catch (error) {

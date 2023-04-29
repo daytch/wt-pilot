@@ -47,7 +47,7 @@ export function* getDataCabang() {
       yield put(getDataCabangSuccess({ res }));
     }
   } catch (error) {
-    yield put(getDataCabangaFailure({ isError: 1, message: error }));
+    yield put(getDataCabangFailure({ isError: 1, message: error }));
   }
 }
 

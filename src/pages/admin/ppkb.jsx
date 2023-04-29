@@ -7,6 +7,7 @@ import {
   getHeaderPKK,
   getDetailPKK,
   postDataPPKB,
+  deleteDataPPKB,
   deleteDetailPPKB,
   selectedRowHeaderPPKB,
   selectedRowHeaderPPK,
@@ -43,7 +44,8 @@ const Ppkb = () => {
   const dariPihak = UserData.UserType
   const UserLogin = UserData.UserId
   const UserType = UserData.UserType
-  const [MMCode, setMMCode] = useState(localStorage.getItem("MMCode"))
+  // const [MMCode, setMMCode] = useState(localStorage.getItem("MMCode"))
+  const [MMCode, setMMCode] = useState(UserData.MMCode)
   const [Outstanding, setOutstanding] = useState("0")
   const [Code, setCode] = useState("")
   const [ValueSearch, setValueSearch] = useState("")
@@ -85,7 +87,8 @@ const Ppkb = () => {
   const loading = useSelector((state) => state.Dashboard.loading)
   const dataCabang = useSelector((state) => state.Dashboard.dataCabang)
   const dataSalesOrder = useSelector((state) => state.Dashboard.dataSalesOrder)
-
+  var firstLoad = true
+  console.log("dataDetailPPKB: ", dataDetailPPKB)
   useEffect(() => {
     if (dataHeaderPKK.length > 0) {
       getDetail(dataHeaderPKK[0])
@@ -99,13 +102,14 @@ const Ppkb = () => {
     }
     if (!isEmptyNullOrUndefined(message)) {
       SuccessMessage("", message)
+      fetchData()
     }
   }, [isLoading, error, message])
 
-  useEffect(() => {
-    setOutstanding(notApproved ? 1 : 0)
-    setFilterDate(notApproved ? 0 : 1)
-  }, [notApproved])
+  // useEffect(() => {
+  //   setOutstanding(notApproved ? 1 : 0)
+  //   setFilterDate(notApproved ? 0 : 1)
+  // }, [notApproved])
 
   useEffect(() => {
     if (dataCabang?.length > 0 && isEmptyNullOrUndefined(MMCode)) {
@@ -142,10 +146,14 @@ const Ppkb = () => {
     if (oldindex != "") {
       selectedRow(0)
     }
+    if (firstLoad) {
+      btnDetailRef.current.click()
+      firstLoad = false
+    }
   }
 
   useEffect(() => {
-    console.log("detail: ", detail)
+    // console.log("detail: ", detail)
     setKeterangan(detail?.Keterangan)
     setLokasi(detail?.Lokasi)
     setKegiatan(detail?.Kegiatan)
@@ -167,16 +175,6 @@ const Ppkb = () => {
     }
   }, [isCreatedNew])
 
-  useEffect(() => {
-    if (dataHeaderPPKB?.length > 0) {
-    }
-  }, [dataHeaderPPKB])
-
-  useEffect(() => {
-    if (dataHeaderPKK.length > 0) {
-    }
-  }, [dataHeaderPKK])
-
   const getDetail = async (item) => {
     if (Outstanding === 1) {
       if (item) {
@@ -187,14 +185,10 @@ const Ppkb = () => {
       const noppkb = item.NoPPKB
       const urldetailppkb = `?NoPPKB=${noppkb}`
       dispatch(getDetailPPKB(urldetailppkb))
-      // if (datadetailppkb != null) {
-      // setisLoading(false);
-      // setPage2(postdetailppkb);
-      // }
     }
   }
 
-  console.log("Outstanding:", Outstanding)
+  // console.log("Outstanding:", Outstanding)
   useEffect(() => {
     sessionStorage.setItem("dariTanggalPPKB", startDate)
     sessionStorage.setItem("sampaiTanggalPPKB", endDate)
@@ -222,36 +216,47 @@ const Ppkb = () => {
     fetchData()
   }, [startDate, endDate, Code, ValueSearch, MMCode, Outstanding])
 
-  const openDetail = (e, item) => {
-    e.preventDefault()
+  const onClickOpenDetail = (item) => {
+    console.log("1")
     var newData = Outstanding === 1 ? dataHeaderPKK : dataHeaderPPKB
     const dt = newData.map((elm) => {
       let it = { ...elm }
-      it.isSelected = it.nomor_pkk === item.nomor_pkk
+      // debugger
+      it.isSelected = it.idx === item.idx // it?.nomor_pkk === item?.nomor_pkk
       return it
     })
-
     if (Outstanding === 1) {
       dispatch(selectedRowHeaderPPK(dt))
     } else {
       dispatch(selectedRowHeaderPPKB(dt))
     }
     setDetail(item)
-    switch (e.detail) {
-      case 2:
-        setIsCreatedNew(false)
-        if (Outstanding === 0) {
-          btnDetailRef.current.click()
-        }
-        break
-      case 1:
-        console.log("click")
-        getDetail(item)
-        break
-      default:
-        break
-    }
+    getDetail(item)
   }
+
+  const onDbClickOpenDetail = (item) => {
+    var newData = Outstanding === 1 ? dataHeaderPKK : dataHeaderPPKB
+    const dt = newData.map((elm) => {
+      let it = { ...elm }
+      it.isSelected = it?.nomor_pkk === item?.nomor_pkk
+      return it
+    })
+    // debugger
+    if (Outstanding === 1) {
+      dispatch(selectedRowHeaderPPK(dt))
+    } else {
+      dispatch(selectedRowHeaderPPKB(dt))
+    }
+    // setDetail(item)
+    // getDetail(item)
+
+    // setIsCreatedNew(true)
+    // if (Outstanding === 0) {
+    btnDetailRef.current.click()
+    // }
+  }
+
+  console.log("Outstanding : ", Outstanding)
 
   const renderHeader = () => {
     return notApproved ? (
@@ -370,6 +375,9 @@ const Ppkb = () => {
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   STATUS
                 </th>
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                  ACTION
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -384,7 +392,7 @@ const Ppkb = () => {
                           ? " even:bg-slate-400 odd:bg-slate-400"
                           : " even:bg-white odd:bg-[#C0C0FD]")
                       }
-                      onClick={(e) => openDetail(e, item)}
+                      onClick={() => onClickOpenDetail(item)}
                     >
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {item.isSelected && <img src={RightChevron} />}
@@ -428,92 +436,80 @@ const Ppkb = () => {
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {item.tahun_pembuatan}
                       </td>
-
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {parseFloat(item.lebar_kapal).toFixed(2)}
                       </td>
-
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {parseFloat(item.draft_max).toFixed(2)}
                       </td>
-
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {parseFloat(item.draft_depan).toFixed(2)}
                       </td>
-
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {parseFloat(item.draft_tengah).toFixed(2)}
                       </td>
-
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {item.jenis_trayek}
                       </td>
-
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {item.bendera}
                       </td>
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {item.call_sign}
                       </td>
-
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {sliceHour(item.tanggal_eta)}
                       </td>
-
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {sliceHour(item.tanggal_etd)}
                       </td>
-
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {item.kode_pelabuhan_asal}
                       </td>
-
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {item.pelabuhan_asal}
                       </td>
-
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {item.kode_pelabuhan_tujuan}
                       </td>
-
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {item.pelabuhan_tujuan}
                       </td>
-
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {item.kode_tujuan_akhir_pelabuhan}
                       </td>
-
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {item.pelabuhan_tujuan_akhir}
                       </td>
-
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {item.nomor_trayek}
                       </td>
-
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {item.dermaga_nama}
                       </td>
-
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {item.status_bm}
                       </td>
-
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {item.jenis_barang}
                       </td>
-
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {parseFloat(item.jumlah_muat).toFixed(2)}
                       </td>
-
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {item.port_code}
                       </td>
-
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {item.status}
+                      </td>
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        <button
+                          type="button"
+                          className="text-[10px] px-3 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all dark:focus:ring-offset-gray-800"
+                          onClick={() => onDbClickOpenDetail(item)}
+                        >
+                          input
+                        </button>
                       </td>
                     </tr>
                   )
@@ -532,15 +528,13 @@ const Ppkb = () => {
           <table style={{ whiteSpace: "nowrap" }} id="table">
             <thead className="bg-gray-50 dark:bg-slate-900">
               <tr className="text-center">
-                {/* <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black"></th> */}
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black"></th>
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NO
                 </th>
-
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NOMOR PKK
                 </th>
-
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NOMOR PPKB
                 </th>
@@ -565,17 +559,23 @@ const Ppkb = () => {
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   KETERANGAN
                 </th>
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                  ACTION
+                </th>
               </tr>
             </thead>
             <tbody>
-              {Outstanding === "1" && dataHeaderPPKB?.length > 0
+              {Outstanding === 1 && dataHeaderPPKB?.length > 0
                 ? dataHeaderPPKB.map((item, idx) => {
                     return (
                       <tr
                         key={idx}
                         className="even:bg-white odd:bg-[#C0C0FD] dark:odd:bg-slate-900 dark:even:bg-slate-800"
-                        onClick={(e) => setDetail(item)}
+                        onClick={(e) => onClickOpenDetail(item)}
                       >
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.isSelected && <img src={RightChevron} />}
+                        </td>
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {idx + 1}
                         </td>
@@ -615,100 +615,92 @@ const Ppkb = () => {
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {item.tahun_pembuatan}
                         </td>
-
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {parseFloat(item.lebar_kapal).toFixed(2)}
                         </td>
-
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {parseFloat(item.draft_max).toFixed(2)}
                         </td>
-
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {parseFloat(item.draft_depan).toFixed(2)}
                         </td>
-
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {parseFloat(item.draft_tengah).toFixed(2)}
                         </td>
-
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {item.jenis_trayek}
                         </td>
-
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {item.bendera}
                         </td>
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {item.call_sign}
                         </td>
-
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {sliceHour(item.tanggal_eta)}
                         </td>
-
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {sliceHour(item.tanggal_etd)}
                         </td>
-
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {item.kode_pelabuhan_asal}
                         </td>
-
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {item.pelabuhan_asal}
                         </td>
-
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {item.kode_pelabuhan_tujuan}
                         </td>
-
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {item.pelabuhan_tujuan}
                         </td>
-
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {item.kode_tujuan_akhir_pelabuhan}
                         </td>
-
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {item.pelabuhan_tujuan_akhir}
                         </td>
-
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {item.nomor_trayek}
                         </td>
-
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {item.dermaga_nama}
                         </td>
-
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {item.status_bm}
                         </td>
-
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {item.jenis_barang}
                         </td>
-
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {item.port_code}
                         </td>
-
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {item.status}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          <button
+                            type="button"
+                            className="text-[10px] px-3 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all dark:focus:ring-offset-gray-800"
+                            onClick={() => onDbClickOpenDetail(item)}
+                          >
+                            edit
+                          </button>
                         </td>
                       </tr>
                     )
                   })
-                : Outstanding !== "1" && dataHeaderPPKB?.length > 0
+                : Outstanding !== 1 && dataHeaderPPKB?.length > 0
                 ? dataHeaderPPKB.map((item, idx) => {
                     return (
                       <tr
                         key={idx}
                         className="even:bg-white odd:bg-[#C0C0FD] dark:odd:bg-slate-900 dark:even:bg-slate-800"
-                        onClick={(e) => openDetail(e, item)}
+                        onClick={(e) => onClickOpenDetail(item)}
                       >
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.isSelected && <img src={RightChevron} />}
+                        </td>
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {idx + 1}
                         </td>
@@ -747,6 +739,16 @@ const Ppkb = () => {
 
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {item.Keterangan}
+                        </td>
+
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          <button
+                            type="button"
+                            className="text-[10px] px-3 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all dark:focus:ring-offset-gray-800"
+                            onClick={() => onDbClickOpenDetail(item)}
+                          >
+                            edit
+                          </button>
                         </td>
                       </tr>
                     )
@@ -1189,98 +1191,98 @@ const Ppkb = () => {
   const handleDeleteDetailPPKB = (item) => {
     const urldelete = `?NoPPKB=${detail.NoPPKB}&NoRKBMDetil_Oid=${item.Oid}`
     dispatch(deleteDetailPPKB(urldelete))
+    getDetail(detail)
   }
 
   const renderDetailModalPPKB = () => {
     return (
       <tbody>
-        {dataDetailPPKB.length > 0
-          ? dataDetailPPKB.map((item, index) => {
-              return (
-                <tr
-                  key={index}
-                  className="even:bg-white odd:bg-[#C0C0FD] dark:odd:bg-slate-900 dark:even:bg-slate-800"
-                >
-                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                    <button
-                      onClick={() => handleDeleteDetailPPKB(item)}
-                      type="button"
-                      className="text-[10px] py-0 px-1 inline-flex justify-center items-center gap-2 rounded-md bg-red-100 border border-transparent font-semibold text-red-500 hover:text-white hover:bg-red-100 focus:outline-none focus:ring-2 ring-offset-white focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
-                    >
-                      X
-                    </button>
-                  </td>
+        {dataDetailPPKB.length > 0 &&
+          dataDetailPPKB.map((item, index) => {
+            return (
+              <tr
+                key={index}
+                className="even:bg-white odd:bg-[#C0C0FD] dark:odd:bg-slate-900 dark:even:bg-slate-800"
+              >
+                <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                  <button
+                    onClick={() => handleDeleteDetailPPKB(item)}
+                    type="button"
+                    className="text-[10px] py-0 px-1 inline-flex justify-center items-center gap-2 rounded-md bg-red-100 border border-transparent font-semibold text-red-500 hover:text-white hover:bg-red-100 focus:outline-none focus:ring-2 ring-offset-white focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+                  >
+                    X
+                  </button>
+                </td>
 
-                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                    {index + 1}
-                  </td>
-                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                    {item.nama_barang}
-                  </td>
-                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                    {item.bahaya}
-                  </td>
-                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                    {item.ganggu}
-                  </td>
-                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                    {item.kegiatan}
-                  </td>
-                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                    {parseFloat(item.unit).toFixed(2)}
-                  </td>
-                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                    {parseFloat(item.ton).toFixed(2)}
-                  </td>
-                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                    {parseFloat(item.m3).toFixed(2)}
-                  </td>
-                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                    {item.penyaluran}
-                  </td>
-                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                    {item.kade}
-                  </td>
-                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                    {item.pbm}
-                  </td>
-                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                    {item.npwp_pbm}
-                  </td>
-                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                    {item.consginee}
-                  </td>
-                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                    {item.shipper}
-                  </td>
-                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                    {item.npwp_shipper}
-                  </td>
-                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                    {item.no_bl}
-                  </td>
-                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                    {parseFloat(item.gang).toFixed(2)}
-                  </td>
-                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                    {parseFloat(item.palka).toFixed(2)}
-                  </td>
-                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                    {item.no_rkbm_bongkar}
-                  </td>
-                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                    {item.no_rkbm_muat}
-                  </td>
-                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                    {item.rencana_bongkar}
-                  </td>
-                  <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                    {item.rencana_muat}
-                  </td>
-                </tr>
-              )
-            })
-          : null}
+                <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                  {index + 1}
+                </td>
+                <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                  {item.nama_barang}
+                </td>
+                <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                  {item.bahaya}
+                </td>
+                <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                  {item.ganggu}
+                </td>
+                <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                  {item.kegiatan}
+                </td>
+                <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                  {parseFloat(item.unit).toFixed(2)}
+                </td>
+                <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                  {parseFloat(item.ton).toFixed(2)}
+                </td>
+                <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                  {parseFloat(item.m3).toFixed(2)}
+                </td>
+                <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                  {item.penyaluran}
+                </td>
+                <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                  {item.kade}
+                </td>
+                <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                  {item.pbm}
+                </td>
+                <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                  {item.npwp_pbm}
+                </td>
+                <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                  {item.consginee}
+                </td>
+                <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                  {item.shipper}
+                </td>
+                <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                  {item.npwp_shipper}
+                </td>
+                <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                  {item.no_bl}
+                </td>
+                <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                  {parseFloat(item.gang).toFixed(2)}
+                </td>
+                <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                  {parseFloat(item.palka).toFixed(2)}
+                </td>
+                <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                  {item.no_rkbm_bongkar}
+                </td>
+                <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                  {item.no_rkbm_muat}
+                </td>
+                <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                  {item.rencana_bongkar}
+                </td>
+                <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                  {item.rencana_muat}
+                </td>
+              </tr>
+            )
+          })}
       </tbody>
     )
   }
@@ -1304,9 +1306,12 @@ const Ppkb = () => {
         tglRencana ? handleDateAPI(tglRencana) : ""
       }&JamRencana=${
         jamRencana ? handleHourAPI(jamRencana) : ""
-      }&Lokasi=${lokasi}&Kegiatan=${kegiatan}&Keterangan=${keterangan}&UserId=${UserLogin}`
+      }&Lokasi=${lokasi}&Kegiatan=${kegiatan}&Keterangan=${
+        isEmptyNullOrUndefined(keterangan) ? "" : keterangan
+      }&UserId=${UserLogin}`
       dispatch(postDataPPKB(url))
     })
+    firstLoad = true
     // handleSearch();
     // setTanggalPPKB(today)
     // setTanggalRencana(today)
@@ -1324,20 +1329,14 @@ const Ppkb = () => {
       .split("-")
       .join(
         ""
-      )}&JamRencana=${jamRencana}&Lokasi=${lokasi}&Kegiatan=${kegiatan}&Keterangan=${keterangan}&UserId=${UserLogin}`
+      )}&JamRencana=${jamRencana}&Lokasi=${lokasi}&Kegiatan=${kegiatan}&Keterangan=${
+      isEmptyNullOrUndefined(keterangan) ? "" : keterangan
+    }&UserId=${UserLogin}`
     dispatch(postDataPPKB(urledit))
-    // axios
-    //   .post(urledit)
-    //   .then((response) => {
-    //     handleSearch();
-    //     setShowEdit(false);
-    //   })
-    //   .catch((error) => {
-    //     alert(error);
-    //   });
   }
 
   const handleDeleteDataPPKB = async () => {
+    // debugger
     dispatch(deleteDataPPKB(`?NoPPKB=${noPPKB}`))
     fetchData()
   }
@@ -1395,9 +1394,8 @@ const Ppkb = () => {
             <div className="flex justify-between items-center w-[80vw] flex-col bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700">
               <div className="flex justify-between w-[80vw] items-center py-1 px-2 border-b dark:border-gray-700">
                 <h3 className="font-bold text-gray-800 dark:text-gray-200">
-                  {isCreatedNew
-                    ? "Pengajuan Permintaan Pelayanan Kapal dan Barang"
-                    : "Edit Permintaan Pelayanan Kapal dan Barang"}
+                  Permintaan Pelayanan Kapal dan Barang (modus{" "}
+                  {Outstanding === 1 ? "tambah" : "ubah"}).
                 </h3>
                 <button
                   type="button"
@@ -1438,14 +1436,15 @@ const Ppkb = () => {
                         >
                           Simpan
                         </button>
-                        {!isCreatedNew && (
-                          <button
-                            className="py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-red-500 text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-[10px] dark:focus:ring-offset-gray-800"
-                            onClick={(e) => handleDeleteDataPPKB(e)}
-                          >
-                            Hapus Data
-                          </button>
-                        )}
+                        {Outstanding === 0 ||
+                          (Outstanding === "0" && (
+                            <button
+                              className="py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-red-500 text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-[10px] dark:focus:ring-offset-gray-800"
+                              onClick={(e) => handleDeleteDataPPKB(e)}
+                            >
+                              Hapus Data
+                            </button>
+                          ))}
                       </div>
                     </div>
                     <div className="grid gap-2">
@@ -1465,7 +1464,9 @@ const Ppkb = () => {
                                 name="no_ppkb"
                                 placeholder="Nomor PPKB"
                                 className="disabled:bg-gray-300 py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                                disabled={Outstanding === 0}
+                                disabled={
+                                  Outstanding === 0 || Outstanding === "0"
+                                }
                                 value={noPPKB}
                                 onChange={(e) => setNoPPKB(e.target.value)}
                               />
@@ -1536,9 +1537,9 @@ const Ppkb = () => {
                                 selected={
                                   tglRencana ? new Date(tglRencana) : null
                                 }
-                                minDate={
-                                  tglRencana ? new Date(tglRencana) : new Date()
-                                }
+                                // minDate={
+                                //   tglRencana ? new Date(tglRencana) : new Date()
+                                // }
                               />
                               <div className="flex absolute inset-y-0 right-0 items-center pointer-events-none pr-3">
                                 <CalendarDaysIcon className="h-5 w-5" />
@@ -1606,7 +1607,7 @@ const Ppkb = () => {
                               type="text"
                               id="kegiatan"
                               name="kegiatan"
-                              placeholder="Kegiatan"
+                              placeholder="Kegiatan (MASUK / PINDAH)"
                               className="py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
                               onChange={(e) => setKegiatan(e.target.value)}
                               value={kegiatan}
@@ -1710,7 +1711,7 @@ const Ppkb = () => {
                                 </th>
                               </tr>
                             </thead>
-                            {Outstanding === 0
+                            {Outstanding === 0 || Outstanding === "0"
                               ? renderDetailModalPPKB()
                               : renderDetailModalPKK()}
                           </table>
