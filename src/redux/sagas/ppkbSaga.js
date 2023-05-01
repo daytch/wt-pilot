@@ -19,6 +19,8 @@ import {
   deleteDataPPKBSuccess,
   deleteDetailPPKBFailure,
   deleteDetailPPKBSuccess,
+  fillComboKegiatanFailure,
+  fillComboKegiatanSuccess,
 } from "../slices/ppkbSlice"
 import { history } from "../../helpers/history"
 
@@ -53,7 +55,7 @@ export function* getHeaderPPKB(action) {
 export function* getHeaderPPKBWeb(action) {
   try {
     const res = yield call(GET, URL.GET_HEADER_PKKB_WEB + action.payload)
-    //  debugger
+      // debugger
     if (action.payload.indexOf("Outstanding=0") < 0) {
       if (!res || res.status !== "ok") {
         yield put(
@@ -210,6 +212,25 @@ export function* getDetailPKK(action) {
   }
 }
 
+export function* fillComboKegiatan() {
+  try {
+    const res = yield call(GET, URL.FILL_COMBO_KEGIATAN)
+//  debugger
+    if (!res) {
+      yield put(
+        fillComboKegiatanFailure({
+          isError: 1,
+          message: res.ErrorMessage,
+        })
+      )
+    } else {
+      yield put(fillComboKegiatanSuccess({ res }))
+    }
+  } catch (error) {
+    yield put(fillComboKegiatanFailure({ isError: 1, message: error }))
+  }
+}
+
 export default function* rootSaga() {
   yield all([
     // takeEvery("PPKB/getHeaderPPKB", getHeaderPPKB),
@@ -220,5 +241,6 @@ export default function* rootSaga() {
     takeEvery("PPKB/postDataPPKB", postDataPPKB),
     takeEvery("PPKB/deleteDataPPKB", deleteDataPPKB),
     takeEvery("PPKB/deleteDetailPPKB", deleteDetailPPKB),
+    takeEvery("PPKB/fillComboKegiatan", fillComboKegiatan),
   ])
 }

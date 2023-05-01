@@ -39,6 +39,7 @@ const Filter = (props) => {
   })
 
   const dataCabang = useSelector((state) => state.Dashboard.dataCabang)
+  
   const dataSalesOrder = useSelector((state) => state.Dashboard.dataSalesOrder)
   const dataRealisasiPandu = useSelector(
     (state) => state.Dashboard.dataRealisasiPandu
@@ -82,16 +83,16 @@ const Filter = (props) => {
   }, [MMCode])
 
   const onchangeStartDate = (e) => {
-    if (e && e > endDate) {
+    if (new Date(e) && new Date(e).setHours(0,0,0,0) > new Date(endDate).setHours(0,0,0,0)) {
       ErrorMessage("", "Start Date must less than or equals End Date")
     } else {
-      setStartDate(e)
+      setStartDate(new Date(e))
     }
   }
 
   const onchangeEndDate = (e) => {
     if (startDate) {
-      if (e < startDate) {
+      if (new Date(e).setHours(0,0,0,0) < new Date(startDate).setHours(0,0,0,0)) {
         ErrorMessage("", "End Date must greater than or equals Start Date")
       } else {
         setEndDate(e)

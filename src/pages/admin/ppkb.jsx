@@ -11,6 +11,8 @@ import {
   deleteDetailPPKB,
   selectedRowHeaderPPKB,
   selectedRowHeaderPPK,
+  resetDataDetailPPK,
+  resetDataDetailPPKB,
 } from "../../redux/slices/ppkbSlice.js"
 import { toogleLoading } from "../../redux/slices/dashboardSlice.js"
 import {
@@ -19,13 +21,14 @@ import {
   isEmptyNullOrUndefined,
   datetimeToString,
   handleHourAPI,
+  useEffectOnce,
 } from "../../functions/index.js"
 import "react-datepicker/dist/react-datepicker.css"
 import Filter from "../../components/Filter"
-import DatePicker from "react-datepicker"
-import { CalendarDaysIcon, ClockIcon } from "@heroicons/react/24/outline"
 import RightChevron from "../../assets/right-chevron.png"
 import { ErrorMessage, SuccessMessage } from "../../components/Notification"
+import ComboKegiatan from "../../components/ComboKegiatan.jsx"
+import Datepicker from "../../components/Datepicker.jsx"
 
 const Ppkb = () => {
   const dispatch = useDispatch()
@@ -52,26 +55,35 @@ const Ppkb = () => {
   const [isCreatedNew, setIsCreatedNew] = useState(false)
   const [ViewBy, setViewBy] = useState(dariPihak)
   const [ViewValue, setViewValue] = useState(UserData.UserName)
-  const tanggalHariini = handleDateAPI(new Date())
-  const [FromDate, setFromDate] = useState(tanggalHariini)
-  const [ToDate, setToDate] = useState(tanggalHariini)
+  // const tanggalHariini = handleDateAPI(new Date())
+  // const [FromDate, setFromDate] = useState(tanggalHariini)
+  // const [ToDate, setToDate] = useState(tanggalHariini)
   const [FilterDate, setFilterDate] = useState("1")
-  const [Status_Order, setStatus_Order] = useState("")
+  // const [Status_Order, setStatus_Order] = useState("")
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
   const [AgentUserLogin, setAgentUserLogin] = useState(
     dariPihak === "AGEN" ? UserLogin : ""
   )
-  const [Page, setPage] = useState([])
-  const [Page2, setPage2] = useState([])
+  // const [Page, setPage] = useState([])
+  // const [Page2, setPage2] = useState([])
   const [notApproved, setNotApproved] = useState(false)
   const btnDetailRef = useRef()
+  const modalRef = useRef()
   const btnDetailPKKRef = useRef()
 
+  const tglRencanaRef = useRef()
+  const jamRencanaRef = useRef()
+  const tglPPKBRef = useRef()
+  const kegiatanRef = useRef()
+
   const [keterangan, setKeterangan] = useState("")
+  const [kodekegiatan, setKodeKegiatan] = useState("")
   const [kegiatan, setKegiatan] = useState("")
   const [lokasi, setLokasi] = useState("")
-  const [tglPPKB, setTglPPKB] = useState("")
-  const [tglRencana, setTglRencana] = useState("")
-  const [jamRencana, setJamRencana] = useState("")
+  const [tglPPKB, setTglPPKB] = useState(new Date())
+  const [tglRencana, setTglRencana] = useState(new Date())
+  const [jamRencana, setJamRencana] = useState(new Date())
   const [nomorPKK, setNomorPKK] = useState("")
   const [noPPKB, setNoPPKB] = useState("")
   const [oid, setOid] = useState("")
@@ -87,8 +99,9 @@ const Ppkb = () => {
   const loading = useSelector((state) => state.Dashboard.loading)
   const dataCabang = useSelector((state) => state.Dashboard.dataCabang)
   const dataSalesOrder = useSelector((state) => state.Dashboard.dataSalesOrder)
+
   var firstLoad = true
-  console.log("dataDetailPPKB: ", dataDetailPPKB)
+  // console.log("dataDetailPPKB: ", dataDetailPPKB)
   useEffect(() => {
     if (dataHeaderPKK.length > 0) {
       getDetail(dataHeaderPKK[0])
@@ -112,6 +125,13 @@ const Ppkb = () => {
   }, [notApproved])
 
   useEffect(() => {
+    if (modalRef.current.classList.value) {
+      // debugger
+      setIsModalOpen(modalRef.current.classList.value.indexOf("hidden") === -1)
+    }
+  }, [modalRef.current?.classList])
+
+  useEffect(() => {
     if (dataCabang?.length > 0 && isEmptyNullOrUndefined(MMCode)) {
       setMMCode(dataCabang[0].MMCode)
     }
@@ -124,11 +144,11 @@ const Ppkb = () => {
   const fetchData = async () => {
     const urlppkb = `?MMCode=${
       !isEmptyNullOrUndefined(MMCode) ? MMCode : ""
-    }&Filterdate=${
-      !isEmptyNullOrUndefined(FilterDate) ? FilterDate : ""
     }&FromDate=${handleDateAPI(startDate)}&ToDate=${handleDateAPI(
       endDate
-    )}&ColumnSearch=${!isEmptyNullOrUndefined(Code) ? Code : ""}&ValueSearch=${
+    )}&FilterDate=${
+      !isEmptyNullOrUndefined(FilterDate) ? FilterDate : ""
+    }&ColumnSearch=${!isEmptyNullOrUndefined(Code) ? Code : ""}&ValueSearch=${
       !isEmptyNullOrUndefined(ValueSearch) ? ValueSearch : ""
     }&Outstanding=${
       !isEmptyNullOrUndefined(Outstanding) ? Outstanding : ""
@@ -154,15 +174,23 @@ const Ppkb = () => {
 
   useEffect(() => {
     // console.log("detail: ", detail)
-    setKeterangan(detail?.Keterangan)
-    setLokasi(detail?.Lokasi)
-    setKegiatan(detail?.Kegiatan)
-    setTglPPKB(detail?.TglPPKB)
-    setTglRencana(detail?.TglRencana)
-    setJamRencana(detail?.JamRencana)
-    setNomorPKK(detail?.nomor_pkk)
-    setNoPPKB(detail?.NoPPKB)
-    setOid(detail?.Oid)
+    if (Outstanding === 0 || Outstanding === "0") {
+      setKeterangan(detail?.Keterangan)
+      // debugger
+      kegiatanRef.current.value = detail?.Kode_Kegiatan
+      setLokasi(detail?.Lokasi)
+      setKodeKegiatan(detail?.Kode_Kegiatan)
+      setKegiatan(detail?.Kegiatan)
+      setTglPPKB(detail?.TglPPKB)
+      setTglRencana(detail?.TglRencana)
+      setJamRencana(detail?.JamRencana)
+      setNomorPKK(detail?.nomor_pkk)
+      setNoPPKB(detail?.NoPPKB)
+      setOid(detail?.Oid)
+      console.log("detail: ", detail)
+    } else {
+      resetModal()
+    }
   }, [detail])
 
   useEffect(() => {
@@ -195,8 +223,6 @@ const Ppkb = () => {
     sessionStorage.setItem("codeColumnSearchPPKB", Code)
     sessionStorage.setItem("valueColumnSearchPPKB", ValueSearch)
     sessionStorage.setItem("cabangPPKB", MMCode)
-    // sessionStorage.setItem("startDate", startDate);
-    // sessionStorage.setItem("endDate", endDate);
 
     setViewValue(localStorage.getItem("username"))
     setViewBy(localStorage.getItem("id"))
@@ -216,8 +242,9 @@ const Ppkb = () => {
     fetchData()
   }, [startDate, endDate, Code, ValueSearch, MMCode, Outstanding])
 
+  const [allRKBM, setAllRKBM] = useState([])
   const onClickOpenDetail = (item) => {
-    console.log("1")
+    // console.log("1")
     var newData = Outstanding === 1 ? dataHeaderPKK : dataHeaderPPKB
     const dt = newData.map((elm) => {
       let it = { ...elm }
@@ -230,9 +257,22 @@ const Ppkb = () => {
     } else {
       dispatch(selectedRowHeaderPPKB(dt))
     }
+    setIsModalOpen(true)
     setDetail(item)
     getDetail(item)
   }
+  useEffect(() => {
+    if (
+      dataDetailPPKB.length > 0 &&
+      (Outstanding === "0" || Outstanding === 0)
+    ) {
+      var newArr = []
+      dataDetailPPKB.forEach((item) => {
+        newArr.push(item.Oid)
+      })
+      setAllRKBM(newArr)
+    }
+  }, [dataDetailPPKB])
 
   const onDbClickOpenDetail = (item) => {
     var newData = Outstanding === 1 ? dataHeaderPKK : dataHeaderPPKB
@@ -242,11 +282,16 @@ const Ppkb = () => {
       return it
     })
     // debugger
-    if (Outstanding === 1) {
+    if (Outstanding === 1 || Outstanding === "1") {
+      resetModal()
       dispatch(selectedRowHeaderPPK(dt))
     } else {
+      dataDetailPPKB.forEach((item) => {
+        allRKBM.push(item.Oid)
+      })
       dispatch(selectedRowHeaderPPKB(dt))
     }
+    setIsModalOpen(true)
     // setDetail(item)
     // getDetail(item)
 
@@ -255,8 +300,6 @@ const Ppkb = () => {
     btnDetailRef.current.click()
     // }
   }
-
-  console.log("Outstanding : ", Outstanding)
 
   const renderHeader = () => {
     return notApproved ? (
@@ -270,6 +313,9 @@ const Ppkb = () => {
             <thead className="bg-gray-50 dark:bg-slate-900">
               <tr className="text-center">
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black"></th>
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                  ACTION
+                </th>
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NO
                 </th>
@@ -375,9 +421,6 @@ const Ppkb = () => {
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   STATUS
                 </th>
-                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
-                  ACTION
-                </th>
               </tr>
             </thead>
             <tbody>
@@ -396,6 +439,15 @@ const Ppkb = () => {
                     >
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {item.isSelected && <img src={RightChevron} />}
+                      </td>
+                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                        <button
+                          type="button"
+                          className="text-[10px] px-3 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all dark:focus:ring-offset-gray-800"
+                          onClick={() => onDbClickOpenDetail(item)}
+                        >
+                          input
+                        </button>
                       </td>
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {idx + 1}
@@ -502,15 +554,6 @@ const Ppkb = () => {
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {item.status}
                       </td>
-                      <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                        <button
-                          type="button"
-                          className="text-[10px] px-3 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all dark:focus:ring-offset-gray-800"
-                          onClick={() => onDbClickOpenDetail(item)}
-                        >
-                          input
-                        </button>
-                      </td>
                     </tr>
                   )
                 })}
@@ -529,6 +572,9 @@ const Ppkb = () => {
             <thead className="bg-gray-50 dark:bg-slate-900">
               <tr className="text-center">
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black"></th>
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                  ACTION
+                </th>
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NO
                 </th>
@@ -559,9 +605,6 @@ const Ppkb = () => {
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   KETERANGAN
                 </th>
-                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
-                  ACTION
-                </th>
               </tr>
             </thead>
             <tbody>
@@ -575,6 +618,15 @@ const Ppkb = () => {
                       >
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {item.isSelected && <img src={RightChevron} />}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          <button
+                            type="button"
+                            className="text-[10px] px-3 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all dark:focus:ring-offset-gray-800"
+                            onClick={() => onDbClickOpenDetail(item)}
+                          >
+                            edit
+                          </button>
                         </td>
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {idx + 1}
@@ -678,15 +730,6 @@ const Ppkb = () => {
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {item.status}
                         </td>
-                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                          <button
-                            type="button"
-                            className="text-[10px] px-3 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all dark:focus:ring-offset-gray-800"
-                            onClick={() => onDbClickOpenDetail(item)}
-                          >
-                            edit
-                          </button>
-                        </td>
                       </tr>
                     )
                   })
@@ -702,46 +745,6 @@ const Ppkb = () => {
                           {item.isSelected && <img src={RightChevron} />}
                         </td>
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                          {idx + 1}
-                        </td>
-
-                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                          {item.nomor_pkk}
-                        </td>
-
-                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                          {item.NoPPKB}
-                        </td>
-
-                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                          {item.TglPPKB}
-                        </td>
-
-                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                          {/* {item.nahkoda} */}
-                        </td>
-
-                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                          {item.TglRencana}
-                        </td>
-
-                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                          {item.JamRencana}
-                        </td>
-
-                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                          {item.Lokasi}
-                        </td>
-
-                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                          {item.Kegiatan}
-                        </td>
-
-                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                          {item.Keterangan}
-                        </td>
-
-                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           <button
                             type="button"
                             className="text-[10px] px-3 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all dark:focus:ring-offset-gray-800"
@@ -749,6 +752,36 @@ const Ppkb = () => {
                           >
                             edit
                           </button>
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {idx + 1}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.nomor_pkk}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.NoPPKB}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.TglPPKB}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {/* {item.nahkoda} */}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.TglRencana}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.JamRencana}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.Lokasi}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.Kegiatan}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.Keterangan}
                         </td>
                       </tr>
                     )
@@ -891,42 +924,33 @@ const Ppkb = () => {
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {item.npwp_pbm}
                       </td>
-
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {item.consignee}
                       </td>
-
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {item.shipper}
                       </td>
-
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {item.npwp_shipper}
                       </td>
-
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {item.noRKBM}
                       </td>
-
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {parseFloat(item.gang)}
                       </td>
-
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {parseFloat(item.palka)}
                       </td>
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {item.no_rkbm_bongkar}
                       </td>
-
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {item.no_rkbm_muat}
                       </td>
-
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {sliceHour(item.rencana_bongkar)}
                       </td>
-
                       <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                         {sliceHour(item.rencana_muat)}
                       </td>
@@ -1191,6 +1215,8 @@ const Ppkb = () => {
   const handleDeleteDetailPPKB = (item) => {
     const urldelete = `?NoPPKB=${detail.NoPPKB}&NoRKBMDetil_Oid=${item.Oid}`
     dispatch(deleteDetailPPKB(urldelete))
+    const no = allRKBM.indexOf(item)
+    allRKBM.splice(no, 1)
     getDetail(detail)
   }
 
@@ -1286,59 +1312,114 @@ const Ppkb = () => {
       </tbody>
     )
   }
-  var allRKBM = []
   const addOrRemoveRKBM = (event, item) => {
     if (event.target.checked) {
-      allRKBM.push(item)
+      var newArr = allRKBM
+      newArr.push(item)
+      setAllRKBM(newArr)
     } else {
-      const no = allRKBM.indexOf(item)
-      allRKBM.splice(no, 1)
+      var newArr = allRKBM
+      const no = newArr.indexOf(item)
+      newArr.splice(no, 1)
+      setAllRKBM(newArr)
     }
     // setIsTableChecked((current) => !current)
   }
   const handleSaveInputData = () => {
+    var trString = tglRencanaRef.current.input.value.split("-")
+    var tbString = tglPPKBRef.current.input.value.split("-")
+
+    const tr = handleDateAPI(
+      new Date(+trString[2], trString[1] - 1, +trString[0])
+    )
+    const jr = jamRencanaRef.current.input.value
+    const tb = handleDateAPI(
+      new Date(+tbString[2], tbString[1] - 1, +tbString[0])
+    )
+    const kode_kegiatan = kegiatanRef.current.value
+    const keg = kegiatanRef.current.selectedOptions[0].text
+
     allRKBM.forEach(async (e) => {
       const url = `?NomorPKK=${nomorPKK}&NoPPKB=${
         noPPKB ? noPPKB : ""
-      }&TglPPKB=${
-        tglPPKB ? handleDateAPI(tglPPKB) : ""
-      }&NoRKBM_Oid=${e}&TglRencana=${
-        tglRencana ? handleDateAPI(tglRencana) : ""
-      }&JamRencana=${
-        jamRencana ? handleHourAPI(jamRencana) : ""
-      }&Lokasi=${lokasi}&Kegiatan=${kegiatan}&Keterangan=${
+      }&TglPPKB=${tb}&NoRKBM_Oid=${e}&TglRencana=${tr}&JamRencana=${jr}&Lokasi=${lokasi}&Kegiatan=${keg}&Kode_Kegiatan=${kode_kegiatan}&Keterangan=${
         isEmptyNullOrUndefined(keterangan) ? "" : keterangan
       }&UserId=${UserLogin}`
       dispatch(postDataPPKB(url))
     })
     firstLoad = true
-    // handleSearch();
-    // setTanggalPPKB(today)
-    // setTanggalRencana(today)
-    // setJamRencana(jam)
-    // setShow(false);
-    // setAllRKBM([]);
+    if (isModalOpen) {
+      btnDetailRef.current.click()
+      setIsModalOpen(false)
+      resetModal()
+      // setNoPPKB("")
+      // setLokasi("")
+      // setKodeKegiatan("")
+      // setKegiatan("")
+      // setKeterangan("")
+    }
   }
 
   const handleSaveData = () => {
-    // const oid = response.data.data[0].Oid;
+    var trString = tglRencanaRef.current.input.value.split("-")
+    var tbString = tglPPKBRef.current.input.value.split("-")
 
-    const urledit = `?NomorPKK=${nomorPKK}&NoPPKB=${noPPKB}&TglPPKB=${tglPPKB
-      .split("-")
-      .join("")}&NoRKBM_Oid=${oid}&TglRencana=${tglRencana
-      .split("-")
-      .join(
-        ""
-      )}&JamRencana=${jamRencana}&Lokasi=${lokasi}&Kegiatan=${kegiatan}&Keterangan=${
-      isEmptyNullOrUndefined(keterangan) ? "" : keterangan
-    }&UserId=${UserLogin}`
-    dispatch(postDataPPKB(urledit))
+    const tr = handleDateAPI(
+      new Date(+trString[2], trString[1] - 1, +trString[0])
+    )
+    const jr = jamRencanaRef.current.input.value
+    const tb = handleDateAPI(
+      new Date(+tbString[2], tbString[1] - 1, +tbString[0])
+    )
+    const kegId = kegiatanRef.current.value
+    const kegText = kegiatanRef.current.selectedOptions[0].text
+
+    allRKBM.forEach(async (e) => {
+      const urledit = `?NomorPKK=${nomorPKK}&NoPPKB=${noPPKB}&TglPPKB=${tb}&NoRKBM_Oid=${e}&TglRencana=${tr}&JamRencana=${jr}&Lokasi=${lokasi}&Kode_Kegiatan=${kegId}&Kegiatan=${kegText}&Keterangan=${
+        isEmptyNullOrUndefined(keterangan) ? "" : keterangan
+      }&UserId=${UserLogin}`
+      dispatch(postDataPPKB(urledit))
+    })
+    if (isModalOpen) {
+      btnDetailRef.current.click()
+      setIsModalOpen(false)
+      resetModal()
+    }
+    // setNoPPKB("")
+    // setLokasi("")
+    // setKodeKegiatan("")
+    // setKegiatan("")
+    // setKeterangan("")
   }
 
   const handleDeleteDataPPKB = async () => {
-    // debugger
     dispatch(deleteDataPPKB(`?NoPPKB=${noPPKB}`))
     fetchData()
+  }
+
+  useEffect(() => {
+    resetModal()
+  }, [isModalOpen])
+
+  const resetModal = () => {
+    if (!isModalOpen) {
+      if (Outstanding === "1" || Outstanding === 1) {
+        dispatch(resetDataDetailPPKB())
+      } else {
+        dispatch(resetDataDetailPPK())
+      }
+      setKeterangan("")
+      kegiatanRef.current.value = ""
+      setLokasi("")
+      setKodeKegiatan("")
+      setKegiatan("")
+      setTglPPKB("")
+      setTglRencana("")
+      setJamRencana("")
+      setNomorPKK("")
+      setNoPPKB("")
+      setOid("")
+    }
   }
 
   return (
@@ -1387,6 +1468,7 @@ const Ppkb = () => {
         {/* <!-- End Card --> */}
 
         <div
+          ref={modalRef}
           id="hs-bg-gray-on-hover-cards1"
           className="hs-overlay hidden w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto"
         >
@@ -1401,6 +1483,10 @@ const Ppkb = () => {
                   type="button"
                   className="inline-flex flex-shrink-0 justify-center items-center h-8 w-8 rounded-md text-gray-500 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-[10px] dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800"
                   data-hs-overlay="#hs-bg-gray-on-hover-cards1"
+                  onClick={() => {
+                    setIsModalOpen(false)
+                    resetModal()
+                  }}
                 >
                   <span className="sr-only">Close</span>
                   <svg
@@ -1436,15 +1522,14 @@ const Ppkb = () => {
                         >
                           Simpan
                         </button>
-                        {Outstanding === 0 ||
-                          (Outstanding === "0" && (
-                            <button
-                              className="py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-red-500 text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-[10px] dark:focus:ring-offset-gray-800"
-                              onClick={(e) => handleDeleteDataPPKB(e)}
-                            >
-                              Hapus Data
-                            </button>
-                          ))}
+                        {Outstanding === 0 || Outstanding === "0" ? (
+                          <button
+                            className="py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-red-500 text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-[10px] dark:focus:ring-offset-gray-800"
+                            onClick={(e) => handleDeleteDataPPKB(e)}
+                          >
+                            Hapus Data
+                          </button>
+                        ) : null}
                       </div>
                     </div>
                     <div className="grid gap-2">
@@ -1479,21 +1564,17 @@ const Ppkb = () => {
                             >
                               Tanggal PPKB
                             </label>
-                            <div className="relative">
-                              <DatePicker
-                                wrapperClassName="wrapperdatePicker"
-                                className="dateandtimepicker-hp py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                                dateFormat="dd-MM-yyyy"
-                                placeholderText="Tanggal PPKB"
-                                id="tgl_ppkb"
-                                name="tgl_ppkb"
-                                selected={tglPPKB ? new Date(tglPPKB) : null}
-                                onChange={(e) => setTglPPKB(e)}
-                              />
-                              <div className="flex absolute inset-y-0 right-0 items-center pointer-events-none pr-3">
-                                <CalendarDaysIcon className="h-5 w-5" />
-                              </div>
-                            </div>
+                            <Datepicker
+                              tipe="date"
+                              placeholderText="Tanggal PPKB"
+                              id="tgl_ppkb"
+                              name="tgl_ppkb"
+                              selected={
+                                tglPPKB ? new Date(tglPPKB) : new Date()
+                              }
+                              onChange={(e) => setTglPPKB(e)}
+                              compRef={tglPPKBRef}
+                            />
                           </div>
                           <div>
                             <label
@@ -1525,26 +1606,17 @@ const Ppkb = () => {
                             >
                               Tanggal Rencana
                             </label>
-                            <div className="relative">
-                              <DatePicker
-                                wrapperClassName="wrapperdatePicker"
-                                className="dateandtimepicker-hp py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                                dateFormat="dd-MM-yyyy"
-                                placeholderText="Tanggal Rencana"
-                                onChange={(e) => setTglRencana(e)}
-                                id="tgl_rencana"
-                                name="tgl_rencana"
-                                selected={
-                                  tglRencana ? new Date(tglRencana) : null
-                                }
-                                // minDate={
-                                //   tglRencana ? new Date(tglRencana) : new Date()
-                                // }
-                              />
-                              <div className="flex absolute inset-y-0 right-0 items-center pointer-events-none pr-3">
-                                <CalendarDaysIcon className="h-5 w-5" />
-                              </div>
-                            </div>
+
+                            <Datepicker
+                              tipe="date"
+                              onChange={(e) => setTglRencana(e)}
+                              id="tgl_rencana"
+                              name="tgl_rencana"
+                              selected={
+                                tglRencana ? new Date(tglRencana) : new Date()
+                              }
+                              compRef={tglRencanaRef}
+                            />
                           </div>
                           <div>
                             <label
@@ -1553,26 +1625,17 @@ const Ppkb = () => {
                             >
                               Jam Rencana
                             </label>
-                            <div className="relative">
-                              <DatePicker
-                                onChange={(e) => setJamRencana(e)}
-                                selected={
-                                  jamRencana ? new Date(jamRencana) : null
-                                }
-                                showTimeSelect
-                                showTimeSelectOnly
-                                timeFormat="HH:mm"
-                                timeIntervals={15}
-                                timeCaption="Pilih Jam"
-                                dateFormat="HH:mm"
-                                wrapperClassName="wrapperdatePicker"
-                                placeholderText="Jam Rencana"
-                                className="datepicker py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                              />
-                              <div className="flex absolute inset-y-0 right-0 items-center pointer-events-none pr-3">
-                                <ClockIcon className="h-5 w-5" />
-                              </div>
-                            </div>
+                            <Datepicker
+                              tipe="time"
+                              compRef={jamRencanaRef}
+                              onChange={(e) => setJamRencana(e)}
+                              selected={
+                                jamRencana ? new Date(jamRencana) : new Date()
+                              }
+                              timeIntervals={15}
+                              timeCaption="Pilih Jam"
+                              dateFormat="HH:mm"
+                            />
                           </div>
                         </div>
 
@@ -1603,20 +1666,16 @@ const Ppkb = () => {
                             Kegiatan
                           </label>
                           <div className="relative">
-                            <input
-                              type="text"
-                              id="kegiatan"
-                              name="kegiatan"
-                              placeholder="Kegiatan (MASUK / PINDAH)"
-                              className="py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                              onChange={(e) => setKegiatan(e.target.value)}
-                              value={kegiatan}
+                            <ComboKegiatan
+                              kegiatanRef={kegiatanRef}
+                              kodekegiatan={kodekegiatan}
+                              setKodeKegiatan={setKodeKegiatan}
                             />
                           </div>
                         </div>
                         <div>
                           <label
-                            htmlFor="email"
+                            htmlFor="keterangan"
                             className="block text-[10px] mb-2 dark:text-white"
                           >
                             Keterangan

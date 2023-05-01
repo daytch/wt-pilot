@@ -25,5 +25,6 @@ export const URL = {
   FORGOT: "email-forgot",
   RESET_PASSWORD: "post-resetpassword",
   DELETE_DETAIL_RKBM: "post-deletedetilrkbmppkb",
+  FILL_COMBO_KEGIATAN: "get-combodatagerakaninaportnet",
 }
 export const timeOut = 10 // in minutes
