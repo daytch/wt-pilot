@@ -30,6 +30,10 @@ export function* postLogin(action) {
       let user = res.user[0]
       user.token = res.token
       user.isLogin = true
+      
+      user.MMCode = user.MMCode.replace(/\s/g, '')
+      user.UserId = user.UserId.replace(/\s/g, '')
+
       localStorage.setItem("expires_in", res.expires_in)
       localStorage.setItem("token", res.token)
       localStorage.setItem("user", JSON.stringify(user))

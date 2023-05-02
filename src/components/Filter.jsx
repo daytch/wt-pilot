@@ -39,7 +39,7 @@ const Filter = (props) => {
   })
 
   const dataCabang = useSelector((state) => state.Dashboard.dataCabang)
-  
+
   const dataSalesOrder = useSelector((state) => state.Dashboard.dataSalesOrder)
   const dataRealisasiPandu = useSelector(
     (state) => state.Dashboard.dataRealisasiPandu
@@ -47,6 +47,7 @@ const Filter = (props) => {
   const [listSalesOrder, setListSalesOrder] = useState([
     { Code: "0", Name: "Cari" },
   ])
+
   const [listPandu, setListPandu] = useState([{ Code: "0", Name: "Cari" }])
   useEffect(() => {
     if (dataSalesOrder?.length > 0 && listSalesOrder.length < 2) {
@@ -83,7 +84,10 @@ const Filter = (props) => {
   }, [MMCode])
 
   const onchangeStartDate = (e) => {
-    if (new Date(e) && new Date(e).setHours(0,0,0,0) > new Date(endDate).setHours(0,0,0,0)) {
+    if (
+      new Date(e) &&
+      new Date(e).setHours(0, 0, 0, 0) > new Date(endDate).setHours(0, 0, 0, 0)
+    ) {
       ErrorMessage("", "Start Date must less than or equals End Date")
     } else {
       setStartDate(new Date(e))
@@ -92,7 +96,10 @@ const Filter = (props) => {
 
   const onchangeEndDate = (e) => {
     if (startDate) {
-      if (new Date(e).setHours(0,0,0,0) < new Date(startDate).setHours(0,0,0,0)) {
+      if (
+        new Date(e).setHours(0, 0, 0, 0) <
+        new Date(startDate).setHours(0, 0, 0, 0)
+      ) {
         ErrorMessage("", "End Date must greater than or equals Start Date")
       } else {
         setEndDate(e)

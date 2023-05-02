@@ -25,9 +25,7 @@ const JadwalKedatangan = () => {
   );
   const dariPihak = UserData.UserType;
   const UserLogin = UserData.UserId;
-  const [MMCode, setMMCode] = useState(
-    sessionStorage.getItem("cabangJadwalKedatangan")
-  );
+  const [MMCode, setMMCode] = useState(UserData.MMCode)
   const [Outstanding, setOutstanding] = useState("");
   const [Code, setCode] = useState(
     sessionStorage.getItem("codeColumnSearchJadwalKedatangan") ?? ""

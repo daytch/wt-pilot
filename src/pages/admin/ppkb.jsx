@@ -47,7 +47,6 @@ const Ppkb = () => {
   const dariPihak = UserData.UserType
   const UserLogin = UserData.UserId
   const UserType = UserData.UserType
-  // const [MMCode, setMMCode] = useState(localStorage.getItem("MMCode"))
   const [MMCode, setMMCode] = useState(UserData.MMCode)
   const [Outstanding, setOutstanding] = useState("0")
   const [Code, setCode] = useState("")
@@ -126,7 +125,7 @@ const Ppkb = () => {
 
   useEffect(() => {
     if (modalRef.current.classList.value) {
-      // debugger
+      
       setIsModalOpen(modalRef.current.classList.value.indexOf("hidden") === -1)
     }
   }, [modalRef.current?.classList])
@@ -176,7 +175,7 @@ const Ppkb = () => {
     // console.log("detail: ", detail)
     if (Outstanding === 0 || Outstanding === "0") {
       setKeterangan(detail?.Keterangan)
-      // debugger
+      
       kegiatanRef.current.value = detail?.Kode_Kegiatan
       setLokasi(detail?.Lokasi)
       setKodeKegiatan(detail?.Kode_Kegiatan)
@@ -248,7 +247,7 @@ const Ppkb = () => {
     var newData = Outstanding === 1 ? dataHeaderPKK : dataHeaderPPKB
     const dt = newData.map((elm) => {
       let it = { ...elm }
-      // debugger
+      
       it.isSelected = it.idx === item.idx // it?.nomor_pkk === item?.nomor_pkk
       return it
     })
@@ -281,7 +280,7 @@ const Ppkb = () => {
       it.isSelected = it?.nomor_pkk === item?.nomor_pkk
       return it
     })
-    // debugger
+    
     if (Outstanding === 1 || Outstanding === "1") {
       resetModal()
       dispatch(selectedRowHeaderPPK(dt))

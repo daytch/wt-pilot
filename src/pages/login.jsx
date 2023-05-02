@@ -54,7 +54,10 @@ const Login = () => {
     }
     if (token) {
       localStorage.setItem("token", token)
-      localStorage.setItem("userData", JSON.stringify(data))
+      let dt = {...data};
+      dt.MMCode = dt.MMCode.replace(/\s/g, '')
+      dt.UserId = dt.UserId.replace(/\s/g, '')
+      localStorage.setItem("userData", JSON.stringify(dt))
       if (token && data) {
         history.navigate("/")
       }

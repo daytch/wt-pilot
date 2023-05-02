@@ -27,7 +27,7 @@ import { history } from "../../helpers/history"
 export function* getHeaderPPKB(action) {
   try {
     const res = yield call(GET, URL.GET_HEADER_PKKB + action.payload)
-    // debugger;
+    ;
     if (!res) {
       yield put(
         getHeaderPPKBFailure({
@@ -55,7 +55,7 @@ export function* getHeaderPPKB(action) {
 export function* getHeaderPPKBWeb(action) {
   try {
     const res = yield call(GET, URL.GET_HEADER_PKKB_WEB + action.payload)
-      // debugger
+      
     if (action.payload.indexOf("Outstanding=0") < 0) {
       if (!res || res.status !== "ok") {
         yield put(
@@ -215,7 +215,7 @@ export function* getDetailPKK(action) {
 export function* fillComboKegiatan() {
   try {
     const res = yield call(GET, URL.FILL_COMBO_KEGIATAN)
-//  debugger
+    
     if (!res) {
       yield put(
         fillComboKegiatanFailure({
