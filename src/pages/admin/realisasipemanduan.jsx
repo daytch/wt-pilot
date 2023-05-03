@@ -58,12 +58,12 @@ const RealisasiPemanduan = () => {
         ? `?ReportName=LAPORAN KEGIATAN PEMANDUAN DAN PENUNDAAN&CompanyName=PT WORLD TERMINALINDO&FromDate=${handleDateAPI(
             startDate
           )}&ToDate=${handleDateAPI(
-            ToDate
+            endDate
           )}&Cabang=${MMCode}&Agen&Kapal&Pemandu`
         : `?ReportName=LAPORAN KEGIATAN PEMANDUAN DAN PENUNDAAN&CompanyName=PT WORLD TERMINALINDO&FromDate=${handleDateAPI(
             startDate
           )}&ToDate=${handleDateAPI(
-            ToDate
+            endDate
           )}&Cabang=${MMCode}&Agen=&Kapal=${Kapal}&Pemandu=${Pemandu}`;
     // ${AgentUserLogin}
     dispatch(getDataLaporan(url));
@@ -335,25 +335,25 @@ const RealisasiPemanduan = () => {
                               onClick={() => setDetail(item)}
                             >
                               <td
-                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                className="border text-right px-2 border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 {idx + 1}
                               </td>
                               <td
-                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                className="border px-2 border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 {item.NamaKapal}
                               </td>
                               <td
-                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                className="border text-center px-2 border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 {item.TglBPPTMasuk}
                               </td>
                               <td
-                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                className="border text-center px-2 border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 {item.MulaiPanduMasuk &&
@@ -363,7 +363,7 @@ const RealisasiPemanduan = () => {
                                   : ""}
                               </td>
                               <td
-                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                className=" text-center px-2 border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 {item.SelesaiPanduMasuk &&
@@ -373,19 +373,19 @@ const RealisasiPemanduan = () => {
                                   : ""}
                               </td>
                               <td
-                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                className="border text-center px-2 border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 {item.TotaljamPanduMasuk}
                               </td>
                               <td
-                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                className="border text-center px-2 border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 {item.TanggalPindah}
                               </td>
                               <td
-                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                className="border text-center px-2 border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 {item.MulaiPanduPindah &&
@@ -395,7 +395,7 @@ const RealisasiPemanduan = () => {
                                   : ""}
                               </td>
                               <td
-                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                className="border text-center px-2 border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 {item.SelesaiPanduPindah &&
@@ -406,19 +406,19 @@ const RealisasiPemanduan = () => {
                                   : ""}
                               </td>
                               <td
-                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                className="border text-center px-2 border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 {item.TotaljamPanduPindah}
                               </td>
                               <td
-                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                className="border text-center px-2 border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 {item.TanggalKeluar}
                               </td>
                               <td
-                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                className="border text-center px-2 border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 {item.MulaiPanduKeluar &&
@@ -428,7 +428,7 @@ const RealisasiPemanduan = () => {
                                   : ""}
                               </td>
                               <td
-                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                className="border text-center px-2 border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 {item.SelesaiPanduKeluar &&
@@ -439,7 +439,7 @@ const RealisasiPemanduan = () => {
                                   : ""}
                               </td>
                               <td
-                                className="border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                className="border text-center px-2 border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 {item.TotalJamPanduKeluar}
