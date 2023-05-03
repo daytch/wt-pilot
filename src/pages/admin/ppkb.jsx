@@ -1423,7 +1423,7 @@ const Ppkb = () => {
 
   return (
     <>
-      <div className="max-w-[85rem] py-3 mx-auto">
+      <div className="max-w-[85rem] py-3">
         <button
           ref={btnDetailRef}
           data-hs-overlay="#hs-bg-gray-on-hover-cards1"

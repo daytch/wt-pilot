@@ -92,7 +92,7 @@ const Pnbp = () => {
 
   return (
     <>
-      <div className="max-w-[85rem] py-3 mx-auto">
+      <div className="max-w-[85rem] py-3">
         {/* <!-- Card --> */}
         <div className="flex flex-col">
           <div className="-m-1.5 overflow-x-auto">
