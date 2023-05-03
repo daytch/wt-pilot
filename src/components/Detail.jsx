@@ -502,7 +502,7 @@ const Detail = (props) => {
             {/* <!-- Grid --> */}
             <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-2">
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead className="bg-gray-50 dark:bg-slate-900">
+                <thead className="sticky top-0 bg-gray-50 dark:bg-slate-900">
                   <tr>
                     <th scope="col" colSpan="2" className="px-3 py-0 text-left">
                       <div className="flex items-center gap-x-2">
@@ -556,7 +556,7 @@ const Detail = (props) => {
               </table>
 
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead className="bg-gray-50 dark:bg-slate-900">
+                <thead className="sticky top-0 bg-gray-50 dark:bg-slate-900">
                   <tr>
                     <th scope="col" colSpan="2" className="px-3 py-0 text-left">
                       <div className="flex items-center gap-x-2">
@@ -604,7 +604,7 @@ const Detail = (props) => {
               </table>
 
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead className="bg-gray-50 dark:bg-slate-900">
+                <thead className="sticky top-0 bg-gray-50 dark:bg-slate-900">
                   <tr>
                     <th scope="col" colSpan="2" className="px-3 py-0 text-left">
                       <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
@@ -664,7 +664,7 @@ const Detail = (props) => {
               </table>
 
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead className="bg-gray-50 dark:bg-slate-900">
+                <thead className="sticky top-0 bg-gray-50 dark:bg-slate-900">
                   <tr>
                     <th scope="col" colSpan="2" className="px-3 py-0 text-left">
                       <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
@@ -717,7 +717,7 @@ const Detail = (props) => {
               </table>
 
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead className="bg-gray-50 dark:bg-slate-900">
+                <thead className="sticky top-0 bg-gray-50 dark:bg-slate-900">
                   <tr>
                     <th scope="col" colSpan="2" className="px-3 py-0 text-left">
                       <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
@@ -770,7 +770,7 @@ const Detail = (props) => {
               </table>
 
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead className="bg-gray-50 dark:bg-slate-900">
+                <thead className="sticky top-0 bg-gray-50 dark:bg-slate-900">
                   <tr>
                     <th scope="col" colSpan="2" className="px-3 py-0 text-left">
                       <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
@@ -823,7 +823,7 @@ const Detail = (props) => {
               </table>
 
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead className="bg-gray-50 dark:bg-slate-900">
+                <thead className="sticky top-0 bg-gray-50 dark:bg-slate-900">
                   <tr>
                     <th scope="col" colSpan="2" className="px-3 py-0 text-left">
                       <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
@@ -1010,7 +1010,7 @@ const Detail = (props) => {
             {/* <!-- Grid --> */}
             <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-2">
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead className="bg-gray-50 dark:bg-slate-900">
+                <thead className="sticky top-0 bg-gray-50 dark:bg-slate-900">
                   <th
                     scope="col"
                     colSpan="2"
@@ -1062,7 +1062,7 @@ const Detail = (props) => {
               </table>
 
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead className="bg-gray-50 dark:bg-slate-900">
+                <thead className="sticky top-0 bg-gray-50 dark:bg-slate-900">
                   <th
                     scope="col"
                     colSpan="2"
@@ -1102,7 +1102,7 @@ const Detail = (props) => {
             {/* <!-- Grid --> */}
             <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-2">
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead className="bg-gray-50 dark:bg-slate-900">
+                <thead className="sticky top-0 bg-gray-50 dark:bg-slate-900">
                   <th
                     scope="col"
                     colSpan="2"
@@ -1136,7 +1136,7 @@ const Detail = (props) => {
               </table>
 
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead className="bg-gray-50 dark:bg-slate-900">
+                <thead className="sticky top-0 bg-gray-50 dark:bg-slate-900">
                   <th
                     scope="col"
                     colSpan="2"

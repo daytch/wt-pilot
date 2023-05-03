@@ -151,8 +151,9 @@ const Ppkb = () => {
       !isEmptyNullOrUndefined(ValueSearch) ? ValueSearch : ""
     }&Outstanding=${
       !isEmptyNullOrUndefined(Outstanding) ? Outstanding : ""
-    }&UserType=${!isEmptyNullOrUndefined(UserType) ? UserType : ""}&UserLogin=${
-      !isEmptyNullOrUndefined(UserLogin) ? UserLogin : ""
+    }&UserType=${!isEmptyNullOrUndefined(UserType) ? UserType : ""} 
+      &LoginUserId=${
+        !isEmptyNullOrUndefined(UserLogin) ? UserLogin : ""
     }`
 
     dispatch(getHeaderPPKBWeb(urlppkb))
@@ -309,7 +310,7 @@ const Ppkb = () => {
           style={{ maxWidth: "100%", overflow: "auto", maxHeight: "30vh" }}
         >
           <table style={{ whiteSpace: "nowrap" }} id="table">
-            <thead className="bg-gray-50 dark:bg-slate-900">
+            <thead className="sticky top-0 bg-gray-50 dark:bg-slate-900">
               <tr className="text-center">
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black"></th>
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
@@ -568,8 +569,8 @@ const Ppkb = () => {
           style={{ maxWidth: "100%", overflow: "auto", maxHeight: "30vh" }}
         >
           <table style={{ whiteSpace: "nowrap" }} id="table">
-            <thead className="bg-gray-50 dark:bg-slate-900">
-              <tr className="text-center">
+            <thead className="sticky top-0 bg-gray-50 dark:bg-slate-900">
+              <tr className="sticky top-0 text-center">
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black"></th>
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   ACTION
@@ -577,14 +578,15 @@ const Ppkb = () => {
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NO
                 </th>
-                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
-                  NOMOR PKK
-                </th>
+                
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NOMOR PPKB
                 </th>
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   TANGGAL PPKB
+                </th>
+                <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
+                  NOMOR PKK
                 </th>
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NOMOR PPK
@@ -755,9 +757,7 @@ const Ppkb = () => {
                         <td className="text-right border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {idx + 1}
                         </td>
-                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
-                          {item.nomor_pkk}
-                        </td>
+                      
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {item.NoPPKB}
                         </td>
@@ -765,8 +765,12 @@ const Ppkb = () => {
                           {item.TglPPKB}
                         </td>
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                          {item.nomor_pkk}
+                        </td>
+                        <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {/* {item.nahkoda} */}
                         </td>
+                       
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {item.TglRencana}
                         </td>
@@ -802,7 +806,7 @@ const Ppkb = () => {
           style={{ maxWidth: "100%", overflow: "auto", maxHeight: "30vh" }}
         >
           <table className="text-[10px] min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-            <thead className="bg-gray-50 dark:bg-slate-900">
+            <thead className="sticky top-0 bg-gray-50 dark:bg-slate-900">
               <tr className="text-center">
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NO
@@ -968,7 +972,7 @@ const Ppkb = () => {
           style={{ maxWidth: "100%", overflow: "auto", maxHeight: "30vh" }}
         >
           <table className="text-[10px] min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-            <thead className="bg-gray-50 dark:bg-slate-900">
+            <thead className="sticky top-0 bg-gray-50 dark:bg-slate-900">
               <tr className="text-center">
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NO
@@ -1423,7 +1427,7 @@ const Ppkb = () => {
 
   return (
     <>
-      <div className="max-w-[85rem] py-3 mx-auto">
+      <div className="max-w-[85rem] py-3">
         <button
           ref={btnDetailRef}
           data-hs-overlay="#hs-bg-gray-on-hover-cards1"
@@ -1694,7 +1698,7 @@ const Ppkb = () => {
 
                         <div className="overflow-x-auto">
                           <table className="text-[10px] min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                            <thead className="bg-gray-50 dark:bg-slate-900">
+                            <thead className="sticky top-0 bg-gray-50 dark:bg-slate-900">
                               <tr className="text-center">
                                 <th className="border border-black"></th>
                                 <th className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap">

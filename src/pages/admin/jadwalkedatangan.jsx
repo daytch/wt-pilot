@@ -100,7 +100,7 @@ const JadwalKedatangan = () => {
 
   return (
     <>
-      <div className="max-w-[85rem] py-3 mx-auto">
+      <div className="max-w-[85rem] py-3">
         {/* <!-- Card --> */}
         <div className="flex flex-col">
           <div className="-m-1.5 overflow-x-auto">
@@ -133,9 +133,9 @@ const JadwalKedatangan = () => {
                 {/* <!-- End Accordion --> */}
 
                 {/* <!-- Table --> */}
-                <div className="px-3">
-                  <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                    <thead className="bg-gray-50 dark:bg-slate-900">
+                <div className="px-3" style={{ maxWidth: "100%", overflow: "auto", maxHeight: "30vh" }}>
+                  <table className="divide-gray-200 dark:divide-gray-700">
+                    <thead className="sticky top-0 bg-gray-50 dark:bg-slate-900">
                       <tr>
                         <th
                           scope="col"
