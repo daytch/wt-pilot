@@ -100,7 +100,7 @@ const JadwalKedatangan = () => {
 
   return (
     <>
-      <div className="max-w-[85rem] py-3">
+      <div className="max-w-[85rem] py-3 mx-auto">
         {/* <!-- Card --> */}
         <div className="flex flex-col">
           <div className="-m-1.5 overflow-x-auto">
