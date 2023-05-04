@@ -24,6 +24,7 @@ const JadwalKedatangan = () => {
       : new Date()
   );
   const dariPihak = UserData.UserType;
+  const UserType = UserData.UserType
   const UserLogin = UserData.UserId;
   const [MMCode, setMMCode] = useState(UserData.MMCode)
   const [Outstanding, setOutstanding] = useState("");
@@ -42,20 +43,23 @@ const JadwalKedatangan = () => {
   const [detail, setDetail] = useState({});
 
   var oldindex = "";
-  const fetchData = () => {
-    const url =
-      ValueSearch == null
-        ? `?ViewBy=${ViewBy}&ViewValue=${ViewValue}&FromDate=${handleDateAPI(
-            startDate
-          )}&ToDate=${handleDateAPI(
-            endDate
-          )}&Filterdate=${FilterDate}&ColumnSearch=${Code}&ValueSearch&Outstanding=${Outstanding}&Status_Order=${Status_Order}&UserLogin=&AgentUserLogin=&MMCode=${MMCode}`
-        : `?ViewBy=${dariPihak}&ViewValue=${
-            UserData.UserName
-          }&FromDate=${handleDateAPI(startDate)}&ToDate=${handleDateAPI(
-            endDate
-          )}&Filterdate=${FilterDate}&ColumnSearch=${Code}&ValueSearch=${ValueSearch}&Outstanding=${Outstanding}&Status_Order=${Status_Order}&UserLogin=&AgentUserLogin=&MMCode=${MMCode}`;
+  const fetchData = async () => {
+    const url = `?MMCode=${
+      !isEmptyNullOrUndefined(MMCode) ? MMCode : ""
+    }&FromDate=${handleDateAPI(startDate)}&ToDate=${handleDateAPI(
+      endDate
+    )}&FilterDate=${
+      !isEmptyNullOrUndefined(FilterDate) ? FilterDate : ""
+    }&ColumnSearch=${!isEmptyNullOrUndefined(Code) ? Code : ""}&ValueSearch=${
+      !isEmptyNullOrUndefined(ValueSearch) ? ValueSearch : ""
+    }&Outstanding=${
+      !isEmptyNullOrUndefined(Outstanding) ? Outstanding : ""
+    }&UserType=${!isEmptyNullOrUndefined(UserType) ? UserType : ""} 
+      &LoginUserId=${
+        !isEmptyNullOrUndefined(UserLogin) ? UserLogin : ""
+    }`
 
+    // debugger
     dispatch(getDataPKKInaportnet(url));
   };
 
@@ -109,8 +113,8 @@ const JadwalKedatangan = () => {
                 {/* <!-- Header --> */}
                 <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-gray-700">
                   <div>
-                    <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
-                      Jadwal Kedatangan Kapal
+                    <h2 className="text-xl font-semibold text-gray-1000 dark:text-gray-200">
+                      Jadwal Kedatangan dan Keberangkatan Kapal
                     </h2>
                   </div>
                 </div>
@@ -119,6 +123,7 @@ const JadwalKedatangan = () => {
                 {/* <!-- Accordion --> */}
                 <div className="border-b border-gray-200 hover:bg-gray-50 dark:hover:bg-slate-900 dark:border-gray-700">
                   <Filter
+                    search={fetchData}
                     MMCode={MMCode}
                     setMMCode={setMMCode}
                     startDate={startDate}
@@ -334,7 +339,7 @@ const JadwalKedatangan = () => {
                   <div>
                     <p className="text-[10px] text-gray-600  dark:text-gray-400">
                       <span className="font-semibold text-gray-800 dark:text-gray-200">
-                        {data.length}
+                        {data?.length}
                       </span>{" "}
                       results
                     </p>

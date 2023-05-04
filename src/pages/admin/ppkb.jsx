@@ -125,7 +125,6 @@ const Ppkb = () => {
 
   useEffect(() => {
     if (modalRef.current.classList.value) {
-      
       setIsModalOpen(modalRef.current.classList.value.indexOf("hidden") === -1)
     }
   }, [modalRef.current?.classList])
@@ -139,9 +138,13 @@ const Ppkb = () => {
     }
   }, [dataCabang, dataSalesOrder])
 
+  const searchData = () => {
+    fetchData("search")
+  }
+
   var max = 1
-  const fetchData = async () => {
-    const urlppkb = `?MMCode=${
+  const fetchData = async (e) => {
+    const url = `?MMCode=${
       !isEmptyNullOrUndefined(MMCode) ? MMCode : ""
     }&FromDate=${handleDateAPI(startDate)}&ToDate=${handleDateAPI(
       endDate
@@ -152,11 +155,9 @@ const Ppkb = () => {
     }&Outstanding=${
       !isEmptyNullOrUndefined(Outstanding) ? Outstanding : ""
     }&UserType=${!isEmptyNullOrUndefined(UserType) ? UserType : ""} 
-      &LoginUserId=${
-        !isEmptyNullOrUndefined(UserLogin) ? UserLogin : ""
-    }`
+      &LoginUserId=${!isEmptyNullOrUndefined(UserLogin) ? UserLogin : ""}`
 
-    dispatch(getHeaderPPKBWeb(urlppkb))
+    dispatch(getHeaderPPKBWeb(url))
 
     if (max > 0) {
       // getDetail(datappkb.data[0]);
@@ -166,9 +167,11 @@ const Ppkb = () => {
     if (oldindex != "") {
       selectedRow(0)
     }
-    if (firstLoad) {
-      btnDetailRef.current.click()
-      firstLoad = false
+    if (e === "search") {
+      if (firstLoad) {
+        btnDetailRef.current.click()
+        firstLoad = false
+      }
     }
   }
 
@@ -176,7 +179,7 @@ const Ppkb = () => {
     // console.log("detail: ", detail)
     if (Outstanding === 0 || Outstanding === "0") {
       setKeterangan(detail?.Keterangan)
-      
+
       kegiatanRef.current.value = detail?.Kode_Kegiatan
       setLokasi(detail?.Lokasi)
       setKodeKegiatan(detail?.Kode_Kegiatan)
@@ -248,7 +251,7 @@ const Ppkb = () => {
     var newData = Outstanding === 1 ? dataHeaderPKK : dataHeaderPPKB
     const dt = newData.map((elm) => {
       let it = { ...elm }
-      
+
       it.isSelected = it.idx === item.idx // it?.nomor_pkk === item?.nomor_pkk
       return it
     })
@@ -281,7 +284,7 @@ const Ppkb = () => {
       it.isSelected = it?.nomor_pkk === item?.nomor_pkk
       return it
     })
-    
+
     if (Outstanding === 1 || Outstanding === "1") {
       resetModal()
       dispatch(selectedRowHeaderPPK(dt))
@@ -578,7 +581,7 @@ const Ppkb = () => {
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NO
                 </th>
-                
+
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black">
                   NOMOR PPKB
                 </th>
@@ -757,7 +760,7 @@ const Ppkb = () => {
                         <td className="text-right border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {idx + 1}
                         </td>
-                      
+
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {item.NoPPKB}
                         </td>
@@ -770,7 +773,7 @@ const Ppkb = () => {
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {/* {item.nahkoda} */}
                         </td>
-                       
+
                         <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
                           {item.TglRencana}
                         </td>
@@ -1443,6 +1446,7 @@ const Ppkb = () => {
                 {/* <!-- Accordion --> */}
                 <div className="border-b border-gray-200 hover:bg-gray-50 dark:hover:bg-slate-900 dark:border-gray-700">
                   <Filter
+                    search={fetchData}
                     MMCode={MMCode}
                     setMMCode={setMMCode}
                     startDate={startDate}

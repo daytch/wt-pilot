@@ -1,147 +1,147 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getDataLaporan } from "../../redux/slices/realisasiSlice";
+import React, { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { getDataLaporan } from "../../redux/slices/realisasiSlice"
 import {
   handleDateAPI,
   isEmptyNullOrUndefined,
   datetimeToString,
-} from "../../functions/index.js";
-import "react-datepicker/dist/react-datepicker.css";
-import Filter from "../../components/Filter";
-import Detail from "../../components/Detail";
-import { sliceHour } from "../../functions/index.js";
+} from "../../functions/index.js"
+import "react-datepicker/dist/react-datepicker.css"
+import Filter from "../../components/Filter"
+import Detail from "../../components/Detail"
+import { sliceHour } from "../../functions/index.js"
 
 const RealisasiPemanduan = () => {
   function isValidDate(d) {
-    return d instanceof Date && !isNaN(d);
+    return d instanceof Date && !isNaN(d)
   }
-  const dispatch = useDispatch();
-  const UserData = JSON.parse(localStorage.getItem("userData"));
+  const dispatch = useDispatch()
+  const UserData = JSON.parse(localStorage.getItem("userData"))
   const [startDate, setStartDate] = useState(
     sessionStorage.getItem("startDateRealisasiPemanduan")
       ? new Date(sessionStorage.getItem("startDateRealisasiPemanduan"))
       : new Date()
-  );
+  )
   const [endDate, setEndDate] = useState(
     sessionStorage.getItem("endDateRealisasiPemanduan")
       ? new Date(sessionStorage.getItem("endDateRealisasiPemanduan"))
       : new Date()
-  );
+  )
 
-  const dariPihak = UserData.UserType;
-  const UserLogin = UserData.UserId;
+  const dariPihak = UserData.UserType
+  const UserLogin = UserData.UserId
+  const UserType = UserData.UserType
   const [MMCode, setMMCode] = useState(UserData.MMCode)
-  const [Outstanding, setOutstanding] = useState("");
+  const [Outstanding, setOutstanding] = useState("")
   const [Code, setCode] = useState(
     sessionStorage.getItem("codeColumnSearchRealisasiPemanduan") ?? ""
-  );
-  const [ValueSearch, setValueSearch] = useState("");
+  )
+  const [ValueSearch, setValueSearch] = useState("")
   // const [isShowModal, setIsShowModal] = useState(true);
-  const [ViewBy, setViewBy] = useState(dariPihak);
-  const [ViewValue, setViewValue] = useState(UserData.UserName);
-  const tanggalHariini = handleDateAPI(new Date());
-  const [FromDate, setFromDate] = useState(new Date());
-  const [ToDate, setToDate] = useState(new Date());
-  const [FilterDate, setFilterDate] = useState("1");
-  const [Status_Order, setStatus_Order] = useState("");
+  const [ViewBy, setViewBy] = useState(dariPihak)
+  const [ViewValue, setViewValue] = useState(UserData.UserName)
+  const tanggalHariini = handleDateAPI(new Date())
+  const [FromDate, setFromDate] = useState(new Date())
+  const [ToDate, setToDate] = useState(new Date())
+  const [FilterDate, setFilterDate] = useState("1")
+  const [Status_Order, setStatus_Order] = useState("")
   const [AgentUserLogin, setAgentUserLogin] = useState(
     dariPihak === "AGEN" ? UserLogin : ""
-  );
-  const [Kapal, setKapal] = useState("");
-  const [Pemandu, setPemandu] = useState("");
-  const [detail, setDetail] = useState({});
+  )
+  const [Kapal, setKapal] = useState("")
+  const [Pemandu, setPemandu] = useState("")
+  const [detail, setDetail] = useState({})
 
-  var oldindex = "";
-  const fetchData = () => {
-    const url =
-      ValueSearch == null
-        ? `?ReportName=LAPORAN KEGIATAN PEMANDUAN DAN PENUNDAAN&CompanyName=PT WORLD TERMINALINDO&FromDate=${handleDateAPI(
-            startDate
-          )}&ToDate=${handleDateAPI(
-            endDate
-          )}&Cabang=${MMCode}&Agen&Kapal&Pemandu`
-        : `?ReportName=LAPORAN KEGIATAN PEMANDUAN DAN PENUNDAAN&CompanyName=PT WORLD TERMINALINDO&FromDate=${handleDateAPI(
-            startDate
-          )}&ToDate=${handleDateAPI(
-            endDate
-          )}&Cabang=${MMCode}&Agen=&Kapal=${Kapal}&Pemandu=${Pemandu}`;
-    // ${AgentUserLogin}
-    dispatch(getDataLaporan(url));
-  };
+  const fetchData = async () => {
+    const url = `?MMCode=${
+      !isEmptyNullOrUndefined(MMCode) ? MMCode : ""
+    }&FromDate=${handleDateAPI(startDate)}&ToDate=${handleDateAPI(
+      endDate
+    )}&FilterDate=${
+      !isEmptyNullOrUndefined(FilterDate) ? FilterDate : ""
+    }&ColumnSearch=${!isEmptyNullOrUndefined(Code) ? Code : ""}&ValueSearch=${
+      !isEmptyNullOrUndefined(ValueSearch) ? ValueSearch : ""
+    }&Outstanding=${
+      !isEmptyNullOrUndefined(Outstanding) ? Outstanding : ""
+    }&UserType=${!isEmptyNullOrUndefined(UserType) ? UserType : ""} 
+      &LoginUserId=${!isEmptyNullOrUndefined(UserLogin) ? UserLogin : ""}`
+
+    debugger
+    dispatch(getDataLaporan(url))
+  }
 
   useEffect(() => {
-    const dariTanggal = sessionStorage.getItem("dariTanggalRealisasiPemanduan");
+    const dariTanggal = sessionStorage.getItem("dariTanggalRealisasiPemanduan")
     const sampaiTanggal = sessionStorage.getItem(
       "sampaiTanggalRealisasiPemanduan"
-    );
+    )
     const columnSearch = sessionStorage.getItem(
       "codeColumnSearchRealisasiPemanduan"
-    );
+    )
     const valueSearch = sessionStorage.getItem(
       "valueColumnSearchRealisasiPemanduan"
-    );
-    const cabang = sessionStorage.getItem("cabangRealisasiPemanduan");
-    const startDates = sessionStorage.getItem("startDateRealisasiPemanduan");
-    const endDates = sessionStorage.getItem("endDateRealisasiPemanduan");
+    )
+    const cabang = sessionStorage.getItem("cabangRealisasiPemanduan")
+    const startDates = sessionStorage.getItem("startDateRealisasiPemanduan")
+    const endDates = sessionStorage.getItem("endDateRealisasiPemanduan")
 
-    const kapals = sessionStorage.getItem("kapalRealisasiPemanduan");
-    const agens = sessionStorage.getItem("agenRealisasiPemanduan");
+    const kapals = sessionStorage.getItem("kapalRealisasiPemanduan")
+    const agens = sessionStorage.getItem("agenRealisasiPemanduan")
 
     if (dariTanggal) {
-      setFromDate(dariTanggal);
+      setFromDate(dariTanggal)
     }
     if (sampaiTanggal) {
-      setToDate(sampaiTanggal);
+      setToDate(sampaiTanggal)
     }
     if (columnSearch) {
-      setCode(columnSearch);
+      setCode(columnSearch)
     }
     if (valueSearch) {
-      setValueSearch(valueSearch);
+      setValueSearch(valueSearch)
     }
     if (cabang) {
-      setMMCode(cabang);
+      setMMCode(cabang)
     }
     if (startDates) {
-      setStartDate(new Date(startDates));
+      setStartDate(new Date(startDates))
     }
     if (endDates) {
-      setEndDate(new Date(endDates));
+      setEndDate(new Date(endDates))
     }
 
     if (kapals) {
-      setKapal(kapals);
+      setKapal(kapals)
     }
     if (agens) {
-      setAgentUserLogin(agens);
+      setAgentUserLogin(agens)
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
-    sessionStorage.setItem("dariTanggalRealisasiPemanduan", FromDate);
-    sessionStorage.setItem("sampaiTanggalRealisasiPemanduan", ToDate);
-    sessionStorage.setItem("codeColumnSearchRealisasiPemanduan", Code);
-    sessionStorage.setItem("valueColumnSearchRealisasiPemanduan", ValueSearch);
-    sessionStorage.setItem("cabangRealisasiPemanduan", MMCode);
-    sessionStorage.setItem("startDateRealisasiPemanduan", startDate);
-    sessionStorage.setItem("endDateRealisasiPemanduan", endDate);
+    sessionStorage.setItem("dariTanggalRealisasiPemanduan", FromDate)
+    sessionStorage.setItem("sampaiTanggalRealisasiPemanduan", ToDate)
+    sessionStorage.setItem("codeColumnSearchRealisasiPemanduan", Code)
+    sessionStorage.setItem("valueColumnSearchRealisasiPemanduan", ValueSearch)
+    sessionStorage.setItem("cabangRealisasiPemanduan", MMCode)
+    sessionStorage.setItem("startDateRealisasiPemanduan", startDate)
+    sessionStorage.setItem("endDateRealisasiPemanduan", endDate)
 
-    sessionStorage.setItem("kapalRealisasiPemanduan", Kapal);
-    sessionStorage.setItem("agenRealisasiPemanduan", AgentUserLogin);
+    sessionStorage.setItem("kapalRealisasiPemanduan", Kapal)
+    sessionStorage.setItem("agenRealisasiPemanduan", AgentUserLogin)
 
-    sessionStorage.setItem("kapalRealisasiPemanduan", Kapal);
-    sessionStorage.setItem("agenRealisasiPemanduan", AgentUserLogin);
+    sessionStorage.setItem("kapalRealisasiPemanduan", Kapal)
+    sessionStorage.setItem("agenRealisasiPemanduan", AgentUserLogin)
 
-    setViewValue(localStorage.getItem("username"));
-    setViewBy(localStorage.getItem("id"));
+    setViewValue(localStorage.getItem("username"))
+    setViewBy(localStorage.getItem("id"))
 
-    fetchData();
-  }, [startDate, endDate, Code, ValueSearch, MMCode, Outstanding]);
+    fetchData()
+  }, [startDate, endDate, Code, ValueSearch, MMCode, Outstanding])
 
-  const data = useSelector((state) => state.Realisasi.data);
-  const dataCabang = useSelector((state) => state.Dashboard.dataCabang);
-  const dataSalesOrder = useSelector((state) => state.Dashboard.dataSalesOrder);
-
+  const data = useSelector((state) => state.Realisasi.data)
+  
+  console.log("data:", data)
   return (
     <>
       <div className="max-w-[85rem] py-3 mx-auto">
@@ -163,6 +163,7 @@ const RealisasiPemanduan = () => {
                 {/* <!-- Accordion --> */}
                 <div className="border-b border-gray-200 hover:bg-gray-50 dark:hover:bg-slate-900 dark:border-gray-700">
                   <Filter
+                    search={fetchData}
                     MMCode={MMCode}
                     setMMCode={setMMCode}
                     startDate={startDate}
@@ -210,14 +211,12 @@ const RealisasiPemanduan = () => {
                         >
                           GERAKAN KAPAL masuk
                         </th>
-
                         <th
                           colSpan={4}
                           className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
                           GERAKAN KAPAL pindah
                         </th>
-
                         <th
                           colSpan={4}
                           className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
@@ -225,7 +224,6 @@ const RealisasiPemanduan = () => {
                           GERAKAN KAPAL keluar
                         </th>
                       </tr>
-
                       <tr className="text-center">
                         <th
                           rowSpan={2}
@@ -285,7 +283,6 @@ const RealisasiPemanduan = () => {
                           JAM
                         </th>
                       </tr>
-
                       <tr className="text-center">
                         <th
                           rowSpan={2}
@@ -326,8 +323,8 @@ const RealisasiPemanduan = () => {
                       </tr>
                     </thead>
                     <tbody className="divide-y overflow-y-auto divide-gray-200 dark:divide-gray-700">
-                      {data?.datadetail?.length > 0 &&
-                        data.datadetail.map((item, idx) => {
+                      {data?.length > 0 &&
+                        data.map((item, idx) => {
                           return (
                             <tr
                               key={idx}
@@ -445,7 +442,7 @@ const RealisasiPemanduan = () => {
                                 {item.TotalJamPanduKeluar}
                               </td>
                             </tr>
-                          );
+                          )
                         })}
                     </tbody>
                   </table>
@@ -456,7 +453,7 @@ const RealisasiPemanduan = () => {
                   <div>
                     <p className="text-[10px] text-gray-600  dark:text-gray-400">
                       <span className="font-semibold text-gray-800 dark:text-gray-200">
-                        {data?.datadetail?.length}
+                        {data?.length} {" "}
                       </span>
                       results
                     </p>
@@ -472,7 +469,7 @@ const RealisasiPemanduan = () => {
 
       <Detail detail={detail} tipe={"realisasi"} />
     </>
-  );
-};
+  )
+}
 
-export default RealisasiPemanduan;
+export default RealisasiPemanduan

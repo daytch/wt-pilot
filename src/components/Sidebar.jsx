@@ -240,7 +240,7 @@ const Sidebar = () => {
       ? [
           { title: "Dashboard", name: "dashboard" },
           {
-            title: "Jadwal Kedatangan",
+            title: "Jadwal Kapal",
             name: "jadwal",
           },
           { title: "PNBP", name: "pnbp" },
@@ -257,7 +257,7 @@ const Sidebar = () => {
       : [
           { title: "Dashboard", name: "dashboard" },
           {
-            title: "Jadwal Kedatangan",
+            title: "Jadwal Kapal",
             name: "jadwal",
           },
           { title: "PPKB", name: "ppkb" },

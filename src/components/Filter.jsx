@@ -30,6 +30,7 @@ const Filter = (props) => {
     setNotApproved,
     setIsCreatedNew,
     isCreatedNew,
+    search,
   } = props
 
   useEffectOnce(() => {
@@ -198,7 +199,9 @@ const Filter = (props) => {
             input
           </button>
         )} */}
-        <button className="h-8 py-3 px-2 min-h-8 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-xs dark:focus:ring-offset-gray-800">
+        <button
+          onClick={search}
+          className="h-8 py-3 px-2 min-h-8 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-xs dark:focus:ring-offset-gray-800">
           Search
         </button>
 
@@ -243,6 +246,7 @@ Filter.propTypes = {
   tipe: PropTypes.string,
   notApproved: PropTypes.bool,
   setNotApproved: PropTypes.func,
+  search: PropTypes.func,
 }
 
 export default Filter

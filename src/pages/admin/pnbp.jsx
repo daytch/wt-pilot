@@ -92,7 +92,7 @@ const Pnbp = () => {
 
   return (
     <>
-      <div className="max-w-[85rem] py-3 mx-auto">
+      <div className="max-w-[85rem] py-3">
         {/* <!-- Card --> */}
         <div className="flex flex-col">
           <div className="-m-1.5 overflow-x-auto">
@@ -102,7 +102,7 @@ const Pnbp = () => {
                 <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-gray-700">
                   <div>
                     <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
-                      Jadwal Kedatangan Kapal
+                      Jadwal Kapal
                     </h2>
                   </div>
                 </div>
@@ -111,6 +111,7 @@ const Pnbp = () => {
                 {/* <!-- Accordion --> */}
                 <div className="border-b border-gray-200 hover:bg-gray-50 dark:hover:bg-slate-900 dark:border-gray-700">
                   <Filter
+                    search={fetchData}
                     MMCode={MMCode}
                     setMMCode={setMMCode}
                     startDate={startDate}
@@ -127,6 +128,7 @@ const Pnbp = () => {
                 {/* <!-- Table --> */}
                 <div className="px-3">
                   <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                    {/* <thead className="bg-gray-50 dark:bg-slate-900"> */}
                     <thead className="sticky top-0 bg-gray-50 dark:bg-slate-900">
                       <tr>
                         {/* <th rowSpan={3} ></th> */}
@@ -559,7 +561,8 @@ const Pnbp = () => {
         </div>
         {/* <!-- End Card --> */}
 
-        <Detail detail={detail} tipe={"pnbp"} />
+        <Detail detail={detail} tipe
+        ={"pnbp"} />
       </div>
     </>
   );
