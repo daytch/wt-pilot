@@ -30,9 +30,9 @@ export function* postLogin(action) {
       let user = res.user[0]
       user.token = res.token
       user.isLogin = true
-      
-      user.MMCode = user.MMCode.replace(/\s/g, '')
-      user.UserId = user.UserId.replace(/\s/g, '')
+
+      user.MMCode = user.MMCode.replace(/\s/g, "")
+      user.UserId = user.UserId.replace(/\s/g, "")
 
       localStorage.setItem("expires_in", res.expires_in)
       localStorage.setItem("token", res.token)
@@ -46,6 +46,7 @@ export function* postLogin(action) {
   }
 }
 
+// 1
 export function* postUserRegistration(action) {
   try {
     const data = action.payload
@@ -55,17 +56,43 @@ export function* postUserRegistration(action) {
     const res = yield call(POST, URL.REGISTER, fmData)
 
     if (!res && res.data.length < 1) {
-      yield put(
-        postUserRegistrationFailure({
-          isError: 1,
-          message: "UserId tidak ada",
-        })
-      );
+      yield put(postUserRegistrationFailure({ error: "UserId tidak ada" }))
     } else {
-      yield put(forgotPasswordFailure({ message: "Data kosong" }))
+      // 2
+      const fData = new FormData()
+      fData.append("UserId", data.UserId)
+      fData.append("Email", data.Email)
+      const res1 = yield call(POST, URL.CHECK_USER_REGISTRASION, fData)
+      if (res1.data.status === "ok") {
+        const data3 = new FormData()
+        data3.append("UserId", data.UserId)
+        data3.append("Email", data.Email)
+        data3.append("Handphone", data.NoHP)
+        data3.append("Password", data.Password ? data.Password : "")
+        const res2 = call(POST, URL.SAVE_USER_REGISTRASION, data3)
+        if (res2.data.status === "ok") {
+          yield put(
+            postUserRegistrationSuccess({
+              message: "Link sudah terkirim ke email",
+            })
+          )
+        } else {
+          yield put(
+            postUserRegistrationFailure({
+              error: "Gagal submit data registrasi.",
+            })
+          )
+        }
+      } else {
+        yield put(
+          postUserRegistrationFailure({
+            error: "Gagal check data user registrasi.",
+          })
+        )
+      }
     }
   } catch (error) {
-    yield put(forgotPasswordFailure({ message: error }))
+    yield put(postUserRegistrationFailure({ error: error }))
   }
 }
 
