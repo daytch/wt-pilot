@@ -1,7 +1,7 @@
 import { all, call, put, takeEvery } from "redux-saga/effects"
 import { URL } from "./../constants"
 import { isEmptyNullOrUndefined } from "../../functions/index"
-import { POST } from "./../middleware/index"
+import { POST, POSTRegistrasion } from "./../middleware/index"
 import {
   postLoginFailure,
   postLoginSuccess,
@@ -51,38 +51,54 @@ export function* postUserRegistration(action) {
   try {
     const data = action.payload
 
-    const fmData = new FormData()
+    var fmData = new FormData()
     fmData.append("UserId", data.UserId)
-    const res = yield call(POST, URL.REGISTER, fmData)
+    const res = yield call(POSTRegistrasion, URL.REGISTER, fmData)
 
     if (!res && res.data.length < 1) {
       yield put(postUserRegistrationFailure({ error: "UserId tidak ada" }))
     } else {
       // 2
-      const fData = new FormData()
+      var fData = new FormData()
       fData.append("UserId", data.UserId)
       fData.append("Email", data.Email)
-      const res1 = yield call(POST, URL.CHECK_USER_REGISTRASION, fData)
+      const res1 = yield call(
+        POSTRegistrasion,
+        URL.CHECK_USER_REGISTRASION,
+        fData
+      )
       if (res1.data.status === "ok") {
-        const data3 = new FormData()
-        data3.append("UserId", data.UserId)
-        data3.append("Email", data.Email)
-        data3.append("Handphone", data.NoHP)
-        data3.append("Password", data.Password ? data.Password : "")
-        const res2 = call(POST, URL.SAVE_USER_REGISTRASION, data3)
-        if (res2.data.status === "ok") {
-          yield put(
-            postUserRegistrationSuccess({
-              message: "Link sudah terkirim ke email",
-            })
+        // if (res1.data.data.length === 0) {
+          var dataComplete = new FormData()
+          dataComplete.append("UserId", data.UserId)
+          dataComplete.append("Email", data.Email)
+          dataComplete.append("Handphone", data.NoHP)
+          dataComplete.append("Password", data.Password ? data.Password : "")
+          const responseSave = yield call(
+            POSTRegistrasion,
+            URL.SAVE_USER_REGISTRASION,
+            dataComplete
           )
-        } else {
-          yield put(
-            postUserRegistrationFailure({
-              error: "Gagal submit data registrasi.",
-            })
-          )
-        }
+          if (responseSave.data.status === "ok") {
+            yield put(
+              postUserRegistrationSuccess({
+                message: "Link sudah terkirim ke email",
+              })
+            )
+          } else {
+            yield put(
+              postUserRegistrationFailure({
+                error: "Gagal submit data registrasi.",
+              })
+            )
+          }
+        // } else {
+        //   yield put(
+        //     postUserRegistrationFailure({
+        //       error: "Email sudah digunakan.",
+        //     })
+        //   )
+        // }
       } else {
         yield put(
           postUserRegistrationFailure({
