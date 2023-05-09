@@ -1,48 +1,50 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getDataPKKInaportnet } from "../../redux/slices/jadwalSlice";
+import React, { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { getDataPKKInaportnet } from "../../redux/slices/jadwalSlice"
 import {
   handleDateAPI,
   isEmptyNullOrUndefined,
   datetimeToString,
-} from "../../functions/index.js";
-import "react-datepicker/dist/react-datepicker.css";
-import Filter from "../../components/Filter";
-import Detail from "../../components/Detail";
+} from "../../functions/index.js"
+import "react-datepicker/dist/react-datepicker.css"
+import Filter from "../../components/Filter"
+import Detail from "../../components/Detail"
 
 const JadwalKedatangan = () => {
-  const dispatch = useDispatch();
-  const UserData = JSON.parse(localStorage.getItem("userData"));
+  const dispatch = useDispatch()
+  const UserData = JSON.parse(localStorage.getItem("userData"))
   const [startDate, setStartDate] = useState(
     sessionStorage.getItem("dariTanggalJadwalKedatangan")
       ? new Date(sessionStorage.getItem("dariTanggalJadwalKedatangan"))
       : new Date()
-  );
+  )
   const [endDate, setEndDate] = useState(
     sessionStorage.getItem("sampaiTanggalJadwalKedatangan")
       ? new Date(sessionStorage.getItem("sampaiTanggalJadwalKedatangan"))
       : new Date()
-  );
-  const dariPihak = UserData.UserType;
+  )
+  const dariPihak = UserData.UserType
   const UserType = UserData.UserType
-  const UserLogin = UserData.UserId;
-  const [MMCode, setMMCode] = useState(UserData.MMCode)
-  const [Outstanding, setOutstanding] = useState("");
+  const UserLogin = UserData.UserId
+  const [MMCode, setMMCode] = useState(
+    UserData.MMCode === "PST" ? "" : UserData.MMCode
+  )
+  const [Outstanding, setOutstanding] = useState("")
   const [Code, setCode] = useState(
     sessionStorage.getItem("codeColumnSearchJadwalKedatangan") ?? ""
-  );
-  const [ValueSearch, setValueSearch] = useState("");
-  const [isShowModal, setIsShowModal] = useState(true);
-  const [ViewBy, setViewBy] = useState(dariPihak);
-  const [ViewValue, setViewValue] = useState(UserData.UserName);
-  const [FilterDate, setFilterDate] = useState("1");
-  const [Status_Order, setStatus_Order] = useState("");
+  )
+  const [ValueSearch, setValueSearch] = useState("")
+  const [isShowModal, setIsShowModal] = useState(true)
+  const [ViewBy, setViewBy] = useState(dariPihak)
+  const [ViewValue, setViewValue] = useState(UserData.UserName)
+  const [FilterDate, setFilterDate] = useState("1")
+  const [Status_Order, setStatus_Order] = useState("")
   const [AgentUserLogin, setAgentUserLogin] = useState(
     dariPihak === "AGEN" ? UserLogin : ""
-  );
-  const [detail, setDetail] = useState({});
+  )
+  const [detail, setDetail] = useState({})
 
-  var oldindex = "";
+  var oldindex = ""
   const fetchData = async () => {
     const url = `?MMCode=${
       !isEmptyNullOrUndefined(MMCode) ? MMCode : ""
@@ -55,52 +57,49 @@ const JadwalKedatangan = () => {
     }&Outstanding=${
       !isEmptyNullOrUndefined(Outstanding) ? Outstanding : ""
     }&UserType=${!isEmptyNullOrUndefined(UserType) ? UserType : ""} 
-      &LoginUserId=${
-        !isEmptyNullOrUndefined(UserLogin) ? UserLogin : ""
-    }`
+      &LoginUserId=${!isEmptyNullOrUndefined(UserLogin) ? UserLogin : ""}`
 
-    // debugger
-    dispatch(getDataPKKInaportnet(url));
-  };
+    dispatch(getDataPKKInaportnet(url))
+  }
 
-  const data = useSelector((state) => state.Jadwal.data);
-  const dataCabang = useSelector((state) => state.Dashboard.dataCabang);
-  const dataSalesOrder = useSelector((state) => state.Dashboard.dataSalesOrder);
+  const data = useSelector((state) => state.Jadwal.data)
+  const dataCabang = useSelector((state) => state.Dashboard.dataCabang)
+  const dataSalesOrder = useSelector((state) => state.Dashboard.dataSalesOrder)
 
   useEffect(() => {
     if (dataCabang?.length > 0 && isEmptyNullOrUndefined(MMCode)) {
-      setMMCode(dataCabang[0].MMCode);
+      setMMCode(dataCabang[0].MMCode)
     }
     if (dataSalesOrder?.length > 0 && isEmptyNullOrUndefined(Code)) {
-      setCode(dataSalesOrder[0].Code);
+      setCode(dataSalesOrder[0].Code)
     }
-  }, [dataCabang, dataSalesOrder]);
+  }, [dataCabang, dataSalesOrder])
 
   useEffect(() => {
-    sessionStorage.setItem("dariTanggalJadwalKedatangan", startDate);
-    sessionStorage.setItem("sampaiTanggalJadwalKedatangan", endDate);
-    sessionStorage.setItem("codeColumnSearchJadwalKedatangan", Code);
-    sessionStorage.setItem("valueColumnSearchJadwalKedatangan", ValueSearch);
-    sessionStorage.setItem("cabangJadwalKedatangan", MMCode);
-    sessionStorage.setItem("startDate", startDate);
-    sessionStorage.setItem("endDate", endDate);
+    sessionStorage.setItem("dariTanggalJadwalKedatangan", startDate)
+    sessionStorage.setItem("sampaiTanggalJadwalKedatangan", endDate)
+    sessionStorage.setItem("codeColumnSearchJadwalKedatangan", Code)
+    sessionStorage.setItem("valueColumnSearchJadwalKedatangan", ValueSearch)
+    sessionStorage.setItem("cabangJadwalKedatangan", MMCode)
+    sessionStorage.setItem("startDate", startDate)
+    sessionStorage.setItem("endDate", endDate)
 
-    setViewValue(localStorage.getItem("username"));
-    setViewBy(localStorage.getItem("id"));
+    setViewValue(localStorage.getItem("username"))
+    setViewBy(localStorage.getItem("id"))
 
     const deleteSelected = () => {
-      var table = document.getElementById("table");
-      oldindex = "";
+      var table = document.getElementById("table")
+      oldindex = ""
 
       for (var i = 1; i < table?.rows?.length; i++) {
-        table.rows[i].classList.remove("selected");
-        table.rows[i].cells[0].classList.remove("arrowright");
+        table.rows[i].classList.remove("selected")
+        table.rows[i].cells[0].classList.remove("arrowright")
       }
-    };
+    }
 
-    deleteSelected();
-    fetchData();
-  }, [startDate, endDate, Code, ValueSearch, MMCode, Outstanding]);
+    deleteSelected()
+    fetchData()
+  }, [startDate, endDate, Code, ValueSearch, MMCode, Outstanding])
 
   return (
     <>
@@ -138,7 +137,14 @@ const JadwalKedatangan = () => {
                 {/* <!-- End Accordion --> */}
 
                 {/* <!-- Table --> */}
-                <div className="px-3" style={{ maxWidth: "100%", overflow: "auto", maxHeight: "30vh" }}>
+                <div
+                  className="px-3"
+                  style={{
+                    maxWidth: "100%",
+                    overflow: "auto",
+                    maxHeight: "30vh",
+                  }}
+                >
                   <table className="divide-gray-200 dark:divide-gray-700">
                     <thead className="sticky top-0 bg-gray-50 dark:bg-slate-900">
                       <tr>
@@ -239,7 +245,7 @@ const JadwalKedatangan = () => {
                         data.map((item, idx) => {
                           return (
                             <tr
-                              key={"jdwl"+idx}
+                              key={"jdwl" + idx}
                               className="even:bg-white odd:bg-[#C0C0FD] dark:odd:bg-slate-900 dark:even:bg-slate-800"
                               onClick={() => setDetail(item)}
                             >
@@ -328,7 +334,7 @@ const JadwalKedatangan = () => {
                                 {item.pelabuhan_tujuan_akhir}
                               </td>
                             </tr>
-                          );
+                          )
                         })}
                     </tbody>
                   </table>
@@ -355,7 +361,7 @@ const JadwalKedatangan = () => {
         <Detail detail={detail} tipe={"jadwal"} />
       </div>
     </>
-  );
-};
+  )
+}
 
-export default JadwalKedatangan;
+export default JadwalKedatangan

@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react"
-import { getImageUrl } from "./../functions"
+import React, { useEffect, useRef, useState } from "react"
+import { getImageUrl, isEmptyNullOrUndefined } from "./../functions"
 import LogoImage from "./../assets/logo-hd.webp"
 import {
   postLogin,
@@ -21,6 +21,7 @@ const Login = () => {
   const regUserIdRef = useRef()
   const regEmailRef = useRef()
   const regHPRef = useRef()
+  const btnDaftarRef = useRef()
 
   function handleLogin(e) {
     e.preventDefault()
@@ -47,6 +48,12 @@ const Login = () => {
   const errorCount = useSelector((state) => state.Authentication.errorCount)
 
   const lsData = JSON.parse(localStorage.getItem("userData"))
+  
+  useEffect(() => {
+    if (!isEmptyNullOrUndefined(message)) {
+      btnDaftarRef.current.click()
+    }
+  }, [message])
 
   useEffect(() => {
     if (!isObjectEmpty(lsData)) {
@@ -54,9 +61,9 @@ const Login = () => {
     }
     if (token) {
       localStorage.setItem("token", token)
-      let dt = {...data};
-      dt.MMCode = dt.MMCode.replace(/\s/g, '')
-      dt.UserId = dt.UserId.replace(/\s/g, '')
+      let dt = { ...data }
+      dt.MMCode = dt.MMCode.replace(/\s/g, "")
+      dt.UserId = dt.UserId.replace(/\s/g, "")
       localStorage.setItem("userData", JSON.stringify(dt))
       if (token && data) {
         history.navigate("/")
@@ -371,6 +378,7 @@ const Login = () => {
                 className="text-blue-600 decoration-2 hover:underline font-medium"
                 href="#"
                 data-hs-overlay="#hs-focus-management-modal"
+                ref={btnDaftarRef}
               >
                 Daftar
               </a>
