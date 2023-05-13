@@ -45,13 +45,13 @@ export function* getDataCabang() {
       )
     } else {
       const UserData = JSON.parse(localStorage.getItem("userData"))
-      if (UserData.MMCode === "PST") {
-        var listCabang = res.data
-        listCabang.unshift({ FullName: "Please Select", MMCode: "" })
-        yield put(getDataCabangSuccess({ res: { data: listCabang } }))
-      } else {
+      // if (UserData.MMCode === "PST") {
+      //   var listCabang = res.data
+      //   listCabang.unshift({ FullName: "Please Select", MMCode: "" })
+      //   yield put(getDataCabangSuccess({ res: { data: listCabang } }))
+      // } else {
         yield put(getDataCabangSuccess({ res }))
-      }
+      // }
     }
   } catch (error) {
     yield put(getDataCabangFailure({ isError: 1, message: error }))

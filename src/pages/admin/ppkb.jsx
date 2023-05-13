@@ -177,6 +177,7 @@ const Ppkb = () => {
 
   useEffect(() => {
     // console.log("detail: ", detail)
+      setNomorPKK(detail?.nomor_pkk)
     if (Outstanding === 0 || Outstanding === "0") {
       setKeterangan(detail?.Keterangan)
 
@@ -187,11 +188,11 @@ const Ppkb = () => {
       setTglPPKB(detail?.TglPPKB)
       setTglRencana(detail?.TglRencana)
       setJamRencana(detail?.JamRencana)
-      setNomorPKK(detail?.nomor_pkk)
       setNoPPKB(detail?.NoPPKB)
       setOid(detail?.Oid)
       console.log("detail: ", detail)
     } else {
+      console.log("resetModal")
       resetModal()
     }
   }, [detail])
@@ -1401,6 +1402,11 @@ const Ppkb = () => {
   const handleDeleteDataPPKB = async () => {
     dispatch(deleteDataPPKB(`?NoPPKB=${noPPKB}`))
     fetchData()
+    if (isModalOpen) {
+      btnDetailRef.current.click()
+      setIsModalOpen(false)
+      resetModal()
+    } 
   }
 
   useEffect(() => {
@@ -1413,6 +1419,7 @@ const Ppkb = () => {
         dispatch(resetDataDetailPPKB())
       } else {
         dispatch(resetDataDetailPPK())
+        setNomorPKK("")
       }
       setKeterangan("")
       kegiatanRef.current.value = ""
@@ -1422,7 +1429,6 @@ const Ppkb = () => {
       setTglPPKB("")
       setTglRencana("")
       setJamRencana("")
-      setNomorPKK("")
       setNoPPKB("")
       setOid("")
     }
