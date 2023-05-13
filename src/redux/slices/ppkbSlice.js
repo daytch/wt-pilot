@@ -8,6 +8,7 @@ export const ppkbSlice = createSlice({
     dataHeaderPKK: [],
     dataDetailPKK: [],
     fillcombokegiatan: [],
+    fillComboAreaPandu: [],
     loading: false,
     error: "",
     message: "",
@@ -162,6 +163,22 @@ export const ppkbSlice = createSlice({
       state.isSuccess = false
     },
 
+    fillComboAreaPandu: (state) => {
+      state.loading = true
+    },
+    fillComboAreaPanduSuccess: (state, action) => {
+      
+      state.fillComboAreaPandu = action.payload.res.data
+      state.message = action.payload.message
+      state.loading = false
+      state.isSuccess = true
+    },
+    fillComboAreaPanduFailure: (state, action) => {
+      state.loading = false
+      state.error = action.payload.message
+      state.isSuccess = false
+    },
+
   },
 })
 
@@ -178,25 +195,36 @@ export const {
   postDataPPKB,
   postDataPPKBFailure,
   postDataPPKBSuccess,
+
   deleteDataPPKB,
   deleteDataPPKBFailure,
   deleteDataPPKBSuccess,
+
   deleteDetailPPKB,
   deleteDetailPPKBFailure,
   deleteDetailPPKBSuccess,
+
   getHeaderPKK,
   getHeaderPKKSuccess,
   getHeaderPKKFailure,
+
   getDetailPKK,
   getDetailPKKSuccess,
   getDetailPKKFailure,
+
   selectedRowHeaderPPKB,
   selectedRowHeaderPPK,
   resetDataDetailPPKB,
   resetDataDetailPPK,
+
   fillComboKegiatan,
   fillComboKegiatanSuccess,
   fillComboKegiatanFailure,
+
+  fillComboAreaPandu,
+  fillComboAreaPanduSuccess,
+  fillComboAreaPanduFailure,
+
 } = ppkbSlice.actions
 
 export default ppkbSlice.reducer

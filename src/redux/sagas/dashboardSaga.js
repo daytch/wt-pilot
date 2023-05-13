@@ -7,6 +7,10 @@ import {
   getDataFailure,
   getDataCabangFailure,
   getDataCabangSuccess,
+
+  // getDataCabangWebFailure,
+  // getDataCabangWebSuccess,
+
   getDataSalesOrderFailure,
   getDataSalesOrderSuccess,
   getDataRealisasiPanduFailure,
@@ -44,10 +48,40 @@ export function* getDataCabang() {
         })
       );
     } else {
-      yield put(getDataCabangSuccess({ res }));
+      // yield put(getDataCabangSuccess({ res }));
+
+      // const UserData = JSON.parse(localStorage.getItem("userData"))
+      // if (UserData.MMCode === "PST") {
+      //   var listCabang = res.data
+      //   listCabang.unshift({ FullName: "Please Select", MMCode: "" })
+      //   yield put(getDataCabangSuccess({ res: { data: listCabang } }))
+      // } else {
+        yield put(getDataCabangSuccess({ res }))
+      // }
     }
+
+    // }
   } catch (error) {
     yield put(getDataCabangFailure({ isError: 1, message: error }));
+  }
+}
+
+export function* getDataCabangWeb() {
+  try {
+    const res = yield call(GET, URL.GET_CABANG_WEB);
+
+    if (!res) {
+      yield put(
+        getDataCabangwebFailure({
+          isError: 1,
+          message: res.ErrorMessage,
+        })
+      );
+    } else {
+      yield put(getDataCabangwebSuccess({ res }));
+    }
+  } catch (error) {
+    yield put(getDataCabangwebFailure({ isError: 1, message: error }));
   }
 }
 

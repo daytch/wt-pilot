@@ -31,7 +31,10 @@ const RealisasiPemanduan = () => {
   const dariPihak = UserData.UserType
   const UserLogin = UserData.UserId
   const UserType = UserData.UserType
-  const [MMCode, setMMCode] = useState(UserData.MMCode)
+  // const [MMCode, setMMCode] = useState(UserData.MMCode)
+  const [MMCode, setMMCode] = useState(
+    UserData.MMCode === "PST" ? "" : UserData.MMCode
+  )
   const [Outstanding, setOutstanding] = useState("")
   const [Code, setCode] = useState(
     sessionStorage.getItem("codeColumnSearchRealisasiPemanduan") ?? ""
@@ -66,7 +69,7 @@ const RealisasiPemanduan = () => {
     }&UserType=${!isEmptyNullOrUndefined(UserType) ? UserType : ""} 
       &LoginUserId=${!isEmptyNullOrUndefined(UserLogin) ? UserLogin : ""}`
 
-    debugger
+    // debugger
     dispatch(getDataLaporan(url))
   }
 
@@ -190,6 +193,14 @@ const RealisasiPemanduan = () => {
                         >
                           no.
                         </th>
+
+                        <th
+                          rowSpan={3}
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
+                        >
+                          nomor pkk
+                        </th>
+
                         <th
                           rowSpan={3}
                           className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
@@ -337,12 +348,21 @@ const RealisasiPemanduan = () => {
                               >
                                 {idx + 1}
                               </td>
+
+                              <td
+                                className="border px-2 border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                              >
+                                {item.nomor_pkk}
+                              </td>
+
                               <td
                                 className="border px-2 border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 {item.NamaKapal}
                               </td>
+
                               <td
                                 className="border text-center px-2 border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"

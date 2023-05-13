@@ -167,6 +167,11 @@ export const {
   getDataCabang,
   getDataCabangFailure,
   getDataCabangSuccess,
+
+  getDataCabangWeb,
+  getDataCabangWebFailure,
+  getDataCabangWebSuccess,
+
   getDataSalesOrder,
   getDataSalesOrderFailure,
   getDataSalesOrderSuccess,

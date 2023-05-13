@@ -19,8 +19,13 @@ import {
   deleteDataPPKBSuccess,
   deleteDetailPPKBFailure,
   deleteDetailPPKBSuccess,
+
   fillComboKegiatanFailure,
   fillComboKegiatanSuccess,
+
+  fillComboAreaPanduSuccess,
+  fillComboAreaPanduFailure,
+
 } from "../slices/ppkbSlice"
 import { history } from "../../helpers/history"
 
@@ -232,6 +237,27 @@ export function* fillComboKegiatan() {
   }
 }
 
+export function* fillComboAreaPandu(action){//(strMMode, strValueSearch) {
+  try { 
+    debugger
+    const res = yield call(GET, URL.FILL_COMBO_AREA_PANDU + "?MMCode=" + action.payload.MMCode + "&ValueSearch = " + action.payload.ValueSearch)
+    
+    if (!res) {
+      yield put(
+        fillComboAreaPanduFailure({
+          isError: 1,
+          message: res.ErrorMessage,
+        })
+      )
+    } else {
+      yield put(fillComboAreaPanduSuccess({ res }))
+    }
+  } catch (error) {
+    yield put(fillComboAreaPanduFailure({ isError: 1, message: error }))
+  }
+}
+
+
 export default function* rootSaga() {
   yield all([
     // takeEvery("PPKB/getHeaderPPKB", getHeaderPPKB),
@@ -243,5 +269,6 @@ export default function* rootSaga() {
     takeEvery("PPKB/deleteDataPPKB", deleteDataPPKB),
     takeEvery("PPKB/deleteDetailPPKB", deleteDetailPPKB),
     takeEvery("PPKB/fillComboKegiatan", fillComboKegiatan),
+    takeEvery("PPKB/fillComboAreaPandu", fillComboAreaPandu),
   ])
 }

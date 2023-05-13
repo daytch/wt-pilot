@@ -368,10 +368,10 @@ const Detail = (props) => {
                 <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                   <tr className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
                     <td className="px-3 py-0 text-center text-[10px] capitalized bg-blue-200 border-black border whitespace-nowrap">
-                      No BPJS
+                      Nomor PKK
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {/* {detail?.NoBPJP} */}
+                      {detail?.nomor_pkk}
                     </td>
                   </tr>
                   <tr>
@@ -479,7 +479,7 @@ const Detail = (props) => {
                       Tipe Kapal
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {/* {detail?.TypeKapal} */}
+                      {detail?.TypeKapal}
                     </td>
                   </tr>
                   <tr>
@@ -589,7 +589,7 @@ const Detail = (props) => {
                       Waktu Selesai
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {detail?.pelabuhan_tujuan_akhir}
+                      {/* {detail?.pelabuhan_tujuan_akhir} */}
                     </td>
                   </tr>
                   <tr>
@@ -597,7 +597,7 @@ const Detail = (props) => {
                       Jam
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {detail?.pelabuhan_tujuan_akhir}
+                      {/* {detail?.pelabuhan_tujuan_akhir} */}
                     </td>
                   </tr>
                 </tbody>

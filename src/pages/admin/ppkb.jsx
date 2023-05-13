@@ -29,6 +29,7 @@ import RightChevron from "../../assets/right-chevron.png"
 import { ErrorMessage, SuccessMessage } from "../../components/Notification"
 import ComboKegiatan from "../../components/ComboKegiatan.jsx"
 import Datepicker from "../../components/Datepicker.jsx"
+import ComboAreaPandu from "../../components/ComboAreaPandu.jsx"
 
 const Ppkb = () => {
   const dispatch = useDispatch()
@@ -47,7 +48,10 @@ const Ppkb = () => {
   const dariPihak = UserData.UserType
   const UserLogin = UserData.UserId
   const UserType = UserData.UserType
-  const [MMCode, setMMCode] = useState(UserData.MMCode)
+  // const [MMCode, setMMCode] = useState(UserData.MMCode)
+  const [MMCode, setMMCode] = useState(
+    UserData.MMCode === "PST" ? "" : UserData.MMCode
+  )
   const [Outstanding, setOutstanding] = useState("0")
   const [Code, setCode] = useState("")
   const [ValueSearch, setValueSearch] = useState("")
@@ -74,11 +78,13 @@ const Ppkb = () => {
   const tglRencanaRef = useRef()
   const jamRencanaRef = useRef()
   const tglPPKBRef = useRef()
+  const areaPanduRef = useRef()
   const kegiatanRef = useRef()
 
   const [keterangan, setKeterangan] = useState("")
   const [kodekegiatan, setKodeKegiatan] = useState("")
   const [kegiatan, setKegiatan] = useState("")
+  const [kodelokasi, setKodeLokasi] = useState("")
   const [lokasi, setLokasi] = useState("")
   const [tglPPKB, setTglPPKB] = useState(new Date())
   const [tglRencana, setTglRencana] = useState(new Date())
@@ -177,17 +183,19 @@ const Ppkb = () => {
 
   useEffect(() => {
     // console.log("detail: ", detail)
+    setNomorPKK(detail?.nomor_pkk)
     if (Outstanding === 0 || Outstanding === "0") {
       setKeterangan(detail?.Keterangan)
 
+      areaPanduRef.current.value = detail?.Kode_Lokasi
       kegiatanRef.current.value = detail?.Kode_Kegiatan
+      setKodeLokasi(detail?.Kode_Lokasi)
       setLokasi(detail?.Lokasi)
       setKodeKegiatan(detail?.Kode_Kegiatan)
       setKegiatan(detail?.Kegiatan)
       setTglPPKB(detail?.TglPPKB)
       setTglRencana(detail?.TglRencana)
       setJamRencana(detail?.JamRencana)
-      setNomorPKK(detail?.nomor_pkk)
       setNoPPKB(detail?.NoPPKB)
       setOid(detail?.Oid)
       console.log("detail: ", detail)
@@ -1342,13 +1350,17 @@ const Ppkb = () => {
     const tb = handleDateAPI(
       new Date(+tbString[2], tbString[1] - 1, +tbString[0])
     )
+
+    const kode_lokasi = areaPanduRef.current.value
+    const lokasi = areaPanduRef.current.selectedOptions[0].text
+
     const kode_kegiatan = kegiatanRef.current.value
     const keg = kegiatanRef.current.selectedOptions[0].text
 
     allRKBM.forEach(async (e) => {
       const url = `?NomorPKK=${nomorPKK}&NoPPKB=${
         noPPKB ? noPPKB : ""
-      }&TglPPKB=${tb}&NoRKBM_Oid=${e}&TglRencana=${tr}&JamRencana=${jr}&Lokasi=${lokasi}&Kegiatan=${keg}&Kode_Kegiatan=${kode_kegiatan}&Keterangan=${
+      }&TglPPKB=${tb}&NoRKBM_Oid=${e}&TglRencana=${tr}&JamRencana=${jr}&Lokasi=${lokasi}&Kode_Lokasi-${kode_lokasi}&Kegiatan=${keg}&Kode_Kegiatan=${kode_kegiatan}&Keterangan=${
         isEmptyNullOrUndefined(keterangan) ? "" : keterangan
       }&UserId=${UserLogin}`
       dispatch(postDataPPKB(url))
@@ -1377,11 +1389,15 @@ const Ppkb = () => {
     const tb = handleDateAPI(
       new Date(+tbString[2], tbString[1] - 1, +tbString[0])
     )
+
+    const lokasiId = areaPanduRef.current.value
+    const lokasiText = areaPanduRef.current.selectedOptions[0].text
+
     const kegId = kegiatanRef.current.value
     const kegText = kegiatanRef.current.selectedOptions[0].text
 
     allRKBM.forEach(async (e) => {
-      const urledit = `?NomorPKK=${nomorPKK}&NoPPKB=${noPPKB}&TglPPKB=${tb}&NoRKBM_Oid=${e}&TglRencana=${tr}&JamRencana=${jr}&Lokasi=${lokasi}&Kode_Kegiatan=${kegId}&Kegiatan=${kegText}&Keterangan=${
+      const urledit = `?NomorPKK=${nomorPKK}&NoPPKB=${noPPKB}&TglPPKB=${tb}&NoRKBM_Oid=${e}&TglRencana=${tr}&JamRencana=${jr}&Kode_Lokasi=${lokasiId}&Lokasi=${lokasiText}&Kode_Kegiatan=${kegId}&Kegiatan=${kegText}&Keterangan=${
         isEmptyNullOrUndefined(keterangan) ? "" : keterangan
       }&UserId=${UserLogin}`
       dispatch(postDataPPKB(urledit))
@@ -1401,6 +1417,11 @@ const Ppkb = () => {
   const handleDeleteDataPPKB = async () => {
     dispatch(deleteDataPPKB(`?NoPPKB=${noPPKB}`))
     fetchData()
+    if (isModalOpen) {
+      btnDetailRef.current.click()
+      setIsModalOpen(false)
+      resetModal()
+    }
   }
 
   useEffect(() => {
@@ -1412,22 +1433,24 @@ const Ppkb = () => {
       if (Outstanding === "1" || Outstanding === 1) {
         dispatch(resetDataDetailPPKB())
       } else {
+        setNomorPKK("")
         dispatch(resetDataDetailPPK())
       }
       setKeterangan("")
+      areaPanduRef.current.value = ""
       kegiatanRef.current.value = ""
+      setKodeLokasi("")
       setLokasi("")
       setKodeKegiatan("")
       setKegiatan("")
       setTglPPKB("")
       setTglRencana("")
       setJamRencana("")
-      setNomorPKK("")
       setNoPPKB("")
       setOid("")
     }
   }
-
+  console.log("MMCode: ", MMCode)
   return (
     <>
       <div className="max-w-[85rem] py-3 mx-auto">
@@ -1654,7 +1677,7 @@ const Ppkb = () => {
                             Lokasi
                           </label>
                           <div className="relative">
-                            <input
+                            {/* <input
                               type="text"
                               id="lokasi"
                               name="lokasi"
@@ -1662,6 +1685,12 @@ const Ppkb = () => {
                               className="py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
                               onChange={(e) => setLokasi(e.target.value)}
                               value={lokasi}
+                            /> */}
+                            <ComboAreaPandu
+                              MMCode={MMCode}
+                              areaPanduRef={areaPanduRef}
+                              kodelokasi={kodelokasi}
+                              setKodeLokasi={setKodeLokasi}
                             />
                           </div>
                         </div>
