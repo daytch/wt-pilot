@@ -24,6 +24,7 @@ export const URL = {
   DELETE_PPKB: "post-deletedatappkb",
   GET_PNBP_REPORT: "get-laporanpnbp",
   POST_PPKB: "post-insertgetppkb",
+  POST_PPKB_WEB: "post-insertgetppkbWeb",
   REGISTER: "post-userregistrasi",
   CHECK_USER_REGISTRASION: "post-checkuserregistrasi",
   SAVE_USER_REGISTRASION: "post-saveuserregistrasi",
@@ -32,5 +33,6 @@ export const URL = {
   DELETE_DETAIL_RKBM: "post-deletedetilrkbmppkb",
   FILL_COMBO_KEGIATAN: "get-combodatagerakaninaportnet",
   FILL_COMBO_AREA_PANDU: "get-comboareapanduWeb",
+  FILL_COMBO_PKK_TONGKANG: "get-combopkktongkangWeb",
 }
 export const timeOut = 10 // in minutes

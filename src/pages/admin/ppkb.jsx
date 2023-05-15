@@ -30,6 +30,8 @@ import { ErrorMessage, SuccessMessage } from "../../components/Notification"
 import ComboKegiatan from "../../components/ComboKegiatan.jsx"
 import Datepicker from "../../components/Datepicker.jsx"
 import ComboAreaPandu from "../../components/ComboAreaPandu.jsx"
+// import ComboNomorPKKTongkang from "../../components/ComboNomorPKKTongkang.jsx"
+import ComboNomorPKKTongkang from "../../components/ComboNomorPKKTongkang.jsx"
 
 const Ppkb = () => {
   const dispatch = useDispatch()
@@ -80,16 +82,26 @@ const Ppkb = () => {
   const tglPPKBRef = useRef()
   const areaPanduRef = useRef()
   const kegiatanRef = useRef()
+  const NomorPKKTongkangRef = useRef()
 
+  const [nomorPKK, setNomorPKK] = useState("")
+  const [nomorPKKTongkang, setNomorPKKTongkang] = useState("")
+  const [nomorRKBMBongkar, setNomorRKBMBongkar] = useState("")
+  const [nomorRKBMuat, setNomorRKBMMuat] = useState("")
+  const [nama_kapal, setNamaKapal] = useState("")
+  const [nama_tongkang, setNamaTongkang] = useState("")
+  const [nama_nahkoda, setNamaNahkoda] = useState("")
   const [keterangan, setKeterangan] = useState("")
   const [kodekegiatan, setKodeKegiatan] = useState("")
   const [kegiatan, setKegiatan] = useState("")
   const [kodelokasi, setKodeLokasi] = useState("")
   const [lokasi, setLokasi] = useState("")
+  const [RKBMBongkar, setRKBMBongkar] = useState("")
+  const [RKBMMuat, setRKBMMuat] = useState("")
   const [tglPPKB, setTglPPKB] = useState(new Date())
   const [tglRencana, setTglRencana] = useState(new Date())
   const [jamRencana, setJamRencana] = useState(new Date())
-  const [nomorPKK, setNomorPKK] = useState("")
+
   const [noPPKB, setNoPPKB] = useState("")
   const [oid, setOid] = useState("")
 
@@ -181,14 +193,23 @@ const Ppkb = () => {
     }
   }
 
+  console.log("nomorPKK (ppkb.jsx):", nomorPKK)
+
   useEffect(() => {
     // console.log("detail: ", detail)
     setNomorPKK(detail?.nomor_pkk)
     if (Outstanding === 0 || Outstanding === "0") {
       setKeterangan(detail?.Keterangan)
 
-      areaPanduRef.current.value = detail?.Kode_Lokasi
+      NomorPKKTongkangRef.current.value = detail?.nomorPKKTongkang
       kegiatanRef.current.value = detail?.Kode_Kegiatan
+      areaPanduRef.current.value = detail?.Kode_Lokasi
+      setNomorPKKTongkang(detail?.nama_pkk_tongkang)
+      setNomorRKBMBongkar(detail?.nomor_rkbm_bongkar)
+      setNomorRKBMMuat(detail?.nomor_rkbm_muat)
+      setNamaKapal(detail?.nama_kapal)
+      setNamaTongkang(detail?.nama_tongkang)
+      setNamaNahkoda(detail?.nama_nahkoda)
       setKodeLokasi(detail?.Kode_Lokasi)
       setLokasi(detail?.Lokasi)
       setKodeKegiatan(detail?.Kode_Kegiatan)
@@ -1450,7 +1471,7 @@ const Ppkb = () => {
       setOid("")
     }
   }
-  console.log("MMCode: ", MMCode)
+
   return (
     <>
       <div className="max-w-[85rem] py-3 mx-auto">
@@ -1506,8 +1527,8 @@ const Ppkb = () => {
             <div className="flex justify-between items-center w-[80vw] flex-col bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700">
               <div className="flex justify-between w-[80vw] items-center py-1 px-2 border-b dark:border-gray-700">
                 <h3 className="font-bold text-gray-800 dark:text-gray-200">
-                  Permintaan Pelayanan Kapal dan Barang (modus{" "}
-                  {Outstanding === 1 ? "tambah" : "ubah"}).
+                  Permintaan Pelayanan Kapal dan Barang (MODUS{" "}
+                  {Outstanding === 1 ? "TAMBAH" : "UBAH"}).
                 </h3>
                 <button
                   type="button"
@@ -1606,12 +1627,13 @@ const Ppkb = () => {
                               compRef={tglPPKBRef}
                             />
                           </div>
+
                           <div>
                             <label
                               htmlFor="no_pkk"
                               className="block text-[10px] mb-2 dark:text-white"
                             >
-                              Nomor PKK
+                              Nomor PKK Kapal
                             </label>
                             <div className="relative">
                               <input
@@ -1626,8 +1648,119 @@ const Ppkb = () => {
                               />
                             </div>
                           </div>
-                        </div>
 
+                          <div className="grid md:grid-cols-2 gap-2">
+                            <label
+                              htmlFor="nama_kapal"
+                              className="block text-[10px] mb-2 dark:text-white"
+                            >
+                              Nama Kapal
+                            </label>
+
+                            {/* <div className="relative"> */}
+                            <input
+                              type="text"
+                              id="nama_kapal"
+                              name="nama_kapal"
+                              // placeholder="Nama Kapal"
+                              onChange={(e) => nama_kapal(e.target.value)}
+                              className="disabled:bg-gray-300 py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+                              disabled
+                              defaultValue={nama_kapal}
+                            />
+
+                            <label
+                              htmlFor="nama_kapal"
+                              className="block text-[10px] mb-2 dark:text-white"
+                            >
+                              Nama Tongkang
+                            </label>
+
+                            {/* <div className="relative"> */}
+                            <input
+                              type="text"
+                              id="nama_tongkang"
+                              name="nama_tongkang"
+                              // placeholder="Nama Tongkang"
+                              onChange={(e) => nama_tongkang(e.target.value)}
+                              className="disabled:bg-gray-300 py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+                              disabled
+                              defaultValue={nama_tongkang}
+                            />
+
+                            <label
+                              htmlFor="nama_nahkoda"
+                              className="block text-[10px] mb-2 dark:text-white"
+                            >
+                              Nama Nahkoda
+                            </label>
+
+                            {/* <div className="relative"> */}
+                            <input
+                              type="text"
+                              id="nama_nahkoda"
+                              name="nama_nahkoda"
+                              // placeholder="Nama Tongkang"
+                              onChange={(e) => nama_nahkoda(e.target.value)}
+                              className="disabled:bg-gray-300 py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+                              disabled
+                              defaultValue={nama_nahkoda}
+                            />
+                          </div>
+
+                          <div className="grid md:grid-cols-2 gap-2">
+                            <label
+                              htmlFor="nama_nahkoda"
+                              className="block text-[10px] mb-2 dark:text-white"
+                            >
+                              Nomor PKK Tongkang
+                            </label>
+
+                            <div className="relative">
+                              <ComboNomorPKKTongkang
+                                MMCode={MMCode}
+                                NomorPKKSelected={nomorPKK}
+                                NomorPKKTongkangRef={NomorPKKTongkangRef}
+                                nomorPKKTongkang={nomorPKKTongkang}
+                                setNomorPKKTongkang={setNomorPKKTongkang}
+                              />
+                            </div>
+
+                            <label
+                              htmlFor="rkbm_bongkar"
+                              className="block text-[10px] mb-2 dark:text-white"
+                            >
+                              No. RKBM Bongkar
+                            </label>
+                            <input
+                              type="text"
+                              id="rkbm_bongkar"
+                              name="rkbm_bongkar"
+                              // placeholder="Nama Kapal"
+                              onChange={(e) => setRKBMBongkar(e.target.value)}
+                              className="disabled:bg-gray-300 py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+                              // disabled
+                              defaultValue={RKBMBongkar}
+                            />
+
+                            <label
+                              htmlFor="rkbm_muat"
+                              className="block text-[10px] mb-2 dark:text-white"
+                            >
+                              No. RKBM Muat
+                            </label>
+                            <input
+                              type="text"
+                              id="rkbm_muat"
+                              name="rkbm_muat"
+                              // placeholder="Nama Kapal"
+                              onChange={(e) => setRKBMMuat(e.target.value)}
+                              className="disabled:bg-gray-300 py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+                              // disabled
+                              defaultValue={RKBMMuat}
+                            />
+                          </div>
+                        </div>
                         <div className="grid md:grid-cols-2 gap-2">
                           <div>
                             <label
@@ -1648,9 +1781,10 @@ const Ppkb = () => {
                               compRef={tglRencanaRef}
                             />
                           </div>
+
                           <div>
                             <label
-                              htmlFor="email"
+                              htmlFor="JamRencana"
                               className="block text-[10px] mb-2 dark:text-white"
                             >
                               Jam Rencana
@@ -1671,21 +1805,29 @@ const Ppkb = () => {
 
                         <div>
                           <label
+                            htmlFor="kegiatan"
+                            className="block text-[10px] mb-2 dark:text-white"
+                          >
+                            Kegiatan
+                          </label>
+                          <div className="relative">
+                            <ComboKegiatan
+                              MMCode={MMCode}
+                              kegiatanRef={kegiatanRef}
+                              kodekegiatan={kodekegiatan}
+                              setKodeKegiatan={setKodeKegiatan}
+                            />
+                          </div>
+                        </div>
+
+                        <div>
+                          <label
                             htmlFor="lokasi"
                             className="block text-[10px] mb-2 dark:text-white"
                           >
                             Lokasi
                           </label>
                           <div className="relative">
-                            {/* <input
-                              type="text"
-                              id="lokasi"
-                              name="lokasi"
-                              placeholder="Lokasi"
-                              className="py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                              onChange={(e) => setLokasi(e.target.value)}
-                              value={lokasi}
-                            /> */}
                             <ComboAreaPandu
                               MMCode={MMCode}
                               areaPanduRef={areaPanduRef}
@@ -1694,21 +1836,7 @@ const Ppkb = () => {
                             />
                           </div>
                         </div>
-                        <div>
-                          <label
-                            htmlFor="kegiatan"
-                            className="block text-[10px] mb-2 dark:text-white"
-                          >
-                            Kegiatan
-                          </label>
-                          <div className="relative">
-                            <ComboKegiatan
-                              kegiatanRef={kegiatanRef}
-                              kodekegiatan={kodekegiatan}
-                              setKodeKegiatan={setKodeKegiatan}
-                            />
-                          </div>
-                        </div>
+
                         <div>
                           <label
                             htmlFor="keterangan"

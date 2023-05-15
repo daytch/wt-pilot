@@ -26,6 +26,9 @@ import {
   fillComboAreaPanduSuccess,
   fillComboAreaPanduFailure,
 
+  fillComboNomorPKKTongkangSuccess,
+  fillComboNomorPKKTongkangFailure,
+
 } from "../slices/ppkbSlice"
 import { history } from "../../helpers/history"
 
@@ -239,7 +242,7 @@ export function* fillComboKegiatan() {
 
 export function* fillComboAreaPandu(action){//(strMMode, strValueSearch) {
   try { 
-    debugger
+    // debugger
     const res = yield call(GET, URL.FILL_COMBO_AREA_PANDU + "?MMCode=" + action.payload.MMCode + "&ValueSearch = " + action.payload.ValueSearch)
     
     if (!res) {
@@ -254,7 +257,32 @@ export function* fillComboAreaPandu(action){//(strMMode, strValueSearch) {
     }
   } catch (error) {
     yield put(fillComboAreaPanduFailure({ isError: 1, message: error }))
-  }
+  } 
+}
+
+  export function* fillComboNomorPKKTongkang(action){
+    try { 
+      // debugger
+      console.log(action)
+      const res = yield call(GET, URL.FILL_COMBO_PKK_TONGKANG + 
+                              "?MMCode=" +  action.payload.MMCode + 
+                              "&NomorPKKSelected = " + action.payload.NomorPKKSelected +
+                              "&ValueSearch = " + action.payload.ValueSearch
+                              )
+      
+      if (!res) {
+        yield put(
+          fillComboNomorPKKTongkangFailure({
+            isError: 1,
+            message: res.ErrorMessage,
+          })
+        )
+      } else {
+        yield put(fillComboNomorPKKTongkangSuccess({ res }))
+      }
+    } catch (error) {
+      yield put(fillComboNomorPKKTongkangFailure({ isError: 1, message: error }))
+    } 
 }
 
 
@@ -270,5 +298,6 @@ export default function* rootSaga() {
     takeEvery("PPKB/deleteDetailPPKB", deleteDetailPPKB),
     takeEvery("PPKB/fillComboKegiatan", fillComboKegiatan),
     takeEvery("PPKB/fillComboAreaPandu", fillComboAreaPandu),
+    takeEvery("PPKB/fillComboNomorPKKTongkang", fillComboNomorPKKTongkang),
   ])
 }

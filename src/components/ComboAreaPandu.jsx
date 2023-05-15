@@ -1,4 +1,5 @@
-import React,{useEffect} from "react"
+// import React from "react";
+import React, { useEffect } from "react"
 import PropTypes from "prop-types"
 import { fillComboAreaPandu } from "../redux/slices/ppkbSlice.js"
 import { useDispatch, useSelector } from "react-redux"
@@ -6,21 +7,22 @@ import { useEffectOnce } from "../functions/index.js"
 
 const ComboAreaPandu = (props) => {
   const dispatch = useDispatch()
+  // const {areaPanduRef,kodeAreaPandu,setKodeAreaPandu} = props
   const { MMCode, areaPanduRef, kodeAreaPandu, setKodeAreaPandu } = props
 
   // debugger
 
   // const [MMCode, setMMCode] = useState(
   //   UserData.MMCode === "PST" ? "" : UserData.MMCode  )
-  // const UserData = JSON.parse(localStorage.getItem("userData"))
-  // const MMCode = UserData.MMCode// "BPN"
+  // const MMCode = "BPN"
   const ValueSearch = ""
 
-  useEffectOnce(() => {
+  useEffect(() => {
     let payload = { MMCode: MMCode, ValueSearch: ValueSearch }
+
     dispatch(fillComboAreaPandu(payload))
     // dispatch(fillComboAreaPandu(MMCode,ValueSearch))
-  })
+  }, [])
 
   useEffect(() => {
     let payload = { MMCode: MMCode, ValueSearch: ValueSearch }

@@ -9,6 +9,7 @@ export const ppkbSlice = createSlice({
     dataDetailPKK: [],
     fillcombokegiatan: [],
     fillComboAreaPandu: [],
+    fillComboNomorPKKTongkang: [],
     loading: false,
     error: "",
     message: "",
@@ -179,6 +180,22 @@ export const ppkbSlice = createSlice({
       state.isSuccess = false
     },
 
+    fillComboNomorPKKTongkang: (state) => {
+      state.loading = true
+    },
+    fillComboNomorPKKTongkangSuccess: (state, action) => {
+      
+      state.fillComboNomorPKKTongkang = action.payload.res.data
+      state.message = action.payload.message
+      state.loading = false
+      state.isSuccess = true
+    },
+    fillComboNomorPKKTongkangFailure: (state, action) => {
+      state.loading = false
+      state.error = action.payload.message
+      state.isSuccess = false
+    },
+
   },
 })
 
@@ -224,6 +241,10 @@ export const {
   fillComboAreaPandu,
   fillComboAreaPanduSuccess,
   fillComboAreaPanduFailure,
+
+  fillComboNomorPKKTongkang,
+  fillComboNomorPKKTongkangSuccess,
+  fillComboNomorPKKTongkangFailure,
 
 } = ppkbSlice.actions
 
