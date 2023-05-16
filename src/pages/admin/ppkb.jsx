@@ -219,6 +219,8 @@ const Ppkb = () => {
       setJamRencana(detail?.JamRencana)
       setNoPPKB(detail?.NoPPKB)
       setOid(detail?.Oid)
+      setNamaKapal(detail?.nama_kapal)
+      setNamaNahkoda(detail?.nahkoda)
       console.log("detail: ", detail)
     } else {
       resetModal()
@@ -1585,7 +1587,112 @@ const Ppkb = () => {
                     </div>
                     <div className="grid gap-2">
                       <div className="grid gap-y-4">
-                        <div className="grid md:grid-cols-3 gap-2">
+                        <div className="grid md:grid-cols-2 gap-2">
+                          <div>
+                            <label
+                              htmlFor="no_pkk"
+                              className="block text-[10px] mb-2 dark:text-white"
+                            >
+                              Nomor PKK Kapal
+                            </label>
+                            <div className="relative">
+                              <input
+                                type="text"
+                                id="no_pkk"
+                                name="no_pkk"
+                                placeholder="Nomor PKK"
+                                onChange={(e) => nomorPKK(e.target.value)}
+                                className="disabled:bg-gray-300 py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+                                disabled
+                                defaultValue={nomorPKK}
+                              />
+                            </div>
+                          </div>
+
+                          <div>
+                            <label
+                              htmlFor="pkk_tongkang"
+                              className="block text-[10px] mb-2 dark:text-white"
+                            >
+                              Nomor PKK Tongkang
+                            </label>
+
+                            <ComboNomorPKKTongkang
+                              MMCode={MMCode}
+                              NomorPKKSelected={nomorPKK}
+                              NomorPKKTongkangRef={NomorPKKTongkangRef}
+                              nomorPKKTongkang={nomorPKKTongkang}
+                              setNomorPKKTongkang={setNomorPKKTongkang}
+                            />
+                          </div>
+
+                          <div>
+                            <label
+                              htmlFor="nama_kapal"
+                              className="block text-[10px] mb-2 dark:text-white"
+                            >
+                              Nama Kapal
+                            </label>
+
+                            {/* <div className="relative"> */}
+                            <input
+                              type="text"
+                              id="nama_kapal"
+                              name="nama_kapal"
+                              // placeholder="Nama Kapal"
+                              onChange={(e) => setNamaKapal(e.target.value)}
+                              className="disabled:bg-gray-300 py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+                              disabled
+                              value={nama_kapal}
+                            />
+                          </div>
+
+                          <div>
+                            <label
+                              htmlFor="nama_kapal"
+                              className="block text-[10px] mb-2 dark:text-white"
+                            >
+                              Nama Tongkang
+                            </label>
+
+                            {/* <div className="relative"> */}
+                            <input
+                              type="text"
+                              id="nama_tongkang"
+                              name="nama_tongkang"
+                              // placeholder="Nama Tongkang"
+                              onChange={(e) => nama_tongkang(e.target.value)}
+                              className="disabled:bg-gray-300 py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+                              disabled
+                              defaultValue={nama_tongkang}
+                            />
+                          </div>
+
+                          <div>
+                            <label
+                              htmlFor="nama_nahkoda"
+                              className="block text-[10px] mb-2 dark:text-white"
+                            >
+                              Nama Nahkoda
+                            </label>
+
+                            {/* <div className="relative"> */}
+                            <input
+                              type="text"
+                              id="nama_nahkoda"
+                              name="nama_nahkoda"
+                              // placeholder="Nama Tongkang"
+                              onChange={(e) => setNamaNahkoda(e.target.value)}
+                              className="disabled:bg-gray-300 py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+                              disabled
+                              value={nama_nahkoda}
+                            />
+                          </div>
+
+                          <div className="grid md:grid-cols-2 gap-2"></div>
+                        </div>
+<hr />
+                        <div className="grid md:grid-cols-2 gap-2">
                           <div>
                             <label
                               htmlFor="no_ppkb"
@@ -1608,6 +1715,26 @@ const Ppkb = () => {
                               />
                             </div>
                           </div>
+
+                          <div>
+                            <label
+                              htmlFor="rkbm_bongkar"
+                              className="block text-[10px] mb-2 dark:text-white"
+                            >
+                              No. RKBM Bongkar
+                            </label>
+                            <input
+                              type="text"
+                              id="rkbm_bongkar"
+                              name="rkbm_bongkar"
+                              // placeholder="Nama Kapal"
+                              onChange={(e) => setRKBMBongkar(e.target.value)}
+                              className="disabled:bg-gray-300 py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+                              // disabled
+                              defaultValue={RKBMBongkar}
+                            />
+                          </div>
+
                           <div>
                             <label
                               htmlFor="tgl_ppkb"
@@ -1630,120 +1757,6 @@ const Ppkb = () => {
 
                           <div>
                             <label
-                              htmlFor="no_pkk"
-                              className="block text-[10px] mb-2 dark:text-white"
-                            >
-                              Nomor PKK Kapal
-                            </label>
-                            <div className="relative">
-                              <input
-                                type="text"
-                                id="no_pkk"
-                                name="no_pkk"
-                                placeholder="Nomor PKK"
-                                onChange={(e) => nomorPKK(e.target.value)}
-                                className="disabled:bg-gray-300 py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                                disabled
-                                defaultValue={nomorPKK}
-                              />
-                            </div>
-                          </div>
-
-                          <div className="grid md:grid-cols-2 gap-2">
-                            <label
-                              htmlFor="nama_kapal"
-                              className="block text-[10px] mb-2 dark:text-white"
-                            >
-                              Nama Kapal
-                            </label>
-
-                            {/* <div className="relative"> */}
-                            <input
-                              type="text"
-                              id="nama_kapal"
-                              name="nama_kapal"
-                              // placeholder="Nama Kapal"
-                              onChange={(e) => nama_kapal(e.target.value)}
-                              className="disabled:bg-gray-300 py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                              disabled
-                              defaultValue={nama_kapal}
-                            />
-
-                            <label
-                              htmlFor="nama_kapal"
-                              className="block text-[10px] mb-2 dark:text-white"
-                            >
-                              Nama Tongkang
-                            </label>
-
-                            {/* <div className="relative"> */}
-                            <input
-                              type="text"
-                              id="nama_tongkang"
-                              name="nama_tongkang"
-                              // placeholder="Nama Tongkang"
-                              onChange={(e) => nama_tongkang(e.target.value)}
-                              className="disabled:bg-gray-300 py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                              disabled
-                              defaultValue={nama_tongkang}
-                            />
-
-                            <label
-                              htmlFor="nama_nahkoda"
-                              className="block text-[10px] mb-2 dark:text-white"
-                            >
-                              Nama Nahkoda
-                            </label>
-
-                            {/* <div className="relative"> */}
-                            <input
-                              type="text"
-                              id="nama_nahkoda"
-                              name="nama_nahkoda"
-                              // placeholder="Nama Tongkang"
-                              onChange={(e) => nama_nahkoda(e.target.value)}
-                              className="disabled:bg-gray-300 py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                              disabled
-                              defaultValue={nama_nahkoda}
-                            />
-                          </div>
-
-                          <div className="grid md:grid-cols-2 gap-2">
-                            <label
-                              htmlFor="nama_nahkoda"
-                              className="block text-[10px] mb-2 dark:text-white"
-                            >
-                              Nomor PKK Tongkang
-                            </label>
-
-                            <div className="relative">
-                              <ComboNomorPKKTongkang
-                                MMCode={MMCode}
-                                NomorPKKSelected={nomorPKK}
-                                NomorPKKTongkangRef={NomorPKKTongkangRef}
-                                nomorPKKTongkang={nomorPKKTongkang}
-                                setNomorPKKTongkang={setNomorPKKTongkang}
-                              />
-                            </div>
-
-                            <label
-                              htmlFor="rkbm_bongkar"
-                              className="block text-[10px] mb-2 dark:text-white"
-                            >
-                              No. RKBM Bongkar
-                            </label>
-                            <input
-                              type="text"
-                              id="rkbm_bongkar"
-                              name="rkbm_bongkar"
-                              // placeholder="Nama Kapal"
-                              onChange={(e) => setRKBMBongkar(e.target.value)}
-                              className="disabled:bg-gray-300 py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                              // disabled
-                              defaultValue={RKBMBongkar}
-                            />
-
-                            <label
                               htmlFor="rkbm_muat"
                               className="block text-[10px] mb-2 dark:text-white"
                             >
@@ -1760,48 +1773,49 @@ const Ppkb = () => {
                               defaultValue={RKBMMuat}
                             />
                           </div>
-                        </div>
-                        <div className="grid md:grid-cols-2 gap-2">
-                          <div>
-                            <label
-                              htmlFor="email"
-                              className="block text-[10px] mb-2 dark:text-white"
-                            >
-                              Tanggal Rencana
-                            </label>
+                          
+                        <div>
+                          <label
+                            htmlFor="email"
+                            className="block text-[10px] mb-2 dark:text-white"
+                          >
+                            Tanggal Rencana
+                          </label>
 
-                            <Datepicker
-                              tipe="date"
-                              onChange={(e) => setTglRencana(e)}
-                              id="tgl_rencana"
-                              name="tgl_rencana"
-                              selected={
-                                tglRencana ? new Date(tglRencana) : new Date()
-                              }
-                              compRef={tglRencanaRef}
-                            />
-                          </div>
-
-                          <div>
-                            <label
-                              htmlFor="JamRencana"
-                              className="block text-[10px] mb-2 dark:text-white"
-                            >
-                              Jam Rencana
-                            </label>
-                            <Datepicker
-                              tipe="time"
-                              compRef={jamRencanaRef}
-                              onChange={(e) => setJamRencana(e)}
-                              selected={
-                                jamRencana ? new Date(jamRencana) : new Date()
-                              }
-                              timeIntervals={15}
-                              timeCaption="Pilih Jam"
-                              dateFormat="HH:mm"
-                            />
-                          </div>
+                          <Datepicker
+                            tipe="date"
+                            onChange={(e) => setTglRencana(e)}
+                            id="tgl_rencana"
+                            name="tgl_rencana"
+                            selected={
+                              tglRencana ? new Date(tglRencana) : new Date()
+                            }
+                            compRef={tglRencanaRef}
+                          />
                         </div>
+
+                        <div>
+                          <label
+                            htmlFor="JamRencana"
+                            className="block text-[10px] mb-2 dark:text-white"
+                          >
+                            Jam Rencana
+                          </label>
+                          <Datepicker
+                            tipe="time"
+                            compRef={jamRencanaRef}
+                            onChange={(e) => setJamRencana(e)}
+                            selected={
+                              jamRencana ? new Date(jamRencana) : new Date()
+                            }
+                            timeIntervals={15}
+                            timeCaption="Pilih Jam"
+                            dateFormat="HH:mm"
+                          />
+                        </div>
+
+                        </div>
+<hr />
 
                         <div>
                           <label
