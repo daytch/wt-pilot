@@ -144,7 +144,7 @@ const RealisasiPemanduan = () => {
 
   const data = useSelector((state) => state.Realisasi.data)
   
-  console.log("data:", data)
+  // console.log("data:", data)
   return (
     <>
       <div className="max-w-[85rem] py-3 mx-auto">

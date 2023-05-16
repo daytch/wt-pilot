@@ -13,7 +13,8 @@ const ComboNomorPKKTongkang = (props) => {
     NomorPKKSelected,
     NomorPKKTongkangRef,
     NomorPKKTongkang,
-    setNomorPKKTongkang,
+    // setNomorPKKTongkang,
+    onChangePKKTongkang,
   } = props
   console.log("NomorPKKSelected:", NomorPKKSelected)
   const ValueSearch = ""
@@ -41,13 +42,14 @@ const ComboNomorPKKTongkang = (props) => {
   const dataListNomorPKKTongkang = useSelector(
     (state) => state.PPKB.fillComboNomorPKKTongkang
   )
-  console.log(dataListNomorPKKTongkang)
+  // console.log(dataListNomorPKKTongkang)
 
   return (
     <select
       value={NomorPKKTongkang}
       ref={NomorPKKTongkangRef}
-      onChange={(e) => setNomorPKKTongkang(e.target.value)}
+      // onChange={(e) => setNomorPKKTongkang(e.target.value)}
+      onChange={(e) => onChangePKKTongkang(e, dataListNomorPKKTongkang)}
       className="py-1 px-3 w-128 pr-6 block w-full disabled:bg-gray-300 bg-blue-100 border-gray-500 rounded-md text-xs focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
     >
       {dataListNomorPKKTongkang &&
@@ -65,7 +67,8 @@ ComboNomorPKKTongkang.propTypes = {
   NomorPKKSelected: PropTypes.string,
   NomorPKKTongkangRef: PropTypes.any,
   NomorPKKTongkang: PropTypes.string,
-  setNomorPKKTongkang: PropTypes.func,
+  // setNomorPKKTongkang: PropTypes.func,
+  onChangePKKTongkang: PropTypes.func,
 }
 
 export default ComboNomorPKKTongkang

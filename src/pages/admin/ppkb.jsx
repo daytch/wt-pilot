@@ -193,7 +193,7 @@ const Ppkb = () => {
     }
   }
 
-  console.log("nomorPKK (ppkb.jsx):", nomorPKK)
+  // console.log("nomorPKK (ppkb.jsx):", nomorPKK)
 
   useEffect(() => {
     // console.log("detail: ", detail)
@@ -221,7 +221,7 @@ const Ppkb = () => {
       setOid(detail?.Oid)
       setNamaKapal(detail?.nama_kapal)
       setNamaNahkoda(detail?.nahkoda)
-      console.log("detail: ", detail)
+      // console.log("detail: ", detail)
     } else {
       resetModal()
     }
@@ -1401,6 +1401,31 @@ const Ppkb = () => {
     }
   }
 
+  const handleSaveDataNew = () => {
+    var payload = {
+      NomorPKK: nomorPKK,
+      NoPPKB: noPPKB,
+      TglPPKB: tglPPKB,
+      NomorPKKTongkang: nomorPKKTongkang,
+      no_rkbm_bongkar: nomorRKBMBongkar,
+      no_rkbm_muat: nomorRKBMuat,
+      TglRencana: tglRencana,
+      JamRencana: jamRencana,
+      Kode_Lokasi: kodelokasi,
+      Lokasi: lokasi,
+      Kode_Kegiatan: kodekegiatan,
+      Kegiatan: kegiatan,
+      Keterangan: keterangan,
+      UserId: UserLogin,
+    }
+    dispatch(postDataPPKB(payload))
+    if (isModalOpen) {
+      btnDetailRef.current.click()
+      setIsModalOpen(false)
+      resetModal()
+    }
+  }
+
   const handleSaveData = () => {
     var trString = tglRencanaRef.current.input.value.split("-")
     var tbString = tglPPKBRef.current.input.value.split("-")
@@ -1474,6 +1499,20 @@ const Ppkb = () => {
     }
   }
 
+  const onChangePKKTongkang = (e, dataListNomorPKKTongkang) => {
+    const pkkTongkang = e.currentTarget.value
+    setNomorPKKTongkang(pkkTongkang)
+    var listPKKTongkang = dataListNomorPKKTongkang.filter(
+      (x) => x.MemberValue === pkkTongkang
+    )
+    let PKKTongkang = listPKKTongkang.length > 0 ? listPKKTongkang[0] : ""
+    if (PKKTongkang) {
+      setRKBMBongkar(PKKTongkang.no_rkbm_bongkar)
+      setRKBMMuat(PKKTongkang.no_rkbm_muat)
+      setNamaTongkang(PKKTongkang.nama_kapal_tongkang)
+    }
+  }
+
   return (
     <>
       <div className="max-w-[85rem] py-3 mx-auto">
@@ -1525,9 +1564,9 @@ const Ppkb = () => {
           id="hs-bg-gray-on-hover-cards1"
           className="hs-overlay hidden w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto"
         >
-          <div className="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all lg:w-[80vw] my-auto lg:mx-auto">
-            <div className="flex justify-between items-center w-[80vw] flex-col bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700">
-              <div className="flex justify-between w-[80vw] items-center py-1 px-2 border-b dark:border-gray-700">
+          <div className="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all lg:w-[60vw] my-auto lg:mx-auto">
+            <div className="flex justify-between items-center w-[60vw] flex-col bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700">
+              <div className="flex justify-between w-[60vw] items-center py-1 px-2 border-b dark:border-gray-700">
                 <h3 className="font-bold text-gray-800 dark:text-gray-200">
                   Permintaan Pelayanan Kapal dan Barang (MODUS{" "}
                   {Outstanding === 1 ? "TAMBAH" : "UBAH"}).
@@ -1558,8 +1597,8 @@ const Ppkb = () => {
                 </button>
               </div>
 
-              <div className="p-4 overflow-y-auto">
-                <div className="sm:divide-y divide-gray-200 dark:divide-gray-700">
+              <div className="flex w-full p-4 overflow-y-auto">
+                <div className="w-full sm:divide-y divide-gray-200 dark:divide-gray-700">
                   <div className="py-3 sm:py-6">
                     <div className="flex justify-end">
                       <div className="row" style={{ marginLeft: "5px" }}>
@@ -1604,7 +1643,7 @@ const Ppkb = () => {
                                 onChange={(e) => nomorPKK(e.target.value)}
                                 className="disabled:bg-gray-300 py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
                                 disabled
-                                defaultValue={nomorPKK}
+                                value={nomorPKK}
                               />
                             </div>
                           </div>
@@ -1623,6 +1662,7 @@ const Ppkb = () => {
                               NomorPKKTongkangRef={NomorPKKTongkangRef}
                               nomorPKKTongkang={nomorPKKTongkang}
                               setNomorPKKTongkang={setNomorPKKTongkang}
+                              onChangePKKTongkang={onChangePKKTongkang}
                             />
                           </div>
 
@@ -1664,7 +1704,7 @@ const Ppkb = () => {
                               onChange={(e) => nama_tongkang(e.target.value)}
                               className="disabled:bg-gray-300 py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
                               disabled
-                              defaultValue={nama_tongkang}
+                              value={nama_tongkang}
                             />
                           </div>
 
@@ -1691,7 +1731,7 @@ const Ppkb = () => {
 
                           <div className="grid md:grid-cols-2 gap-2"></div>
                         </div>
-<hr />
+                        <hr />
                         <div className="grid md:grid-cols-2 gap-2">
                           <div>
                             <label
@@ -1730,8 +1770,8 @@ const Ppkb = () => {
                               // placeholder="Nama Kapal"
                               onChange={(e) => setRKBMBongkar(e.target.value)}
                               className="disabled:bg-gray-300 py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                              // disabled
-                              defaultValue={RKBMBongkar}
+                              disabled
+                              value={RKBMBongkar}
                             />
                           </div>
 
@@ -1769,53 +1809,52 @@ const Ppkb = () => {
                               // placeholder="Nama Kapal"
                               onChange={(e) => setRKBMMuat(e.target.value)}
                               className="disabled:bg-gray-300 py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                              // disabled
-                              defaultValue={RKBMMuat}
+                              disabled
+                              value={RKBMMuat}
                             />
                           </div>
-                          
-                        <div>
-                          <label
-                            htmlFor="email"
-                            className="block text-[10px] mb-2 dark:text-white"
-                          >
-                            Tanggal Rencana
-                          </label>
 
-                          <Datepicker
-                            tipe="date"
-                            onChange={(e) => setTglRencana(e)}
-                            id="tgl_rencana"
-                            name="tgl_rencana"
-                            selected={
-                              tglRencana ? new Date(tglRencana) : new Date()
-                            }
-                            compRef={tglRencanaRef}
-                          />
-                        </div>
+                          <div>
+                            <label
+                              htmlFor="email"
+                              className="block text-[10px] mb-2 dark:text-white"
+                            >
+                              Tanggal Rencana
+                            </label>
 
-                        <div>
-                          <label
-                            htmlFor="JamRencana"
-                            className="block text-[10px] mb-2 dark:text-white"
-                          >
-                            Jam Rencana
-                          </label>
-                          <Datepicker
-                            tipe="time"
-                            compRef={jamRencanaRef}
-                            onChange={(e) => setJamRencana(e)}
-                            selected={
-                              jamRencana ? new Date(jamRencana) : new Date()
-                            }
-                            timeIntervals={15}
-                            timeCaption="Pilih Jam"
-                            dateFormat="HH:mm"
-                          />
-                        </div>
+                            <Datepicker
+                              tipe="date"
+                              onChange={(e) => setTglRencana(e)}
+                              id="tgl_rencana"
+                              name="tgl_rencana"
+                              selected={
+                                tglRencana ? new Date(tglRencana) : new Date()
+                              }
+                              compRef={tglRencanaRef}
+                            />
+                          </div>
 
+                          <div>
+                            <label
+                              htmlFor="JamRencana"
+                              className="block text-[10px] mb-2 dark:text-white"
+                            >
+                              Jam Rencana
+                            </label>
+                            <Datepicker
+                              tipe="time"
+                              compRef={jamRencanaRef}
+                              onChange={(e) => setJamRencana(e)}
+                              selected={
+                                jamRencana ? new Date(jamRencana) : new Date()
+                              }
+                              timeIntervals={15}
+                              timeCaption="Pilih Jam"
+                              dateFormat="HH:mm"
+                            />
+                          </div>
                         </div>
-<hr />
+                        <hr />
 
                         <div>
                           <label
@@ -1871,7 +1910,7 @@ const Ppkb = () => {
                           </div>
                         </div>
 
-                        <div className="overflow-x-auto">
+                        {/* <div className="overflow-x-auto">
                           <table className="text-[10px] min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                             <thead className="sticky top-0 bg-gray-50 dark:bg-slate-900">
                               <tr className="text-center">
@@ -1952,7 +1991,7 @@ const Ppkb = () => {
                               ? renderDetailModalPPKB()
                               : renderDetailModalPKK()}
                           </table>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>

@@ -263,11 +263,11 @@ export function* fillComboAreaPandu(action){//(strMMode, strValueSearch) {
   export function* fillComboNomorPKKTongkang(action){
     try { 
       // debugger
-      console.log(action)
+      // console.log(action)
       const res = yield call(GET, URL.FILL_COMBO_PKK_TONGKANG + 
                               "?MMCode=" +  action.payload.MMCode + 
-                              "&NomorPKKSelected = " + action.payload.NomorPKKSelected +
-                              "&ValueSearch = " + action.payload.ValueSearch
+                              "&NomorPKKSelected=" + action.payload.NomorPKKSelected +
+                              "&ValueSearch=" + action.payload.ValueSearch
                               )
       
       if (!res) {

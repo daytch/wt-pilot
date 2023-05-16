@@ -152,7 +152,6 @@ export const ppkbSlice = createSlice({
       state.loading = true
     },
     fillComboKegiatanSuccess: (state, action) => {
-      
       state.fillComboKegiatan = action.payload.res.data
       state.message = action.payload.message
       state.loading = false
@@ -167,9 +166,11 @@ export const ppkbSlice = createSlice({
     fillComboAreaPandu: (state) => {
       state.loading = true
     },
-    fillComboAreaPanduSuccess: (state, action) => {
-      
-      state.fillComboAreaPandu = action.payload.res.data
+    fillComboAreaPanduSuccess: (state, action) => { 
+      state.fillComboAreaPandu =
+        action.payload.res.data.length > 0
+          ? action.payload.res.data
+          : state.fillComboAreaPandu
       state.message = action.payload.message
       state.loading = false
       state.isSuccess = true
@@ -184,7 +185,6 @@ export const ppkbSlice = createSlice({
       state.loading = true
     },
     fillComboNomorPKKTongkangSuccess: (state, action) => {
-      
       state.fillComboNomorPKKTongkang = action.payload.res.data
       state.message = action.payload.message
       state.loading = false
@@ -195,7 +195,6 @@ export const ppkbSlice = createSlice({
       state.error = action.payload.message
       state.isSuccess = false
     },
-
   },
 })
 
@@ -245,7 +244,6 @@ export const {
   fillComboNomorPKKTongkang,
   fillComboNomorPKKTongkangSuccess,
   fillComboNomorPKKTongkangFailure,
-
 } = ppkbSlice.actions
 
 export default ppkbSlice.reducer

@@ -32,7 +32,7 @@ const ComboAreaPandu = (props) => {
   const dataListAreaPandu = useSelector(
     (state) => state.PPKB.fillComboAreaPandu
   )
-
+  
   return (
     <select
       value={kodeAreaPandu}
