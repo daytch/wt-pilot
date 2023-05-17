@@ -7,8 +7,8 @@ import { useEffectOnce } from "../functions/index.js"
 
 const ComboAreaPandu = (props) => {
   const dispatch = useDispatch()
-  // const {areaPanduRef,kodeAreaPandu,setKodeAreaPandu} = props
-  const { MMCode, areaPanduRef, kodeAreaPandu, setKodeAreaPandu } = props
+  // const {areaPanduRef,kodeAreaPandu,setKodeLokasi} = props
+  const { MMCode, areaPanduRef, kodeAreaPandu, setKodeLokasi } = props
 
   // debugger
 
@@ -37,7 +37,7 @@ const ComboAreaPandu = (props) => {
     <select
       value={kodeAreaPandu}
       ref={areaPanduRef}
-      onChange={(e) => setKodeAreaPandu(e.target.value)}
+      onChange={(e) => setKodeLokasi(e.target.value)}
       className="py-1 px-3 w-128 pr-6 block w-full disabled:bg-gray-300 bg-blue-100 border-gray-500 rounded-md text-xs focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
     >
       {dataListAreaPandu &&
@@ -54,7 +54,7 @@ ComboAreaPandu.propTypes = {
   MMCode: PropTypes.string,
   areaPanduRef: PropTypes.any,
   kodeAreaPandu: PropTypes.string,
-  setKodeAreaPandu: PropTypes.func,
+  setKodeLokasi: PropTypes.func,
 }
 
 export default ComboAreaPandu

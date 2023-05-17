@@ -1402,23 +1402,48 @@ const Ppkb = () => {
   }
 
   const handleSaveDataNew = () => {
+    var trString = tglRencanaRef.current.input.value.split("-")
+    var tbString = tglPPKBRef.current.input.value.split("-")
+
+    const tr = handleDateAPI(
+      new Date(+trString[2], trString[1] - 1, +trString[0])
+    )
+    const jr = jamRencanaRef.current.input.value
+    const tb = handleDateAPI(
+      new Date(+tbString[2], tbString[1] - 1, +tbString[0])
+    )
+
+    const kode_lokasi = areaPanduRef.current.value
+    const lokasi = areaPanduRef.current.selectedOptions[0].text
+
+    const kode_kegiatan = kegiatanRef.current.value
+    const keg = kegiatanRef.current.selectedOptions[0].text
+
     var payload = {
       NomorPKK: nomorPKK,
       NoPPKB: noPPKB,
-      TglPPKB: tglPPKB,
-      NomorPKKTongkang: nomorPKKTongkang,
-      no_rkbm_bongkar: nomorRKBMBongkar,
-      no_rkbm_muat: nomorRKBMuat,
-      TglRencana: tglRencana,
-      JamRencana: jamRencana,
-      Kode_Lokasi: kodelokasi,
+      // TglPPKB: tglPPKB,
+      TglPPKB: tb,
+      NomorPKKTongkang: nomorPKKTongkang ? nomorPKKTongkang : "",
+      no_rkbm_bongkar: nomorRKBMBongkar ? nomorRKBMBongkar : "",
+      no_rkbm_muat: nomorRKBMuat ? nomorRKBMuat : "",
+      TglRencana: tr,
+      JamRencana: jr,
+      Kode_Lokasi: kode_lokasi.replace(/\s/g, ""),
       Lokasi: lokasi,
-      Kode_Kegiatan: kodekegiatan,
-      Kegiatan: kegiatan,
+      // Kode_Kegiatan: kodekegiatan,
+      // Kegiatan: kegiatan,
+
+      Kode_Kegiatan: kode_kegiatan,
+      Kegiatan: keg,
+
       Keterangan: keterangan,
       UserId: UserLogin,
     }
-    dispatch(postDataPPKB(payload))
+    let urlParameters = Object.entries(payload)
+      .map((e) => e.join("="))
+      .join("&")
+    dispatch(postDataPPKB("?" + urlParameters))
     if (isModalOpen) {
       btnDetailRef.current.click()
       setIsModalOpen(false)
@@ -1604,13 +1629,14 @@ const Ppkb = () => {
                       <div className="row" style={{ marginLeft: "5px" }}>
                         <button
                           className="mr-3 py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-green-500 text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all text-[10px] dark:focus:ring-offset-gray-800"
-                          onClick={(e) => {
-                            if (Outstanding === 1) {
-                              handleSaveInputData(e)
-                            } else {
-                              handleSaveData(e)
-                            }
-                          }}
+                          // onClick={(e) => {
+                          //   if (Outstanding === 1) {
+                          //     handleSaveInputData(e)
+                          //   } else {
+                          //     handleSaveDataNew(e)
+                          //   }
+                          // }}
+                          onClick={handleSaveDataNew}
                         >
                           Simpan
                         </button>
