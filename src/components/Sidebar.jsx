@@ -172,8 +172,6 @@ const Sidebar = () => {
       localStorage.setItem("userData", JSON.stringify(data))
       if (token && data) {
         localStorage.setItem("isUserActive", true)
-        // btnReloginModalRef.current.click();
-        // history.navigate("/");
       }
     }
   }, [loadingA, data])
@@ -227,7 +225,6 @@ const Sidebar = () => {
     }
   }
   const [open, setOpen] = useState(true)
-  // const [tabOpen, setTabOpen] = useState(true)
   const [tabMenu, setTabMenu] = useState(
     localStorage.getItem("listTabMenu")
       ? JSON.parse(localStorage.getItem("listTabMenu"))

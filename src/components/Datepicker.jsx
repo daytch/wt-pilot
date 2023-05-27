@@ -1,5 +1,5 @@
 import React from "react";
-import proTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { CalendarDaysIcon, ClockIcon } from "@heroicons/react/24/outline"
 import DatePicker from "react-datepicker"
 
@@ -63,16 +63,16 @@ switch (tipe) {
 }
 }
 
-Datepicker.proTypes= {
-    tipe: proTypes.string,
-    dateFormat: proTypes.string,
-    placeholder: proTypes.string,
-    onChange: proTypes.func,
-    compRef: proTypes.any,
-    timeFormat: proTypes.string,
-    timeIntervals: proTypes.number,
-    timeCaption: proTypes.string,
-    selected: proTypes.any
+Datepicker.propTypes= {
+    tipe: PropTypes.string,
+    dateFormat: PropTypes.string,
+    placeholder: PropTypes.string,
+    onChange: PropTypes.func,
+    compRef: PropTypes.any,
+    timeFormat: PropTypes.string,
+    timeIntervals: PropTypes.number,
+    timeCaption: PropTypes.string,
+    selected: PropTypes.any
 }
 
 export default Datepicker

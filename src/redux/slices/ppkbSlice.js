@@ -50,13 +50,11 @@ export const ppkbSlice = createSlice({
     getHeaderPPKBWebSuccess: (state, action) => {
       state.dataHeaderPPKB = action.payload.res.data
       state.message = action.payload.message
-      state.loading = false
-      // state.isSuccess = true
+      state.loading = FontFaceSetLoadEvent
     },
     getHeaderPPKBWebFailure: (state, action) => {
       state.loading = false
       state.error = action.payload.message
-      // state.isSuccess = false
     },
 
     getDetailPPKB: (state) => {
@@ -66,19 +64,16 @@ export const ppkbSlice = createSlice({
       state.dataDetailPPKB = action.payload.res.data
       state.message = action.payload.message
       state.loading = false
-      // state.isSuccess = true
     },
     getDetailPPKBFailure: (state, action) => {
       state.loading = false
       state.error = action.payload.message
-      // state.isSuccess = false
     },
 
     postDataPPKB: (state) => {
       state.loading = true
     },
     postDataPPKBSuccess: (state, action) => {
-      // state.dataHeaderPPKB = action.payload.res.data;
       state.message = action.payload.message
       state.loading = false
       state.isSuccess = true
@@ -93,7 +88,6 @@ export const ppkbSlice = createSlice({
       state.loading = true
     },
     deleteDataPPKBSuccess: (state, action) => {
-      // state.dataHeaderPPKB = action.payload.res.data;
       state.message = action.payload.message
       state.loading = false
       state.isSuccess = true

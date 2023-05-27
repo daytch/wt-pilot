@@ -27,7 +27,6 @@ export function isObjectEmpty(object) {
 }
 
 export function dateToString(date) {
-  // return date.toISOString().split('T')[0]
   let month =
     (new Date(date).getMonth() + 1).toString().length < 2
       ? "0" + (new Date(date).getMonth() + 1)
@@ -41,7 +40,6 @@ export function dateToString(date) {
 }
 
 export function datetimeToString(date) {
-  // return date.toISOString().split('T')[0]
   let month =
     (new Date(date).getMonth() + 1).toString().length < 2
       ? "0" + (new Date(date).getMonth() + 1)
@@ -182,15 +180,15 @@ export const useEffectOnce = (effect) => {
   }
 
   useEffect(() => {
-    // only execute the effect first time around
+    
     if (!effectCalled.current) {
       destroyFunc.current = effect()
       effectCalled.current = true
     }
 
-    // this forces one render after the effect is run
+    
     setVal((val) => val + 1)
-    // console.log(val);
+   
     return () => {
       // if the comp didn't render since the useEffect was called,
       // we know it's the dummy React cycle

@@ -185,7 +185,6 @@ const RealisasiPemanduan = () => {
                   <table className="text-[10px] min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                     <thead className="sticky top-0 bg-gray-50 dark:bg-slate-900">
                       <tr className="text-center">
-                        {/* <th rowSpan={3} className="border border-black"></th> */}
                         <th
                           rowSpan={3}
                           scope="col"
@@ -207,14 +206,6 @@ const RealisasiPemanduan = () => {
                         >
                           nama kapal
                         </th>
-
-                        {/* <th rowSpan={3} className="border border-black">
-                        <div className="flex justify-center gap-x-2">
-                          <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            GERAKAN KAPAL 
-                          </span>
-                        </div>
-                      </th> */}
 
                         <th
                           colSpan={4}

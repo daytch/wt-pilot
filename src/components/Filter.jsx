@@ -119,7 +119,11 @@ const Filter = (props) => {
         <select
           value={MMCode ?? dataCabang[0]?.MMCode}
           onChange={(e) => setMMCode(e.target.value)}
-          disabled={UserData.MMCode && UserData.MMCode.replace(/\s+/g, '') !== "PST" ? true : false}
+          disabled={
+            UserData.MMCode && UserData.MMCode.replace(/\s+/g, "") !== "PST"
+              ? true
+              : false
+          }
           className="py-1 px-3 pr-6 block w-full disabled:bg-gray-300 bg-blue-100 border-gray-500 rounded-md text-xs focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
         >
           {dataCabang &&
@@ -134,7 +138,7 @@ const Filter = (props) => {
           className="py-2 px-3 pr-9 block w-full bg-blue-100 border-gray-500 rounded-md text-xs focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
           selected={startDate}
           dateFormat="dd-MM-yyyy"
-          onChange={(date) => onchangeStartDate(date)} //setStartDate(date)}
+          onChange={(date) => onchangeStartDate(date)}
         />
         <span className="inline-block align-middle mt-1.5 text-sm">
           Sampai:
@@ -143,7 +147,7 @@ const Filter = (props) => {
           className="py-2 px-3 pr-9 block w-full bg-blue-100 border-gray-500 rounded-md text-xs focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
           selected={endDate}
           dateFormat="dd-MM-yyyy"
-          onChange={(date) => onchangeEndDate(date)} // setEndDate(date)}
+          onChange={(date) => onchangeEndDate(date)}
         />
         {tipe === "jadwal" ? (
           <select
@@ -172,7 +176,6 @@ const Filter = (props) => {
                   </option>
                 ))}
             </select>
-            {/* <input type="checkbox" title="Test" /> */}
           </>
         ) : (
           <select
@@ -190,15 +193,6 @@ const Filter = (props) => {
         )}
 
         <input className="py-2 px-3 pr-9 block w-full bg-blue-100 border-gray-500 rounded-md text-xs focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400" />
-        {/* {notApproved && (
-          <button
-            className="h-8 py-3 px-2 min-h-8 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-xs dark:focus:ring-offset-gray-800"
-            data-hs-overlay="#hs-bg-gray-on-hover-cards1"
-            onClick={() => setIsCreatedNew(!isCreatedNew)}
-          >
-            input
-          </button>
-        )} */}
         <button
           onClick={search}
           className="h-8 py-3 px-2 min-h-8 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-xs dark:focus:ring-offset-gray-800"
