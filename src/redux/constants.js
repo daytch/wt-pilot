@@ -1,6 +1,6 @@
-export const API_URL = "http://203.135.177.235:8093/api"
+export const API_URL = "http://203.135.177.235:8093/api";
 // export const API_URL = "https://ervsolution.com/api"
-export const isProd = true
+export const isProd = true;
 export const URL = {
   LOGIN: "/auth/login",
   CHANGE_PASSWORD: "/user/changePassword",
@@ -34,5 +34,6 @@ export const URL = {
   FILL_COMBO_KEGIATAN: "get-combodatagerakaninaportnet",
   FILL_COMBO_AREA_PANDU: "get-comboareapanduWeb",
   FILL_COMBO_PKK_TONGKANG: "get-combopkktongkangWeb",
-}
-export const timeOut = 10 // in minutes
+  GET_FLOW_PKK: "get-getOpenDataFlowPKKColor",
+};
+export const timeOut = 10; // in minutes

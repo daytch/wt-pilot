@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef } from "react"
-import LogoImage from "./../assets/logo-hd.webp"
-import { useDispatch, useSelector } from "react-redux"
+import React, { useState, useEffect, useRef } from 'react';
+import LogoImage from './../assets/logo-hd.webp';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   changeActiveSidebarMenu,
   changeActiveTabMenu,
-} from "../redux/slices/dashboardSlice.js"
-import { postLogin } from "./../redux/slices/authenticationSlice.js"
+} from '../redux/slices/dashboardSlice.js';
+import { postLogin } from './../redux/slices/authenticationSlice.js';
 import {
   CalendarDaysIcon,
   CircleStackIcon,
@@ -14,45 +14,45 @@ import {
   KeyIcon,
   UserCircleIcon,
   HomeIcon,
-} from "@heroicons/react/24/outline"
-import Loader from "./Loader"
-import Dashboard from "./../pages/admin/dashboard"
-import JadwalKedatangan from "./../pages/admin/jadwalkedatangan"
-import PPKB from "./../pages/admin/ppkb"
-import PNBP from "./../pages/admin/pnbp"
-import Realisasi from "./../pages/admin/realisasipemanduan"
-import { ConfirmationMessage } from "./Notification"
+} from '@heroicons/react/24/outline';
+import Loader from './Loader';
+import Dashboard from './../pages/admin/dashboard';
+import JadwalKedatangan from './../pages/admin/jadwalkedatangan';
+import PPKB from './../pages/admin/ppkb';
+import PNBP from './../pages/admin/pnbp';
+import Realisasi from './../pages/admin/realisasipemanduan';
+import { ConfirmationMessage } from './Notification';
 
 const Sidebar = () => {
-  const dispatch = useDispatch()
-  const userData = JSON.parse(localStorage.getItem("userData"))
-  const username = userData?.displayUserName
-  const [loading, setLoading] = useState(false)
+  const dispatch = useDispatch();
+  const userData = JSON.parse(localStorage.getItem('userData'));
+  const username = userData?.displayUserName;
+  const [loading, setLoading] = useState(false);
 
-  const loadingD = useSelector((state) => state.Dashboard.loading)
-  const loadingJ = useSelector((state) => state.Jadwal.loading)
-  const loadingPn = useSelector((state) => state.PNBP.loading)
-  const loadingPp = useSelector((state) => state.PPKB.loading)
-  const loadingR = useSelector((state) => state.Realisasi.loading)
+  const loadingD = useSelector((state) => state.Dashboard.loading);
+  const loadingJ = useSelector((state) => state.Jadwal.loading);
+  const loadingPn = useSelector((state) => state.PNBP.loading);
+  const loadingPp = useSelector((state) => state.PPKB.loading);
+  const loadingR = useSelector((state) => state.Realisasi.loading);
 
-  const token = useSelector((state) => state.Authentication.token)
-  const data = useSelector((state) => state.Authentication.data)
-  const loadingA = useSelector((state) => state.Authentication.loading)
+  const token = useSelector((state) => state.Authentication.token);
+  const data = useSelector((state) => state.Authentication.data);
+  const loadingA = useSelector((state) => state.Authentication.loading);
 
-  const isActive = useSelector((state) => state.Dashboard.activeSidebarMenu)
-  const isTabMenuActive = useSelector((state) => state.Dashboard.activeTabMenu)
+  const isActive = useSelector((state) => state.Dashboard.activeSidebarMenu);
+  const isTabMenuActive = useSelector((state) => state.Dashboard.activeTabMenu);
   const activeClass =
-    "flex rounded-md my-2 p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 bg-light-white"
+    'flex rounded-md my-2 p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 bg-light-white';
   const inActiveClass =
-    "flex rounded-md my-2 p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4"
+    'flex rounded-md my-2 p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4';
   const activeTabMenuClass =
-    "font-semibold px-4 py-3 hover:bg-[#51B1E7] bg-[#51B1E7]"
-  const inActiveTabMenuClass = "font-semibold px-4 py-3 hover:bg-[#51B1E7]"
+    'font-semibold px-4 py-3 hover:bg-[#51B1E7] bg-[#51B1E7]';
+  const inActiveTabMenuClass = 'font-semibold px-4 py-3 hover:bg-[#51B1E7]';
 
   const backDropActive =
-    "hs-overlay backdrop-blur-sm w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto [--overlay-backdrop:static] open"
+    'hs-overlay backdrop-blur-sm w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto [--overlay-backdrop:static] open';
   const backDroopNonActive =
-    "hs-overlay hidden backdrop-blur-sm w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto [--overlay-backdrop:static]" //"hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto"
+    'hs-overlay hidden backdrop-blur-sm w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto [--overlay-backdrop:static]'; //"hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto"
 
   const menuAction = {
     dashboard: (isLeftmenu) => {
@@ -74,7 +74,7 @@ const Sidebar = () => {
               realisasi: false,
               pnbp: false,
             })
-          )
+          );
     },
     jadwal: (isLeftmenu) => {
       isLeftmenu
@@ -95,7 +95,7 @@ const Sidebar = () => {
               realisasi: false,
               pnbp: false,
             })
-          )
+          );
     },
     ppkb: (isLeftmenu) => {
       isLeftmenu
@@ -116,7 +116,7 @@ const Sidebar = () => {
               realisasi: false,
               pnbp: false,
             })
-          )
+          );
     },
     realisasi: (isLeftmenu) => {
       isLeftmenu
@@ -137,7 +137,7 @@ const Sidebar = () => {
               realisasi: true,
               pnbp: false,
             })
-          )
+          );
     },
     pnbp: (isLeftmenu) => {
       isLeftmenu
@@ -158,29 +158,29 @@ const Sidebar = () => {
               realisasi: false,
               pnbp: true,
             })
-          )
+          );
     },
     logout: () => {
-      localStorage.clear()
-      window.location.href = "/"
+      localStorage.clear();
+      window.location.href = '/';
     },
-  }
+  };
 
   useEffect(() => {
     if (token) {
-      localStorage.setItem("token", token)
-      localStorage.setItem("userData", JSON.stringify(data))
+      localStorage.setItem('token', token);
+      localStorage.setItem('userData', JSON.stringify(data));
       if (token && data) {
-        localStorage.setItem("isUserActive", true)
+        localStorage.setItem('isUserActive', true);
       }
     }
-  }, [loadingA, data])
+  }, [loadingA, data]);
 
   useEffect(() => {
     setLoading(
       loadingD || loadingJ || loadingPn /*|| loadingPp*/ || loadingR || loadingA
-    )
-  }, [loadingD, loadingJ, loadingPn, /*loadingPp,*/ loadingR, loadingA])
+    );
+  }, [loadingD, loadingJ, loadingPn, /*loadingPp,*/ loadingR, loadingA]);
 
   const renderMenu = () => {
     return isActive.dashboard ? (
@@ -195,118 +195,118 @@ const Sidebar = () => {
       <PNBP />
     ) : isActive.realisasi ? (
       <Realisasi />
-    ) : null
-  }
+    ) : null;
+  };
 
   const renderIcon = {
     dashboard: () => {
-      return <HomeIcon className="h-5 w-5" />
+      return <HomeIcon className="h-5 w-5" />;
     },
     jadwal: () => {
-      return <CalendarDaysIcon className="h-5 w-5" />
+      return <CalendarDaysIcon className="h-5 w-5" />;
     },
     ppkb: () => {
-      return <CircleStackIcon className="h-5 w-5" />
+      return <CircleStackIcon className="h-5 w-5" />;
     },
     realisasi: () => {
-      return <MegaphoneIcon className="h-5 w-5" />
+      return <MegaphoneIcon className="h-5 w-5" />;
     },
     pnbp: () => {
-      return <CircleStackIcon className="h-5 w-5" />
+      return <CircleStackIcon className="h-5 w-5" />;
     },
     logout: () => {
-      return <ArrowRightOnRectangleIcon className="h-5 w-5" />
+      return <ArrowRightOnRectangleIcon className="h-5 w-5" />;
     },
-  }
+  };
   const cbConfirmation = (e) => {
     if (e.isConfirmed) {
-      menuAction[selectedMenu.name](true)
-      menuAction[selectedMenu.name](false)
+      menuAction[selectedMenu.name](true);
+      menuAction[selectedMenu.name](false);
     }
-  }
-  const [open, setOpen] = useState(true)
+  };
+  const [open, setOpen] = useState(true);
   const [tabMenu, setTabMenu] = useState(
-    localStorage.getItem("listTabMenu")
-      ? JSON.parse(localStorage.getItem("listTabMenu"))
-      : [{ title: "Dashboard", name: "dashboard" }]
-  )
+    localStorage.getItem('listTabMenu')
+      ? JSON.parse(localStorage.getItem('listTabMenu'))
+      : [{ title: 'Dashboard', name: 'dashboard' }]
+  );
 
-  let selectedMenu = {}
+  let selectedMenu = {};
   const Menus =
-    userData?.UserType === "KSOP"
+    userData?.UserType === 'KSOP'
       ? [
-          { title: "Dashboard", name: "dashboard" },
+          { title: 'Dashboard', name: 'dashboard' },
           {
-            title: "Jadwal Kapal",
-            name: "jadwal",
+            title: 'Jadwal Kapal',
+            name: 'jadwal',
           },
-          { title: "PNBP", name: "pnbp" },
+          { title: 'PNBP', name: 'pnbp' },
           {
-            title: "Realisasi Pemanduan ",
-            name: "realisasi",
+            title: 'Realisasi Pemanduan ',
+            name: 'realisasi',
           },
           {
-            title: "Logout ",
-            name: "logout",
+            title: 'Logout ',
+            name: 'logout',
             gap: true,
           },
         ]
       : [
-          { title: "Dashboard", name: "dashboard" },
+          { title: 'Dashboard', name: 'dashboard' },
           {
-            title: "Jadwal Kapal",
-            name: "jadwal",
+            title: 'Jadwal Kapal',
+            name: 'jadwal',
           },
-          { title: "PPKB", name: "ppkb" },
+          { title: 'PPKB', name: 'ppkb' },
           {
-            title: "Realisasi Pemanduan ",
-            name: "realisasi",
+            title: 'Realisasi Pemanduan ',
+            name: 'realisasi',
           },
           {
-            title: "Logout ",
-            name: "logout",
+            title: 'Logout ',
+            name: 'logout',
             gap: true,
           },
-        ]
+        ];
 
   const onCloseTab = (id) => {
-    var oldMenu = [...tabMenu]
-    const remItem = oldMenu.filter((x) => x.name === id)
-    const idx = oldMenu.indexOf(remItem[0])
-    menuAction[oldMenu[idx - 1].name](true)
-    oldMenu.splice(idx, 1)
-    setTabMenu(oldMenu)
-    localStorage.setItem("listTabMenu", JSON.stringify(oldMenu))
-  }
+    var oldMenu = [...tabMenu];
+    const remItem = oldMenu.filter((x) => x.name === id);
+    const idx = oldMenu.indexOf(remItem[0]);
+    menuAction[oldMenu[idx - 1].name](true);
+    oldMenu.splice(idx, 1);
+    setTabMenu(oldMenu);
+    localStorage.setItem('listTabMenu', JSON.stringify(oldMenu));
+  };
 
   return (
     <div className="flex">
       <Loader isLoading={loading} />
       <div
         className={` ${
-          open ? "w-72" : "w-20 "
+          open ? 'w-72' : 'w-20 '
         } bg-dark-purple h-screen p-5 pt-8 relative duration-300`}
       >
         <img
           src="./src/assets/control.webp"
           className={`absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple
-           border-2 rounded-full  ${!open && "rotate-180"}`}
+           border-2 rounded-full  ${!open && 'rotate-180'}`}
           onClick={() => setOpen(!open)}
         />
         <div className="flex gap-x-4 items-center">
           <img
             src="./src/assets/logo.webp"
             className={`cursor-pointer duration-500 w-[40px] h-auto ${
-              open && "rotate-[360deg]"
+              open && 'rotate-[360deg]'
             }`}
           />
-          <h1
+          {/* <h1
             className={`text-white origin-left font-medium text-base duration-200 ${
-              !open && "scale-0"
+              !open && 'scale-0'
             }`}
           >
             Hi, {username}
-          </h1>
+          </h1> */}
         </div>
         <ul className="pt-6">
           {Menus.map((Menu, index) => (
@@ -315,25 +315,25 @@ const Sidebar = () => {
               className={isActive[Menu.name] ? activeClass : inActiveClass}
               onClick={() => {
                 if (tabMenu.map((x) => x.name).indexOf(Menu.name) > -1) {
-                  selectedMenu = Menu
+                  selectedMenu = Menu;
                   ConfirmationMessage(
-                    "Confirmation?!",
+                    'Confirmation?!',
                     `<div>Menu <b><u>${Menu.title}</u></b> sudah di buka pada tab menu, apakah anda akan mengaktifkan menu <b><u>${Menu.title}</u></b> ?</div>`,
                     cbConfirmation
-                  )
+                  );
                 } else {
-                  setTabMenu((oldArr) => [...oldArr, Menu])
+                  setTabMenu((oldArr) => [...oldArr, Menu]);
                   localStorage.setItem(
-                    "listTabMenu",
+                    'listTabMenu',
                     JSON.stringify([...tabMenu, Menu])
-                  )
-                  menuAction[Menu.name](true)
-                  menuAction[Menu.name](false)
+                  );
+                  menuAction[Menu.name](true);
+                  menuAction[Menu.name](false);
                 }
               }}
             >
               {renderIcon[Menu.name]()}
-              <span className={`${!open && "hidden"} origin-left duration-200`}>
+              <span className={`${!open && 'hidden'} origin-left duration-200`}>
                 {Menu.title}
               </span>
             </li>
@@ -341,7 +341,14 @@ const Sidebar = () => {
         </ul>
       </div>
 
-      <div className="h-screen flex-1 p-7">
+      <div className="h-screen flex-1 pt-3 p-7">
+        <h1
+          className={`text-dark-purple float-right mb-2 origin-left font-medium text-base duration-200 ${
+            !open && 'scale-0'
+          }`}
+        >
+          Hi, {username}
+        </h1>
         <header className="rounded-xl flex flex-wrap justify-start sm:flex-nowrap z-50 w-full bg-[#B4E7F7] border-b border-white/[.5] text-sm py-3 sm:py-0">
           <nav
             className="relative max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between" // sm:px-6 lg:px-8"
@@ -363,8 +370,8 @@ const Sidebar = () => {
                             : inActiveTabMenuClass
                         }
                         onClick={() => {
-                          menuAction[m.name](true)
-                          menuAction[m.name](false)
+                          menuAction[m.name](true);
+                          menuAction[m.name](false);
                         }}
                         href="#"
                       >
@@ -377,7 +384,7 @@ const Sidebar = () => {
                         x
                       </span>
                     </>
-                  )
+                  );
                 })}
               </div>
             </div>
@@ -387,7 +394,7 @@ const Sidebar = () => {
         {renderMenu()}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

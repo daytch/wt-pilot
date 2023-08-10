@@ -10,12 +10,35 @@ import {
 
   // getDataCabangWebFailure,
   // getDataCabangWebSuccess,
-
+  getDataFlowSuccess,
+  getDataFlowFailure,
   getDataSalesOrderFailure,
   getDataSalesOrderSuccess,
   getDataRealisasiPanduFailure,
   getDataRealisasiPanduSuccess,
 } from "../slices/dashboardSlice";
+
+export function* getDataFlow(action) {
+  try {
+    const res = yield call(
+      GET,
+      URL.GET_FLOW_PKK + `?NomorPKK=${action.payload}`
+    );
+
+    if (!res) {
+      yield put(
+        getDataFlowFailure({
+          isError: 1,
+          message: res.ErrorMessage,
+        })
+      );
+    } else {
+      yield put(getDataFlowSuccess({ data: res.data[0] }));
+    }
+  } catch (error) {
+    yield put(getDataFlowFailure({ isError: 1, message: error }));
+  }
+}
 
 export function* getData() {
   try {
@@ -56,7 +79,7 @@ export function* getDataCabang() {
       //   listCabang.unshift({ FullName: "Please Select", MMCode: "" })
       //   yield put(getDataCabangSuccess({ res: { data: listCabang } }))
       // } else {
-        yield put(getDataCabangSuccess({ res }))
+      yield put(getDataCabangSuccess({ res }));
       // }
     }
 
@@ -131,6 +154,7 @@ export function* getDataRealisasiPandu(action) {
 
 export default function* rootSaga() {
   yield all([takeEvery("Dashboard/getData", getData)]);
+  yield all([takeEvery("Dashboard/getDataFlow", getDataFlow)]);
   yield all([takeEvery("Dashboard/getDataCabang", getDataCabang)]);
   yield all([takeEvery("Dashboard/getDataSalesOrder", getDataSalesOrder)]);
   yield all([

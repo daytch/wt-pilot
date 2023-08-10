@@ -1,8 +1,11 @@
-import React from "react"
-import PropTypes from "prop-types"
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable react/require-default-props */
+/* eslint-disable react/forbid-prop-types */
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const Select = (props) => {
-  const { value, options, onChange } = props
+function Select(props) {
+  const { value, options, onChange } = props;
   // console.log("options:", options)
   return (
     <select
@@ -17,13 +20,13 @@ const Select = (props) => {
           </option>
         ))}
     </select>
-  )
+  );
 }
 
 Select.propTypes = {
   value: PropTypes.any,
   options: PropTypes.array,
   onChange: PropTypes.func,
-}
+};
 
-export default Select
+export default Select;
