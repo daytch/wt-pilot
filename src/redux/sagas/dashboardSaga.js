@@ -108,25 +108,6 @@ export function* getDataCabangWeb() {
   }
 }
 
-export function* getDataCabangWeb() {
-  try {
-    const res = yield call(GET, URL.GET_CABANG_WEB);
-
-    if (!res) {
-      yield put(
-        getDataCabangwebFailure({
-          isError: 1,
-          message: res.ErrorMessage,
-        })
-      );
-    } else {
-      yield put(getDataCabangwebSuccess({ res }));
-    }
-  } catch (error) {
-    yield put(getDataCabangwebFailure({ isError: 1, message: error }));
-  }
-}
-
 export function* getDataSalesOrder(action) {
   try {
     const res = yield call(GET, URL.SALESORDER + "?DariPihak=" + action.payload)
