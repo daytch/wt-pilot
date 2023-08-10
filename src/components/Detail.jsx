@@ -1,15 +1,16 @@
-import React from "react";
-import PropTypes from "prop-types";
+/* eslint-disable no-shadow */
+/* eslint-disable import/extensions */
+/* eslint-disable react/no-unstable-nested-components */
+import React from 'react';
+import PropTypes from 'prop-types';
 import {
   sliceHour,
-  handleDateAPI,
   isEmptyNullOrUndefined,
   datetimeToString,
-} from "../functions/index.js";
+} from '../functions/index.js';
 
-const Detail = (props) => {
+function Detail(props) {
   const { detail, tipe } = props;
-  // console.log("props: ", props);
   const renderDetail = {
     jadwal: (detail) => (
       <div className="p-4 overflow-y-auto">
@@ -305,7 +306,7 @@ const Detail = (props) => {
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
                       {new Date(detail?.tanggal_eta).getFullYear() < 2000
-                        ? ""
+                        ? ''
                         : datetimeToString(detail?.tanggal_eta)}
                     </td>
                   </tr>
@@ -344,7 +345,7 @@ const Detail = (props) => {
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
                       {new Date(detail?.tanggal_etd).getFullYear() < 2000
-                        ? ""
+                        ? ''
                         : datetimeToString(detail?.tanggal_etd)}
                     </td>
                   </tr>
@@ -368,10 +369,10 @@ const Detail = (props) => {
                 <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                   <tr className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
                     <td className="px-3 py-0 text-center text-[10px] capitalized bg-blue-200 border-black border whitespace-nowrap">
-                      No BPJS
+                      Nomor PKK
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {/* {detail?.NoBPJP} */}
+                      {detail?.nomor_pkk}
                     </td>
                   </tr>
                   <tr>
@@ -479,7 +480,7 @@ const Detail = (props) => {
                       Tipe Kapal
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {/* {detail?.TypeKapal} */}
+                      {detail?.TypeKapal}
                     </td>
                   </tr>
                   <tr>
@@ -589,7 +590,7 @@ const Detail = (props) => {
                       Waktu Selesai
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {detail?.pelabuhan_tujuan_akhir}
+                      {/* {detail?.pelabuhan_tujuan_akhir} */}
                     </td>
                   </tr>
                   <tr>
@@ -597,7 +598,7 @@ const Detail = (props) => {
                       Jam
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {detail?.pelabuhan_tujuan_akhir}
+                      {/* {detail?.pelabuhan_tujuan_akhir} */}
                     </td>
                   </tr>
                 </tbody>
@@ -635,7 +636,7 @@ const Detail = (props) => {
                       Waktu Mulai
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {detail?.MulaiPanduKeluar === "" ||
+                      {detail?.MulaiPanduKeluar === '' ||
                       detail?.MulaiPanduKeluar === null
                         ? detail?.MulaiPanduKeluar
                         : sliceHour(detail?.MulaiPanduKeluar)}
@@ -646,7 +647,7 @@ const Detail = (props) => {
                       Waktu Selesai
                     </td>
                     <td className="px-3 py-0 text-center text-[10px] capitalized border-black border whitespace-nowrap">
-                      {detail?.SelesaiPanduKeluar === "" ||
+                      {detail?.SelesaiPanduKeluar === '' ||
                       detail?.SelesaiPanduKeluar === null
                         ? detail?.SelesaiPanduKeluar
                         : sliceHour(detail?.SelesaiPanduKeluar)}
@@ -688,7 +689,7 @@ const Detail = (props) => {
                       Mulai
                     </td>
                     <td className="px-3 py-0 h-px w-4 text-[10px] text-center border-black border whitespace-nowrap">
-                      {detail?.MulaiPanduMasuk === "" ||
+                      {detail?.MulaiPanduMasuk === '' ||
                       detail?.MulaiPanduMasuk === null
                         ? detail?.MulaiPanduMasuk
                         : sliceHour(detail?.MulaiPanduMasuk)}
@@ -699,7 +700,7 @@ const Detail = (props) => {
                       Selesai
                     </td>
                     <td className="px-3 py-0 h-px w-4 text-[10px] text-center border-black border whitespace-nowrap">
-                      {detail?.SelesaiPanduMasuk === "" ||
+                      {detail?.SelesaiPanduMasuk === '' ||
                       detail?.SelesaiPanduMasuk === null
                         ? detail?.SelesaiPanduMasuk
                         : sliceHour(detail?.SelesaiPanduMasuk)}
@@ -741,7 +742,7 @@ const Detail = (props) => {
                       Mulai
                     </td>
                     <td className="px-3 py-0 h-px w-4 text-[10px] text-center border-black border whitespace-nowrap">
-                      {detail?.MulaiPanduPindah === "" ||
+                      {detail?.MulaiPanduPindah === '' ||
                       detail?.MulaiPanduPindah === null
                         ? detail?.MulaiPanduPindah
                         : sliceHour(detail?.MulaiPanduPindah)}
@@ -752,7 +753,7 @@ const Detail = (props) => {
                       Selesai
                     </td>
                     <td className="px-3 py-0 h-px w-4 text-[10px] text-center border-black border whitespace-nowrap">
-                      {detail?.SelesaiPanduPindah === "" ||
+                      {detail?.SelesaiPanduPindah === '' ||
                       detail?.SelesaiPanduPindah === null
                         ? detail?.SelesaiPanduPindah
                         : sliceHour(detail?.SelesaiPanduPindah)}
@@ -794,7 +795,7 @@ const Detail = (props) => {
                       Mulai
                     </td>
                     <td className="px-3 py-0 h-px w-4 text-[10px] text-center border-black border whitespace-nowrap">
-                      {detail?.MulaiPanduKeluar === "" ||
+                      {detail?.MulaiPanduKeluar === '' ||
                       detail?.MulaiPanduKeluar === null
                         ? detail?.MulaiPanduKeluar
                         : sliceHour(detail?.MulaiPanduKeluar)}
@@ -805,7 +806,7 @@ const Detail = (props) => {
                       Selesai
                     </td>
                     <td className="px-3 py-0 h-px w-4 text-[10px] text-center border-black border whitespace-nowrap">
-                      {detail?.SelesaiPanduKeluar === "" ||
+                      {detail?.SelesaiPanduKeluar === '' ||
                       detail?.SelesaiPanduKeluar === null
                         ? detail?.SelesaiPanduKeluar
                         : sliceHour(detail?.SelesaiPanduKeluar)}
@@ -1029,7 +1030,7 @@ const Detail = (props) => {
                       Tanggal Masuk
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail?.MulaiPanduMasuk === "" ||
+                      {detail?.MulaiPanduMasuk === '' ||
                       detail?.MulaiPanduMasuk === null
                         ? detail?.MulaiPanduMasuk
                         : sliceHour(detail?.MulaiPanduMasuk)}
@@ -1041,7 +1042,7 @@ const Detail = (props) => {
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
                       {/* {detail?.MulaiPanduPindah} */}
-                      {detail?.MulaiPanduPindah === "" ||
+                      {detail?.MulaiPanduPindah === '' ||
                       detail?.MulaiPanduPindah === null
                         ? detail?.MulaiPanduPindah
                         : sliceHour(detail?.MulaiPanduPindah)}
@@ -1052,7 +1053,7 @@ const Detail = (props) => {
                       Tanggal Keluar
                     </td>
                     <td className="h-px w-4 text-[10px]  text-center border-black border whitespace-nowrap">
-                      {detail?.MulaiPanduKeluar === "" ||
+                      {detail?.MulaiPanduKeluar === '' ||
                       detail?.MulaiPanduKeluar === null
                         ? detail?.MulaiPanduKeluar
                         : sliceHour(detail?.MulaiPanduKeluar)}
@@ -1185,7 +1186,7 @@ const Detail = (props) => {
         <div className="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700">
           <div className="flex justify-between items-center py-3 px-4 border-b dark:border-gray-700">
             <h3 className="font-bold text-gray-800 dark:text-gray-200">
-              Detail Data
+              Detail PKK
             </h3>
             <button
               type="button"
@@ -1214,7 +1215,7 @@ const Detail = (props) => {
       </div>
     </div>
   );
-};
+}
 
 Detail.propTypes = {
   detail: PropTypes.object,

@@ -7,11 +7,38 @@ import {
   getDataFailure,
   getDataCabangFailure,
   getDataCabangSuccess,
+
+  // getDataCabangWebFailure,
+  // getDataCabangWebSuccess,
+  getDataFlowSuccess,
+  getDataFlowFailure,
   getDataSalesOrderFailure,
   getDataSalesOrderSuccess,
   getDataRealisasiPanduFailure,
   getDataRealisasiPanduSuccess,
-} from "../slices/dashboardSlice"
+} from "../slices/dashboardSlice";
+
+export function* getDataFlow(action) {
+  try {
+    const res = yield call(
+      GET,
+      URL.GET_FLOW_PKK + `?NomorPKK=${action.payload}`
+    );
+
+    if (!res) {
+      yield put(
+        getDataFlowFailure({
+          isError: 1,
+          message: res.ErrorMessage,
+        })
+      );
+    } else {
+      yield put(getDataFlowSuccess({ data: res.data[0] }));
+    }
+  } catch (error) {
+    yield put(getDataFlowFailure({ isError: 1, message: error }));
+  }
+}
 
 export function* getData() {
   try {
@@ -44,17 +71,40 @@ export function* getDataCabang() {
         })
       )
     } else {
-      const UserData = JSON.parse(localStorage.getItem("userData"))
+      // yield put(getDataCabangSuccess({ res }));
+
+      // const UserData = JSON.parse(localStorage.getItem("userData"))
       // if (UserData.MMCode === "PST") {
       //   var listCabang = res.data
       //   listCabang.unshift({ FullName: "Please Select", MMCode: "" })
       //   yield put(getDataCabangSuccess({ res: { data: listCabang } }))
       // } else {
-        yield put(getDataCabangSuccess({ res }))
+      yield put(getDataCabangSuccess({ res }));
       // }
     }
+
+  
   } catch (error) {
     yield put(getDataCabangFailure({ isError: 1, message: error }))
+  }
+}
+
+export function* getDataCabangWeb() {
+  try {
+    const res = yield call(GET, URL.GET_CABANG_WEB);
+
+    if (!res) {
+      yield put(
+        getDataCabangwebFailure({
+          isError: 1,
+          message: res.ErrorMessage,
+        })
+      );
+    } else {
+      yield put(getDataCabangwebSuccess({ res }));
+    }
+  } catch (error) {
+    yield put(getDataCabangwebFailure({ isError: 1, message: error }));
   }
 }
 
@@ -100,9 +150,10 @@ export function* getDataRealisasiPandu(action) {
 }
 
 export default function* rootSaga() {
-  yield all([takeEvery("Dashboard/getData", getData)])
-  yield all([takeEvery("Dashboard/getDataCabang", getDataCabang)])
-  yield all([takeEvery("Dashboard/getDataSalesOrder", getDataSalesOrder)])
+  yield all([takeEvery("Dashboard/getData", getData)]);
+  yield all([takeEvery("Dashboard/getDataFlow", getDataFlow)]);
+  yield all([takeEvery("Dashboard/getDataCabang", getDataCabang)]);
+  yield all([takeEvery("Dashboard/getDataSalesOrder", getDataSalesOrder)]);
   yield all([
     takeEvery("Dashboard/getDataRealisasiPandu", getDataRealisasiPandu),
   ])

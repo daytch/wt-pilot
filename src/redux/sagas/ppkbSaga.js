@@ -21,13 +21,17 @@ import {
   deleteDetailPPKBSuccess,
   fillComboKegiatanFailure,
   fillComboKegiatanSuccess,
+  fillComboAreaPanduSuccess,
+  fillComboAreaPanduFailure,
+  fillComboNomorPKKTongkangSuccess,
+  fillComboNomorPKKTongkangFailure,
 } from "../slices/ppkbSlice"
+import { isEmptyNullOrUndefined } from "../../functions"
 import { history } from "../../helpers/history"
 
 export function* getHeaderPPKB(action) {
   try {
     const res = yield call(GET, URL.GET_HEADER_PKKB + action.payload)
-    ;
     if (!res) {
       yield put(
         getHeaderPPKBFailure({
@@ -55,7 +59,7 @@ export function* getHeaderPPKB(action) {
 export function* getHeaderPPKBWeb(action) {
   try {
     const res = yield call(GET, URL.GET_HEADER_PKKB_WEB + action.payload)
-      
+
     if (action.payload.indexOf("Outstanding=0") < 0) {
       if (!res || res.status !== "ok") {
         yield put(
@@ -124,7 +128,7 @@ export function* getDetailPPKB(action) {
 
 export function* postDataPPKB(action) {
   try {
-    const res = yield call(POST, URL.POST_PPKB + action.payload)
+    const res = yield call(POST, URL.POST_PPKB_WEB + action.payload)
 
     if (res.status !== "ok") {
       yield put(postDataPPKBFailure({ error: "Failed when save data" }))
@@ -215,7 +219,7 @@ export function* getDetailPKK(action) {
 export function* fillComboKegiatan() {
   try {
     const res = yield call(GET, URL.FILL_COMBO_KEGIATAN)
-    
+
     if (!res) {
       yield put(
         fillComboKegiatanFailure({
@@ -231,6 +235,81 @@ export function* fillComboKegiatan() {
   }
 }
 
+export function* fillComboAreaPandu(action) {
+  //(strMMode, strValueSearch) {
+  try {
+    // debugger
+    const res = yield call(
+      GET,
+      URL.FILL_COMBO_AREA_PANDU +
+        "?MMCode=" +
+        action.payload.MMCode +
+        "&ValueSearch = " +
+        action.payload.ValueSearch
+    )
+
+    if (!res) {
+      yield put(
+        fillComboAreaPanduFailure({
+          isError: 1,
+          message: res.ErrorMessage,
+        })
+      )
+    } else {
+      yield put(fillComboAreaPanduSuccess({ res }))
+    }
+  } catch (error) {
+    yield put(fillComboAreaPanduFailure({ isError: 1, message: error }))
+  }
+}
+
+export function* fillComboNomorPKKTongkang(action) {
+  try {
+    // debugger
+    // console.log(action)
+    const res = yield call(
+      GET,
+      URL.FILL_COMBO_PKK_TONGKANG +
+        "?MMCode=" +
+        action.payload.MMCode +
+        "&NomorPKKSelected=" +
+        action.payload.NomorPKKSelected +
+        "&ValueSearch=" +
+        action.payload.ValueSearch
+    )
+
+    if (!res) {
+      yield put(
+        fillComboNomorPKKTongkangFailure({
+          isError: 1,
+          message: res.ErrorMessage,
+        })
+      )
+    } else {
+      let r = res
+      r.data = r.data.filter(
+        (x) =>
+          !isEmptyNullOrUndefined(x.DisplayValue) &&
+          !isEmptyNullOrUndefined(x.MemberValue)
+      )
+      r.data.unshift({
+        DisplayValue: "-Please select- ",
+        MemberValue: "",
+        NomorPKKSelected: "",
+        TglPKK: "",
+        jenis_kapal: "",
+        nama_kapal_tongkang: "",
+        nama_perusahaan: "",
+        no_rkbm_bongkar: "",
+        no_rkbm_muat: "",
+      })
+      yield put(fillComboNomorPKKTongkangSuccess({ res: r }))
+    }
+  } catch (error) {
+    yield put(fillComboNomorPKKTongkangFailure({ isError: 1, message: error }))
+  }
+}
+
 export default function* rootSaga() {
   yield all([
     // takeEvery("PPKB/getHeaderPPKB", getHeaderPPKB),
@@ -242,5 +321,7 @@ export default function* rootSaga() {
     takeEvery("PPKB/deleteDataPPKB", deleteDataPPKB),
     takeEvery("PPKB/deleteDetailPPKB", deleteDetailPPKB),
     takeEvery("PPKB/fillComboKegiatan", fillComboKegiatan),
+    takeEvery("PPKB/fillComboAreaPandu", fillComboAreaPandu),
+    takeEvery("PPKB/fillComboNomorPKKTongkang", fillComboNomorPKKTongkang),
   ])
 }

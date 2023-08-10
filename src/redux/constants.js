@@ -1,15 +1,18 @@
-export const API_URL = "http://203.135.177.235:8093/api"
-export const isProd = true
+export const API_URL = "http://203.135.177.235:8093/api";
+// export const API_URL = "https://ervsolution.com/api"
+export const isProd = true;
 export const URL = {
   LOGIN: "/auth/login",
   CHANGE_PASSWORD: "/user/changePassword",
   DASHBOARD: "/dashboard",
   GET_CABANG: "/get-combocabang",
+  GET_CABANG_WEB: "/get-combocabangWeb",
   SALESORDER: "/get-combosearchsalesorderterminalindo",
   // PKK_INAPORTNET: "/get-pkkinaportnet",
   PKK_INAPORTNET: "/get-pkkweb",
   // LAPORAN_KEGIATAN_PANDU: "/get-laporankegiatanpandutunda",
-  LAPORAN_KEGIATAN_PANDU: "/get-laporankegiatanpandutundaWeb",
+  // LAPORAN_KEGIATAN_PANDU: "/get-laporankegiatanpandutundaWeb",
+  LAPORAN_KEGIATAN_PANDU: "/get-laporankegiatanpandutundaInaportnetWeb",
   REALISASI_PANDU: "/get-combosearchrealisasipandu",
   REALISASI_PANDU_WEB: "/get-combosearchrealisasipanduweb",
   GET_HEADER_PKK: "get-headerpkk",
@@ -21,6 +24,7 @@ export const URL = {
   DELETE_PPKB: "post-deletedatappkb",
   GET_PNBP_REPORT: "get-laporanpnbp",
   POST_PPKB: "post-insertgetppkb",
+  POST_PPKB_WEB: "post-insertgetppkbWeb",
   REGISTER: "post-userregistrasi",
   CHECK_USER_REGISTRASION: "post-checkuserregistrasi",
   SAVE_USER_REGISTRASION: "post-saveuserregistrasi",
@@ -28,5 +32,8 @@ export const URL = {
   RESET_PASSWORD: "post-resetpassword",
   DELETE_DETAIL_RKBM: "post-deletedetilrkbmppkb",
   FILL_COMBO_KEGIATAN: "get-combodatagerakaninaportnet",
-}
-export const timeOut = 10 // in minutes
+  FILL_COMBO_AREA_PANDU: "get-comboareapanduWeb",
+  FILL_COMBO_PKK_TONGKANG: "get-combopkktongkangWeb",
+  GET_FLOW_PKK: "get-getOpenDataFlowPKKColor",
+};
+export const timeOut = 10; // in minutes

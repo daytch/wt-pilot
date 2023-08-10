@@ -63,7 +63,7 @@ switch (tipe) {
 }
 }
 
-Datepicker.PropTypes= {
+Datepicker.propTypes= {
     tipe: PropTypes.string,
     dateFormat: PropTypes.string,
     placeholder: PropTypes.string,

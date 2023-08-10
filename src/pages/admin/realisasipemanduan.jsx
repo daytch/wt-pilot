@@ -31,7 +31,10 @@ const RealisasiPemanduan = () => {
   const dariPihak = UserData.UserType
   const UserLogin = UserData.UserId
   const UserType = UserData.UserType
-  const [MMCode, setMMCode] = useState(UserData.MMCode)
+  // const [MMCode, setMMCode] = useState(UserData.MMCode)
+  const [MMCode, setMMCode] = useState(
+    UserData.MMCode === "PST" ? "" : UserData.MMCode
+  )
   const [Outstanding, setOutstanding] = useState("")
   const [Code, setCode] = useState(
     sessionStorage.getItem("codeColumnSearchRealisasiPemanduan") ?? ""
@@ -140,7 +143,7 @@ const RealisasiPemanduan = () => {
 
   const data = useSelector((state) => state.Realisasi.data)
   
-  console.log("data:", data)
+  // console.log("data:", data)
   return (
     <>
       <div className="max-w-[85rem] py-3 mx-auto">
@@ -181,7 +184,6 @@ const RealisasiPemanduan = () => {
                   <table className="text-[10px] min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                     <thead className="sticky top-0 bg-gray-50 dark:bg-slate-900">
                       <tr className="text-center">
-                        {/* <th rowSpan={3} className="border border-black"></th> */}
                         <th
                           rowSpan={3}
                           scope="col"
@@ -189,20 +191,20 @@ const RealisasiPemanduan = () => {
                         >
                           no.
                         </th>
+
+                        <th
+                          rowSpan={3}
+                          className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
+                        >
+                          nomor pkk
+                        </th>
+
                         <th
                           rowSpan={3}
                           className="px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
                         >
                           nama kapal
                         </th>
-
-                        {/* <th rowSpan={3} className="border border-black">
-                        <div className="flex justify-center gap-x-2">
-                          <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            GERAKAN KAPAL 
-                          </span>
-                        </div>
-                      </th> */}
 
                         <th
                           colSpan={4}
@@ -336,12 +338,21 @@ const RealisasiPemanduan = () => {
                               >
                                 {idx + 1}
                               </td>
+
+                              <td
+                                className="border px-2 border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
+                                data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                              >
+                                {item.nomor_pkk}
+                              </td>
+
                               <td
                                 className="border px-2 border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"
                               >
                                 {item.NamaKapal}
                               </td>
+
                               <td
                                 className="border text-center px-2 border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"

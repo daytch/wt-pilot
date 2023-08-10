@@ -49,6 +49,25 @@ export const dashboardSlice = createSlice({
     dataCabang: [],
     dataSalesOrder: [],
     dataRealisasiPandu: [],
+    dataFlow: {
+      nomor_pkk: "",
+      FlagPPKBKedatangan: "",
+      FlagRPKRO: "",
+      FlagSPKPandu: "",
+      FlagPPKBPindah: "",
+      FlagPPKBBerangkat: "",
+      FlagSPKPanduKeluar: "",
+      FlagKeagenan: "",
+      FlagPKK: "",
+      FlagRKBM: "",
+      FlagPPK: "",
+      FlagPindah: "",
+      FlagLK3: "",
+      FlagSPM: "",
+      FlagSPOG: "",
+      FlagKepelautan: "",
+      FlagSPB: "",
+    },
   },
   reducers: {
     changeActiveSidebarMenu: (state, action) => {
@@ -63,6 +82,19 @@ export const dashboardSlice = createSlice({
 
     toogleLoading: (state, action) => {
       state.loading = action.payload;
+    },
+
+    getDataFlow: (state) => {
+      state.loading = true;
+    },
+    getDataFlowSuccess: (state, action) => {
+      state.dataFlow = action.payload.data;
+      state.message = action.payload.message;
+      state.loading = false;
+    },
+    getDataFlowFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload.message;
     },
 
     getData: (state) => {
@@ -161,12 +193,23 @@ export const {
   changeActiveSidebarMenu,
   changeActiveTabMenu,
   toogleLoading,
+
   getData,
   getDataSuccess,
   getDataFailure,
+
+  getDataFlow,
+  getDataFlowSuccess,
+  getDataFlowFailure,
+
   getDataCabang,
   getDataCabangFailure,
   getDataCabangSuccess,
+
+  getDataCabangWeb,
+  getDataCabangWebFailure,
+  getDataCabangWebSuccess,
+
   getDataSalesOrder,
   getDataSalesOrderFailure,
   getDataSalesOrderSuccess,

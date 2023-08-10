@@ -8,6 +8,8 @@ export const ppkbSlice = createSlice({
     dataHeaderPKK: [],
     dataDetailPKK: [],
     fillcombokegiatan: [],
+    fillComboAreaPandu: [],
+    fillComboNomorPKKTongkang: [],
     loading: false,
     error: "",
     message: "",
@@ -48,13 +50,11 @@ export const ppkbSlice = createSlice({
     getHeaderPPKBWebSuccess: (state, action) => {
       state.dataHeaderPPKB = action.payload.res.data
       state.message = action.payload.message
-      state.loading = false
-      // state.isSuccess = true
+      state.loading = FontFaceSetLoadEvent
     },
     getHeaderPPKBWebFailure: (state, action) => {
       state.loading = false
       state.error = action.payload.message
-      // state.isSuccess = false
     },
 
     getDetailPPKB: (state) => {
@@ -64,19 +64,16 @@ export const ppkbSlice = createSlice({
       state.dataDetailPPKB = action.payload.res.data
       state.message = action.payload.message
       state.loading = false
-      // state.isSuccess = true
     },
     getDetailPPKBFailure: (state, action) => {
       state.loading = false
       state.error = action.payload.message
-      // state.isSuccess = false
     },
 
     postDataPPKB: (state) => {
       state.loading = true
     },
     postDataPPKBSuccess: (state, action) => {
-      // state.dataHeaderPPKB = action.payload.res.data;
       state.message = action.payload.message
       state.loading = false
       state.isSuccess = true
@@ -91,7 +88,6 @@ export const ppkbSlice = createSlice({
       state.loading = true
     },
     deleteDataPPKBSuccess: (state, action) => {
-      // state.dataHeaderPPKB = action.payload.res.data;
       state.message = action.payload.message
       state.loading = false
       state.isSuccess = true
@@ -150,7 +146,6 @@ export const ppkbSlice = createSlice({
       state.loading = true
     },
     fillComboKegiatanSuccess: (state, action) => {
-      
       state.fillComboKegiatan = action.payload.res.data
       state.message = action.payload.message
       state.loading = false
@@ -162,6 +157,38 @@ export const ppkbSlice = createSlice({
       state.isSuccess = false
     },
 
+    fillComboAreaPandu: (state) => {
+      state.loading = true
+    },
+    fillComboAreaPanduSuccess: (state, action) => { 
+      state.fillComboAreaPandu =
+        action.payload.res.data.length > 0
+          ? action.payload.res.data
+          : state.fillComboAreaPandu
+      state.message = action.payload.message
+      state.loading = false
+      state.isSuccess = true
+    },
+    fillComboAreaPanduFailure: (state, action) => {
+      state.loading = false
+      state.error = action.payload.message
+      state.isSuccess = false
+    },
+
+    fillComboNomorPKKTongkang: (state) => {
+      state.loading = true
+    },
+    fillComboNomorPKKTongkangSuccess: (state, action) => {
+      state.fillComboNomorPKKTongkang = action.payload.res.data
+      state.message = action.payload.message
+      state.loading = false
+      state.isSuccess = true
+    },
+    fillComboNomorPKKTongkangFailure: (state, action) => {
+      state.loading = false
+      state.error = action.payload.message
+      state.isSuccess = false
+    },
   },
 })
 
@@ -178,25 +205,39 @@ export const {
   postDataPPKB,
   postDataPPKBFailure,
   postDataPPKBSuccess,
+
   deleteDataPPKB,
   deleteDataPPKBFailure,
   deleteDataPPKBSuccess,
+
   deleteDetailPPKB,
   deleteDetailPPKBFailure,
   deleteDetailPPKBSuccess,
+
   getHeaderPKK,
   getHeaderPKKSuccess,
   getHeaderPKKFailure,
+
   getDetailPKK,
   getDetailPKKSuccess,
   getDetailPKKFailure,
+
   selectedRowHeaderPPKB,
   selectedRowHeaderPPK,
   resetDataDetailPPKB,
   resetDataDetailPPK,
+
   fillComboKegiatan,
   fillComboKegiatanSuccess,
   fillComboKegiatanFailure,
+
+  fillComboAreaPandu,
+  fillComboAreaPanduSuccess,
+  fillComboAreaPanduFailure,
+
+  fillComboNomorPKKTongkang,
+  fillComboNomorPKKTongkangSuccess,
+  fillComboNomorPKKTongkangFailure,
 } = ppkbSlice.actions
 
 export default ppkbSlice.reducer

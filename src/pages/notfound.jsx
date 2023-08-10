@@ -1,5 +1,5 @@
-import React from "react";
-import LogoImage from "./../assets/logo-hd.webp";
+import React from "react"
+import LogoImage from "./../assets/logo-hd.webp"
 
 const Notfound = () => {
   return (
@@ -20,10 +20,6 @@ const Notfound = () => {
                   alt="logo"
                 />
               </section>
-              {/* <div className="header-card flex flex-col justify-center items-center font-medium text-xl">
-                <p>Layanan Surat</p>
-                <p>Pemkot Bitung</p>
-              </div> */}
             </a>
           </nav>
         </header>
@@ -31,11 +27,6 @@ const Notfound = () => {
 
         {/* <!-- ========== MAIN CONTENT ========== --> */}
         <main id="content" role="main">
-          {/* <img
-            src={LogoImage}
-            className="w-auto h-auto text-center"
-            alt="logo"
-          /> */}
           <div className="text-center p-4 sm:px-6 lg:px-8">
             <h1 className="block text-7xl font-bold text-gray-800 sm:text-9xl dark:text-white">
               404
@@ -47,7 +38,7 @@ const Notfound = () => {
             <p className="text-gray-600 dark:text-gray-400">
               Sorry, we couldn't find your page.
             </p>
-           </div>
+          </div>
         </main>
         {/* <!-- ========== END MAIN CONTENT ========== --> */}
 
@@ -62,7 +53,7 @@ const Notfound = () => {
         {/* <!-- ========== END FOOTER ========== --> */}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Notfound;
+export default Notfound

@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.flagGreen {
+  background-color: #1ec70f;
+}
+
+.flagYellow {
+  background-color: #f9ff8f;
+}
+
+.flagBlue {
+  background-color: #285b80;
+}
+
+.flagRed {
+  background-color: #f5310a;
+}
+
+.flagCyan {
+  background-color: #7fffd4;
+}
