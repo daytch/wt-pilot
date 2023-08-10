@@ -1,12 +1,11 @@
 {
   "env": {
     "browser": true,
-    "es2021": true,
-    "jest": true
+    "es2021": true
   },
   "extends": [
-    "eslint:recommended",
     "plugin:react/recommended",
+    "airbnb",
     "plugin:prettier/recommended"
   ],
   "overrides": [],
@@ -16,6 +15,13 @@
   },
   "plugins": ["react"],
   "rules": {
-    "react/react-in-jsx-scope": "off"
+    "react/jsx-filename-extension": 0,
+    "react/react-in-jsx-scope": 0,
+    "linebreak-style": 0,
+    "prettier/prettier": [
+      "error",
+      { "singleQuote": true, "endOfLine": "auto" }
+    ],
+    "quotes": [1, "single"]
   }
 }
