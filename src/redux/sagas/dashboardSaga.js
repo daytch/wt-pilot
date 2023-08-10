@@ -1,7 +1,7 @@
-import { all, call, put, takeEvery } from "redux-saga/effects";
-import { URL } from "./../constants";
+import { all, call, put, takeEvery } from "redux-saga/effects"
+import { URL } from "./../constants"
 
-import { GET } from "./../middleware/index";
+import { GET } from "./../middleware/index"
 import {
   getDataSuccess,
   getDataFailure,
@@ -42,7 +42,7 @@ export function* getDataFlow(action) {
 
 export function* getData() {
   try {
-    const res = yield call(GET, URL.DASHBOARD);
+    const res = yield call(GET, URL.DASHBOARD)
 
     if (!res) {
       yield put(
@@ -50,18 +50,18 @@ export function* getData() {
           isError: 1,
           message: res.ErrorMessage,
         })
-      );
+      )
     } else {
-      yield put(getDataSuccess({ res }));
+      yield put(getDataSuccess({ res }))
     }
   } catch (error) {
-    yield put(getDataFailure({ isError: 1, message: error }));
+    yield put(getDataFailure({ isError: 1, message: error }))
   }
 }
 
 export function* getDataCabang() {
   try {
-    const res = yield call(GET, URL.GET_CABANG);
+    const res = yield call(GET, URL.GET_CABANG)
 
     if (!res) {
       yield put(
@@ -69,7 +69,7 @@ export function* getDataCabang() {
           isError: 1,
           message: res.ErrorMessage,
         })
-      );
+      )
     } else {
       // yield put(getDataCabangSuccess({ res }));
 
@@ -83,9 +83,28 @@ export function* getDataCabang() {
       // }
     }
 
-    // }
+  
   } catch (error) {
-    yield put(getDataCabangFailure({ isError: 1, message: error }));
+    yield put(getDataCabangFailure({ isError: 1, message: error }))
+  }
+}
+
+export function* getDataCabangWeb() {
+  try {
+    const res = yield call(GET, URL.GET_CABANG_WEB);
+
+    if (!res) {
+      yield put(
+        getDataCabangwebFailure({
+          isError: 1,
+          message: res.ErrorMessage,
+        })
+      );
+    } else {
+      yield put(getDataCabangwebSuccess({ res }));
+    }
+  } catch (error) {
+    yield put(getDataCabangwebFailure({ isError: 1, message: error }));
   }
 }
 
@@ -110,10 +129,7 @@ export function* getDataCabangWeb() {
 
 export function* getDataSalesOrder(action) {
   try {
-    const res = yield call(
-      GET,
-      URL.SALESORDER + "?DariPihak=" + action.payload
-    );
+    const res = yield call(GET, URL.SALESORDER + "?DariPihak=" + action.payload)
 
     if (!res) {
       yield put(
@@ -121,12 +137,12 @@ export function* getDataSalesOrder(action) {
           isError: 1,
           message: res.ErrorMessage,
         })
-      );
+      )
     } else {
-      yield put(getDataSalesOrderSuccess({ res }));
+      yield put(getDataSalesOrderSuccess({ res }))
     }
   } catch (error) {
-    yield put(getDataSalesOrderFailure({ isError: 1, message: error }));
+    yield put(getDataSalesOrderFailure({ isError: 1, message: error }))
   }
 }
 
@@ -135,7 +151,7 @@ export function* getDataRealisasiPandu(action) {
     const res = yield call(
       GET,
       URL.REALISASI_PANDU + "?DariPihak=" + action.payload
-    );
+    )
 
     if (!res) {
       yield put(
@@ -143,12 +159,12 @@ export function* getDataRealisasiPandu(action) {
           isError: 1,
           message: res.ErrorMessage,
         })
-      );
+      )
     } else {
-      yield put(getDataRealisasiPanduSuccess({ res }));
+      yield put(getDataRealisasiPanduSuccess({ res }))
     }
   } catch (error) {
-    yield put(getDataRealisasiPanduFailure({ isError: 1, message: error }));
+    yield put(getDataRealisasiPanduFailure({ isError: 1, message: error }))
   }
 }
 
@@ -159,5 +175,5 @@ export default function* rootSaga() {
   yield all([takeEvery("Dashboard/getDataSalesOrder", getDataSalesOrder)]);
   yield all([
     takeEvery("Dashboard/getDataRealisasiPandu", getDataRealisasiPandu),
-  ]);
+  ])
 }

@@ -69,7 +69,6 @@ const RealisasiPemanduan = () => {
     }&UserType=${!isEmptyNullOrUndefined(UserType) ? UserType : ""} 
       &LoginUserId=${!isEmptyNullOrUndefined(UserLogin) ? UserLogin : ""}`
 
-    // debugger
     dispatch(getDataLaporan(url))
   }
 
