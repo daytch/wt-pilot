@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getDataPKKInaportnet } from '../../redux/slices/jadwalSlice';
-import { getDataFlow } from '../../redux/slices/dashboardSlice';
+import React, { useEffect, useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getDataPKKInaportnet } from "../../redux/slices/jadwalSlice";
+import { getDataFlow } from "../../redux/slices/dashboardSlice";
 import {
   resetDataDetailPPK,
   selectedRowHeaderPPK,
@@ -9,30 +9,30 @@ import {
   fillComboKegiatan,
   fillComboAreaPandu,
   fillComboNomorPKKTongkang,
-} from '../../redux/slices/ppkbSlice';
+} from "../../redux/slices/ppkbSlice";
 import {
   handleDateAPI,
   isEmptyNullOrUndefined,
   datetimeToString,
-} from '../../functions/index';
-import 'react-datepicker/dist/react-datepicker.css';
-import Filter from '../../components/Filter';
-import Detail from '../../components/Detail';
-import FlowChart from '../../components/FlowChart';
-import Datepicker from '../../components/Datepicker.jsx';
-import Select from '../../components/Select';
+} from "../../functions/index";
+import "react-datepicker/dist/react-datepicker.css";
+import Filter from "../../components/Filter";
+import Detail from "../../components/Detail";
+import FlowChart from "../../components/FlowChart";
+import Datepicker from "../../components/Datepicker.jsx";
+import Select from "../../components/Select";
 
 function Dashboard() {
   const dispatch = useDispatch();
-  const UserData = JSON.parse(localStorage.getItem('userData'));
+  const UserData = JSON.parse(localStorage.getItem("userData"));
   const [startDate, setStartDate] = useState(
-    sessionStorage.getItem('dariTanggalJadwalKedatangan')
-      ? new Date(sessionStorage.getItem('dariTanggalJadwalKedatangan'))
+    sessionStorage.getItem("dariTanggalJadwalKedatangan")
+      ? new Date(sessionStorage.getItem("dariTanggalJadwalKedatangan"))
       : new Date()
   );
   const [endDate, setEndDate] = useState(
-    sessionStorage.getItem('sampaiTanggalJadwalKedatangan')
-      ? new Date(sessionStorage.getItem('sampaiTanggalJadwalKedatangan'))
+    sessionStorage.getItem("sampaiTanggalJadwalKedatangan")
+      ? new Date(sessionStorage.getItem("sampaiTanggalJadwalKedatangan"))
       : new Date()
   );
   const dariPihak = UserData.UserType;
@@ -40,20 +40,20 @@ function Dashboard() {
   const UserLogin = UserData.UserId;
   // const [MMCode, setMMCode] = useState(UserData.MMCode)
   const [MMCode, setMMCode] = useState(
-    UserData.MMCode === 'PST' ? '' : UserData.MMCode
+    UserData.MMCode === "PST" ? "" : UserData.MMCode
   );
-  const [Outstanding, setOutstanding] = useState('');
+  const [Outstanding, setOutstanding] = useState("");
   const [Code, setCode] = useState(
-    sessionStorage.getItem('codeColumnSearchJadwalKedatangan') ?? ''
+    sessionStorage.getItem("codeColumnSearchJadwalKedatangan") ?? ""
   );
-  const [ValueSearch, setValueSearch] = useState('');
+  const [ValueSearch, setValueSearch] = useState("");
   const [isShowModal, setIsShowModal] = useState(true);
   const [ViewBy, setViewBy] = useState(dariPihak);
   const [ViewValue, setViewValue] = useState(UserData.UserName);
-  const [FilterDate, setFilterDate] = useState('1');
-  const [Status_Order, setStatus_Order] = useState('');
+  const [FilterDate, setFilterDate] = useState("1");
+  const [Status_Order, setStatus_Order] = useState("");
   const [AgentUserLogin, setAgentUserLogin] = useState(
-    dariPihak === 'AGEN' ? UserLogin : ''
+    dariPihak === "AGEN" ? UserLogin : ""
   );
   const tglRencanaRef = useRef();
   const jamRencanaRef = useRef();
@@ -62,49 +62,49 @@ function Dashboard() {
   const kegiatanRef = useRef();
   const modalRef = useRef();
   const [detail, setDetail] = useState({});
-  const [noPKK, setNoPKK] = useState('');
-  const [nomorPKKTongkang, setNomorPKKTongkang] = useState('');
-  const [nomorRKBMBongkar, setNomorRKBMBongkar] = useState('');
-  const [nomorRKBMuat, setNomorRKBMMuat] = useState('');
-  const [nama_kapal, setNamaKapal] = useState('');
-  const [nama_tongkang, setNamaTongkang] = useState('');
-  const [nama_nahkoda, setNamaNahkoda] = useState('');
-  const [keterangan, setKeterangan] = useState('');
-  const [kodekegiatan, setKodeKegiatan] = useState('');
-  const [noPPKB, setNoPPKB] = useState('');
-  const [RKBMBongkar, setRKBMBongkar] = useState('');
-  const [RKBMMuat, setRKBMMuat] = useState('');
+  const [noPKK, setNoPKK] = useState("");
+  const [nomorPKKTongkang, setNomorPKKTongkang] = useState("");
+  const [nomorRKBMBongkar, setNomorRKBMBongkar] = useState("");
+  const [nomorRKBMuat, setNomorRKBMMuat] = useState("");
+  const [nama_kapal, setNamaKapal] = useState("");
+  const [nama_tongkang, setNamaTongkang] = useState("");
+  const [nama_nahkoda, setNamaNahkoda] = useState("");
+  const [keterangan, setKeterangan] = useState("");
+  const [kodekegiatan, setKodeKegiatan] = useState("");
+  const [noPPKB, setNoPPKB] = useState("");
+  const [RKBMBongkar, setRKBMBongkar] = useState("");
+  const [RKBMMuat, setRKBMMuat] = useState("");
   const [tglPPKB, setTglPPKB] = useState(new Date());
   const [tglRencana, setTglRencana] = useState(new Date());
   const [jamRencana, setJamRencana] = useState(new Date());
-  const [kodelokasi, setKodeLokasi] = useState('');
+  const [kodelokasi, setKodeLokasi] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [lokasi, setLokasi] = useState('');
-  const [kegiatan, setKegiatan] = useState('');
-  const [oid, setOid] = useState('');
+  const [lokasi, setLokasi] = useState("");
+  const [kegiatan, setKegiatan] = useState("");
+  const [oid, setOid] = useState("");
 
-  let oldindex = '';
+  let oldindex = "";
   const fetchData = async () => {
     const url = `?MMCode=${
-      !isEmptyNullOrUndefined(MMCode) ? MMCode : ''
+      !isEmptyNullOrUndefined(MMCode) ? MMCode : ""
     }&FromDate=${handleDateAPI(startDate)}&ToDate=${handleDateAPI(
       endDate
     )}&FilterDate=${
-      !isEmptyNullOrUndefined(FilterDate) ? FilterDate : ''
-    }&ColumnSearch=${!isEmptyNullOrUndefined(Code) ? Code : ''}&ValueSearch=${
-      !isEmptyNullOrUndefined(ValueSearch) ? ValueSearch : ''
+      !isEmptyNullOrUndefined(FilterDate) ? FilterDate : ""
+    }&ColumnSearch=${!isEmptyNullOrUndefined(Code) ? Code : ""}&ValueSearch=${
+      !isEmptyNullOrUndefined(ValueSearch) ? ValueSearch : ""
     }&Outstanding=${
-      !isEmptyNullOrUndefined(Outstanding) ? Outstanding : ''
-    }&UserType=${!isEmptyNullOrUndefined(UserType) ? UserType : ''} 
-      &LoginUserId=${!isEmptyNullOrUndefined(UserLogin) ? UserLogin : ''}`;
+      !isEmptyNullOrUndefined(Outstanding) ? Outstanding : ""
+    }&UserType=${!isEmptyNullOrUndefined(UserType) ? UserType : ""} 
+      &LoginUserId=${!isEmptyNullOrUndefined(UserLogin) ? UserLogin : ""}`;
 
     // debugger
     dispatch(getDataPKKInaportnet(url));
   };
 
   const handleSaveDataNew = () => {
-    var trString = tglRencanaRef.current.input.value.split('-');
-    var tbString = tglPPKBRef.current.input.value.split('-');
+    var trString = tglRencanaRef.current.input.value.split("-");
+    var tbString = tglPPKBRef.current.input.value.split("-");
 
     const tr = handleDateAPI(
       new Date(+trString[2], trString[1] - 1, +trString[0])
@@ -125,12 +125,12 @@ function Dashboard() {
       NoPPKB: noPPKB,
       // TglPPKB: tglPPKB,
       TglPPKB: tb,
-      NomorPKKTongkang: nomorPKKTongkang ? nomorPKKTongkang : '',
-      no_rkbm_bongkar: nomorRKBMBongkar ? nomorRKBMBongkar : '',
-      no_rkbm_muat: nomorRKBMuat ? nomorRKBMuat : '',
+      NomorPKKTongkang: nomorPKKTongkang ? nomorPKKTongkang : "",
+      no_rkbm_bongkar: nomorRKBMBongkar ? nomorRKBMBongkar : "",
+      no_rkbm_muat: nomorRKBMuat ? nomorRKBMuat : "",
       TglRencana: tr,
       JamRencana: jr,
-      Kode_Lokasi: kode_lokasi.replace(/\s/g, ''),
+      Kode_Lokasi: kode_lokasi.replace(/\s/g, ""),
       Lokasi: lokasi,
       // Kode_Kegiatan: kodekegiatan,
       // Kegiatan: kegiatan,
@@ -142,9 +142,9 @@ function Dashboard() {
       UserId: UserLogin,
     };
     let urlParameters = Object.entries(payload)
-      .map((e) => e.join('='))
-      .join('&');
-    dispatch(postDataPPKB('?' + urlParameters));
+      .map((e) => e.join("="))
+      .join("&");
+    dispatch(postDataPPKB("?" + urlParameters));
     if (isModalOpen) {
       btnDetailRef.current.click();
       setIsModalOpen(false);
@@ -186,7 +186,7 @@ function Dashboard() {
     var listPKKTongkang = dataListNomorPKKTongkang.filter(
       (x) => x.MemberValue === pkkTongkang
     );
-    let PKKTongkang = listPKKTongkang.length > 0 ? listPKKTongkang[0] : '';
+    let PKKTongkang = listPKKTongkang.length > 0 ? listPKKTongkang[0] : "";
     if (PKKTongkang) {
       setRKBMBongkar(PKKTongkang.no_rkbm_bongkar);
       setRKBMMuat(PKKTongkang.no_rkbm_muat);
@@ -205,11 +205,11 @@ function Dashboard() {
     (state) => state.PPKB.fillComboAreaPandu
   );
   const getDataDropdown = () => {
-    let payload = { MMCode: MMCode, ValueSearch: '' };
+    let payload = { MMCode: MMCode, ValueSearch: "" };
     let payloadTongkang = {
       MMCode: MMCode,
       NomorPKKSelected: noPKK,
-      ValueSearch: '',
+      ValueSearch: "",
     };
     dispatch(fillComboNomorPKKTongkang(payloadTongkang));
     dispatch(fillComboAreaPandu(payload));
@@ -231,55 +231,55 @@ function Dashboard() {
 
   useEffect(() => {
     if (modalRef.current.classList.value) {
-      setIsModalOpen(modalRef.current.classList.value.indexOf('hidden') === -1);
+      setIsModalOpen(modalRef.current.classList.value.indexOf("hidden") === -1);
     }
   }, [modalRef.current?.classList]);
 
   const resetModal = () => {
     if (!isModalOpen) {
-      if (Outstanding === '1' || Outstanding === 1) {
+      if (Outstanding === "1" || Outstanding === 1) {
         dispatch(resetDataDetailPPKB());
       } else {
-        setNoPKK('');
+        setNoPKK("");
         dispatch(resetDataDetailPPK());
       }
-      setKeterangan('');
+      setKeterangan("");
       // if (areaPanduRef) {
       //   areaPanduRef.current.value = ""
       // }
       // if (kegiatanRef) {
       //   kegiatanRef.current.value = ""
       // }
-      setKodeLokasi('');
-      setLokasi('');
-      setKodeKegiatan('');
-      setKegiatan('');
-      setTglPPKB('');
-      setTglRencana('');
-      setJamRencana('');
-      setNoPPKB('');
-      setOid('');
+      setKodeLokasi("");
+      setLokasi("");
+      setKodeKegiatan("");
+      setKegiatan("");
+      setTglPPKB("");
+      setTglRencana("");
+      setJamRencana("");
+      setNoPPKB("");
+      setOid("");
     }
   };
   useEffect(() => {
-    sessionStorage.setItem('dariTanggalJadwalKedatangan', startDate);
-    sessionStorage.setItem('sampaiTanggalJadwalKedatangan', endDate);
-    sessionStorage.setItem('codeColumnSearchJadwalKedatangan', Code);
-    sessionStorage.setItem('valueColumnSearchJadwalKedatangan', ValueSearch);
-    sessionStorage.setItem('cabangJadwalKedatangan', MMCode);
-    sessionStorage.setItem('startDate', startDate);
-    sessionStorage.setItem('endDate', endDate);
+    sessionStorage.setItem("dariTanggalJadwalKedatangan", startDate);
+    sessionStorage.setItem("sampaiTanggalJadwalKedatangan", endDate);
+    sessionStorage.setItem("codeColumnSearchJadwalKedatangan", Code);
+    sessionStorage.setItem("valueColumnSearchJadwalKedatangan", ValueSearch);
+    sessionStorage.setItem("cabangJadwalKedatangan", MMCode);
+    sessionStorage.setItem("startDate", startDate);
+    sessionStorage.setItem("endDate", endDate);
 
-    setViewValue(localStorage.getItem('username'));
-    setViewBy(localStorage.getItem('id'));
+    setViewValue(localStorage.getItem("username"));
+    setViewBy(localStorage.getItem("id"));
 
     const deleteSelected = () => {
-      const table = document.getElementById('table');
-      oldindex = '';
+      const table = document.getElementById("table");
+      oldindex = "";
 
       for (let i = 1; i < table?.rows?.length; i++) {
-        table.rows[i].classList.remove('selected');
-        table.rows[i].cells[0].classList.remove('arrowright');
+        table.rows[i].classList.remove("selected");
+        table.rows[i].cells[0].classList.remove("arrowright");
       }
     };
 
@@ -293,7 +293,7 @@ function Dashboard() {
     setNamaKapal(detail?.nama_kapal);
     setNamaTongkang(detail?.nama_tongkang);
     setNamaNahkoda(detail?.nahkoda);
-    if (Outstanding === 0 || Outstanding === '0') {
+    if (Outstanding === 0 || Outstanding === "0") {
       setKeterangan(detail?.Keterangan);
 
       setNomorPKKTongkang(detail?.nama_pkk_tongkang);
@@ -313,8 +313,9 @@ function Dashboard() {
       resetModal();
     }
   }, [detail]);
+  
   const onClickRow = (e) => {
-    setNoPKK(e.currentTarget.children[3].innerHTML);
+    setNoPKK(e.nomor_pkk);
   };
 
   return (
@@ -355,9 +356,9 @@ function Dashboard() {
               <div
                 className="px-3"
                 style={{
-                  maxWidth: '100%',
-                  overflow: 'auto',
-                  maxHeight: '30vh',
+                  maxWidth: "100%",
+                  overflow: "auto",
+                  maxHeight: "30vh",
                 }}
               >
                 <table className="w-[70vw] divide-gray-200 dark:divide-gray-700">
@@ -444,36 +445,36 @@ function Dashboard() {
                             </td>
                             <td
                               className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
-                              onClick={onClickRow}
+                              onClick={() => onClickRow(item)}
                             >
                               {idx + 1}
                             </td>
                             <td
                               className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
-                              onClick={onClickRow}
+                              onClick={() => onClickRow(item)}
                             >
                               {item.nomor_pkk}
                             </td>
                             <td
                               className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
-                              onClick={onClickRow}
+                              onClick={() => onClickRow(item)}
                             >
                               {item.nama_kapal}
                             </td>
                             <td
                               className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
-                              onClick={onClickRow}
+                              onClick={() => onClickRow(item)}
                             >
                               {new Date(item.tanggal_eta).getFullYear() < 2000
-                                ? ''
+                                ? ""
                                 : datetimeToString(item.tanggal_eta)}
                             </td>
                             <td
                               className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
-                              onClick={onClickRow}
+                              onClick={() => onClickRow(item)}
                             >
                               {new Date(item.tanggal_etd).getFullYear() < 2000
-                                ? ''
+                                ? ""
                                 : datetimeToString(item.tanggal_etd)}
                             </td>
                           </tr>
@@ -489,7 +490,7 @@ function Dashboard() {
                   <p className="text-[10px] text-gray-600  dark:text-gray-400">
                     <span className="font-semibold text-gray-800 dark:text-gray-200">
                       {data?.length}
-                    </span>{' '}
+                    </span>{" "}
                     results
                   </p>
                 </div>
@@ -541,7 +542,7 @@ function Dashboard() {
               <div className="w-full sm:divide-y divide-gray-200 dark:divide-gray-700">
                 <div className="py-3 sm:py-6">
                   <div className="flex justify-end">
-                    <div className="row" style={{ marginLeft: '5px' }}>
+                    <div className="row" style={{ marginLeft: "5px" }}>
                       <button
                         className="mr-3 py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-green-500 text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all text-[10px] dark:focus:ring-offset-gray-800"
                         onClick={handleSaveDataNew}

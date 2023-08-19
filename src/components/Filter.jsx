@@ -75,13 +75,13 @@ const Filter = (props) => {
     ) {
       setMMCode(dataSalesOrder[0].Code)
     }
-    if (
-      isEmptyNullOrUndefined(MMCode) &&
-      tipe === "realisasi" &&
-      dataRealisasiPandu.length > 0
-    ) {
-      setMMCode(dataRealisasiPandu[0].Code)
-    }
+    // if (
+    //   isEmptyNullOrUndefined(MMCode) &&
+    //   tipe === "realisasi" &&
+    //   dataRealisasiPandu.length > 0
+    // ) {
+    //   setMMCode(dataRealisasiPandu[0].Code)
+    // }
   }, [MMCode])
 
   const onchangeStartDate = (e) => {

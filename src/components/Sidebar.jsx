@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
-import LogoImage from './../assets/logo-hd.webp';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useEffect, useRef } from "react";
+import LogoImage from "./../assets/logo-hd.webp";
+import { useDispatch, useSelector } from "react-redux";
 import {
   changeActiveSidebarMenu,
   changeActiveTabMenu,
-} from '../redux/slices/dashboardSlice.js';
-import { postLogin } from './../redux/slices/authenticationSlice.js';
+} from "../redux/slices/dashboardSlice.js";
+import { postLogin } from "./../redux/slices/authenticationSlice.js";
 import {
   CalendarDaysIcon,
   CircleStackIcon,
@@ -14,18 +14,18 @@ import {
   KeyIcon,
   UserCircleIcon,
   HomeIcon,
-} from '@heroicons/react/24/outline';
-import Loader from './Loader';
-import Dashboard from './../pages/admin/dashboard';
-import JadwalKedatangan from './../pages/admin/jadwalkedatangan';
-import PPKB from './../pages/admin/ppkb';
-import PNBP from './../pages/admin/pnbp';
-import Realisasi from './../pages/admin/realisasipemanduan';
-import { ConfirmationMessage } from './Notification';
+} from "@heroicons/react/24/outline";
+import Loader from "./Loader";
+import Dashboard from "./../pages/admin/dashboard";
+import JadwalKedatangan from "./../pages/admin/jadwalkedatangan";
+import PPKB from "./../pages/admin/ppkb";
+import PNBP from "./../pages/admin/pnbp";
+import Realisasi from "./../pages/admin/realisasipemanduan";
+import { ConfirmationMessage } from "./Notification";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
-  const userData = JSON.parse(localStorage.getItem('userData'));
+  const userData = JSON.parse(localStorage.getItem("userData"));
   const username = userData?.displayUserName;
   const [loading, setLoading] = useState(false);
 
@@ -42,17 +42,17 @@ const Sidebar = () => {
   const isActive = useSelector((state) => state.Dashboard.activeSidebarMenu);
   const isTabMenuActive = useSelector((state) => state.Dashboard.activeTabMenu);
   const activeClass =
-    'flex rounded-md my-2 p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 bg-light-white';
+    "flex rounded-md my-2 p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 bg-light-white";
   const inActiveClass =
-    'flex rounded-md my-2 p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4';
+    "flex rounded-md my-2 p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4";
   const activeTabMenuClass =
-    'font-semibold px-4 py-3 hover:bg-[#51B1E7] bg-[#51B1E7]';
-  const inActiveTabMenuClass = 'font-semibold px-4 py-3 hover:bg-[#51B1E7]';
+    "font-semibold px-4 py-3 hover:bg-[#51B1E7] bg-[#51B1E7]";
+  const inActiveTabMenuClass = "font-semibold px-4 py-3 hover:bg-[#51B1E7]";
 
   const backDropActive =
-    'hs-overlay backdrop-blur-sm w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto [--overlay-backdrop:static] open';
+    "hs-overlay backdrop-blur-sm w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto [--overlay-backdrop:static] open";
   const backDroopNonActive =
-    'hs-overlay hidden backdrop-blur-sm w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto [--overlay-backdrop:static]'; //"hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto"
+    "hs-overlay hidden backdrop-blur-sm w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto [--overlay-backdrop:static]"; //"hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto"
 
   const menuAction = {
     dashboard: (isLeftmenu) => {
@@ -162,16 +162,16 @@ const Sidebar = () => {
     },
     logout: () => {
       localStorage.clear();
-      window.location.href = '/';
+      window.location.href = "/";
     },
   };
 
   useEffect(() => {
     if (token) {
-      localStorage.setItem('token', token);
-      localStorage.setItem('userData', JSON.stringify(data));
+      localStorage.setItem("token", token);
+      localStorage.setItem("userData", JSON.stringify(data));
       if (token && data) {
-        localStorage.setItem('isUserActive', true);
+        localStorage.setItem("isUserActive", true);
       }
     }
   }, [loadingA, data]);
@@ -226,45 +226,45 @@ const Sidebar = () => {
   };
   const [open, setOpen] = useState(true);
   const [tabMenu, setTabMenu] = useState(
-    localStorage.getItem('listTabMenu')
-      ? JSON.parse(localStorage.getItem('listTabMenu'))
-      : [{ title: 'Dashboard', name: 'dashboard' }]
+    localStorage.getItem("listTabMenu")
+      ? JSON.parse(localStorage.getItem("listTabMenu"))
+      : [{ title: "Dashboard", name: "dashboard" }]
   );
 
   let selectedMenu = {};
   const Menus =
-    userData?.UserType === 'KSOP'
+    userData?.UserType === "KSOP"
       ? [
-          { title: 'Dashboard', name: 'dashboard' },
+          { title: "Dashboard", name: "dashboard" },
           {
-            title: 'Jadwal Kapal',
-            name: 'jadwal',
+            title: "Jadwal Kapal",
+            name: "jadwal",
           },
-          { title: 'PNBP', name: 'pnbp' },
+          { title: "PNBP", name: "pnbp" },
           {
-            title: 'Realisasi Pemanduan ',
-            name: 'realisasi',
+            title: "Realisasi Pemanduan ",
+            name: "realisasi",
           },
           {
-            title: 'Logout ',
-            name: 'logout',
+            title: "Logout ",
+            name: "logout",
             gap: true,
           },
         ]
       : [
-          { title: 'Dashboard', name: 'dashboard' },
+          { title: "Dashboard", name: "dashboard" },
           {
-            title: 'Jadwal Kapal',
-            name: 'jadwal',
+            title: "Jadwal Kapal",
+            name: "jadwal",
           },
-          { title: 'PPKB', name: 'ppkb' },
+          { title: "PPKB", name: "ppkb" },
           {
-            title: 'Realisasi Pemanduan ',
-            name: 'realisasi',
+            title: "Realisasi Pemanduan ",
+            name: "realisasi",
           },
           {
-            title: 'Logout ',
-            name: 'logout',
+            title: "Logout ",
+            name: "logout",
             gap: true,
           },
         ];
@@ -276,7 +276,7 @@ const Sidebar = () => {
     menuAction[oldMenu[idx - 1].name](true);
     oldMenu.splice(idx, 1);
     setTabMenu(oldMenu);
-    localStorage.setItem('listTabMenu', JSON.stringify(oldMenu));
+    localStorage.setItem("listTabMenu", JSON.stringify(oldMenu));
   };
 
   return (
@@ -284,22 +284,28 @@ const Sidebar = () => {
       <Loader isLoading={loading} />
       <div
         className={` ${
-          open ? 'w-72' : 'w-20 '
+          open ? "w-72" : "w-20 "
         } bg-dark-purple h-screen p-5 pt-8 relative duration-300`}
       >
         <img
           src="./src/assets/control.webp"
           className={`absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple
-           border-2 rounded-full  ${!open && 'rotate-180'}`}
+           border-2 rounded-full  ${!open && "rotate-180"}`}
           onClick={() => setOpen(!open)}
         />
         <div className="flex gap-x-4 items-center">
-          <img
-            src="./src/assets/logo.webp"
-            className={`cursor-pointer duration-500 w-[40px] h-auto ${
-              open && 'rotate-[360deg]'
-            }`}
-          />
+          {!open ? (
+            <img
+              src="./src/assets/logo.webp"
+              className={`cursor-pointer duration-500 w-[40px] h-auto rotate-[360deg]"
+              }`}
+            />
+          ) : (
+            <img
+              src="./src/assets/logo.png"
+              className={`cursor-pointer duration-500 w-full h-auto`}
+            />
+          )}
           {/* <h1
             className={`text-white origin-left font-medium text-base duration-200 ${
               !open && 'scale-0'
@@ -317,14 +323,14 @@ const Sidebar = () => {
                 if (tabMenu.map((x) => x.name).indexOf(Menu.name) > -1) {
                   selectedMenu = Menu;
                   ConfirmationMessage(
-                    'Confirmation?!',
+                    "Confirmation?!",
                     `<div>Menu <b><u>${Menu.title}</u></b> sudah di buka pada tab menu, apakah anda akan mengaktifkan menu <b><u>${Menu.title}</u></b> ?</div>`,
                     cbConfirmation
                   );
                 } else {
                   setTabMenu((oldArr) => [...oldArr, Menu]);
                   localStorage.setItem(
-                    'listTabMenu',
+                    "listTabMenu",
                     JSON.stringify([...tabMenu, Menu])
                   );
                   menuAction[Menu.name](true);
@@ -333,7 +339,7 @@ const Sidebar = () => {
               }}
             >
               {renderIcon[Menu.name]()}
-              <span className={`${!open && 'hidden'} origin-left duration-200`}>
+              <span className={`${!open && "hidden"} origin-left duration-200`}>
                 {Menu.title}
               </span>
             </li>
@@ -343,9 +349,7 @@ const Sidebar = () => {
 
       <div className="h-screen flex-1 pt-3 p-7">
         <h1
-          className={`text-dark-purple float-right mb-2 origin-left font-medium text-base duration-200 ${
-            !open && 'scale-0'
-          }`}
+          className={`text-dark-purple float-right mb-2 origin-left font-medium text-base duration-200`}
         >
           Hi, {username}
         </h1>

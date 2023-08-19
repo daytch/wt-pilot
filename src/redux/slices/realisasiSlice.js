@@ -14,7 +14,10 @@ export const realisasiSlice = createSlice({
       state.loading = true;
     },
     getDataLaporanSuccess: (state, action) => {
-      state.data = action.payload.res.data;
+      state.data =
+        action.payload.res.data?.length > 0
+          ? action.payload.res.data
+          : state.data;
       state.message = action.payload.message;
       state.loading = false;
     },
