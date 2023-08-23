@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState, useRef, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getHeaderPPKBWeb,
   getDetailPPKB,
@@ -14,53 +14,56 @@ import {
   fillComboKegiatan,
   fillComboAreaPandu,
   fillComboNomorPKKTongkang,
-} from '../../redux/slices/ppkbSlice.js';
-import { toogleLoading } from '../../redux/slices/dashboardSlice.js';
+} from "../../redux/slices/ppkbSlice.js";
+import { toogleLoading } from "../../redux/slices/dashboardSlice.js";
 import {
   sliceHour,
   handleDateAPI,
   isEmptyNullOrUndefined,
   datetimeToString,
-} from '../../functions/index.js';
-import 'react-datepicker/dist/react-datepicker.css';
-import Filter from '../../components/Filter';
-import RightChevron from '../../assets/right-chevron.png';
-import { ErrorMessage, SuccessMessage } from '../../components/Notification';
-import Datepicker from '../../components/Datepicker.jsx';
-import Select from '../../components/Select';
+} from "../../functions/index.js";
+import "react-datepicker/dist/react-datepicker.css";
+import Filter from "../../components/Filter";
+import RightChevron from "../../assets/right-chevron.png";
+import { ErrorMessage, SuccessMessage } from "../../components/Notification";
+import Datepicker from "../../components/Datepicker.jsx";
+import Select from "../../components/Select";
 
 const Ppkb = () => {
   const dispatch = useDispatch();
-  const UserData = JSON.parse(localStorage.getItem('userData'));
+  const UserData = JSON.parse(localStorage.getItem("userData"));
   const [startDate, setStartDate] = useState(
-    sessionStorage.getItem('dariTanggalPPKB')
-      ? new Date(sessionStorage.getItem('dariTanggalPPKB'))
+    sessionStorage.getItem("dariTanggalPPKB")
+      ? new Date(sessionStorage.getItem("dariTanggalPPKB"))
       : new Date()
   );
   const [endDate, setEndDate] = useState(
-    sessionStorage.getItem('sampaiTanggalPPKB')
-      ? new Date(sessionStorage.getItem('sampaiTanggalPPKB'))
+    sessionStorage.getItem("sampaiTanggalPPKB")
+      ? new Date(sessionStorage.getItem("sampaiTanggalPPKB"))
       : new Date()
   );
   const [detail, setDetail] = useState({});
   const dariPihak = UserData.UserType;
   const UserLogin = UserData.UserId;
   const UserType = UserData.UserType;
-  // const [MMCode, setMMCode] = useState(UserData.MMCode)
   const [MMCode, setMMCode] = useState(
-    UserData.MMCode === 'PST' ? '' : UserData.MMCode
+    UserData.MMCode !== "PST"
+      ? UserData.MMCode
+      : sessionStorage.getItem("MMCode")
+      ? sessionStorage.getItem("MMCode")
+      : ""
   );
-  const [Outstanding, setOutstanding] = useState('0');
-  const [Code, setCode] = useState('');
-  const [ValueSearch, setValueSearch] = useState('');
+  const [Outstanding, setOutstanding] = useState("0");
+  const [Code, setCode] = useState("");
+  const [ValueSearch, setValueSearch] = useState("");
   const [isCreatedNew, setIsCreatedNew] = useState(false);
   const [ViewBy, setViewBy] = useState(dariPihak);
   const [ViewValue, setViewValue] = useState(UserData.UserName);
-  const [FilterDate, setFilterDate] = useState('1');
+  const [FilterDate, setFilterDate] = useState("1");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [AgentUserLogin, setAgentUserLogin] = useState(
-    dariPihak === 'AGEN' ? UserLogin : ''
+    dariPihak === "AGEN" ? UserLogin : ""
   );
   const [notApproved, setNotApproved] = useState(false);
   const btnDetailRef = useRef();
@@ -72,28 +75,28 @@ const Ppkb = () => {
   const areaPanduRef = useRef();
   const kegiatanRef = useRef();
 
-  const [nomorPKK, setNomorPKK] = useState('');
-  const [nomorPKKTongkang, setNomorPKKTongkang] = useState('');
-  const [nomorRKBMBongkar, setNomorRKBMBongkar] = useState('');
-  const [nomorRKBMuat, setNomorRKBMMuat] = useState('');
-  const [nama_kapal, setNamaKapal] = useState('');
-  const [nama_tongkang, setNamaTongkang] = useState('');
-  const [nama_nahkoda, setNamaNahkoda] = useState('');
-  const [keterangan, setKeterangan] = useState('');
-  const [kodekegiatan, setKodeKegiatan] = useState('');
-  const [kegiatan, setKegiatan] = useState('');
-  const [kodelokasi, setKodeLokasi] = useState('');
-  const [lokasi, setLokasi] = useState('');
-  const [RKBMBongkar, setRKBMBongkar] = useState('');
-  const [RKBMMuat, setRKBMMuat] = useState('');
+  const [nomorPKK, setNomorPKK] = useState("");
+  const [nomorPKKTongkang, setNomorPKKTongkang] = useState("");
+  const [nomorRKBMBongkar, setNomorRKBMBongkar] = useState("");
+  const [nomorRKBMuat, setNomorRKBMMuat] = useState("");
+  const [nama_kapal, setNamaKapal] = useState("");
+  const [nama_tongkang, setNamaTongkang] = useState("");
+  const [nama_nahkoda, setNamaNahkoda] = useState("");
+  const [keterangan, setKeterangan] = useState("");
+  const [kodekegiatan, setKodeKegiatan] = useState("");
+  const [kegiatan, setKegiatan] = useState("");
+  const [kodelokasi, setKodeLokasi] = useState("");
+  const [lokasi, setLokasi] = useState("");
+  const [RKBMBongkar, setRKBMBongkar] = useState("");
+  const [RKBMMuat, setRKBMMuat] = useState("");
   const [tglPPKB, setTglPPKB] = useState(new Date());
   const [tglRencana, setTglRencana] = useState(new Date());
   const [jamRencana, setJamRencana] = useState(new Date());
 
-  const [noPPKB, setNoPPKB] = useState('');
-  const [oid, setOid] = useState('');
+  const [noPPKB, setNoPPKB] = useState("");
+  const [oid, setOid] = useState("");
 
-  var oldindex = '';
+  var oldindex = "";
   const dataHeaderPPKB = useSelector((state) => state.PPKB.dataHeaderPPKB);
   const dataDetailPPKB = useSelector((state) => state.PPKB.dataDetailPPKB);
   const dataHeaderPKK = useSelector((state) => state.PPKB.dataHeaderPKK);
@@ -123,20 +126,20 @@ const Ppkb = () => {
   useEffect(() => {
     dispatch(toogleLoading(isLoading));
     if (!isEmptyNullOrUndefined(error)) {
-      ErrorMessage('', error);
+      ErrorMessage("", error);
     }
     if (!isEmptyNullOrUndefined(message)) {
-      SuccessMessage('', message);
+      SuccessMessage("", message);
       fetchData();
     }
   }, [isLoading, error, message]);
 
   const getDataDropdown = () => {
-    let payload = { MMCode: MMCode, ValueSearch: '' };
+    let payload = { MMCode: MMCode, ValueSearch: "" };
     let payloadTongkang = {
       MMCode: MMCode,
       NomorPKKSelected: nomorPKK,
-      ValueSearch: '',
+      ValueSearch: "",
     };
     dispatch(fillComboNomorPKKTongkang(payloadTongkang));
     dispatch(fillComboAreaPandu(payload));
@@ -154,37 +157,35 @@ const Ppkb = () => {
 
   useEffect(() => {
     if (modalRef.current.classList.value) {
-      setIsModalOpen(modalRef.current.classList.value.indexOf('hidden') === -1);
+      setIsModalOpen(modalRef.current.classList.value.indexOf("hidden") === -1);
     }
   }, [modalRef.current?.classList]);
 
   useEffect(() => {
     if (dataCabang?.length > 0 && isEmptyNullOrUndefined(MMCode)) {
+      console.log("MMCode 163 :", MMCode);
+      console.log("MMCode 164 :", dataCabang[0].MMCode);
       setMMCode(dataCabang[0].MMCode);
     }
     if (dataSalesOrder?.length > 0 && isEmptyNullOrUndefined(Code)) {
       setCode(dataSalesOrder[0].Code);
     }
-  }, [dataCabang, dataSalesOrder]);
-
-  const searchData = () => {
-    fetchData('search');
-  };
+  }, [MMCode, dataCabang, dataSalesOrder]);
 
   var max = 1;
-  const fetchData = async (e) => {
+  const fetchData = (e) => {
     const url = `?MMCode=${
-      !isEmptyNullOrUndefined(MMCode) ? MMCode : ''
+      !isEmptyNullOrUndefined(MMCode) ? MMCode : ""
     }&FromDate=${handleDateAPI(startDate)}&ToDate=${handleDateAPI(
       endDate
     )}&FilterDate=${
-      !isEmptyNullOrUndefined(FilterDate) ? FilterDate : ''
-    }&ColumnSearch=${!isEmptyNullOrUndefined(Code) ? Code : ''}&ValueSearch=${
-      !isEmptyNullOrUndefined(ValueSearch) ? ValueSearch : ''
+      !isEmptyNullOrUndefined(FilterDate) ? FilterDate : ""
+    }&ColumnSearch=${!isEmptyNullOrUndefined(Code) ? Code : ""}&ValueSearch=${
+      !isEmptyNullOrUndefined(ValueSearch) ? ValueSearch : ""
     }&Outstanding=${
-      !isEmptyNullOrUndefined(Outstanding) ? Outstanding : ''
-    }&UserType=${!isEmptyNullOrUndefined(UserType) ? UserType : ''} 
-      &LoginUserId=${!isEmptyNullOrUndefined(UserLogin) ? UserLogin : ''}`;
+      !isEmptyNullOrUndefined(Outstanding) ? Outstanding : ""
+    }&UserType=${!isEmptyNullOrUndefined(UserType) ? UserType : ""} 
+      &LoginUserId=${!isEmptyNullOrUndefined(UserLogin) ? UserLogin : ""}`;
 
     dispatch(getHeaderPPKBWeb(url));
 
@@ -193,10 +194,10 @@ const Ppkb = () => {
       max = max - 1;
     }
 
-    if (oldindex != '') {
+    if (oldindex != "") {
       selectedRow(0);
     }
-    if (e === 'search') {
+    if (e === "search") {
       if (firstLoad) {
         btnDetailRef.current.click();
         firstLoad = false;
@@ -204,15 +205,13 @@ const Ppkb = () => {
     }
   };
 
-  // console.log("nomorPKK (ppkb.jsx):", nomorPKK)
-
   useEffect(() => {
     // console.log("detail: ", detail)
     setNomorPKK(detail?.nomor_pkk);
     setNamaKapal(detail?.nama_kapal);
     setNamaTongkang(detail?.nama_tongkang);
     setNamaNahkoda(detail?.nahkoda);
-    if (Outstanding === 0 || Outstanding === '0') {
+    if (Outstanding === 0 || Outstanding === "0") {
       setKeterangan(detail?.Keterangan);
 
       setNomorPKKTongkang(detail?.nama_pkk_tongkang);
@@ -256,30 +255,31 @@ const Ppkb = () => {
     }
   };
 
-  // console.log("Outstanding:", Outstanding)
   useEffect(() => {
-    sessionStorage.setItem('dariTanggalPPKB', startDate);
-    sessionStorage.setItem('sampaiTanggalPPKB', endDate);
-    sessionStorage.setItem('codeColumnSearchPPKB', Code);
-    sessionStorage.setItem('valueColumnSearchPPKB', ValueSearch);
-    sessionStorage.setItem('cabangPPKB', MMCode);
+    sessionStorage.setItem("dariTanggalPPKB", startDate);
+    sessionStorage.setItem("sampaiTanggalPPKB", endDate);
+    sessionStorage.setItem("codeColumnSearchPPKB", Code);
+    sessionStorage.setItem("valueColumnSearchPPKB", ValueSearch);
+    sessionStorage.setItem("cabangPPKB", MMCode);
 
-    setViewValue(localStorage.getItem('username'));
-    setViewBy(localStorage.getItem('id'));
+    setViewValue(localStorage.getItem("username"));
+    setViewBy(localStorage.getItem("id"));
 
     const deleteSelected = () => {
-      var table = document.getElementById('table');
-      oldindex = '';
+      var table = document.getElementById("table");
+      oldindex = "";
 
       for (var i = 1; i < table?.rows?.length; i++) {
-        table.rows[i].classList.remove('selected');
-        table.rows[i].cells[0].classList.remove('arrowright');
+        table.rows[i].classList.remove("selected");
+        table.rows[i].cells[0].classList.remove("arrowright");
       }
     };
-
+    
     deleteSelected();
     firstLoad = false;
-    fetchData();
+    if (startDate && endDate && Code && MMCode && !isEmptyNullOrUndefined(Outstanding)) {
+      fetchData();
+    }
   }, [startDate, endDate, Code, ValueSearch, MMCode, Outstanding]);
 
   const [allRKBM, setAllRKBM] = useState([]);
@@ -304,7 +304,7 @@ const Ppkb = () => {
   useEffect(() => {
     if (
       dataDetailPPKB.length > 0 &&
-      (Outstanding === '0' || Outstanding === 0)
+      (Outstanding === "0" || Outstanding === 0)
     ) {
       var newArr = [];
       dataDetailPPKB.forEach((item) => {
@@ -322,7 +322,7 @@ const Ppkb = () => {
       return it;
     });
 
-    if (Outstanding === 1 || Outstanding === '1') {
+    if (Outstanding === 1 || Outstanding === "1") {
       resetModal();
       dispatch(selectedRowHeaderPPK(dt));
     } else {
@@ -346,7 +346,7 @@ const Ppkb = () => {
       <div className="px-3">
         <h5>PKK</h5>
         <div className="overflow-scroll w-[75vw] max-h-[30vh] rounded-0">
-          <table style={{ whiteSpace: 'nowrap' }} id="table">
+          <table style={{ whiteSpace: "nowrap" }} id="table">
             <thead className="sticky top-0 bg-gray-50 dark:bg-slate-900">
               <tr className="text-center">
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black"></th>
@@ -467,10 +467,10 @@ const Ppkb = () => {
                     <tr
                       key={idx}
                       className={
-                        'dark:odd:bg-slate-900 dark:even:bg-slate-800' +
+                        "dark:odd:bg-slate-900 dark:even:bg-slate-800" +
                         (item.isSelected
-                          ? ' even:bg-slate-400 odd:bg-slate-400'
-                          : ' even:bg-white odd:bg-[#C0C0FD]')
+                          ? " even:bg-slate-400 odd:bg-slate-400"
+                          : " even:bg-white odd:bg-[#C0C0FD]")
                       }
                       onClick={() => onClickOpenDetail(item)}
                     >
@@ -602,7 +602,7 @@ const Ppkb = () => {
       <div className="px-3">
         <h5>PPKB</h5>
         <div className="overflow-scroll w-[75vw] max-h-[30vh] rounded-0">
-          <table style={{ whiteSpace: 'nowrap' }} id="table">
+          <table style={{ whiteSpace: "nowrap" }} id="table">
             <thead className="sticky top-0 bg-gray-50 dark:bg-slate-900">
               <tr className="sticky top-0 text-center">
                 <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black"></th>
@@ -1160,6 +1160,10 @@ const Ppkb = () => {
     getDetail(detail);
   };
 
+  useMemo(
+    () => renderHeader(Outstanding, dataHeaderPPKB),
+    [Outstanding, dataHeaderPPKB]
+  );
   const renderDetailModalPPKB = () => {
     return (
       <tbody>
@@ -1266,8 +1270,8 @@ const Ppkb = () => {
     // setIsTableChecked((current) => !current)
   };
   const handleSaveInputData = () => {
-    var trString = tglRencanaRef.current.input.value.split('-');
-    var tbString = tglPPKBRef.current.input.value.split('-');
+    var trString = tglRencanaRef.current.input.value.split("-");
+    var tbString = tglPPKBRef.current.input.value.split("-");
 
     const tr = handleDateAPI(
       new Date(+trString[2], trString[1] - 1, +trString[0])
@@ -1285,9 +1289,9 @@ const Ppkb = () => {
 
     allRKBM.forEach(async (e) => {
       const url = `?NomorPKK=${nomorPKK}&NoPPKB=${
-        noPPKB ? noPPKB : ''
+        noPPKB ? noPPKB : ""
       }&TglPPKB=${tb}&NoRKBM_Oid=${e}&TglRencana=${tr}&JamRencana=${jr}&Lokasi=${lokasi}&Kode_Lokasi-${kode_lokasi}&Kegiatan=${keg}&Kode_Kegiatan=${kode_kegiatan}&Keterangan=${
-        isEmptyNullOrUndefined(keterangan) ? '' : keterangan
+        isEmptyNullOrUndefined(keterangan) ? "" : keterangan
       }&UserId=${UserLogin}`;
       dispatch(postDataPPKB(url));
     });
@@ -1305,8 +1309,8 @@ const Ppkb = () => {
   };
 
   const handleSaveDataNew = () => {
-    var trString = tglRencanaRef.current.input.value.split('-');
-    var tbString = tglPPKBRef.current.input.value.split('-');
+    var trString = tglRencanaRef.current.input.value.split("-");
+    var tbString = tglPPKBRef.current.input.value.split("-");
 
     const tr = handleDateAPI(
       new Date(+trString[2], trString[1] - 1, +trString[0])
@@ -1327,12 +1331,12 @@ const Ppkb = () => {
       NoPPKB: noPPKB,
       // TglPPKB: tglPPKB,
       TglPPKB: tb,
-      NomorPKKTongkang: nomorPKKTongkang ? nomorPKKTongkang : '',
-      no_rkbm_bongkar: nomorRKBMBongkar ? nomorRKBMBongkar : '',
-      no_rkbm_muat: nomorRKBMuat ? nomorRKBMuat : '',
+      NomorPKKTongkang: nomorPKKTongkang ? nomorPKKTongkang : "",
+      no_rkbm_bongkar: nomorRKBMBongkar ? nomorRKBMBongkar : "",
+      no_rkbm_muat: nomorRKBMuat ? nomorRKBMuat : "",
       TglRencana: tr,
       JamRencana: jr,
-      Kode_Lokasi: kode_lokasi.replace(/\s/g, ''),
+      Kode_Lokasi: kode_lokasi.replace(/\s/g, ""),
       Lokasi: lokasi,
       // Kode_Kegiatan: kodekegiatan,
       // Kegiatan: kegiatan,
@@ -1344,9 +1348,9 @@ const Ppkb = () => {
       UserId: UserLogin,
     };
     let urlParameters = Object.entries(payload)
-      .map((e) => e.join('='))
-      .join('&');
-    dispatch(postDataPPKB('?' + urlParameters));
+      .map((e) => e.join("="))
+      .join("&");
+    dispatch(postDataPPKB("?" + urlParameters));
     if (isModalOpen) {
       btnDetailRef.current.click();
       setIsModalOpen(false);
@@ -1370,28 +1374,28 @@ const Ppkb = () => {
 
   const resetModal = () => {
     if (!isModalOpen) {
-      if (Outstanding === '1' || Outstanding === 1) {
+      if (Outstanding === "1" || Outstanding === 1) {
         dispatch(resetDataDetailPPKB());
       } else {
-        setNomorPKK('');
+        setNomorPKK("");
         dispatch(resetDataDetailPPK());
       }
-      setKeterangan('');
+      setKeterangan("");
       // if (areaPanduRef) {
       //   areaPanduRef.current.value = ""
       // }
       // if (kegiatanRef) {
       //   kegiatanRef.current.value = ""
       // }
-      setKodeLokasi('');
-      setLokasi('');
-      setKodeKegiatan('');
-      setKegiatan('');
-      setTglPPKB('');
-      setTglRencana('');
-      setJamRencana('');
-      setNoPPKB('');
-      setOid('');
+      setKodeLokasi("");
+      setLokasi("");
+      setKodeKegiatan("");
+      setKegiatan("");
+      setTglPPKB("");
+      setTglRencana("");
+      setJamRencana("");
+      setNoPPKB("");
+      setOid("");
     }
   };
 
@@ -1401,7 +1405,7 @@ const Ppkb = () => {
     var listPKKTongkang = dataListNomorPKKTongkang.filter(
       (x) => x.MemberValue === pkkTongkang
     );
-    let PKKTongkang = listPKKTongkang.length > 0 ? listPKKTongkang[0] : '';
+    let PKKTongkang = listPKKTongkang.length > 0 ? listPKKTongkang[0] : "";
     if (PKKTongkang) {
       setRKBMBongkar(PKKTongkang.no_rkbm_bongkar);
       setRKBMMuat(PKKTongkang.no_rkbm_muat);
@@ -1446,8 +1450,8 @@ const Ppkb = () => {
                 {/* <!-- End Accordion --> */}
 
                 {/* <!-- Table --> */}
-                {renderHeader(Outstanding)}
-                {renderDetail(Outstanding)}
+                {renderHeader(Outstanding, dataHeaderPPKB)}
+                {renderDetail(Outstanding, dataDetailPPKB)}
                 {/* <!-- End Table --> */}
               </div>
             </div>
@@ -1464,8 +1468,8 @@ const Ppkb = () => {
             <div className="flex justify-between items-center w-[60vw] flex-col bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700">
               <div className="flex justify-between w-[60vw] items-center py-1 px-2 border-b dark:border-gray-700">
                 <h3 className="font-bold text-gray-800 dark:text-gray-200">
-                  Permintaan Pelayanan Kapal dan Barang (MODUS{' '}
-                  {Outstanding === 1 ? 'TAMBAH' : 'UBAH'}).
+                  Permintaan Pelayanan Kapal dan Barang (MODUS{" "}
+                  {Outstanding === 1 ? "TAMBAH" : "UBAH"}).
                 </h3>
                 <button
                   type="button"
@@ -1497,7 +1501,7 @@ const Ppkb = () => {
                 <div className="w-full sm:divide-y divide-gray-200 dark:divide-gray-700">
                   <div className="py-3 sm:py-6">
                     <div className="flex justify-end">
-                      <div className="row" style={{ marginLeft: '5px' }}>
+                      <div className="row" style={{ marginLeft: "5px" }}>
                         <button
                           className="mr-3 py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-green-500 text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all text-[10px] dark:focus:ring-offset-gray-800"
                           // onClick={(e) => {
@@ -1511,7 +1515,7 @@ const Ppkb = () => {
                         >
                           Simpan
                         </button>
-                        {Outstanding === 0 || Outstanding === '0' ? (
+                        {Outstanding === 0 || Outstanding === "0" ? (
                           <button
                             className="py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-red-500 text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-[10px] dark:focus:ring-offset-gray-800"
                             onClick={(e) => handleDeleteDataPPKB(e)}
@@ -1638,7 +1642,7 @@ const Ppkb = () => {
                                 placeholder="Nomor PPKB"
                                 className="disabled:bg-gray-300 py-1 px-2 block w-full border-gray-300 rounded border-2 text-[10px] focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
                                 disabled={
-                                  Outstanding === 0 || Outstanding === '0'
+                                  Outstanding === 0 || Outstanding === "0"
                                 }
                                 value={noPPKB}
                                 onChange={(e) => setNoPPKB(e.target.value)}

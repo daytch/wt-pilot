@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react"
-import PropTypes from "prop-types"
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import {
   getDataCabang,
   getDataSalesOrder,
   getDataRealisasiPandu,
-} from "../redux/slices/dashboardSlice.js"
-import { useDispatch, useSelector } from "react-redux"
-import { useEffectOnce } from "../functions/index.js"
-import DatePicker from "react-datepicker"
-import { isEmptyNullOrUndefined } from "../functions/index.js"
-import { ErrorMessage } from "./Notification"
+} from "../redux/slices/dashboardSlice.js";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffectOnce } from "../functions/index.js";
+import DatePicker from "react-datepicker";
+import { isEmptyNullOrUndefined } from "../functions/index.js";
+import { ErrorMessage } from "./Notification";
 
 const Filter = (props) => {
-  const dispatch = useDispatch()
-  const UserData = JSON.parse(localStorage.getItem("userData"))
-  const dariPihak = UserData.UserType
+  const dispatch = useDispatch();
+  const UserData = JSON.parse(localStorage.getItem("userData"));
+  const dariPihak = UserData.UserType;
   // console.log("props:", props);
   const {
     MMCode,
@@ -31,41 +31,41 @@ const Filter = (props) => {
     setIsCreatedNew,
     isCreatedNew,
     search,
-  } = props
+  } = props;
 
   useEffectOnce(() => {
-    dispatch(getDataCabang())
-    dispatch(getDataSalesOrder(dariPihak))
-    dispatch(getDataRealisasiPandu(dariPihak))
-  })
+    dispatch(getDataCabang());
+    dispatch(getDataSalesOrder(dariPihak));
+    dispatch(getDataRealisasiPandu(dariPihak));
+  });
 
-  const dataCabang = useSelector((state) => state.Dashboard.dataCabang)
+  const dataCabang = useSelector((state) => state.Dashboard.dataCabang);
 
-  const dataSalesOrder = useSelector((state) => state.Dashboard.dataSalesOrder)
+  const dataSalesOrder = useSelector((state) => state.Dashboard.dataSalesOrder);
   const dataRealisasiPandu = useSelector(
     (state) => state.Dashboard.dataRealisasiPandu
-  )
+  );
   const [listSalesOrder, setListSalesOrder] = useState([
     { Code: "0", Name: "Cari" },
-  ])
+  ]);
 
-  const [listPandu, setListPandu] = useState([{ Code: "0", Name: "Cari" }])
+  const [listPandu, setListPandu] = useState([{ Code: "0", Name: "Cari" }]);
   useEffect(() => {
     if (dataSalesOrder?.length > 0 && listSalesOrder.length < 2) {
-      let arrSales = [...listSalesOrder]
+      let arrSales = [...listSalesOrder];
       dataSalesOrder.forEach((element) => {
-        arrSales.push(element)
-      })
-      setListSalesOrder(arrSales)
+        arrSales.push(element);
+      });
+      setListSalesOrder(arrSales);
     }
     if (dataRealisasiPandu?.length > 0 && listPandu.length < 2) {
-      let arrPandu = [...listPandu]
+      let arrPandu = [...listPandu];
       dataRealisasiPandu.forEach((element) => {
-        arrPandu.push(element)
-      })
-      setListPandu(arrPandu)
+        arrPandu.push(element);
+      });
+      setListPandu(arrPandu);
     }
-  }, [dataSalesOrder, dataRealisasiPandu])
+  }, [dataSalesOrder, dataRealisasiPandu]);
 
   useEffect(() => {
     if (
@@ -73,7 +73,7 @@ const Filter = (props) => {
       tipe === "jadwal" &&
       dataSalesOrder.length > 0
     ) {
-      setMMCode(dataSalesOrder[0].Code)
+      setMMCode(dataSalesOrder[0].Code);
     }
     // if (
     //   isEmptyNullOrUndefined(MMCode) &&
@@ -82,18 +82,19 @@ const Filter = (props) => {
     // ) {
     //   setMMCode(dataRealisasiPandu[0].Code)
     // }
-  }, [MMCode])
+  }, [MMCode]);
 
   const onchangeStartDate = (e) => {
     if (
       new Date(e) &&
       new Date(e).setHours(0, 0, 0, 0) > new Date(endDate).setHours(0, 0, 0, 0)
     ) {
-      ErrorMessage("", "Start Date must less than or equals End Date")
+      ErrorMessage("", "Start Date must less than or equals End Date");
     } else {
-      setStartDate(new Date(e))
+      setStartDate(new Date(e));
+      search();
     }
-  }
+  };
 
   const onchangeEndDate = (e) => {
     if (startDate) {
@@ -101,24 +102,25 @@ const Filter = (props) => {
         new Date(e).setHours(0, 0, 0, 0) <
         new Date(startDate).setHours(0, 0, 0, 0)
       ) {
-        ErrorMessage("", "End Date must greater than or equals Start Date")
+        ErrorMessage("", "End Date must greater than or equals Start Date");
       } else {
-        setEndDate(e)
+        setEndDate(e);
+        search();
       }
     } else {
       ErrorMessage(
         "",
         "Please select start date first before you select end date"
-      )
+      );
     }
-  }
+  };
 
   return (
     <div>
       <div className="p-3 inline-flex align-middle gap-x-2">
         <select
           value={MMCode ?? dataCabang[0]?.MMCode}
-          onChange={(e) => setMMCode(e.target.value)}
+          onChange={(e) => setMMCode(e.target.value ? e.target.value : MMCode)}
           disabled={
             UserData.MMCode && UserData.MMCode.replace(/\s+/g, "") !== "PST"
               ? true
@@ -226,8 +228,8 @@ const Filter = (props) => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
 Filter.propTypes = {
   MMCode: PropTypes.string,
@@ -242,6 +244,6 @@ Filter.propTypes = {
   notApproved: PropTypes.bool,
   setNotApproved: PropTypes.func,
   search: PropTypes.func,
-}
+};
 
-export default Filter
+export default Filter;

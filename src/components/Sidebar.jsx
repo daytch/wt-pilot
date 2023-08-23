@@ -279,6 +279,16 @@ const Sidebar = () => {
     localStorage.setItem("listTabMenu", JSON.stringify(oldMenu));
   };
 
+  const consoleWarn = console.log;
+  const SUPPRESSED_WARNINGS = ['arning text - I will n'];
+  
+  console.error = function filterWarnings(msg, ...args) {
+      if (!SUPPRESSED_WARNINGS.some((entry) => msg.includes(entry))) {
+          consoleWarn(msg);
+      }
+  };
+  
+  console.log('...');
   return (
     <div className="flex">
       <Loader isLoading={loading} />

@@ -31,9 +31,12 @@ const RealisasiPemanduan = () => {
   const dariPihak = UserData.UserType;
   const UserLogin = UserData.UserId;
   const UserType = UserData.UserType;
-  // const [MMCode, setMMCode] = useState(UserData.MMCode)
   const [MMCode, setMMCode] = useState(
-    UserData.MMCode === "PST" ? "" : UserData.MMCode
+    UserData.MMCode !== "PST"
+      ? UserData.MMCode
+      : sessionStorage.getItem("MMCode")
+      ? sessionStorage.getItem("MMCode")
+      : ""
   );
   const [Outstanding, setOutstanding] = useState("");
   const [Code, setCode] = useState(
@@ -139,7 +142,9 @@ const RealisasiPemanduan = () => {
     setViewValue(localStorage.getItem("username"));
     setViewBy(localStorage.getItem("id"));
 
-    fetchData();
+    if (startDate && endDate && Code && MMCode && !isEmptyNullOrUndefined(Outstanding)) {
+      fetchData();
+    }
   }, [startDate, endDate, Code, ValueSearch, MMCode, Outstanding]);
 
   const data = useSelector((state) => state.Realisasi.data);

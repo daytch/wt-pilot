@@ -38,9 +38,12 @@ function Dashboard() {
   const dariPihak = UserData.UserType;
   const { UserType } = UserData;
   const UserLogin = UserData.UserId;
-  // const [MMCode, setMMCode] = useState(UserData.MMCode)
   const [MMCode, setMMCode] = useState(
-    UserData.MMCode === "PST" ? "" : UserData.MMCode
+    UserData.MMCode !== "PST"
+      ? UserData.MMCode
+      : sessionStorage.getItem("MMCode")
+      ? sessionStorage.getItem("MMCode")
+      : ""
   );
   const [Outstanding, setOutstanding] = useState("");
   const [Code, setCode] = useState(
@@ -284,7 +287,9 @@ function Dashboard() {
     };
 
     deleteSelected();
-    fetchData();
+    if (startDate && endDate && Code && MMCode && !isEmptyNullOrUndefined(Outstanding)) {
+      fetchData();
+    }
   }, [startDate, endDate, Code, ValueSearch, MMCode, Outstanding]);
 
   useEffect(() => {
@@ -313,7 +318,7 @@ function Dashboard() {
       resetModal();
     }
   }, [detail]);
-  
+
   const onClickRow = (e) => {
     setNoPKK(e.nomor_pkk);
   };

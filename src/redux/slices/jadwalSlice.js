@@ -15,9 +15,7 @@ export const jadwalSlice = createSlice({
       state.loading = true;
     },
     getDataPKKInaportnetSuccess: (state, action) => {
-      state.data = action.payload.res.data.length > 0
-        ? action.payload.res.data
-        : state.data;
+      state.data = action.payload.res.data;
       state.message = action.payload.message;
       state.loading = false;
     },
