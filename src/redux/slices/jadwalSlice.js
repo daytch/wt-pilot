@@ -15,13 +15,16 @@ export const jadwalSlice = createSlice({
       state.loading = true;
     },
     getDataPKKInaportnetSuccess: (state, action) => {
-      state.data = action.payload.res.data;
+      state.data = action.payload.data;
       state.message = action.payload.message;
       state.loading = false;
     },
     getDataPKKInaportnetFailure: (state, action) => {
       state.loading = false;
       state.error = action.payload.message;
+    },
+    selectedRow: (state, action) => {
+      state.data = action.payload;
     },
   },
 });
@@ -30,6 +33,7 @@ export const {
   getDataPKKInaportnet,
   getDataPKKInaportnetSuccess,
   getDataPKKInaportnetFailure,
+  selectedRow,
 } = jadwalSlice.actions;
 
 export default jadwalSlice.reducer;

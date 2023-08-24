@@ -20,7 +20,16 @@ export function* getDataPKKInaportnet(action) {
         })
       );
     } else {
-      yield put(getDataPKKInaportnetSuccess({ res }));
+      let dat = []
+      if (res.data.length > 0) {
+        dat = res.data.map((item, idx) => {
+          let i = { ...item }
+          i.isSelected = idx < 1
+          i.idx = idx
+          return i
+        })
+      }
+      yield put(getDataPKKInaportnetSuccess({ data: dat }));
     }
   } catch (error) {
     yield put(getDataPKKInaportnetFailure({ isError: 1, message: error }));

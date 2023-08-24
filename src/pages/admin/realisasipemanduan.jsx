@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDataLaporan } from "../../redux/slices/realisasiSlice";
+import { getDataLaporan, selectedRow } from "../../redux/slices/realisasiSlice";
 import {
   handleDateAPI,
   isEmptyNullOrUndefined,
@@ -10,6 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Filter from "../../components/Filter";
 import Detail from "../../components/Detail";
 import { sliceHour } from "../../functions/index.js";
+import RightChevron from "../../assets/right-chevron.png";
 
 const RealisasiPemanduan = () => {
   function isValidDate(d) {
@@ -38,6 +39,7 @@ const RealisasiPemanduan = () => {
       ? sessionStorage.getItem("MMCode")
       : ""
   );
+
   const [Outstanding, setOutstanding] = useState("");
   const [Code, setCode] = useState(
     sessionStorage.getItem("codeColumnSearchRealisasiPemanduan") ?? ""
@@ -142,13 +144,29 @@ const RealisasiPemanduan = () => {
     setViewValue(localStorage.getItem("username"));
     setViewBy(localStorage.getItem("id"));
 
-    if (startDate && endDate && Code && MMCode && !isEmptyNullOrUndefined(Outstanding)) {
+    if (
+      startDate &&
+      endDate &&
+      Code &&
+      MMCode &&
+      !isEmptyNullOrUndefined(Outstanding)
+    ) {
       fetchData();
     }
   }, [startDate, endDate, Code, ValueSearch, MMCode, Outstanding]);
 
   const data = useSelector((state) => state.Realisasi.data);
+  const onClickOpenDetail = (item) => {
+    var newData = data;
+    const dt = newData.map((elm) => {
+      let it = { ...elm };
 
+      it.isSelected = it.idx === item.idx;
+      return it;
+    });
+    setDetail(item);
+    dispatch(selectedRow(dt));
+  };
   // console.log("data:", data)
   return (
     <>
@@ -190,6 +208,12 @@ const RealisasiPemanduan = () => {
                   <table className="text-[10px] min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                     <thead className="sticky top-0 bg-gray-50 dark:bg-slate-900">
                       <tr className="text-center">
+                        <th
+                          rowSpan={3}
+                          scope="col"
+                          className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black"
+                        ></th>
+
                         <th
                           rowSpan={3}
                           scope="col"
@@ -336,8 +360,12 @@ const RealisasiPemanduan = () => {
                             <tr
                               key={idx}
                               className="even:bg-white odd:bg-[#C0C0FD] dark:odd:bg-slate-900 dark:even:bg-slate-800"
-                              onClick={() => setDetail(item)}
+                              onClick={() => onClickOpenDetail(item)}
                             >
+                              <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                                {item.isSelected && <img src={RightChevron} />}
+                              </td>
+
                               <td
                                 className="border text-right px-2 border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 cursor-pointer"
                                 data-hs-overlay="#hs-bg-gray-on-hover-cards"

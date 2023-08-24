@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDataPKKInaportnet } from "../../redux/slices/jadwalSlice";
+import {
+  getDataPKKInaportnet,
+  selectedRow,
+} from "../../redux/slices/jadwalSlice";
 import { getDataFlow } from "../../redux/slices/dashboardSlice";
 import {
   resetDataDetailPPK,
@@ -21,6 +24,7 @@ import Detail from "../../components/Detail";
 import FlowChart from "../../components/FlowChart";
 import Datepicker from "../../components/Datepicker.jsx";
 import Select from "../../components/Select";
+import RightChevron from "../../assets/right-chevron.png";
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -101,7 +105,7 @@ function Dashboard() {
     }&UserType=${!isEmptyNullOrUndefined(UserType) ? UserType : ""} 
       &LoginUserId=${!isEmptyNullOrUndefined(UserLogin) ? UserLogin : ""}`;
 
-    // debugger
+    
     dispatch(getDataPKKInaportnet(url));
   };
 
@@ -287,7 +291,13 @@ function Dashboard() {
     };
 
     deleteSelected();
-    if (startDate && endDate && Code && MMCode && !isEmptyNullOrUndefined(Outstanding)) {
+    if (
+      startDate &&
+      endDate &&
+      Code &&
+      MMCode &&
+      !isEmptyNullOrUndefined(Outstanding)
+    ) {
       fetchData();
     }
   }, [startDate, endDate, Code, ValueSearch, MMCode, Outstanding]);
@@ -321,6 +331,13 @@ function Dashboard() {
 
   const onClickRow = (e) => {
     setNoPKK(e.nomor_pkk);
+    var newData = data;
+    const dt = newData.map((elm) => {
+      let it = { ...elm };
+      it.isSelected = it.idx === e.idx;
+      return it;
+    });
+    dispatch(selectedRow(dt));
   };
 
   return (
@@ -368,7 +385,9 @@ function Dashboard() {
               >
                 <table className="w-[70vw] divide-gray-200 dark:divide-gray-700">
                   <thead className="sticky top-0 bg-gray-50 dark:bg-slate-900">
-                    <tr>
+                    <tr className="text-center">
+                      <th className="text-[10px] whitespace-nowrap px-3 py-0 font-semibold border border-black"></th>
+
                       <th
                         scope="col"
                         className="w-12 px-3 py-0 text-center border border-black text-[10px] font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 whitespace-nowrap"
@@ -419,7 +438,7 @@ function Dashboard() {
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y overflow-y-auto divide-gray-200 dark:divide-gray-700">
+                  <tbody>
                     {data &&
                       data.map((item, idx) => {
                         return (
@@ -427,6 +446,15 @@ function Dashboard() {
                             key={`jdwl${idx}`}
                             className="even:bg-white odd:bg-[#C0C0FD] dark:odd:bg-slate-900 dark:even:bg-slate-800"
                           >
+                            <td className="text-center border border-black h-px w-4 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400 px-1.5 cursor-pointer">
+                              {item.isSelected && (
+                                <img
+                                  className="float-right h-[12px] w-[12px]"
+                                  src={RightChevron}
+                                />
+                              )}
+                            </td>
+
                             <td className="text-center border border-black h-px w-12 whitespace-nowrap text-[10px] text-gray-600 dark:text-gray-400">
                               <button
                                 className="z-50 bg-cyan-400 px-1 rounded text-black"

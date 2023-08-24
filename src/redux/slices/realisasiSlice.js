@@ -14,7 +14,7 @@ export const realisasiSlice = createSlice({
       state.loading = true;
     },
     getDataLaporanSuccess: (state, action) => {
-      state.data = action.payload.res.data;
+      state.data = action.payload.data;
       state.message = action.payload.message;
       state.loading = false;
     },
@@ -22,10 +22,17 @@ export const realisasiSlice = createSlice({
       state.loading = false;
       state.error = action.payload.message;
     },
+    selectedRow: (state, action) => {
+      state.data = action.payload;
+    },
   },
 });
 
-export const { getDataLaporan, getDataLaporanSuccess, getDataLaporanFailure } =
-  realisasiSlice.actions;
+export const {
+  getDataLaporan,
+  getDataLaporanSuccess,
+  getDataLaporanFailure,
+  selectedRow,
+} = realisasiSlice.actions;
 
 export default realisasiSlice.reducer;

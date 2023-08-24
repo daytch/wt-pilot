@@ -284,12 +284,11 @@ const Ppkb = () => {
 
   const [allRKBM, setAllRKBM] = useState([]);
   const onClickOpenDetail = (item) => {
-    // console.log("1")
     var newData = Outstanding === 1 ? dataHeaderPKK : dataHeaderPPKB;
     const dt = newData.map((elm) => {
       let it = { ...elm };
 
-      it.isSelected = it.idx === item.idx; // it?.nomor_pkk === item?.nomor_pkk
+      it.isSelected = it.idx === item.idx; 
       return it;
     });
     if (Outstanding === 1) {

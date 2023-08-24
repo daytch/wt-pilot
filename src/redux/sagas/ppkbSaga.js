@@ -238,7 +238,7 @@ export function* fillComboKegiatan() {
 export function* fillComboAreaPandu(action) {
   //(strMMode, strValueSearch) {
   try {
-    // debugger
+    
     const res = yield call(
       GET,
       URL.FILL_COMBO_AREA_PANDU +
@@ -265,7 +265,7 @@ export function* fillComboAreaPandu(action) {
 
 export function* fillComboNomorPKKTongkang(action) {
   try {
-    // debugger
+    
     // console.log(action)
     const res = yield call(
       GET,
