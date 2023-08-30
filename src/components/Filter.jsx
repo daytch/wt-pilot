@@ -15,7 +15,7 @@ const Filter = (props) => {
   const dispatch = useDispatch();
   const UserData = JSON.parse(localStorage.getItem("userData"));
   const dariPihak = UserData.UserType;
-  // console.log("props:", props);
+  console.log("props:", props);
   const {
     MMCode,
     setMMCode,
@@ -92,7 +92,7 @@ const Filter = (props) => {
       ErrorMessage("", "Start Date must less than or equals End Date");
     } else {
       setStartDate(new Date(e));
-      search();
+      // search();
     }
   };
 
@@ -105,7 +105,7 @@ const Filter = (props) => {
         ErrorMessage("", "End Date must greater than or equals Start Date");
       } else {
         setEndDate(e);
-        search();
+        // search();
       }
     } else {
       ErrorMessage(

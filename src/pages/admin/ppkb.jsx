@@ -274,10 +274,10 @@ const Ppkb = () => {
         table.rows[i].cells[0].classList.remove("arrowright");
       }
     };
-    
+
     deleteSelected();
     firstLoad = false;
-    if (startDate && endDate && Code && MMCode && !isEmptyNullOrUndefined(Outstanding)) {
+    if (startDate && endDate && Code && MMCode) {
       fetchData();
     }
   }, [startDate, endDate, Code, ValueSearch, MMCode, Outstanding]);
@@ -288,7 +288,7 @@ const Ppkb = () => {
     const dt = newData.map((elm) => {
       let it = { ...elm };
 
-      it.isSelected = it.idx === item.idx; 
+      it.isSelected = it.idx === item.idx;
       return it;
     });
     if (Outstanding === 1) {

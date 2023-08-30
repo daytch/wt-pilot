@@ -8,7 +8,9 @@ import { getDataFlow } from "../../redux/slices/dashboardSlice";
 import {
   resetDataDetailPPK,
   selectedRowHeaderPPK,
+  getDetailPKK,
   getDetailPPKB,
+  postDataPPKB,
   fillComboKegiatan,
   fillComboAreaPandu,
   fillComboNomorPKKTongkang,
@@ -105,7 +107,6 @@ function Dashboard() {
     }&UserType=${!isEmptyNullOrUndefined(UserType) ? UserType : ""} 
       &LoginUserId=${!isEmptyNullOrUndefined(UserLogin) ? UserLogin : ""}`;
 
-    
     dispatch(getDataPKKInaportnet(url));
   };
 
@@ -121,23 +122,23 @@ function Dashboard() {
       new Date(+tbString[2], tbString[1] - 1, +tbString[0])
     );
 
-    const kode_lokasi = areaPanduRef.current.value;
-    const lokasi = areaPanduRef.current.selectedOptions[0].text;
+    const kode_lokasi = kodelokasi ? kodelokasi : detail.kode_dermaga;
+    const lokasi = dataListAreaPandu.filter(x=>x.MemberValue === kode_lokasi)[0]?.DisplayValue;
 
-    const kode_kegiatan = kegiatanRef.current.value;
-    const keg = kegiatanRef.current.selectedOptions[0].text;
-
+    const kode_kegiatan = kodekegiatan ? kodekegiatan : detail.kegiatan_code
+    const keg = dataListKegiatan.filter(x=>x.MemberValue === kode_kegiatan)[0]?.DisplayValue;
+    
     var payload = {
       NomorPKK: noPKK,
       NoPPKB: noPPKB,
-      // TglPPKB: tglPPKB,
+      // TglPPKB: tglPPKB, 
       TglPPKB: tb,
       NomorPKKTongkang: nomorPKKTongkang ? nomorPKKTongkang : "",
       no_rkbm_bongkar: nomorRKBMBongkar ? nomorRKBMBongkar : "",
       no_rkbm_muat: nomorRKBMuat ? nomorRKBMuat : "",
       TglRencana: tr,
       JamRencana: jr,
-      Kode_Lokasi: kode_lokasi.replace(/\s/g, ""),
+      Kode_Lokasi: kodelokasi ? kodelokasi : detail.kode_dermaga,
       Lokasi: lokasi,
       // Kode_Kegiatan: kodekegiatan,
       // Kegiatan: kegiatan,
@@ -175,16 +176,18 @@ function Dashboard() {
     getDetail(item);
   };
   const getDetail = async (item) => {
-    if (Outstanding === 1) {
-      if (item) {
-        const url = `?Nomor_PKK=${item.nomor_pkk}&Outstanding=${Outstanding}`;
-        dispatch(getDetailPKK(url));
-      }
-    } else {
-      const noppkb = item.NoPPKB;
-      const urldetailppkb = `?NoPPKB=${noppkb}`;
-      dispatch(getDetailPPKB(urldetailppkb));
+    // if (Outstanding === 1) {
+    if (item) {
+      setRKBMBongkar(item.no_rkbm_bongkar);
+      setRKBMMuat(item.no_rkbm_muat);
+      const url = `?Nomor_PKK=${item.nomor_pkk}&Outstanding=${Outstanding}`;
+      dispatch(getDetailPKK(url));
     }
+    // } else {
+    //   const noppkb = item.NoPPKB;
+    //   const urldetailppkb = `?NoPPKB=${noppkb}`;
+    //   dispatch(getDetailPPKB(urldetailppkb));
+    // }
   };
 
   const onChangePKKTongkang = (e) => {
@@ -233,7 +236,7 @@ function Dashboard() {
 
   useEffect(() => {
     if (noPKK) dispatch(getDataFlow(noPKK));
-    getDataDropdown();
+    if (MMCode) getDataDropdown();
   }, [noPKK]);
 
   useEffect(() => {
@@ -291,13 +294,8 @@ function Dashboard() {
     };
 
     deleteSelected();
-    if (
-      startDate &&
-      endDate &&
-      Code &&
-      MMCode &&
-      !isEmptyNullOrUndefined(Outstanding)
-    ) {
+
+    if (startDate && endDate && Code && MMCode) {
       fetchData();
     }
   }, [startDate, endDate, Code, ValueSearch, MMCode, Outstanding]);
@@ -812,6 +810,7 @@ function Dashboard() {
                         </label>
                         <div className="relative">
                           <Select
+                            ref={kegiatanRef}
                             value={kodekegiatan}
                             onChange={setKodeKegiatan}
                             options={dataListKegiatan}
@@ -828,6 +827,7 @@ function Dashboard() {
                         </label>
                         <div className="relative">
                           <Select
+                            ref={areaPanduRef}
                             value={kodelokasi}
                             onChange={setKodeLokasi}
                             options={dataListAreaPandu}
