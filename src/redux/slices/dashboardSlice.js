@@ -9,17 +9,17 @@ export const dashboardSlice = createSlice({
   initialState: {
     activeSidebarMenu: isObjectEmpty(activeMenu)
       ? {
-          dashboard: true,
+          dashboard: false,
           jadwal: false,
-          ppkb: false,
+          ppkb: true,
           realisasi: false,
         }
       : activeMenu,
     activeTabMenu: isObjectEmpty(activeTabMenu)
       ? {
-          dashboard: true,
+          dashboard: false,
           jadwal: false,
-          ppkb: false,
+          ppkb: true,
           realisasi: false,
         }
       : activeTabMenu,

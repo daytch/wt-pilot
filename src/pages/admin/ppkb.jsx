@@ -313,6 +313,14 @@ const Ppkb = () => {
     }
   }, [dataDetailPPKB]);
 
+  useEffect(() => {
+    dispatch(resetDataDetailPPKB());
+  }, [dataHeaderPPKB]);
+
+  useEffect(() => {
+    dispatch(resetDataDetailPPK());
+  }, [dataHeaderPKK]);
+
   const onDbClickOpenDetail = (item) => {
     var newData = Outstanding === 1 ? dataHeaderPKK : dataHeaderPPKB;
     const dt = newData.map((elm) => {
@@ -1360,6 +1368,7 @@ const Ppkb = () => {
   const handleDeleteDataPPKB = async () => {
     dispatch(deleteDataPPKB(`?NoPPKB=${noPPKB}`));
     fetchData();
+    dispatch(resetDataDetailPPKB());
     if (isModalOpen) {
       btnDetailRef.current.click();
       setIsModalOpen(false);
@@ -1411,7 +1420,7 @@ const Ppkb = () => {
       setNamaTongkang(PKKTongkang.nama_kapal_tongkang);
     }
   };
-
+  console.log("Code: ", Code);
   return (
     <>
       <div className="max-w-[85rem] py-3 mx-auto">

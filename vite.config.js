@@ -2,11 +2,11 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { viteCommonjs, esbuildCommonjs } from "@originjs/vite-plugin-commonjs";
 import viteCompression from "vite-plugin-compression";
-import removeConsole from "vite-plugin-remove-console";
+// import removeConsole from "vite-plugin-remove-console";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [viteCommonjs(), react(), viteCompression(),removeConsole()],
+  plugins: [viteCommonjs(), react(), viteCompression()], // ,removeConsole()],
   server: {
     port: 3000,
   },

@@ -228,7 +228,7 @@ const Sidebar = () => {
   const [tabMenu, setTabMenu] = useState(
     localStorage.getItem("listTabMenu")
       ? JSON.parse(localStorage.getItem("listTabMenu"))
-      : [{ title: "Dashboard", name: "dashboard" }]
+      : [{ title: "PPKB", name: "ppkb" }]
   );
 
   let selectedMenu = {};
@@ -279,16 +279,6 @@ const Sidebar = () => {
     localStorage.setItem("listTabMenu", JSON.stringify(oldMenu));
   };
 
-  const consoleWarn = console.log;
-  const SUPPRESSED_WARNINGS = ['arning text - I will n'];
-  
-  console.error = function filterWarnings(msg, ...args) {
-      if (!SUPPRESSED_WARNINGS.some((entry) => msg.includes(entry))) {
-          consoleWarn(msg);
-      }
-  };
-  
-  console.log('...');
   return (
     <div className="flex">
       <Loader isLoading={loading} />

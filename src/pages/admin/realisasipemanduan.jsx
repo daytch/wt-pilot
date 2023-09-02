@@ -76,7 +76,7 @@ const RealisasiPemanduan = () => {
 
     dispatch(getDataLaporan(url));
   };
-  console.log("MMCode : ", MMCode);
+
   useEffect(() => {
     const dariTanggal = sessionStorage.getItem("dariTanggalRealisasiPemanduan");
     const sampaiTanggal = sessionStorage.getItem(
@@ -129,9 +129,12 @@ const RealisasiPemanduan = () => {
   useEffect(() => {
     sessionStorage.setItem("dariTanggalRealisasiPemanduan", FromDate);
     sessionStorage.setItem("sampaiTanggalRealisasiPemanduan", ToDate);
-    sessionStorage.setItem("codeColumnSearchRealisasiPemanduan", Code);
+    sessionStorage.setItem(
+      "codeColumnSearchRealisasiPemanduan",
+      Code ? Code : "NomorSO"
+    );
     sessionStorage.setItem("valueColumnSearchRealisasiPemanduan", ValueSearch);
-    sessionStorage.setItem("cabangRealisasiPemanduan", MMCode);
+    sessionStorage.setItem("cabangRealisasiPemanduan", MMCode ? MMCode : "BPN");
     sessionStorage.setItem("startDateRealisasiPemanduan", startDate);
     sessionStorage.setItem("endDateRealisasiPemanduan", endDate);
 
@@ -144,13 +147,7 @@ const RealisasiPemanduan = () => {
     setViewValue(localStorage.getItem("username"));
     setViewBy(localStorage.getItem("id"));
 
-    if (
-      startDate &&
-      endDate &&
-      Code &&
-      MMCode &&
-      !isEmptyNullOrUndefined(Outstanding)
-    ) {
+    if (startDate && endDate && Code && MMCode) {
       fetchData();
     }
   }, [startDate, endDate, Code, ValueSearch, MMCode, Outstanding]);

@@ -154,7 +154,7 @@ function Dashboard() {
       .join("&");
     dispatch(postDataPPKB("?" + urlParameters));
     if (isModalOpen) {
-      btnDetailRef.current.click();
+      // btnDetailRef.current.click();
       setIsModalOpen(false);
       resetModal();
     }
